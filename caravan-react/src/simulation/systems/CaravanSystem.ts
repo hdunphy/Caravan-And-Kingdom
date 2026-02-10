@@ -1,19 +1,18 @@
-import { WorldState, Resources } from '../../types/WorldTypes';
-import { AgentEntity, AgentType } from '../../types/AgentTypes';
+import { WorldState, Resources, AgentEntity, AgentType } from '../../types/WorldTypes';
 import { GameConfig } from '../../types/GameConfig';
 import { HexUtils } from '../../utils/HexUtils';
 import { Pathfinding } from '../Pathfinding';
 
 export const CaravanSystem = {
     // Determine spawn location (Settlement or from IDLE pool)
-    spawn(state: WorldState, startHexId: string, targetHexId: string, type: AgentType = 'Caravan'): AgentEntity | null {
+    spawn(state: WorldState, startHexId: string, targetHexId: string, type: AgentType = 'Caravan', config?: GameConfig): AgentEntity | null {
         const startHex = state.map[startHexId];
         const targetHex = state.map[targetHexId];
 
         if (!startHex || !targetHex) return null;
 
-        const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map);
-        if (!path || path.length === 0) return null;
+        const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config);
+        if ((!path || path.length === 0) && startHexId !== targetHexId) return null;
 
         const id = `agent_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
@@ -24,7 +23,7 @@ export const CaravanSystem = {
             ownerId: 'player_1',
             position: startHex.coordinate,
             target: targetHex.coordinate,
-            path,
+            path: path || [],
             cargo: {},
             integrity: 100,
             activity: 'MOVING' as const,
@@ -130,7 +129,7 @@ export const CaravanSystem = {
                 this.dispatch(state, source, target.hexId, 'TRADE', config, {
                     targetId: target.id,
                     resource: neededRes,
-                    gold: 50
+                    gold: config.costs.trade.forceTradeGold || 50
                 });
             }
         });
@@ -163,7 +162,7 @@ export const CaravanSystem = {
             if (settlement.stockpile.Timber >= cost) {
                 // Buy new
                 settlement.stockpile.Timber -= cost;
-                agent = this.spawn(state, settlement.hexId, targetHexId, 'Caravan') || undefined;
+                agent = this.spawn(state, settlement.hexId, targetHexId, 'Caravan', config) || undefined;
                 if (agent && agent.type === 'Caravan') {
                     agent.ownerId = settlement.ownerId;
                     agent.homeId = settlement.id;
@@ -174,7 +173,7 @@ export const CaravanSystem = {
             const startHex = state.map[settlement.hexId];
             const targetHex = state.map[targetHexId];
             if (startHex && targetHex) {
-                const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map);
+                const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config);
                 if (path) {
                     agent.path = path;
                     agent.target = targetHex.coordinate;
@@ -270,7 +269,7 @@ export const CaravanSystem = {
                     }
 
                     // Return Home
-                    this.returnHome(state, agent);
+                    this.returnHome(state, agent, config);
                 } else if (agent.tradeState === 'INBOUND') {
                     // Returned Base
                     if (agent.activity !== 'UNLOADING') {
@@ -284,10 +283,17 @@ export const CaravanSystem = {
                     if (homeId) {
                         const home = state.settlements[homeId];
                         if (home) {
+                            const haul: string[] = [];
                             (Object.entries(agent.cargo) as [keyof Resources, number][]).forEach(([res, amount]) => {
-                                home.stockpile[res] += amount;
-                                agent.cargo[res] = 0;
+                                if (amount > 0) {
+                                    home.stockpile[res] += amount;
+                                    haul.push(`${amount} ${res}`);
+                                    agent.cargo[res] = 0;
+                                }
                             });
+                            if (haul.length > 0) {
+                                console.log(`[Logistics] Caravan returned to ${home.name} with: ${haul.join(', ')}`);
+                            }
                         }
                     }
 
@@ -324,10 +330,10 @@ export const CaravanSystem = {
                             // Refund Gold upon return (handled by unload)
                         }
 
-                        this.returnHome(state, agent);
+                        this.returnHome(state, agent, config);
                     } else {
                         // Target invalid?
-                        this.returnHome(state, agent);
+                        this.returnHome(state, agent, config);
                     }
                 } else if (agent.tradeState === 'INBOUND') {
                     if (settlement && settlement.id === agent.homeId) {
@@ -337,9 +343,17 @@ export const CaravanSystem = {
                             return;
                         }
                         // Unload
+                        const haul: string[] = [];
                         (Object.entries(agent.cargo) as [keyof Resources, number][]).forEach(([res, amount]) => {
-                            settlement.stockpile[res] += amount;
+                            if (amount > 0) {
+                                settlement.stockpile[res] += amount;
+                                haul.push(`${amount} ${res}`);
+                                agent.cargo[res] = 0;
+                            }
                         });
+                        if (haul.length > 0) {
+                            console.log(`[Trade] Caravan returned to ${settlement.name} with: ${haul.join(', ')}`);
+                        }
 
                         // Set IDLE
                         agent.status = 'IDLE';
@@ -365,9 +379,9 @@ export const CaravanSystem = {
                             name: `New Settlement ${Object.keys(state.settlements).length + 1}`,
                             ownerId: agent.ownerId,
                             hexId: HexUtils.getID(agent.position),
-                            population: 100, // Initial Pop
+                            population: config.ai.thresholds.newSettlementPop || 100, // Initial Pop
                             tier: 0,
-                            integrity: 100, // Initial Integrity
+                            integrity: config.ai.thresholds.newSettlementIntegrity || 100, // Initial Integrity
                             stockpile: {
                                 Food: agent.cargo.Food || 0,
                                 Timber: agent.cargo.Timber || 0,
@@ -380,7 +394,7 @@ export const CaravanSystem = {
                             // Grant Range 1 Territory immediately so Villagers have work
                             controlledHexIds: [
                                 HexUtils.getID(agent.position),
-                                ...HexUtils.getNeighbors(agent.position, 1).map(h => HexUtils.getID(h))
+                                ...HexUtils.getNeighbors(agent.position).map(h => HexUtils.getID(h))
                             ].filter(id => state.map[id]), // valid hexes only
                             jobCap: 0,
                             workingPop: 0,
@@ -408,12 +422,12 @@ export const CaravanSystem = {
         agentsToRemove.forEach(id => delete state.agents[id]);
     },
 
-    returnHome(state: WorldState, agent: AgentEntity) {
+    returnHome(state: WorldState, agent: AgentEntity, config?: GameConfig) {
         if (agent.type !== 'Caravan' || !agent.homeId) return;
         const home = state.settlements[agent.homeId];
         if (home) {
             const homeHex = state.map[home.hexId];
-            const path = Pathfinding.findPath(agent.position, homeHex.coordinate, state.map);
+            const path = Pathfinding.findPath(agent.position, homeHex.coordinate, state.map, config);
             if (path) {
                 agent.path = path;
                 agent.target = homeHex.coordinate;

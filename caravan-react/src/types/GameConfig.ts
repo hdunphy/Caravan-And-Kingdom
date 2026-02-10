@@ -27,6 +27,7 @@ export interface GameConfig {
             neighborSurplusMulti: number; // e.g. 20x consumption
             buyCap: number; // Max amount to buy per trip
             loadingTime: number; // Ticks to wait at destination
+            forceTradeGold: number;
         };
         logistics: {
             caravanIntegrityLossPerHex: number;
@@ -45,10 +46,14 @@ export interface GameConfig {
             baseVillagers: number;
         };
     };
+    economy: {
+        taxRate: number;
+    };
     industry: {
         targetToolRatio: number;
         costTimber: number;
         costOre: number;
+        surplusThreshold: number;
     };
     upgrades: {
         villageToTown: {
@@ -56,6 +61,7 @@ export interface GameConfig {
             plainsCount: number;
             costTimber: number;
             costStone: number;
+            popCap: number;
         };
         townToCity: {
             population: number;
@@ -63,6 +69,10 @@ export interface GameConfig {
             costTimber: number;
             costStone: number;
             costOre: number;
+            popCap: number;
+        };
+        city: {
+            popCap: number;
         };
     };
     yields: Record<TerrainType, Partial<Resources>>;
@@ -70,11 +80,24 @@ export interface GameConfig {
         settlementCap: number;
         settlerCost: number; // Pop cost
         expansionBuffer: number;
+        expansionStarterPack: Partial<Resources>;
         checkInterval: number;
         longCheckInterval: number;
         thresholds: {
             surviveFood: number;
+            surviveTicks: number;
+            recruitBuffer: number;
             upgradeMinPop: number;
+            upgradePopRatio: number;
+            minConstructionBuffer: number;
+            militarySurplusTimber: number;
+            militarySurplusStone: number;
+            villagerJobScoreMulti: number;
+            newSettlementPop: number;
+            newSettlementIntegrity: number;
+        };
+        chances: {
+            guardPostBuild: number;
         };
         weights: {
             base: number;
@@ -119,7 +142,7 @@ export const DEFAULT_CONFIG: GameConfig = {
             Forest: 1.5,
             Hills: 2.0,
             Mountains: 3.0,
-            Water: 999.9,
+            Water: 1000.0,
         },
         baseConsume: 0.1,
         growthRate: 0.008,
@@ -128,7 +151,7 @@ export const DEFAULT_CONFIG: GameConfig = {
         yieldPerPop: 0.01,
         toolBonus: 1.5,
         toolBreakChance: 0.05,
-        starvationRate: 0.02, // Starvation penalty per tick
+        starvationRate: 0.005, // Lowered from 0.02 to prevent death spiral
         growthSurplusBonus: 0.0001, // Multiplier for growth based on food surplus ratio
         settlement: {
             Food: 500,
@@ -143,6 +166,7 @@ export const DEFAULT_CONFIG: GameConfig = {
             neighborSurplusMulti: 20,
             buyCap: 50,
             loadingTime: 20,
+            forceTradeGold: 50,
         },
         logistics: {
             caravanIntegrityLossPerHex: 0.5,
@@ -161,10 +185,14 @@ export const DEFAULT_CONFIG: GameConfig = {
             baseVillagers: 2,
         },
     },
+    economy: {
+        taxRate: 0.005,
+    },
     industry: {
         targetToolRatio: 0.2,
         costTimber: 5,
         costOre: 2,
+        surplusThreshold: 50,
     },
     upgrades: {
         villageToTown: {
@@ -212,12 +240,31 @@ export const DEFAULT_CONFIG: GameConfig = {
         settlementCap: 5,
         settlerCost: 50,
         expansionBuffer: 1.5,
+        expansionStarterPack: {
+            Food: 100,
+            Timber: 50,
+            Stone: 20,
+            Ore: 0,
+            Tools: 0,
+            Gold: 0
+        },
         checkInterval: 10,
         longCheckInterval: 50,
         thresholds: {
             surviveFood: 50,
+            surviveTicks: 20,
             recruitBuffer: 2.0, // Multiplier of surviveFood for villager recruitment
             upgradeMinPop: 0.9,
+            upgradePopRatio: 0.8,
+            minConstructionBuffer: 50,
+            militarySurplusTimber: 200,
+            militarySurplusStone: 100,
+            villagerJobScoreMulti: 10,
+            newSettlementPop: 100,
+            newSettlementIntegrity: 100,
+        },
+        chances: {
+            guardPostBuild: 0.05,
         },
         weights: {
             base: 1.0,

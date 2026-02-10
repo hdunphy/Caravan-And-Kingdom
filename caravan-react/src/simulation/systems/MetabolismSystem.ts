@@ -21,7 +21,7 @@ export const MetabolismSystem = {
                 // Growth only happens if there is a surplus.
                 // We multiply by (workingPop / pop) to simulate 
                 // that overcrowding slows down growth rate.
-                const pressureFactor = workingPop / pop;
+                const pressureFactor = pop > 0 ? (workingPop / pop) : 1;
 
                 // Surplus Bonus: only if we have more food than the cost of a new settlement
                 const settlementCost = config.costs.settlement.Food || 500;
@@ -34,7 +34,6 @@ export const MetabolismSystem = {
                 }
 
                 const baseGrowth = (config.costs.growthRate || 0.008);
-                const finalGrowthRate = (baseGrowth + surplusBonus) * pressureFactor;
                 let finalGrowthRate = (baseGrowth + surplusBonus) * pressureFactor;
 
                 // Enforce Population Cap based on Tier
@@ -61,7 +60,7 @@ export const MetabolismSystem = {
 
             // TAX / PASSIVE INCOME
             // Settlements generate small amount of gold from population interaction (Commerce)
-            const taxRate = 0.005; // 0.5 Gold per 100 pop per tick
+            const taxRate = config.economy?.taxRate || 0.005; // 0.5 Gold per 100 pop per tick
             settlement.stockpile.Gold += settlement.population * taxRate;
 
             // DEATH CHECK

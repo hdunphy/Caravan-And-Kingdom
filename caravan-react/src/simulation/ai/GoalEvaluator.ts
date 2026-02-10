@@ -9,7 +9,8 @@ export class GoalEvaluator {
 
         // Hysteresis for Survival
         // Enter SURVIVE if < 10 ticks of food
-        const criticalThreshold = Math.max(config.ai.thresholds.surviveFood, consumption * 20);
+        const surviveTicks = config.ai.thresholds.surviveTicks || 20;
+        const criticalThreshold = Math.max(config.ai.thresholds.surviveFood, consumption * surviveTicks);
         // Exit SURVIVE only if > 30 ticks of food (buffer)
         const safeThreshold = criticalThreshold * 2.0;
 
@@ -26,7 +27,8 @@ export class GoalEvaluator {
             if (settlement.tier === 1) cap = config.upgrades.townToCity.popCap || 500;
 
             // If we are at 80% capacity, FORCE upgrade priority
-            if (settlement.population > cap * 0.8) return 'UPGRADE';
+            const upgradePopRatio = config.ai.thresholds.upgradePopRatio || 0.8;
+            if (settlement.population > cap * upgradePopRatio) return 'UPGRADE';
 
             // Otherwise, simple check (if not survival, we prefer upgrading or expanding)
             return 'UPGRADE';

@@ -16,7 +16,7 @@ export const IndustrySystem = {
             // 2. If Goal != TOOLS: Produce ONLY if surplus timber/ore exists.
 
             const goal = settlement.currentGoal || 'TOOLS';
-            const SURPLUS_THRESHOLD = 50; // Keep 50 for upgrades/expansion
+            const SURPLUS_THRESHOLD = config.industry.surplusThreshold || 50; // Keep 50 for upgrades/expansion
 
             let canProduce = false;
 

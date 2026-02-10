@@ -39,7 +39,7 @@ export const Controls: React.FC<Props> = ({ isRunning, onToggle, onReset }) => {
                     min="0.5"
                     max="2.5"
                     step="0.1"
-                    defaultValue={1.0}
+                    value={100 / config.simulation.tickRate}
                     className="w-20 cursor-pointer"
                     onChange={(e) => {
                         const multiplier = parseFloat(e.target.value);
