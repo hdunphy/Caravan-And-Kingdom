@@ -80,7 +80,7 @@ export interface GameConfig {
         settlementCap: number;
         settlerCost: number; // Pop cost
         expansionBuffer: number;
-        expansionStarterPack: Resources;
+        expansionStarterPack: Partial<Resources>;
         checkInterval: number;
         longCheckInterval: number;
         thresholds: {
