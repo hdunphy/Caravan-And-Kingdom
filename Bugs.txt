@@ -6,13 +6,13 @@ Completed:
 5. Show all factions on a leaderboard to the right. Make the settings view a modal.
 6. Ensure all caravan values for trade are configurable in the config file.
 7. Caravans don't enter the city, they just make it to the territory. Also they should pause to load/unload
-
 8. Agents cannot move through water this needs to be fixed.
 9. Each terrain should have a movement cost. If they don't they need to be updated. If they do they don't seem to be used
 10. I don't think the movement speed is being used. Agents travel too fast.
-
-TODO:
-11. Maintenace needs to be added to the game config
+11. Maintenance needs to be added to the game config
 12. Building bonuses need to be added to the game config
 13. AI logic is becoming spaghetti code. It needs to be refactored. Also surplus values are hardcoded -> move them out to game config
 14. Do settlers take pop from settlement. They do not I added a settler cost.
+
+TODO:
+15. Investigate Vitest runner crash in WSL environment (esbuild socket error).
