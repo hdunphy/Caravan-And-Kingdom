@@ -71,7 +71,11 @@ describe('AI Strategies', () => {
             state.map['5,5'] = { id: '5,5', coordinate: { q: 5, r: 5, s: -10 }, terrain: 'Forest', ownerId: 'p1', resources: {} };
 
             const actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1');
-            expect(actions).toContainEqual(expect.objectContaining({ type: 'DISPATCH_CARAVAN', mission: 'TRADE' }));
+            expect(actions).toContainEqual(expect.objectContaining({ 
+                type: 'DISPATCH_CARAVAN', 
+                mission: 'TRADE',
+                settlementId: 's1'
+            }));
         });
     });
 });
