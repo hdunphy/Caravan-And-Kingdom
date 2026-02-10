@@ -142,7 +142,7 @@ export const DEFAULT_CONFIG: GameConfig = {
             Forest: 1.5,
             Hills: 2.0,
             Mountains: 3.0,
-            Water: 5.0,
+            Water: 1000.0,
         },
         baseConsume: 0.1,
         growthRate: 0.008,

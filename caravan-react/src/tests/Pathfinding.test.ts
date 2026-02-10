@@ -44,4 +44,10 @@ describe('Pathfinding', () => {
         const path = Pathfinding.findPath(map['0,0'].coordinate, { q: 10, r: 10, s: -20 }, map, DEFAULT_CONFIG);
         expect(path).toBeNull();
     });
+
+    it('should return null if target is water (impassable)', () => {
+        map['2,0'].terrain = 'Water';
+        const path = Pathfinding.findPath(map['0,0'].coordinate, map['2,0'].coordinate, map, DEFAULT_CONFIG);
+        expect(path).toBeNull();
+    });
 });
