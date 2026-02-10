@@ -89,9 +89,9 @@ describe('CaravanSystem', () => {
     it('should handle outbound logistics missions (loading resources)', () => {
         const agent = CaravanSystem.spawn(state, '0,0', '1,0', 'Caravan');
         if (!agent) throw new Error('Spawn failed');
-        agent.mission = 'LOGISTICS';
-        agent.tradeState = 'OUTBOUND';
-        agent.homeId = 's1';
+        (agent as any).mission = 'LOGISTICS';
+        (agent as any).tradeState = 'OUTBOUND';
+        (agent as any).homeId = 's1';
         agent.position = { q: 1, r: 0, s: -1 }; // Already at target
         agent.path = []; // Arrived
 
@@ -109,7 +109,7 @@ describe('CaravanSystem', () => {
         // After loading, should move back home
         expect(agent.cargo.Timber).toBe(freightAmount);
         expect(state.map['1,0'].resources?.Timber).toBe(0);
-        expect(agent.tradeState).toBe('INBOUND');
+        expect((agent as any).tradeState).toBe('INBOUND');
     });
 
     it('should handle settler mission and found a new settlement', () => {
@@ -135,7 +135,7 @@ describe('CaravanSystem', () => {
         const agent = CaravanSystem.spawn(state, '0,0', '0,0', 'Caravan');
         if (!agent) throw new Error('Spawn failed');
         agent.status = 'IDLE';
-        agent.homeId = 's1';
+        (agent as any).homeId = 's1';
         agent.integrity = 50;
 
         const repairCost = DEFAULT_CONFIG.costs.logistics.caravanRepairCost;

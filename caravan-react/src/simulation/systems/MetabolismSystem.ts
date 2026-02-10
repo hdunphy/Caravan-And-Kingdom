@@ -34,7 +34,6 @@ export const MetabolismSystem = {
                 }
 
                 const baseGrowth = (config.costs.growthRate || 0.008);
-                const finalGrowthRate = (baseGrowth + surplusBonus) * pressureFactor;
                 let finalGrowthRate = (baseGrowth + surplusBonus) * pressureFactor;
 
                 // Enforce Population Cap based on Tier
