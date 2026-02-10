@@ -40,7 +40,7 @@ describe('UpgradeSystem', () => {
         };
 
         // Add enough plains neighbors
-        const neighbors = HexUtils.getNeighbors({ q: 0, r: 0, s: 0 });
+        const neighbors = HexUtils.getSpiral({ q: 0, r: 0, s: 0 }, 3); // Range 3 for City upgrade
         neighbors.forEach(n => {
             const id = HexUtils.getID(n);
             state.map[id] = { id, coordinate: n, terrain: 'Plains', ownerId: 'player_1', resources: {} };
@@ -60,7 +60,7 @@ describe('UpgradeSystem', () => {
         settlement.stockpile.Stone = config.costStone;
 
         const result = UpgradeSystem.tryUpgrade(state, settlement, DEFAULT_CONFIG);
-        
+
         expect(result).toBe(true);
         expect(settlement.tier).toBe(1);
         expect(settlement.stockpile.Timber).toBe(0);
@@ -76,7 +76,7 @@ describe('UpgradeSystem', () => {
         settlement.stockpile.Ore = config.costOre;
 
         const result = UpgradeSystem.tryUpgrade(state, settlement, DEFAULT_CONFIG);
-        
+
         expect(result).toBe(true);
         expect(settlement.tier).toBe(2);
         expect(settlement.controlledHexIds.length).toBeGreaterThan(19); // Expanded to range 3

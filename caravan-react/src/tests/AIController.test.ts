@@ -45,6 +45,7 @@ describe('AIController', () => {
         settlement.stockpile.Food = 0;
 
         // Tick is 0, update should run (first time or based on lastUpdateTick)
+        state.tick = 0;
         controller.update(state, DEFAULT_CONFIG);
 
         expect(settlement.currentGoal).toBe('SURVIVE');

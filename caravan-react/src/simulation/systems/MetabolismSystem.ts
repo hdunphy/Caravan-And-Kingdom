@@ -21,7 +21,7 @@ export const MetabolismSystem = {
                 // Growth only happens if there is a surplus.
                 // We multiply by (workingPop / pop) to simulate 
                 // that overcrowding slows down growth rate.
-                const pressureFactor = workingPop / pop;
+                const pressureFactor = pop > 0 ? (workingPop / pop) : 1;
 
                 // Surplus Bonus: only if we have more food than the cost of a new settlement
                 const settlementCost = config.costs.settlement.Food || 500;

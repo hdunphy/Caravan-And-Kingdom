@@ -44,11 +44,11 @@ describe('MetabolismSystem', () => {
         const consumeRate = DEFAULT_CONFIG.costs.baseConsume; // 0.1
         const growthRate = DEFAULT_CONFIG.costs.growthRate; // 0.008
         const maxJobs = DEFAULT_CONFIG.costs.maxLaborPerHex;
-        
+
         MetabolismSystem.update(state, DEFAULT_CONFIG);
 
         expect(settlement.stockpile.Food).toBe(100 - (initialPop * consumeRate));
-        
+
         // pressureFactor = workingPop / initialPop
         const workingPop = Math.min(initialPop, maxJobs);
         const pressureFactor = workingPop / initialPop;
@@ -59,7 +59,7 @@ describe('MetabolismSystem', () => {
         settlement.stockpile.Food = 0;
         const initialPop = settlement.population;
         const starvationRate = DEFAULT_CONFIG.costs.starvationRate;
-        
+
         MetabolismSystem.update(state, DEFAULT_CONFIG);
 
         expect(settlement.population).toBeCloseTo(initialPop - (initialPop * starvationRate), 5);
@@ -75,9 +75,9 @@ describe('MetabolismSystem', () => {
     it('should remove settlement if population reaches zero', () => {
         settlement.population = 0.001; // Tiny pop
         settlement.stockpile.Food = 0;
-        
+
         MetabolismSystem.update(state, DEFAULT_CONFIG);
-        
+
         expect(state.settlements['test-settlement']).toBeUndefined();
     });
 
@@ -86,12 +86,12 @@ describe('MetabolismSystem', () => {
         settlement.population = tier0Cap;
         settlement.stockpile.Food = 1000;
         settlement.controlledHexIds = Array(10).fill('0,0'); // Ensure plenty of jobs
-        
+
         MetabolismSystem.update(state, DEFAULT_CONFIG);
-        
+
         const growthNormal = tier0Cap * DEFAULT_CONFIG.costs.growthRate;
         const actualGrowth = settlement.population - tier0Cap;
-        
+
         // Soft Cap: 10% of normal growth
         expect(actualGrowth).toBeCloseTo(growthNormal * 0.1, 5);
     });

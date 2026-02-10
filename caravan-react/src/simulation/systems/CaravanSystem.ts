@@ -12,7 +12,7 @@ export const CaravanSystem = {
         if (!startHex || !targetHex) return null;
 
         const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map);
-        if (!path || path.length === 0) return null;
+        if ((!path || path.length === 0) && startHexId !== targetHexId) return null;
 
         const id = `agent_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
 
@@ -23,7 +23,7 @@ export const CaravanSystem = {
             ownerId: 'player_1',
             position: startHex.coordinate,
             target: targetHex.coordinate,
-            path,
+            path: path || [],
             cargo: {},
             integrity: 100,
             activity: 'MOVING' as const,

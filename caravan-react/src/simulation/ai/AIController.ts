@@ -13,7 +13,7 @@ import { VillagerSystem } from '../systems/VillagerSystem';
 import { UpgradeSystem } from '../systems/UpgradeSystem';
 
 export class AIController {
-    private lastUpdateTick: number = 0;
+    private lastUpdateTick: number = -100; // Force immediate update on first tick
     private strategies: AIStrategy[];
 
     constructor() {

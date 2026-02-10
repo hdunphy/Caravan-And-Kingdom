@@ -75,7 +75,6 @@ describe('CaravanSystem', () => {
 
         // s1 needs enough Timber to pass the target's surplus check:
         // Surplus threshold for non-food is 100 (hardcoded in CaravanSystem.processTrade currently, TODO move to config)
-        // Wait, I already moved a lot to config. Let's check CaravanSystem.ts again.
         s1.stockpile.Timber = 150;
 
         CaravanSystem.processTrade(state, DEFAULT_CONFIG);
@@ -102,12 +101,14 @@ describe('CaravanSystem', () => {
         CaravanSystem.update(state, DEFAULT_CONFIG);
         expect(agent.activity).toBe('LOADING');
 
-        // Fast forward wait
-        agent.waitTicks = 1;
+        // Advance ticks to finish loading
+        agent.waitTicks = 0; // Force finish loading for test speed
+
+        // 2nd update: Finish loading and start returning
         CaravanSystem.update(state, DEFAULT_CONFIG);
 
         // After loading, should move back home
-        expect(agent.cargo.Timber).toBe(freightAmount);
+        expect(agent.cargo.Timber || 0).toBe(freightAmount);
         expect(state.map['1,0'].resources?.Timber).toBe(0);
         expect((agent as any).tradeState).toBe('INBOUND');
     });

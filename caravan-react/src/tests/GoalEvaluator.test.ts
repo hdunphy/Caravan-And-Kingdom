@@ -46,7 +46,7 @@ describe('GoalEvaluator', () => {
     it('should stay in SURVIVE mode due to hysteresis', () => {
         settlement.currentGoal = 'SURVIVE';
         // Food is low but slightly above critical
-        settlement.stockpile.Food = 60; 
+        settlement.stockpile.Food = 60;
         const goal = GoalEvaluator.evaluate(state, settlement, DEFAULT_CONFIG);
         expect(goal).toBe('SURVIVE');
     });
@@ -68,11 +68,12 @@ describe('GoalEvaluator', () => {
     it('should recommend EXPAND when at max tier and spot exists', () => {
         settlement.tier = 2;
         settlement.population = 1000;
-        
+        settlement.stockpile.Food = 5000; // Enough to survive so we can expand
+
         // Ensure a valid expansion spot exists (away from s1)
         state.map['5,5'] = { id: '5,5', coordinate: { q: 5, r: 5, s: -10 }, terrain: 'Plains', ownerId: null, resources: {} };
         // Add neighbors for 5,5
-        const neighbors = [{q:6, r:5}, {q:5, r:6}, {q:4, r:6}, {q:4, r:5}, {q:5, r:4}, {q:6, r:4}];
+        const neighbors = [{ q: 6, r: 5 }, { q: 5, r: 6 }, { q: 4, r: 6 }, { q: 4, r: 5 }, { q: 5, r: 4 }, { q: 6, r: 4 }];
         neighbors.forEach(n => {
             const id = `${n.q},${n.r}`;
             state.map[id] = { id, coordinate: { ...n, s: -n.q - n.r }, terrain: 'Plains', ownerId: null, resources: {} };
