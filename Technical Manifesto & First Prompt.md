@@ -10,7 +10,19 @@ This document contains the architectural constraints and the first prompt needed
 4. **Hexagonal Grid:** Use an **Axial Coordinate system** (q, r) for the grid to simplify neighbor-finding and distance math.  
 5. **Pathfinding:** Implement A\* for agent movement, where "Road" hexes have a lower movement cost.
 
-## **Part 2: Milestone 1 Development Prompt**
+## **Part 2: Refactoring & TDD Principles (Updated 2026-02-10)**
+
+For the `tdd-refactor` phase and beyond, the following principles apply:
+
+1. **Test-Driven Development (TDD):** Every bug fix or new feature must start with a failing test case. Refactoring must be verified against existing test suites.
+2. **SOLID ECS Hybrid:** 
+    *   Maintain the **ECS (Entity Component System)** style for the core simulation (state is data-only; systems are logic-only).
+    *   Apply **SOLID** principles (Single Responsibility, Open/Closed, etc.) to the System classes. 
+    *   Use dependency injection for systems where applicable to ensure they are testable in isolation.
+3. **Zero Magic Numbers:** All values, thresholds, and simulation parameters must be stored in the central `GameConfig.ts`. No hardcoded numeric constants are allowed in the System or AI logic.
+4. **Clean Code AI:** Refactor "spaghetti" AI logic into modular, evaluatable components (e.g., using the Strategy or Command patterns) while ensuring they still operate on the central state.
+
+## **Part 3: Milestone 1 Development Prompt**
 
 **Copy and paste the following to your coding agent to begin:**
 
