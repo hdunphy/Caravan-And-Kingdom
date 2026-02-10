@@ -20,13 +20,13 @@ describe('GameLoop', () => {
 
     it('should run economy systems on resource intervals', () => {
         const interval = DEFAULT_CONFIG.simulation.resourceTickInterval;
-        
+
         // Fast forward to just before interval
         for (let i = 0; i < interval - 1; i++) {
             loop.tick();
         }
-        
-        const initialGold = 0; // Baseline
+
+        // const initialGold = 0; // Baseline
         state.settlements['test'] = {
             id: 'test',
             name: 'Test',
@@ -38,7 +38,7 @@ describe('GameLoop', () => {
         };
 
         loop.tick(); // This should trigger economy (tick == interval)
-        
+
         // Metabolism system adds gold based on pop
         expect(state.settlements['test'].stockpile.Gold).toBeGreaterThan(0);
     });

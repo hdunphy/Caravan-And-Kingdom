@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { MovementSystem } from '../simulation/systems/MovementSystem';
-import { WorldState, AgentEntity } from '../types/WorldTypes';
+import { WorldState } from '../types/WorldTypes';
 import { DEFAULT_CONFIG } from '../types/GameConfig';
 
 describe('MovementSystem', () => {
@@ -36,8 +36,8 @@ describe('MovementSystem', () => {
     });
 
     it('should progress movement and move to next hex when cost reached', () => {
-        const speed = DEFAULT_CONFIG.costs.movement; // 1.0
-        const terrainCost = DEFAULT_CONFIG.costs.terrain.Plains; // 1.0
+        // const speed = DEFAULT_CONFIG.costs.movement; // 1.0
+        // const terrainCost = DEFAULT_CONFIG.costs.terrain.Plains; // 1.0
 
         MovementSystem.update(state, DEFAULT_CONFIG);
 

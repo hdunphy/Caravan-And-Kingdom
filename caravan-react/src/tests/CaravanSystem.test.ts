@@ -82,7 +82,7 @@ describe('CaravanSystem', () => {
 
         const tradeAgent = Object.values(state.agents).find(a => a.type === 'Caravan' && a.mission === 'TRADE');
         expect(tradeAgent).toBeDefined();
-        expect(tradeAgent?.homeId).toBe('s2');
+        expect((tradeAgent as any)?.homeId).toBe('s2');
         expect((tradeAgent as any).targetSettlementId).toBe('s1');
     });
 
