@@ -25,17 +25,15 @@ export const Pathfinding = {
             Water: 999
         };
 
+        const IMPASSABLE = 1000;
+
         if (startId === endId) return [];
 
-        // If target is water, can we go there?
-        // If config provided, water cost is likely reachable (e.g. 1 or 5). 
-        // If not provided, it defaults to 999 (Impassable).
-        // Let's assume if cost < 999 it is passable.
         const endCell = map[endId];
         if (!endCell) return null;
 
         const endCost = costs[endCell.terrain];
-        if (endCost >= 999) return null; // Target invalid
+        if (endCost >= IMPASSABLE) return null; // Target invalid
 
         const openList: Node[] = [];
         const closedSet = new Set<string>();
@@ -77,7 +75,7 @@ export const Pathfinding = {
                 if (!neighborCell || closedSet.has(neighborId)) continue;
 
                 const cost = costs[neighborCell.terrain];
-                if (cost >= 999) continue;
+                if (cost >= IMPASSABLE) continue;
 
                 const gScore = current.g + cost;
 
