@@ -153,8 +153,8 @@ export const DEFAULT_CONFIG: GameConfig = {
             freightConstructionThreshold: 100, // Min resources to BUILD a new caravan
         },
         villagers: {
-            cost: 20, // Food (maybe just upkeep?)
-            speed: 1.2,
+            cost: 100, // Food cost to buy a new villager
+            speed: 0.5, // Slow down to 0.5 hex/tick (Takes 2 ticks to move 1 plains hex)
             capacity: 20,
             range: 3,
             popRatio: 50,
@@ -168,18 +168,23 @@ export const DEFAULT_CONFIG: GameConfig = {
     },
     upgrades: {
         villageToTown: {
-            population: 200,
+            popCap: 200, // Cap for Village (Tier 0)
+            population: 100, // Req to Upgrade
             plainsCount: 1,
             costTimber: 300,
             costStone: 150,
         },
         townToCity: {
-            population: 500,
+            popCap: 500, // Cap for Town (Tier 1)
+            population: 400, // Req to Upgrade
             plainsCount: 2,
             costTimber: 800,
             costStone: 400,
             costOre: 200,
         },
+        city: {
+            popCap: 2000 // Cap for City (Tier 2)
+        }
     },
     yields: {
         Plains: {
@@ -211,6 +216,7 @@ export const DEFAULT_CONFIG: GameConfig = {
         longCheckInterval: 50,
         thresholds: {
             surviveFood: 50,
+            recruitBuffer: 2.0, // Multiplier of surviveFood for villager recruitment
             upgradeMinPop: 0.9,
         },
         weights: {

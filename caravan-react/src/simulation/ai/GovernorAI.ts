@@ -1,4 +1,4 @@
-import { WorldState } from '../../types/WorldTypes';
+import { WorldState, Resources } from '../../types/WorldTypes';
 import { GameConfig } from '../../types/GameConfig';
 import { UpgradeSystem } from '../systems/UpgradeSystem';
 import { ConstructionSystem } from '../systems/ConstructionSystem';
@@ -100,14 +100,38 @@ export class GovernorAI {
     }
 
     private static manageVillagers(state: WorldState, settlement: any, config: GameConfig) {
+        // A. Recruitment Logic
+        // Check if we can afford a new villager
+        const villagerCost = config.costs.villagers?.cost || 100;
+        const popRatio = config.costs.villagers?.popRatio || 10;
+
+        // Max villagers based on population
+        const maxVillagers = Math.floor(Math.max(config.costs.villagers?.baseVillagers || 2, settlement.population / popRatio));
+
+        // Count total villagers (Available + Active)
+        const activeVillagers = Object.values(state.agents).filter(a => a.type === 'Villager' && a.homeId === settlement.id).length;
+        const totalVillagers = settlement.availableVillagers + activeVillagers;
+
+        // Buy if: Below Cap AND Surplus Food
+        // Use a surplus buffer (don't spend last food)
+        const bufferMult = config.ai.thresholds.recruitBuffer || 2.0;
+        const safeFood = config.ai.thresholds.surviveFood * bufferMult;
+
+        if (totalVillagers < maxVillagers && settlement.stockpile.Food > (safeFood + villagerCost)) {
+            // Buy Villager
+            settlement.stockpile.Food -= villagerCost;
+            settlement.availableVillagers++;
+            // console.log(`[Governor] ${settlement.name} recruited a villager. Total: ${settlement.availableVillagers + activeVillagers}`);
+        }
+
+        // B. Dispatch Logic
         if (settlement.availableVillagers <= 0) return;
 
         // Villager Config
         const range = config.costs.villagers?.range || 3;
-        const capacity = config.costs.villagers?.capacity || 20;
 
         // 1. Find jobs (Uncollected Resources)
-        const jobs: { hexId: string, amount: number, dist: number }[] = [];
+        const jobs: { hexId: string, amount: number, dist: number, score: number }[] = [];
         const centerHex = state.map[settlement.hexId];
 
         settlement.controlledHexIds.forEach((hexId: string) => {
@@ -116,25 +140,48 @@ export class GovernorAI {
             const hex = state.map[hexId];
             if (!hex || !hex.resources) return;
 
-            const total = (Object.values(hex.resources) as number[]).reduce((a, b) => a + b, 0);
-            if (total < 1) return; // Ignore trivial amounts
+            // Calculate total based on Goal Priority
+            let weightedTotal = 0;
+            const goal = settlement.currentGoal || 'TOOLS';
+
+            for (const [res, amount] of Object.entries(hex.resources) as [keyof Resources, number][]) {
+                if (amount < 1) continue;
+
+                let weight = 1.0;
+
+                // Prioritize Food if Surviving
+                if (goal === 'SURVIVE' && res === 'Food') weight = 10.0;
+
+                // Prioritize Construction Mats if Upgrading/Expanding
+                if ((goal === 'UPGRADE' || goal === 'EXPAND') && (res === 'Timber' || res === 'Stone' || res === 'Ore')) weight = 5.0;
+
+                weightedTotal += amount * weight;
+            }
+
+            if (weightedTotal < 1) return;
 
             const dist = HexUtils.distance(centerHex.coordinate, hex.coordinate);
             if (dist > range) return;
 
-            jobs.push({ hexId, amount: total, dist });
+            // Score = Weighted Amount / Distance
+            const score = weightedTotal / (dist || 1);
+
+            jobs.push({
+                hexId,
+                amount: weightedTotal, // Use weighted for scoring
+                dist,
+                score
+            });
         });
 
-        // 2. Sort jobs (Prioritize high yield, then close distance)
-        // Score = Amount / Distance
-        jobs.sort((a, b) => (b.amount / b.dist) - (a.amount / a.dist));
+        // 2. Sort jobs by Score
+        jobs.sort((a, b) => b.score - a.score);
 
         // 3. Assign
         for (const job of jobs) {
             if (settlement.availableVillagers <= 0) break;
 
             // Check if already assigned
-            // Count existing villagers targeting this hex
             const assigned = Object.values(state.agents).filter(a =>
                 a.type === 'Villager' &&
                 a.homeId === settlement.id &&
@@ -142,10 +189,9 @@ export class GovernorAI {
                 a.gatherTarget && HexUtils.getID(a.gatherTarget) === job.hexId
             ).length;
 
-            // Simple Logic: 1 Villager per X resources? Or 1 per hex?
-            // If resources > capacity * assigned, send more.
-            if (job.amount > (assigned * capacity)) {
-                // Dispatch
+            // Dispatch if unassigned resources exist (approximate)
+            // If weighted amount is high, send more people
+            if (job.score > (assigned * 10)) { // Simple heuristic
                 VillagerSystem.spawnVillager(state, settlement.id, job.hexId);
             }
         }

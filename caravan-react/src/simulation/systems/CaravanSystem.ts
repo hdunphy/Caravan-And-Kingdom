@@ -377,7 +377,11 @@ export const CaravanSystem = {
                                 Gold: agent.cargo.Gold || 0
                             }, // Unload Cargo
                             buildings: [],
-                            controlledHexIds: [HexUtils.getID(agent.position)], // Initial Territory
+                            // Grant Range 1 Territory immediately so Villagers have work
+                            controlledHexIds: [
+                                HexUtils.getID(agent.position),
+                                ...HexUtils.getNeighbors(agent.position, 1).map(h => HexUtils.getID(h))
+                            ].filter(id => state.map[id]), // valid hexes only
                             jobCap: 0,
                             workingPop: 0,
                             availableVillagers: 1, // Settler converts to Villager

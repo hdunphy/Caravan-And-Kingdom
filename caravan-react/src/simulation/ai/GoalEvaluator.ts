@@ -21,8 +21,14 @@ export class GoalEvaluator {
 
         // 2. UPGRADE: If not max tier
         if (settlement.tier < 2) {
-            // Check if population is close enough to warrant saving?
-            // User said: "Upgrade settlement (if not a city)" is priority #1.
+            // Check limits
+            let cap = config.upgrades.villageToTown.popCap || 200;
+            if (settlement.tier === 1) cap = config.upgrades.townToCity.popCap || 500;
+
+            // If we are at 80% capacity, FORCE upgrade priority
+            if (settlement.population > cap * 0.8) return 'UPGRADE';
+
+            // Otherwise, simple check (if not survival, we prefer upgrading or expanding)
             return 'UPGRADE';
         }
 

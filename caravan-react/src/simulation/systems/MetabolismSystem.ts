@@ -35,6 +35,17 @@ export const MetabolismSystem = {
 
                 const baseGrowth = (config.costs.growthRate || 0.008);
                 const finalGrowthRate = (baseGrowth + surplusBonus) * pressureFactor;
+                let finalGrowthRate = (baseGrowth + surplusBonus) * pressureFactor;
+
+                // Enforce Population Cap based on Tier
+                let cap = config.upgrades.villageToTown.popCap || 200; // Tier 0
+                if (settlement.tier === 1) cap = config.upgrades.townToCity.popCap || 500;
+                if (settlement.tier >= 2) cap = (config.upgrades as any).city?.popCap || 2000;
+
+                if (settlement.population >= cap) {
+                    // Soft Cap: Drastically reduce growth (10% of normal) due to overcrowding
+                    finalGrowthRate *= 0.1;
+                }
 
                 settlement.population += pop * finalGrowthRate;
                 settlement.lastGrowth = pop * finalGrowthRate;
