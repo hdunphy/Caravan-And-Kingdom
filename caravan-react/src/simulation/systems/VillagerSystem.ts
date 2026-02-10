@@ -1,5 +1,4 @@
-import { WorldState, Resources } from '../../types/WorldTypes';
-import { VillagerAgent } from '../../types/AgentTypes';
+import { WorldState, Resources, VillagerAgent } from '../../types/WorldTypes';
 import { GameConfig } from '../../types/GameConfig';
 import { HexUtils } from '../../utils/HexUtils';
 import { Pathfinding } from '../Pathfinding';

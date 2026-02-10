@@ -1,5 +1,4 @@
-import { WorldState, Resources } from '../../types/WorldTypes';
-import { AgentEntity, AgentType } from '../../types/AgentTypes';
+import { WorldState, Resources, AgentEntity, AgentType } from '../../types/WorldTypes';
 import { GameConfig } from '../../types/GameConfig';
 import { HexUtils } from '../../utils/HexUtils';
 import { Pathfinding } from '../Pathfinding';

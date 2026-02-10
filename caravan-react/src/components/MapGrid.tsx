@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { WorldState, Settlement } from '../types/WorldTypes';
-import { AgentEntity } from '../types/AgentTypes';
+import { WorldState, Settlement, AgentEntity } from '../types/WorldTypes';
 import { HexUtils } from '../utils/HexUtils';
 import { HexCell } from './HexCell';
 import { SettlementTooltip } from './SettlementTooltip';
