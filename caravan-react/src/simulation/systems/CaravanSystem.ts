@@ -283,10 +283,17 @@ export const CaravanSystem = {
                     if (homeId) {
                         const home = state.settlements[homeId];
                         if (home) {
+                            const haul: string[] = [];
                             (Object.entries(agent.cargo) as [keyof Resources, number][]).forEach(([res, amount]) => {
-                                home.stockpile[res] += amount;
-                                agent.cargo[res] = 0;
+                                if (amount > 0) {
+                                    home.stockpile[res] += amount;
+                                    haul.push(`${amount} ${res}`);
+                                    agent.cargo[res] = 0;
+                                }
                             });
+                            if (haul.length > 0) {
+                                console.log(`[Logistics] Caravan returned to ${home.name} with: ${haul.join(', ')}`);
+                            }
                         }
                     }
 
@@ -336,9 +343,17 @@ export const CaravanSystem = {
                             return;
                         }
                         // Unload
+                        const haul: string[] = [];
                         (Object.entries(agent.cargo) as [keyof Resources, number][]).forEach(([res, amount]) => {
-                            settlement.stockpile[res] += amount;
+                            if (amount > 0) {
+                                settlement.stockpile[res] += amount;
+                                haul.push(`${amount} ${res}`);
+                                agent.cargo[res] = 0;
+                            }
                         });
+                        if (haul.length > 0) {
+                            console.log(`[Trade] Caravan returned to ${settlement.name} with: ${haul.join(', ')}`);
+                        }
 
                         // Set IDLE
                         agent.status = 'IDLE';

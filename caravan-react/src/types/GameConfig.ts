@@ -151,7 +151,7 @@ export const DEFAULT_CONFIG: GameConfig = {
         yieldPerPop: 0.01,
         toolBonus: 1.5,
         toolBreakChance: 0.05,
-        starvationRate: 0.02, // Starvation penalty per tick
+        starvationRate: 0.005, // Lowered from 0.02 to prevent death spiral
         growthSurplusBonus: 0.0001, // Multiplier for growth based on food surplus ratio
         settlement: {
             Food: 500,
