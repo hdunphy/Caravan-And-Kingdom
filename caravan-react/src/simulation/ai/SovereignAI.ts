@@ -42,9 +42,10 @@ export class SovereignAI {
                         settlement.population -= config.ai.settlerCost;
 
                         // Load Cargo (Starter Pack)
-                        agent.cargo.Food = 100;
-                        agent.cargo.Timber = 50;
-                        agent.cargo.Stone = 20;
+                        const starterPack = config.ai.expansionStarterPack;
+                        (Object.entries(starterPack) as [keyof Resources, number][]).forEach(([res, amount]) => {
+                            agent.cargo[res] = amount;
+                        });
 
                         console.log(`[AI] ${faction.name} sent a Settler from ${settlement.name} to ${targetHex.id}`);
                     }

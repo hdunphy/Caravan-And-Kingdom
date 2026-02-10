@@ -130,7 +130,7 @@ export const CaravanSystem = {
                 this.dispatch(state, source, target.hexId, 'TRADE', config, {
                     targetId: target.id,
                     resource: neededRes,
-                    gold: 50
+                    gold: config.costs.trade.forceTradeGold || 50
                 });
             }
         });
@@ -365,9 +365,9 @@ export const CaravanSystem = {
                             name: `New Settlement ${Object.keys(state.settlements).length + 1}`,
                             ownerId: agent.ownerId,
                             hexId: HexUtils.getID(agent.position),
-                            population: 100, // Initial Pop
+                            population: config.ai.thresholds.newSettlementPop || 100, // Initial Pop
                             tier: 0,
-                            integrity: 100, // Initial Integrity
+                            integrity: config.ai.thresholds.newSettlementIntegrity || 100, // Initial Integrity
                             stockpile: {
                                 Food: agent.cargo.Food || 0,
                                 Timber: agent.cargo.Timber || 0,
@@ -380,7 +380,7 @@ export const CaravanSystem = {
                             // Grant Range 1 Territory immediately so Villagers have work
                             controlledHexIds: [
                                 HexUtils.getID(agent.position),
-                                ...HexUtils.getNeighbors(agent.position, 1).map(h => HexUtils.getID(h))
+                                ...HexUtils.getNeighbors(agent.position).map(h => HexUtils.getID(h))
                             ].filter(id => state.map[id]), // valid hexes only
                             jobCap: 0,
                             workingPop: 0,

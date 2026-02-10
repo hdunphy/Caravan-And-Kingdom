@@ -61,7 +61,7 @@ export const MetabolismSystem = {
 
             // TAX / PASSIVE INCOME
             // Settlements generate small amount of gold from population interaction (Commerce)
-            const taxRate = 0.005; // 0.5 Gold per 100 pop per tick
+            const taxRate = config.economy?.taxRate || 0.005; // 0.5 Gold per 100 pop per tick
             settlement.stockpile.Gold += settlement.population * taxRate;
 
             // DEATH CHECK

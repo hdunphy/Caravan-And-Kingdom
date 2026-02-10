@@ -28,8 +28,8 @@ export class GovernorAI {
 
     private static manageConstruction(state: WorldState, settlement: any, config: GameConfig) {
         // Maintenance Buffer
-        const BUFFER = 50; // TODO: Move to config
-        if (settlement.stockpile.Stone < BUFFER || settlement.stockpile.Timber < BUFFER) return;
+        const minBuffer = config.ai.thresholds.minConstructionBuffer || 50;
+        if (settlement.stockpile.Stone < minBuffer || settlement.stockpile.Timber < minBuffer) return;
 
         // 1. Check for Gatherer's Hut (Food)
         const needsFood = settlement.currentGoal === 'SURVIVE' || settlement.stockpile.Food < config.ai.thresholds.surviveFood * 2;
@@ -51,9 +51,9 @@ export class GovernorAI {
             }
         }
 
-        // 2. Guard Post (Mock logic: 10% chance if surplus resources)
-        const surplusTimber = 200; // TODO: Config
-        const surplusStone = 100;
+        // 2. Guard Post (Mock logic: X% chance if surplus resources)
+        const surplusTimber = config.ai.thresholds.militarySurplusTimber || 200;
+        const surplusStone = config.ai.thresholds.militarySurplusStone || 100;
 
         if (settlement.stockpile.Timber > surplusTimber && settlement.stockpile.Stone > surplusStone) {
             const target = settlement.controlledHexIds.find((id: string) => {
@@ -61,7 +61,7 @@ export class GovernorAI {
                 return !hasBuilding;
             });
 
-            if (target && Math.random() < 0.05) {
+            if (target && Math.random() < (config.ai.chances.guardPostBuild || 0.05)) {
                 ConstructionSystem.build(state, settlement.id, 'GuardPost', target, config);
             }
         }
@@ -191,7 +191,8 @@ export class GovernorAI {
 
             // Dispatch if unassigned resources exist (approximate)
             // If weighted amount is high, send more people
-            if (job.score > (assigned * 10)) { // Simple heuristic
+            const jobScoreMulti = config.ai.thresholds.villagerJobScoreMulti || 10;
+            if (job.score > (assigned * jobScoreMulti)) { // Simple heuristic
                 VillagerSystem.spawnVillager(state, settlement.id, job.hexId);
             }
         }
