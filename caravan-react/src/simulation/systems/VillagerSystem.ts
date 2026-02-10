@@ -30,7 +30,7 @@ export const VillagerSystem = {
                     // Handled by GovernorAI (Dispatch)
                     // If IDLE and not at home, return home?
                     if (HexUtils.getID(agent.position) !== home.hexId) {
-                        this.returnHome(state, agent);
+                        this.returnHome(state, agent, config);
                     }
                     break;
 
@@ -52,7 +52,7 @@ export const VillagerSystem = {
         // Arrived at target?
         if (!agent.gatherTarget) {
             // Error state, return home
-            this.returnHome(state, agent);
+            this.returnHome(state, agent, config);
             return;
         }
 
@@ -89,21 +89,21 @@ export const VillagerSystem = {
             }
 
             // Return Home
-            this.returnHome(state, agent);
+            this.returnHome(state, agent, config);
         } else {
             // Should be moving? If path is empty but not at target, we need path.
             // But GovernorAI should have set path.
             // If we are here, we might need to repath?
             const targetHex = state.map[HexUtils.getID(agent.gatherTarget)];
             if (targetHex) {
-                const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map);
+                const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config);
                 if (path) {
                     agent.path = path;
                     agent.target = targetHex.coordinate;
                     agent.activity = 'MOVING';
                 } else {
                     // Unreachable
-                    this.returnHome(state, agent);
+                    this.returnHome(state, agent, config);
                 }
             }
         }
@@ -146,13 +146,13 @@ export const VillagerSystem = {
         }
     },
 
-    returnHome(state: WorldState, agent: VillagerAgent) {
+    returnHome(state: WorldState, agent: VillagerAgent, config: GameConfig) {
         if (!agent.homeId) return;
         const home = state.settlements[agent.homeId];
         if (!home) return;
 
         const homeHex = state.map[home.hexId];
-        const path = Pathfinding.findPath(agent.position, homeHex.coordinate, state.map);
+        const path = Pathfinding.findPath(agent.position, homeHex.coordinate, state.map, config);
 
         if (path) {
             agent.path = path;
@@ -168,7 +168,7 @@ export const VillagerSystem = {
     },
 
     // Called by GovernorAI
-    spawnVillager(state: WorldState, settlementId: string, targetHexId: string): VillagerAgent | null {
+    spawnVillager(state: WorldState, settlementId: string, targetHexId: string, config: GameConfig): VillagerAgent | null {
         const settlement = state.settlements[settlementId];
         if (!settlement || settlement.availableVillagers <= 0) return null;
 
@@ -176,7 +176,7 @@ export const VillagerSystem = {
         const targetHex = state.map[targetHexId];
         if (!startHex || !targetHex) return null;
 
-        const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map);
+        const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config);
         if (!path || path.length === 0) return null;
 
         // Decrement pool

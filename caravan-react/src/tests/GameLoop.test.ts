@@ -42,4 +42,21 @@ describe('GameLoop', () => {
         // Metabolism system adds gold based on pop
         expect(state.settlements['test'].stockpile.Gold).toBeGreaterThan(0);
     });
+
+    it('should maintain initial availableVillagers after a tick (Bug #16)', () => {
+        state.settlements['capital'] = {
+            id: 'capital',
+            name: 'Capital',
+            population: 100,
+            stockpile: { Food: 100, Gold: 0, Timber: 0, Stone: 0, Ore: 0, Tools: 0 },
+            controlledHexIds: [],
+            buildings: [],
+            tier: 0,
+            availableVillagers: 2
+        };
+
+        loop.tick();
+        
+        expect(state.settlements['capital'].availableVillagers).toBe(2);
+    });
 });

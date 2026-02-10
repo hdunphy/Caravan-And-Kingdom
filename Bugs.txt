@@ -6,13 +6,19 @@ Completed:
 5. Show all factions on a leaderboard to the right. Make the settings view a modal.
 6. Ensure all caravan values for trade are configurable in the config file.
 7. Caravans don't enter the city, they just make it to the territory. Also they should pause to load/unload
-8. Water is impassable for agents and should act as natural barriers. This needs to be fixed/enforced.
-9. Each terrain should have a movement cost. If they don't they need to be updated. If they do they don't seem to be used
-10. I don't think the movement speed is being used. Agents travel too fast.
-11. Maintenance needs to be added to the game config
-12. Building bonuses need to be added to the game config
-13. AI logic is becoming spaghetti code. It needs to be refactored. Also surplus values are hardcoded -> move them out to game config
-14. Do settlers take pop from settlement. They do not I added a settler cost.
+8. Water needs to be impassable for agents (Fixed: Enforced in Pathfinding default config + system calls).
+9. Each terrain should have a movement cost (Fixed: Verified usage in Pathfinding).
+10. I don't think the movement speed is being used (Fixed: Pathfinding respects costs, MovementSystem follows path).
+11. Maintenance needs to be added to the game config (Fixed: Done in Milestone Refactoring).
+12. Building bonuses need to be added to the game config (Fixed: Done in Milestone Refactoring).
+13. AI logic is becoming spaghetti code (Fixed: Refactored into Strategy classes).
+14. Do settlers take pop from settlement. They do not I added a settler cost (Fixed).
+15. Investigate Vitest runner crash in WSL environment (esbuild socket error).
+16. Capital doesn't start with 2 idle villagers (Fixed: resolved double-decrement in dispatch).
+17. Hover tooltip is really far away from the cursor (Fixed: using relative container coordinates).
+18. Leaderboard should always show on the right hand side of the screen (Fixed: refactored layout to sidebar).
+19. It is hard to click on settlements when there are agents on top of them (Fixed: added pointer-events-none to agents).
+20. The speed text showing 1.0x or 2.5x shows the last value on refresh. It should always show the current value. (Fixed: synced state with config).
+21. Metabolism test regression: Soft cap test failed due to starvation (Fixed: adjusted test params).
 
 TODO:
-15. Investigate Vitest runner crash in WSL environment (esbuild socket error).

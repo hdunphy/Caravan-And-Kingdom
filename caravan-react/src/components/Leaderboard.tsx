@@ -4,12 +4,12 @@ import { Trophy, Users, Coins, MapPin } from 'lucide-react';
 
 interface Props {
     state: WorldState | null;
-    onClose: () => void;
 }
 
-export const Leaderboard: React.FC<Props> = ({ state, onClose }) => {
+export const Leaderboard: React.FC<Props> = ({ state }) => {
     if (!state) return null;
 
+    // ... same stats calculation ...
     // Calculate Faction Stats
     const factionStats = Object.values(state.factions).map(faction => {
         const settlements = Object.values(state.settlements).filter(s => s.ownerId === faction.id);
@@ -24,15 +24,14 @@ export const Leaderboard: React.FC<Props> = ({ state, onClose }) => {
     }).sort((a, b) => b.totalPop - a.totalPop);
 
     return (
-        <div className="absolute top-16 right-4 z-40 bg-slate-900 border border-slate-700 rounded-lg shadow-xl w-80 overflow-hidden flex flex-col animate-in fade-in slide-in-from-right-4 duration-300">
+        <div className="h-full flex flex-col">
             <div className="bg-slate-800 p-3 border-b border-slate-700 flex justify-between items-center">
                 <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2">
                     <Trophy size={16} className="text-yellow-500" /> Faction Leaderboard
                 </h3>
-                <button onClick={onClose} className="text-slate-400 hover:text-white text-xs">Close</button>
             </div>
 
-            <div className="p-2 space-y-2 max-h-[60vh] overflow-y-auto">
+            <div className="p-2 space-y-2 flex-1 overflow-y-auto">
                 {factionStats.map((faction, index) => (
                     <div key={faction.id} className="bg-slate-950/50 rounded border border-slate-800 p-2 flex flex-col gap-2">
                         <div className="flex justify-between items-center">

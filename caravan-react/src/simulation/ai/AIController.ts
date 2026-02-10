@@ -59,7 +59,7 @@ export class AIController {
                 case 'DISPATCH_CARAVAN':
                     if (action.context.type === 'Settler') {
                         const settlement = state.settlements[action.settlementId];
-                        const agent = CaravanSystem.spawn(state, settlement.hexId, action.targetHexId, 'Settler');
+                        const agent = CaravanSystem.spawn(state, settlement.hexId, action.targetHexId, 'Settler', config);
                         if (agent) {
                             agent.ownerId = settlement.ownerId;
                             settlement.stockpile.Food -= (config.costs.settlement.Food || 0);
@@ -81,7 +81,7 @@ export class AIController {
                     s.availableVillagers++;
                     break;
                 case 'DISPATCH_VILLAGER':
-                    VillagerSystem.spawnVillager(state, action.settlementId, action.targetHexId);
+                    VillagerSystem.spawnVillager(state, action.settlementId, action.targetHexId, config);
                     break;
                 case 'UPGRADE_SETTLEMENT':
                     const settlementToUpgrade = state.settlements[action.settlementId];

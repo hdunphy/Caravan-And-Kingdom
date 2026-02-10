@@ -22,7 +22,7 @@ export const Pathfinding = {
             Forest: 2,
             Hills: 3,
             Mountains: 6,
-            Water: 999
+            Water: 1000
         };
 
         const IMPASSABLE = 1000;

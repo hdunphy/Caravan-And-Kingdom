@@ -71,7 +71,8 @@ describe('CaravanSystem', () => {
     it('should identify deficits and dispatch trade caravans', () => {
         // s2 needs Timber (goal default is TOOLS, which checks Timber < 100)
         s2.currentGoal = 'TOOLS';
-        s2.stockpile.Timber = 0;
+        // Needs enough to build caravan (50) but less than goal (100)
+        s2.stockpile.Timber = 60;
 
         // s1 needs enough Timber to pass the target's surplus check:
         // Surplus threshold for non-food is 100 (hardcoded in CaravanSystem.processTrade currently, TODO move to config)

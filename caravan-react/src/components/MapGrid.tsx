@@ -163,10 +163,16 @@ export const MapGrid: React.FC<Props> = ({ state, selectedHexId, onSelectHex }) 
     };
 
     const handleSettlementHover = (settlement: Settlement, e: React.MouseEvent) => {
-        setHoveredSettlement({
-            settlement,
-            position: { x: e.clientX, y: e.clientY }
-        });
+        const rect = containerRef.current?.getBoundingClientRect();
+        if (rect) {
+            setHoveredSettlement({
+                settlement,
+                position: { 
+                    x: e.clientX - rect.left, 
+                    y: e.clientY - rect.top 
+                }
+            });
+        }
     };
 
     const handleSettlementLeave = () => {
@@ -231,7 +237,9 @@ export const MapGrid: React.FC<Props> = ({ state, selectedHexId, onSelectHex }) 
 
                         {/* Render Agents (on top of cities) */}
                         {Object.values(state.agents).map(agent => (
-                            <AgentParams key={agent.id} agent={agent} size={25} />
+                            <g key={agent.id} className="pointer-events-none">
+                                <AgentParams agent={agent} size={25} />
+                            </g>
                         ))}
                     </g>
                 </g>

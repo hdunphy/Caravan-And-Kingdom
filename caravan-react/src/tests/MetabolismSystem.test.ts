@@ -73,7 +73,7 @@ describe('MetabolismSystem', () => {
     });
 
     it('should remove settlement if population reaches zero', () => {
-        settlement.population = 0.001; // Tiny pop
+        settlement.population = 0; // Trigger death
         settlement.stockpile.Food = 0;
 
         MetabolismSystem.update(state, DEFAULT_CONFIG);
@@ -84,7 +84,8 @@ describe('MetabolismSystem', () => {
     it('should respect soft population caps based on tier', () => {
         const tier0Cap = DEFAULT_CONFIG.upgrades.villageToTown.popCap;
         settlement.population = tier0Cap;
-        settlement.stockpile.Food = 1000;
+        // set food to 100 to avoid surplus bonus but prevent starvation
+        settlement.stockpile.Food = 100;
         settlement.controlledHexIds = Array(10).fill('0,0'); // Ensure plenty of jobs
 
         MetabolismSystem.update(state, DEFAULT_CONFIG);

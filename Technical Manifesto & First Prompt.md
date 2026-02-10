@@ -10,19 +10,19 @@ This document contains the architectural constraints and the first prompt needed
 4. **Hexagonal Grid:** Use an **Axial Coordinate system** (q, r) for the grid to simplify neighbor-finding and distance math.  
 5. **Pathfinding:** Implement A\* for agent movement, where "Road" hexes have a lower movement cost.
 
-## **Part 2: Refactoring & TDD Principles (Updated 2026-02-10)**
+## **Part 2: The 6-Agent TDD Lifecycle (Updated 2026-02-10)**
 
-For the `tdd-refactor` phase and beyond, the following principles apply:
+For the `tdd-refactor` phase and beyond, all development follows this pipeline:
 
-1. **Test-Driven Development (TDD):** Every bug fix or new feature must start with a failing test case. Refactoring must be verified against existing test suites.
-2. **SOLID ECS Hybrid:** 
-    *   Maintain the **ECS (Entity Component System)** style for the core simulation (state is data-only; systems are logic-only).
-    *   Apply **SOLID** principles (Single Responsibility, Open/Closed, etc.) to the System classes. 
-    *   Use dependency injection for systems where applicable to ensure they are testable in isolation.
-3. **Zero Magic Numbers:** All values, thresholds, and simulation parameters must be stored in the central `GameConfig.ts`. No hardcoded numeric constants are allowed in the System or AI logic.
-4. **Clean Code AI:** Refactor "spaghetti" AI logic into modular, evaluatable components (e.g., using the Strategy or Command patterns) while ensuring they still operate on the central state.
+1.  **Patrick the PM (Manager):** Brainstorms with Lord Dunphy to create high-level technical specs and plans.
+2.  **The Architect (Planning):** Translates specs into detailed AI prompts and defines expected behaviors for other agents.
+3.  **The Test-Pilot (Red Phase):** Writes failing unit tests based on the Architect's specs. Does not write implementation code.
+4.  **The Mechanic (Green Phase):** Writes the minimal code required to make the Test-Pilot's tests pass.
+5.  **The Refactor-Bot (Refactor Phase):** Optimizes and cleans up the code once tests are green, ensuring they stay green.
+6.  **The DevOps Sentry (Automation):** Manages GitHub Actions, local hooks, and always ensures `npm run build` passes before push.
 
-## **Part 3: Milestone 1 Development Prompt**
+## **Part 3: Architectural Constraints**
+
 
 **Copy and paste the following to your coding agent to begin:**
 

@@ -23,7 +23,8 @@ export class VillagerStrategy implements AIStrategy {
             }
 
             // 2. Dispatch
-            if (settlement.availableVillagers <= 0) return;
+            let currentAvailable = settlement.availableVillagers;
+            if (currentAvailable <= 0) return;
 
             const range = config.costs.villagers?.range || 3;
             const jobs: any[] = [];
@@ -54,7 +55,7 @@ export class VillagerStrategy implements AIStrategy {
             jobs.sort((a, b) => b.score - a.score);
 
             for (const job of jobs) {
-                if (settlement.availableVillagers <= 0) break;
+                if (currentAvailable <= 0) break;
                 const assigned = Object.values(state.agents).filter(a =>
                     a.type === 'Villager' &&
                     a.homeId === settlement.id &&
@@ -65,8 +66,7 @@ export class VillagerStrategy implements AIStrategy {
                 const jobScoreMulti = config.ai.thresholds.villagerJobScoreMulti || 10;
                 if (job.score > (assigned * jobScoreMulti)) {
                     actions.push({ type: 'DISPATCH_VILLAGER', settlementId: settlement.id, targetHexId: job.hexId });
-                    // Manual decrement available to prevent double-assigning in same eval loop
-                    settlement.availableVillagers--;
+                    currentAvailable--;
                 }
             }
         });
