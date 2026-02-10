@@ -38,9 +38,9 @@ describe('MovementSystem', () => {
     it('should progress movement and move to next hex when cost reached', () => {
         const speed = DEFAULT_CONFIG.costs.movement; // 1.0
         const terrainCost = DEFAULT_CONFIG.costs.terrain.Plains; // 1.0
-        
+
         MovementSystem.update(state, DEFAULT_CONFIG);
-        
+
         // Progress was 0, speed is 1.0, cost is 1.0. Should move.
         expect(agent.position.q).toBe(1);
         expect(agent.path.length).toBe(0);
@@ -49,13 +49,13 @@ describe('MovementSystem', () => {
 
     it('should take multiple ticks for difficult terrain', () => {
         state.map['1,0'].terrain = 'Mountains';
-        const speed = 1.0;
-        const terrainCost = DEFAULT_CONFIG.costs.terrain.Mountains; // 3.0
-        
+        // const speed = 1.0;
+        // const terrainCost = DEFAULT_CONFIG.costs.terrain.Mountains; // 3.0
+
         MovementSystem.update(state, DEFAULT_CONFIG);
         expect(agent.position.q).toBe(0); // Still at start
         expect(agent.movementProgress).toBe(1.0);
-        
+
         MovementSystem.update(state, DEFAULT_CONFIG);
         expect(agent.position.q).toBe(0); // Still at start
         expect(agent.movementProgress).toBe(2.0);
@@ -68,7 +68,7 @@ describe('MovementSystem', () => {
     it('should respect wait ticks (loading/unloading)', () => {
         agent.waitTicks = 5;
         MovementSystem.update(state, DEFAULT_CONFIG);
-        
+
         expect(agent.position.q).toBe(0);
         expect(agent.movementProgress).toBe(0);
     });

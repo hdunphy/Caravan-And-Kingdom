@@ -1,5 +1,5 @@
 import { AIAction, AIStrategy } from './AITypes';
-import { WorldState, Resources } from '../../types/WorldTypes';
+import { WorldState } from '../../types/WorldTypes';
 import { GameConfig } from '../../types/GameConfig';
 import { HexUtils } from '../../utils/HexUtils';
 

@@ -1,5 +1,5 @@
 import { AIAction, AIStrategy } from './AITypes';
-import { WorldState, Settlement } from '../../types/WorldTypes';
+import { WorldState } from '../../types/WorldTypes';
 import { GameConfig } from '../../types/GameConfig';
 
 export class ConstructionStrategy implements AIStrategy {

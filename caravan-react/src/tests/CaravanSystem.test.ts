@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { CaravanSystem } from '../simulation/systems/CaravanSystem';
 import { WorldState, Settlement } from '../types/WorldTypes';
 import { DEFAULT_CONFIG } from '../types/GameConfig';
-import { HexUtils } from '../utils/HexUtils';
+// import { HexUtils } from '../utils/HexUtils';
 
 describe('CaravanSystem', () => {
     let state: WorldState;
@@ -72,14 +72,14 @@ describe('CaravanSystem', () => {
         // s2 needs Timber (goal default is TOOLS, which checks Timber < 100)
         s2.currentGoal = 'TOOLS';
         s2.stockpile.Timber = 0;
-        
+
         // s1 needs enough Timber to pass the target's surplus check:
         // Surplus threshold for non-food is 100 (hardcoded in CaravanSystem.processTrade currently, TODO move to config)
         // Wait, I already moved a lot to config. Let's check CaravanSystem.ts again.
-        s1.stockpile.Timber = 150; 
-        
+        s1.stockpile.Timber = 150;
+
         CaravanSystem.processTrade(state, DEFAULT_CONFIG);
-        
+
         const tradeAgent = Object.values(state.agents).find(a => a.type === 'Caravan' && a.mission === 'TRADE');
         expect(tradeAgent).toBeDefined();
         expect(tradeAgent?.homeId).toBe('s2');
@@ -94,18 +94,18 @@ describe('CaravanSystem', () => {
         agent.homeId = 's1';
         agent.position = { q: 1, r: 0, s: -1 }; // Already at target
         agent.path = []; // Arrived
-        
+
         const freightAmount = DEFAULT_CONFIG.costs.logistics.freightThreshold;
         state.map['1,0'].resources = { Timber: freightAmount };
-        
+
         // 1st update: Trigger LOADING
         CaravanSystem.update(state, DEFAULT_CONFIG);
         expect(agent.activity).toBe('LOADING');
-        
+
         // Fast forward wait
         agent.waitTicks = 1;
         CaravanSystem.update(state, DEFAULT_CONFIG);
-        
+
         // After loading, should move back home
         expect(agent.cargo.Timber).toBe(freightAmount);
         expect(state.map['1,0'].resources?.Timber).toBe(0);
@@ -117,15 +117,15 @@ describe('CaravanSystem', () => {
         if (!agent) throw new Error('Spawn failed');
         agent.position = { q: 1, r: 0, s: -1 }; // Already at target
         agent.path = []; // Arrived
-        
+
         const starterFood = DEFAULT_CONFIG.ai.expansionStarterPack.Food;
         agent.cargo = { Food: starterFood };
-        
+
         // Remove map owner to allow founding
         state.map['1,0'].ownerId = null;
-        
+
         CaravanSystem.update(state, DEFAULT_CONFIG);
-        
+
         const newSettlement = Object.values(state.settlements).find(s => s.hexId === '1,0');
         expect(newSettlement).toBeDefined();
         expect(newSettlement?.stockpile.Food).toBe(starterFood);
@@ -137,12 +137,12 @@ describe('CaravanSystem', () => {
         agent.status = 'IDLE';
         agent.homeId = 's1';
         agent.integrity = 50;
-        
+
         const repairCost = DEFAULT_CONFIG.costs.logistics.caravanRepairCost;
         s1.stockpile.Timber = repairCost * 2;
-        
+
         CaravanSystem.update(state, DEFAULT_CONFIG);
-        
+
         expect(agent.integrity).toBeGreaterThan(50);
         expect(s1.stockpile.Timber).toBe(repairCost);
     });

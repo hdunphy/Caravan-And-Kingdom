@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { Pathfinding } from '../simulation/Pathfinding';
-import { WorldState, HexCell } from '../types/WorldTypes';
+import { HexCell } from '../types/WorldTypes';
 import { DEFAULT_CONFIG } from '../types/GameConfig';
 
 describe('Pathfinding', () => {
@@ -26,15 +26,15 @@ describe('Pathfinding', () => {
     it('should avoid impassable terrain (Water with high cost)', () => {
         // Block 1,0 with water
         map['1,0'].terrain = 'Water';
-        
+
         // Path from 0,0 to 2,0
         // Neighbors of 0,0 are 1,0 and 0,1 and -1,1 etc.
         // Neighbors of 2,0 are 1,0 and 2,-1 etc.
         // There should be a path through 0,1 -> 1,1 -> 2,0 if they exist
         map['2,1'] = { id: '2,1', coordinate: { q: 2, r: 1, s: -3 }, terrain: 'Plains', ownerId: null, resources: {} };
-        
+
         const path = Pathfinding.findPath(map['0,0'].coordinate, map['2,0'].coordinate, map, DEFAULT_CONFIG);
-        
+
         expect(path).not.toBeNull();
         // Should not contain 1,0
         expect(path?.some(p => p.q === 1 && p.r === 0)).toBe(false);

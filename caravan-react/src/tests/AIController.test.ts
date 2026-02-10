@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { AIController } from '../simulation/ai/AIController';
 import { WorldState, Settlement } from '../types/WorldTypes';
 import { DEFAULT_CONFIG } from '../types/GameConfig';
@@ -43,10 +43,10 @@ describe('AIController', () => {
     it('should update goals and execute actions on interval', () => {
         // Mock a build action by setting goal to SURVIVE and making sure food is low
         settlement.stockpile.Food = 0;
-        
+
         // Tick is 0, update should run (first time or based on lastUpdateTick)
         controller.update(state, DEFAULT_CONFIG);
-        
+
         expect(settlement.currentGoal).toBe('SURVIVE');
         // ConstructionStrategy should have triggered a GathererHut build
         expect(settlement.buildings.length).toBe(1);
@@ -55,10 +55,10 @@ describe('AIController', () => {
 
     it('should throttle updates based on checkInterval', () => {
         const interval = DEFAULT_CONFIG.ai.checkInterval; // 10
-        
+
         controller.update(state, DEFAULT_CONFIG); // Tick 0
-        const firstTickBuildings = settlement.buildings.length;
-        
+        // const firstTickBuildings = settlement.buildings.length;
+
         state.tick = 1;
         controller.update(state, DEFAULT_CONFIG);
         // Should not have updated again
