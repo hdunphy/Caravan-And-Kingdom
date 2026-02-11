@@ -46,8 +46,14 @@ export const calculateFitness = (state: WorldState, stats: SimulationStats): num
         score -= 5000;
     }
 
-    // 5. Stability Penalty (-5 per Survival Tick)
-    score -= (stats.survivalTicks * 5);
+    // 5. Stability Penalty (Normalized Power Curve)
+    // Formula: Penalty = -3000 * (Actual_Survival_Ticks / (numTicks * numFactions))^1.5
+    const totalPotentialTicks = stats.totalTicks * stats.totalFactions;
+    if (totalPotentialTicks > 0) {
+        const survivalRatio = stats.survivalTicks / totalPotentialTicks;
+        const survivalPenalty = 3000 * Math.pow(survivalRatio, 1.5);
+        score -= survivalPenalty;
+    }
 
     // 6. Idle Penalty (-0.1 per Idle Tick)
     score -= (stats.idleTicks * 0.1);

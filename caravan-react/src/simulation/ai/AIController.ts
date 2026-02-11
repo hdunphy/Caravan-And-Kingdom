@@ -41,7 +41,7 @@ export class AIController {
         ];
     }
 
-    update(state: WorldState, config: GameConfig) {
+    update(state: WorldState, config: GameConfig, silent: boolean = false) {
         const interval = config.ai ? config.ai.checkInterval : 10;
         if (state.tick - this.lastUpdateTick < interval) return;
         this.lastUpdateTick = state.tick;
@@ -57,10 +57,10 @@ export class AIController {
 
             // 2. Evaluate & Execute per Settlement (simplifies grouping)
             settlements.forEach(s => {
-                this.runGovernor(s, state, config, 'CIVIL', this.civilStrategies);
-                this.runGovernor(s, state, config, 'LABOR', this.hrStrategies);     // New: Labor (Villagers)
-                this.runGovernor(s, state, config, 'TRANSPORT', this.hrStrategies); // New: Transport (Logistics Caravans)
-                this.runGovernor(s, state, config, 'TRADE', this.tradeStrategies);
+                this.runGovernor(s, state, config, 'CIVIL', this.civilStrategies, silent);
+                this.runGovernor(s, state, config, 'LABOR', this.hrStrategies, silent);     // New: Labor (Villagers)
+                this.runGovernor(s, state, config, 'TRANSPORT', this.hrStrategies, silent); // New: Transport (Logistics Caravans)
+                this.runGovernor(s, state, config, 'TRADE', this.tradeStrategies, silent);
             });
         });
     }
@@ -101,7 +101,7 @@ export class AIController {
         }
     }
 
-    private runGovernor(settlement: Settlement, state: WorldState, config: GameConfig, governorType: string, strategies: AIStrategy[]) {
+    private runGovernor(settlement: Settlement, state: WorldState, config: GameConfig, governorType: string, strategies: AIStrategy[], silent: boolean = false) {
         const actions: AIAction[] = [];
 
         // Optimize: Pass settlementId to strategy to avoid evaluating all settlements
@@ -165,7 +165,7 @@ export class AIController {
         // Multi-Action Execution Loop
         for (const action of relevantActions) {
 
-            this.executeAction(state, config, action);
+            this.executeAction(state, config, action, silent);
             // If action failed (e.g. not enough resources), we continue to next
             // But we should be careful not to spam if costs aren't deducted immediately in executeAction
             // executeAction logic handles immediate resource deduction for most things?
@@ -176,7 +176,7 @@ export class AIController {
         }
     }
 
-    private executeAction(state: WorldState, config: GameConfig, action: AIAction): boolean {
+    private executeAction(state: WorldState, config: GameConfig, action: AIAction, silent: boolean = false): boolean {
         switch (action.type) {
             case 'BUILD_CARAVAN':
                 const cSettlement = state.settlements[action.settlementId];
@@ -212,6 +212,7 @@ export class AIController {
                     settlement.stockpile.Food -= (config.costs.settlement.Food || 0);
                     settlement.stockpile.Timber -= (config.costs.settlement.Timber || 0);
                     settlement.population -= config.ai.settlerCost;
+                    if (!silent) console.log(`[AI] Spawned Settler from ${settlement.name}`);
                     return true;
                 }
                 return false;
@@ -235,7 +236,7 @@ export class AIController {
                 return false;
             case 'UPGRADE_SETTLEMENT':
                 const settlementToUpgrade = state.settlements[action.settlementId];
-                return UpgradeSystem.tryUpgrade(state, settlementToUpgrade, config);
+                return UpgradeSystem.tryUpgrade(state, settlementToUpgrade, config, silent);
         }
         return false;
     }

@@ -2,7 +2,7 @@ import { WorldState } from '../../types/WorldTypes';
 import { GameConfig } from '../../types/GameConfig';
 
 export const MetabolismSystem = {
-    update(state: WorldState, config: GameConfig) {
+    update(state: WorldState, config: GameConfig, silent: boolean = false) {
         Object.values(state.settlements).forEach(settlement => {
             const pop = settlement.population;
             const foodConsumption = pop * config.costs.baseConsume;
@@ -67,7 +67,7 @@ export const MetabolismSystem = {
             if (settlement.population <= 0) {
                 // Remove settlement
                 // We need to mutate state.settlements AND cleanup map ownership
-                console.log(`[DEATH] Settlement ${settlement.name} has died out.`);
+                if (!silent) console.log(`[DEATH] Settlement ${settlement.name} has died out.`);
 
                 // Clear Map Ownership
                 if (settlement.controlledHexIds) {

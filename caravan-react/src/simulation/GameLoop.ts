@@ -17,22 +17,21 @@ export class GameLoop {
     state: WorldState;
     config: GameConfig;
     aiController: AIController;
+    silent: boolean = false;
 
-    constructor(state: WorldState, config: GameConfig) {
+    constructor(state: WorldState, config: GameConfig, silent: boolean = false) {
         this.state = state;
         this.config = config;
         this.aiController = new AIController();
+        this.silent = silent;
     }
 
     tick() {
         this.state.tick++;
 
         // Movement always runs (simulation tick)
-        // Movement always runs (simulation tick)
         MovementSystem.update(this.state, this.config);
-        CaravanSystem.update(this.state, this.config);
-
-        // ...
+        CaravanSystem.update(this.state, this.config, this.silent);
 
         // Economy runs only on resource intervals
         if (this.state.tick % this.config.simulation.resourceTickInterval === 0) {
@@ -45,10 +44,10 @@ export class GameLoop {
             // Run Systems
             ExtractionSystem.update(this.state, this.config);
             VillagerSystem.update(this.state, this.config);
-            IndustrySystem.update(this.state, this.config); // Restored
+            IndustrySystem.update(this.state, this.config);
             MaintenanceSystem.update(this.state, this.config);
-            MetabolismSystem.update(this.state, this.config);
-            UpgradeSystem.update(this.state, this.config);
+            MetabolismSystem.update(this.state, this.config, this.silent);
+            UpgradeSystem.update(this.state, this.config, this.silent);
             CaravanSystem.processTrade(this.state, this.config);
 
             // AI Decisions
@@ -65,8 +64,6 @@ export class GameLoop {
                 }
             });
         }
-
-        // Future: AISystem.update(this.state);
 
         return this.state;
     }

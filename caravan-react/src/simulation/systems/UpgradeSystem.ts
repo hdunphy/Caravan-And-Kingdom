@@ -4,28 +4,26 @@ import { HexUtils } from '../../utils/HexUtils';
 
 export const UpgradeSystem = {
     // Main Loop Update (Auto-Upgrade for Player for now)
-    update(state: WorldState, config: GameConfig) {
+    update(state: WorldState, config: GameConfig, silent: boolean = false) {
         Object.values(state.settlements).forEach(settlement => {
             // Auto-upgrade Player settlements for now (until UI)
             if (settlement.ownerId === 'player_1') {
-                this.tryUpgrade(state, settlement, config);
+                this.tryUpgrade(state, settlement, config, silent);
             }
         });
     },
 
-    // Try to upgrade a settlement if requirements are met
-    tryUpgrade(state: WorldState, settlement: any, config: GameConfig): boolean {
-        // Village -> Town
+    tryUpgrade(state: WorldState, settlement: any, config: GameConfig, silent: boolean = false): boolean {
         if (settlement.tier === 0) {
             if (this.canUpgradeToTown(state, settlement, config)) {
-                this.performUpgradeToTown(state, settlement, config);
+                this.performUpgradeToTown(state, settlement, config, silent);
                 return true;
             }
         }
         // Town -> City
         else if (settlement.tier === 1) {
             if (this.canUpgradeToCity(state, settlement, config)) {
-                this.performUpgradeToCity(state, settlement, config);
+                this.performUpgradeToCity(state, settlement, config, silent);
                 return true;
             }
         }
@@ -43,23 +41,21 @@ export const UpgradeSystem = {
         // Terrain
         const centerHex = state.map[settlement.hexId];
         if (!centerHex) return false;
-
         const neighbors = HexUtils.getNeighbors(centerHex.coordinate);
         let plainsCount = (centerHex.terrain === 'Plains' ? 1 : 0);
         neighbors.forEach(n => {
             if (state.map[HexUtils.getID(n)]?.terrain === 'Plains') plainsCount++;
         });
-
         return plainsCount >= upgradeConfig.plainsCount;
     },
 
-    performUpgradeToTown(state: WorldState, settlement: any, config: GameConfig) {
+    performUpgradeToTown(state: WorldState, settlement: any, config: GameConfig, silent: boolean = false) {
         const upgradeConfig = config.upgrades.villageToTown;
         settlement.stockpile.Timber -= upgradeConfig.costTimber;
         settlement.stockpile.Stone -= upgradeConfig.costStone;
         settlement.tier = 1;
         this.expandTerritory(state, settlement, 2);
-        console.log(`[Gov] ${settlement.name} upgraded to Town!`);
+        if (!silent) console.log(`[Gov] ${settlement.name} upgraded to Town!`);
     },
 
     canUpgradeToCity(state: WorldState, settlement: any, config: GameConfig): boolean {
@@ -74,24 +70,22 @@ export const UpgradeSystem = {
         // Terrain
         const centerHex = state.map[settlement.hexId];
         if (!centerHex) return false;
-
         const neighbors = HexUtils.getNeighbors(centerHex.coordinate);
         let plainsCount = (centerHex.terrain === 'Plains' ? 1 : 0);
         neighbors.forEach(n => {
             if (state.map[HexUtils.getID(n)]?.terrain === 'Plains') plainsCount++;
         });
-
         return plainsCount >= upgradeConfig.plainsCount;
     },
 
-    performUpgradeToCity(state: WorldState, settlement: any, config: GameConfig) {
+    performUpgradeToCity(state: WorldState, settlement: any, config: GameConfig, silent: boolean = false) {
         const upgradeConfig = config.upgrades.townToCity;
         settlement.stockpile.Timber -= upgradeConfig.costTimber;
         settlement.stockpile.Stone -= upgradeConfig.costStone;
         settlement.stockpile.Ore -= upgradeConfig.costOre;
         settlement.tier = 2;
         this.expandTerritory(state, settlement, 3);
-        console.log(`[Gov] ${settlement.name} upgraded to City!`);
+        if (!silent) console.log(`[Gov] ${settlement.name} upgraded to City!`);
     },
 
     expandTerritory(state: WorldState, settlement: any, range: number) {
@@ -101,9 +95,8 @@ export const UpgradeSystem = {
             const newControlledIds = expandedCoords
                 .map(c => HexUtils.getID(c))
                 .filter(id => state.map[id]);
-
             settlement.controlledHexIds = newControlledIds;
-            // console.log(`Territory expanded to ${newControlledIds.length} hexes.`);
+            // replace once we have siltent console.log(`Territory expanded to ${newControlledIds.length} hexes.`);
         }
     }
 };

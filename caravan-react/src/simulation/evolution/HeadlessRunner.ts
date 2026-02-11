@@ -15,6 +15,8 @@ export interface HeadlessOptions {
 export interface SimulationStats {
     survivalTicks: number; // Cumulative ticks spent in SURVIVE mode by all settlements
     idleTicks: number; // Cumulative ticks spent IDLE by agents
+    totalTicks: number; // Total ticks run
+    totalFactions: number; // Total factions in the run
 }
 
 export class HeadlessRunner {
@@ -78,11 +80,13 @@ export class HeadlessRunner {
             }
         });
 
-        const loop = new GameLoop(state, config);
+        const loop = new GameLoop(state, config, true); // SILENT MODE
 
         const stats: SimulationStats = {
             survivalTicks: 0,
-            idleTicks: 0
+            idleTicks: 0,
+            totalTicks: options.ticks,
+            totalFactions: options.factionCount
         };
 
         for (let i = 0; i < options.ticks; i++) {
@@ -99,7 +103,10 @@ export class HeadlessRunner {
             });
 
             // Early out if everyone dies
-            if (Object.keys(state.settlements).length === 0) break;
+            if (Object.keys(state.settlements).length === 0) {
+                stats.totalTicks = i + 1;
+                break;
+            }
         }
 
         return { state, stats };
