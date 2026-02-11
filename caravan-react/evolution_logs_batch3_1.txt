@@ -1,0 +1,3028 @@
+
+=== Starting Evolution Run #batch3_1 ===
+Generations: 200, Ticks: 20000
+Map: 40x40, Factions: 3
+Loading seed from optimized-config-run-2.json...
+Seeding population with provided config.
+[Gen 1] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 1) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '696.30'           │
+│ Median Pop   │ 120.68036954697541 │
+│ Total Gold   │ 6300               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=58.48, tradeRoiThreshold=20.00, surviveThreshold=12.91
+[Gen 2] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 2) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '694.41'           │
+│ Median Pop   │ 120.68036954697544 │
+│ Total Gold   │ 6300               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=66.88, tradeRoiThreshold=11.56, provisionDistanceMulti=10.00
+[Gen 3] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 3) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '696.05'           │
+│ Median Pop   │ 120.68036954697543 │
+│ Total Gold   │ 7800               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=29.23, tradeRoiThreshold=20.00, surviveThreshold=14.18
+[Gen 4] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 4) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '698.60'           │
+│ Median Pop   │ 120.68036954697547 │
+│ Total Gold   │ 9300               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=39.42, tradeRoiThreshold=19.98, provisionDistanceMulti=12.42
+[Gen 5] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 5) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '697.16'           │
+│ Median Pop   │ 120.68036954697544 │
+│ Total Gold   │ 9300               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=67.83, surviveThreshold=14.33, provisionDistanceMulti=13.09
+[Gen 6] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 6) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '694.01'           │
+│ Median Pop   │ 120.68036954697544 │
+│ Total Gold   │ 6300               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=28.10, constructionRoiThreshold=25.20, surviveThreshold=15.78
+[Gen 7] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 7) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '695.66'           │
+│ Median Pop   │ 120.68036954697544 │
+│ Total Gold   │ 7800               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=85.50, surviveThreshold=9.71, villagerJobScoreMulti=8.33
+[Gen 8] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 8) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '694.55'           │
+│ Median Pop   │ 120.68036954697544 │
+│ Total Gold   │ 6300               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=52.80, tradeRoiThreshold=20.00, surviveThreshold=12.91
+[Gen 9] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 9) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '697.69'           │
+│ Median Pop   │ 120.68036954697544 │
+│ Total Gold   │ 7800               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=141.25, tradeRoiThreshold=37.53, surviveThreshold=15.20
+[Gen 10] Spawning 11 workers for 50 individuals...
+.....Generation 10 Best Fitness: 692.12 | Mutation Level: 0.47
+
+
+=== State of the Realm (Gen 10) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '692.12'           │
+│ Median Pop   │ 120.68036954697544 │
+│ Total Gold   │ 4800               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=125.13, surviveThreshold=18.65, fleetTargetSize=14.35
+[Gen 11] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 11) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '691.23'           │
+│ Median Pop   │ 120.68036954697547 │
+│ Total Gold   │ 3300               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=70.00, expandMinDistance=12.64, provisionDistanceMulti=12.64
+[Gen 12] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 12) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '697.27'           │
+│ Median Pop   │ 120.68036954697547 │
+│ Total Gold   │ 9300               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=95.13, provisionDistanceMulti=15.23, tradeRoiThreshold=10.86
+[Gen 13] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 13) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '693.71'          │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 4800              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: constructionRoiThreshold=61.69, surviveThreshold=15.76, tradeRoiThreshold=10.86
+[Gen 14] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 14) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '694.41'           │
+│ Median Pop   │ 120.68036954697543 │
+│ Total Gold   │ 6300               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=61.69, tradeRoiThreshold=10.86, surviveThreshold=10.83
+[Gen 15] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 15) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '694.83'           │
+│ Median Pop   │ 120.68036954697541 │
+│ Total Gold   │ 6300               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=72.81, provisionDistanceMulti=9.83, surviveThreshold=8.96
+[Gen 16] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 16) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '693.20'           │
+│ Median Pop   │ 120.68036954697541 │
+│ Total Gold   │ 4800               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=75.10, provisionDistanceMulti=15.30, surviveThreshold=7.68
+[Gen 17] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 17) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '723.23'          │
+│ Median Pop   │ 82.73603448098865 │
+│ Total Gold   │ 3313              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 4                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: constructionRoiThreshold=86.04, provisionDistanceMulti=14.69, surviveThreshold=12.10
+[Gen 18] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 18) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '750.53'           │
+│ Median Pop   │ 100.88854578153712 │
+│ Total Gold   │ 6334               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 4                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=66.80, provisionDistanceMulti=15.01, expandMinDistance=11.40
+[Gen 19] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 19) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '788.25'           │
+│ Median Pop   │ 121.01659895668293 │
+│ Total Gold   │ 9297               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 4                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=66.80, provisionDistanceMulti=15.01, expandMinDistance=11.40
+[Gen 20] Spawning 11 workers for 50 individuals...
+.....Generation 20 Best Fitness: 831.28 | Mutation Level: 0.45
+
+
+=== State of the Realm (Gen 20) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '831.28'           │
+│ Median Pop   │ 24.994374937013752 │
+│ Total Gold   │ 6288               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=25.31, surviveThreshold=12.01, tradeRoiThreshold=10.86
+[Gen 21] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 21) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1046.11'          │
+│ Median Pop   │ 102.51181741409403 │
+│ Total Gold   │ 9294               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=66.80, surviveThreshold=11.50, buildRateLookback=6.79
+[Gen 22] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 22) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1139.76'          │
+│ Median Pop   │ 242.40937960546282 │
+│ Total Gold   │ 4818               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=15.52, surviveThreshold=12.01, provisionDistanceMulti=8.55
+[Gen 23] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 23) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1206.91'          │
+│ Median Pop   │ 228.69387378072855 │
+│ Total Gold   │ 9294               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=69.95, expandMinDistance=15.45, tradeRoiThreshold=10.86
+[Gen 24] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 24) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1156.87'          │
+│ Median Pop   │ 129.81810710645777 │
+│ Total Gold   │ 10793              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=82.71, surviveThreshold=12.01, tradeRoiThreshold=10.86
+[Gen 25] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 25) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1139.20'         │
+│ Median Pop   │ 238.6254364128538 │
+│ Total Gold   │ 10792             │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: constructionRoiThreshold=71.80, surviveThreshold=16.61, provisionDistanceMulti=9.87
+[Gen 26] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 26) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1151.55'          │
+│ Median Pop   │ 241.13715920213642 │
+│ Total Gold   │ 7794               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=89.81, tradeRoiThreshold=11.74, surviveThreshold=11.51
+[Gen 27] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 27) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1144.61'          │
+│ Median Pop   │ 189.03268701711363 │
+│ Total Gold   │ 4798               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=69.50, surviveThreshold=11.07, expandMinDistance=10.87
+[Gen 28] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 28) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1367.56'          │
+│ Median Pop   │ 225.60116854215414 │
+│ Total Gold   │ 7791               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=50.45, expandMinDistance=21.94, surviveThreshold=12.50
+[Gen 29] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 29) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1181.04'          │
+│ Median Pop   │ 200.74377921280353 │
+│ Total Gold   │ 10792              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=17.11, surviveThreshold=11.50, buildRateLookback=10.23
+[Gen 30] Spawning 11 workers for 50 individuals...
+.....Generation 30 Best Fitness: 1357.58 | Mutation Level: 0.42
+
+
+=== State of the Realm (Gen 30) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1357.58'         │
+│ Median Pop   │ 335.9175892927417 │
+│ Total Gold   │ 4818              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: constructionRoiThreshold=45.68, surviveThreshold=11.50, buildRateLookback=10.23
+[Gen 31] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 31) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1242.58'         │
+│ Median Pop   │ 197.6647154658878 │
+│ Total Gold   │ 7792              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: constructionRoiThreshold=45.68, surviveThreshold=11.50, buildRateLookback=10.23
+[Gen 32] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 32) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1281.31'          │
+│ Median Pop   │ 217.99843903449826 │
+│ Total Gold   │ 9293               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=84.32, tradeRoiThreshold=20.62, buildRateLookback=8.18
+[Gen 33] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 33) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1141.77'          │
+│ Median Pop   │ 180.61720505126954 │
+│ Total Gold   │ 10791              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=31.86, tradeRoiThreshold=18.13, surviveThreshold=11.80
+[Gen 34] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 34) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1294.98'          │
+│ Median Pop   │ 236.61323784356614 │
+│ Total Gold   │ 6297               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=62.98, tradeRoiThreshold=26.15, surviveThreshold=10.99
+[Gen 35] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 35) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1259.81'          │
+│ Median Pop   │ 216.57336766083657 │
+│ Total Gold   │ 9291               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=26.93, expandMinDistance=17.68, buildRateLookback=14.14
+[Gen 36] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 36) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1153.90'          │
+│ Median Pop   │ 181.24252238618143 │
+│ Total Gold   │ 4797               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=34.49, buildRateLookback=17.07, tradeRoiThreshold=17.03
+[Gen 37] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 37) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1255.52'          │
+│ Median Pop   │ 216.73547125286316 │
+│ Total Gold   │ 7796               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=34.49, buildRateLookback=17.07, tradeRoiThreshold=17.03
+[Gen 38] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 38) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1140.68'          │
+│ Median Pop   │ 110.94360459013024 │
+│ Total Gold   │ 10808              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=61.04, buildRateLookback=9.49, villagerJobScoreMulti=9.48
+[Gen 39] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 39) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1190.90'          │
+│ Median Pop   │ 209.99421679720197 │
+│ Total Gold   │ 12291              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=26.86, tradeRoiThreshold=11.14, surviveThreshold=9.59
+[Gen 40] Spawning 11 workers for 50 individuals...
+.....Generation 40 Best Fitness: 1130.00 | Mutation Level: 0.40
+
+
+=== State of the Realm (Gen 40) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1130.00'          │
+│ Median Pop   │ 170.36395137570773 │
+│ Total Gold   │ 9293               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=95.97, tradeRoiThreshold=24.58, buildRateLookback=21.01
+[Gen 41] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 41) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1188.35'         │
+│ Median Pop   │ 210.0972770548184 │
+│ Total Gold   │ 7794              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: constructionRoiThreshold=118.97, buildRateLookback=25.48, tradeRoiThreshold=12.31
+[Gen 42] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 42) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1233.91'         │
+│ Median Pop   │ 188.8734448803376 │
+│ Total Gold   │ 12291             │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: constructionRoiThreshold=54.89, buildRateLookback=13.76, surviveThreshold=13.23
+[Gen 43] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 43) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1275.63'         │
+│ Median Pop   │ 208.6790042014192 │
+│ Total Gold   │ 12291             │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: constructionRoiThreshold=26.86, tradeRoiThreshold=24.89, buildRateLookback=13.59
+[Gen 44] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 44) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1249.14'         │
+│ Median Pop   │ 318.9395808963255 │
+│ Total Gold   │ 10795             │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: buildRateLookback=28.47, constructionRoiThreshold=16.72, tradeRoiThreshold=15.65
+[Gen 45] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 45) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1179.32'         │
+│ Median Pop   │ 157.8858850961703 │
+│ Total Gold   │ 4794              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: buildRateLookback=13.76, tradeRoiThreshold=13.61, constructionRoiThreshold=12.34
+[Gen 46] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 46) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1146.79'          │
+│ Median Pop   │ 137.49739259893644 │
+│ Total Gold   │ 9297               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=54.89, buildRateLookback=28.47, tradeRoiThreshold=9.68
+[Gen 47] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 47) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1206.63'          │
+│ Median Pop   │ 228.69269013940703 │
+│ Total Gold   │ 9289               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: buildRateLookback=31.57, constructionRoiThreshold=30.19, tradeRoiThreshold=11.84
+[Gen 48] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 48) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1159.22'         │
+│ Median Pop   │ 189.8040429016205 │
+│ Total Gold   │ 7791              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: constructionRoiThreshold=75.99, buildRateLookback=27.61, tradeRoiThreshold=12.63
+[Gen 49] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 49) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1182.07'          │
+│ Median Pop   │ 200.58148772672808 │
+│ Total Gold   │ 15294              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: villagerJobScoreMulti=17.86, tradeRoiThreshold=12.31, provisionDistanceMulti=8.95
+[Gen 50] Spawning 11 workers for 50 individuals...
+.....Generation 50 Best Fitness: 1191.74 | Mutation Level: 0.38
+
+
+=== State of the Realm (Gen 50) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1191.74'          │
+│ Median Pop   │ 210.16005446824587 │
+│ Total Gold   │ 9296               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=22.99, buildRateLookback=19.18, tradeRoiThreshold=11.84
+[Gen 51] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 51) ===
+┌──────────────┬──────────────────┐
+│ (index)      │ Values           │
+├──────────────┼──────────────────┤
+│ Best Fitness │ '1236.35'        │
+│ Median Pop   │ 197.387011278908 │
+│ Total Gold   │ 6301             │
+│ Max Tier     │ 0                │
+│ Survivors    │ 6                │
+│ Ticks        │ 20000            │
+└──────────────┴──────────────────┘
+Top Genes: constructionRoiThreshold=22.99, tradeRoiThreshold=10.81, villagerJobScoreMulti=10.59
+[Gen 52] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 52) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1144.01'         │
+│ Median Pop   │ 188.9883235269734 │
+│ Total Gold   │ 6293              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: constructionRoiThreshold=71.20, tradeRoiThreshold=12.22, buildRateLookback=10.28
+[Gen 53] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 53) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1292.90'          │
+│ Median Pop   │ 237.00216674373428 │
+│ Total Gold   │ 3297               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=17.89, tradeRoiThreshold=14.35, expandSaturationPower=10.95
+[Gen 54] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 54) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1312.77'          │
+│ Median Pop   │ 357.92988777658496 │
+│ Total Gold   │ 6294               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=17.89, tradeRoiThreshold=14.35, buildRateLookback=10.87
+[Gen 55] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 55) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1278.66'          │
+│ Median Pop   │ 217.62429882152927 │
+│ Total Gold   │ 9371               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=122.04, provisionDistanceMulti=10.92, expandSaturationPower=8.28
+[Gen 56] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 56) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1176.50'          │
+│ Median Pop   │ 149.17197984044867 │
+│ Total Gold   │ 10806              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: buildRateLookback=26.61, constructionRoiThreshold=14.17, surviveThreshold=10.99
+[Gen 57] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 57) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1186.03'          │
+│ Median Pop   │ 158.40608695692512 │
+│ Total Gold   │ 10830              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandSaturationPower=12.90, buildRateLookback=11.67, constructionRoiThreshold=10.93
+[Gen 58] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 58) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1224.04'          │
+│ Median Pop   │ 178.09875085345996 │
+│ Total Gold   │ 7797               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=144.78, tradeRoiThreshold=10.97, expandMinDistance=9.89
+[Gen 59] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 59) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1216.67'         │
+│ Median Pop   │ 177.2959619380197 │
+│ Total Gold   │ 7797              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: constructionRoiThreshold=62.91, villagerJobScoreMulti=19.12, buildRateLookback=13.11
+[Gen 60] Spawning 11 workers for 50 individuals...
+.....Generation 60 Best Fitness: 1147.21 | Mutation Level: 0.35
+
+
+=== State of the Realm (Gen 60) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1147.21'          │
+│ Median Pop   │ 189.45772211842052 │
+│ Total Gold   │ 4797               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: buildRateLookback=26.61, constructionRoiThreshold=20.23, tradeRoiThreshold=12.51
+[Gen 61] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 61) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1220.18'          │
+│ Median Pop   │ 177.94663169307108 │
+│ Total Gold   │ 6296               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=48.36, tradeRoiThreshold=16.38, expandMinDistance=9.71
+[Gen 62] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 62) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1128.09'          │
+│ Median Pop   │ 170.50506392674237 │
+│ Total Gold   │ 1800               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=136.12, expandMinDistance=11.61, provisionDistanceMulti=11.61
+[Gen 63] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 63) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1203.72'          │
+│ Median Pop   │ 228.58535404728693 │
+│ Total Gold   │ 6288               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: villagerJobScoreMulti=16.28, tradeRoiThreshold=14.34, expandMinDistance=10.42
+[Gen 64] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 64) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1272.42'          │
+│ Median Pop   │ 217.25154249406728 │
+│ Total Gold   │ 3300               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=20.86, villagerJobScoreMulti=20.12, expandMinDistance=12.32
+[Gen 65] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 65) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1186.98'         │
+│ Median Pop   │ 209.3011842124701 │
+│ Total Gold   │ 6295              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: villagerJobScoreMulti=34.94, expandMinDistance=13.81, constructionRoiThreshold=13.35
+[Gen 66] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 66) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1180.41'          │
+│ Median Pop   │ 158.01951103683126 │
+│ Total Gold   │ 4794               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=65.27, tradeRoiThreshold=12.92, buildRateLookback=11.80
+[Gen 67] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 67) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1254.94'          │
+│ Median Pop   │ 216.72886429716883 │
+│ Total Gold   │ 3297               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: villagerJobScoreMulti=17.26, expandMinDistance=17.16, constructionRoiThreshold=12.52
+[Gen 68] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 68) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1273.94'          │
+│ Median Pop   │ 217.79054911967475 │
+│ Total Gold   │ 6296               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=12.52, villagerJobScoreMulti=12.09, tradeRoiThreshold=9.82
+[Gen 69] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 69) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1239.01'          │
+│ Median Pop   │ 197.21464459232809 │
+│ Total Gold   │ 6295               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=29.49, tradeRoiThreshold=14.70, provisionDistanceMulti=14.14
+[Gen 70] Spawning 11 workers for 50 individuals...
+.....Generation 70 Best Fitness: 1251.55 | Mutation Level: 0.33
+
+
+=== State of the Realm (Gen 70) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1251.55'          │
+│ Median Pop   │ 190.26517244328704 │
+│ Total Gold   │ 9298               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=37.58, buildRateLookback=35.27, expandMinDistance=17.60
+[Gen 71] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 71) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1212.97'          │
+│ Median Pop   │ 169.24025414076823 │
+│ Total Gold   │ 9293               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=31.01, villagerJobScoreMulti=16.55, expandMinDistance=15.66
+[Gen 72] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 72) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1197.47'         │
+│ Median Pop   │ 228.7975260387758 │
+│ Total Gold   │ 4797              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: constructionRoiThreshold=37.58, buildRateLookback=35.27, villagerJobScoreMulti=16.46
+[Gen 73] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 73) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1282.22'         │
+│ Median Pop   │ 218.1404011369542 │
+│ Total Gold   │ 13787             │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: villagerJobScoreMulti=26.50, provisionDistanceMulti=11.42, constructionRoiThreshold=8.31
+[Gen 74] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 74) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1312.92'         │
+│ Median Pop   │ 185.7097515110989 │
+│ Total Gold   │ 9304              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: buildRateLookback=30.72, villagerJobScoreMulti=17.30, tradeRoiThreshold=16.99
+[Gen 75] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 75) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1175.88'          │
+│ Median Pop   │ 208.76713091601837 │
+│ Total Gold   │ 9289               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=150.60, provisionDistanceMulti=12.41, expandMinDistance=10.83
+[Gen 76] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 76) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1236.29'          │
+│ Median Pop   │ 198.12230996308057 │
+│ Total Gold   │ 3295               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=29.98, expandMinDistance=17.59, constructionRoiThreshold=10.08
+[Gen 77] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 77) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1181.03'          │
+│ Median Pop   │ 140.72700157508194 │
+│ Total Gold   │ 7795               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: buildRateLookback=15.66, provisionDistanceMulti=12.41, constructionRoiThreshold=9.72
+[Gen 78] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 78) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1294.53'          │
+│ Median Pop   │ 236.94078334151268 │
+│ Total Gold   │ 7796               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=29.98, provisionDistanceMulti=10.50, constructionRoiThreshold=9.70
+[Gen 79] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 79) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1282.38'          │
+│ Median Pop   │ 217.18084788809148 │
+│ Total Gold   │ 13784              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=12.10, provisionDistanceMulti=12.01, constructionRoiThreshold=10.08
+[Gen 80] Spawning 11 workers for 50 individuals...
+.....Generation 80 Best Fitness: 1255.26 | Mutation Level: 0.30
+
+
+=== State of the Realm (Gen 80) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1255.26'          │
+│ Median Pop   │ 145.96570864802402 │
+│ Total Gold   │ 9297               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=17.59, tradeRoiThreshold=13.03, constructionRoiThreshold=8.09
+[Gen 81] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 81) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1187.98'         │
+│ Median Pop   │ 209.4567697975381 │
+│ Total Gold   │ 7796              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=21.23, provisionDistanceMulti=14.98, constructionRoiThreshold=9.70
+[Gen 82] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 82) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1216.77'          │
+│ Median Pop   │ 177.96859033025737 │
+│ Total Gold   │ 3297               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=16.72, constructionRoiThreshold=10.22, buildRateLookback=9.92
+[Gen 83] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 83) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1152.04'          │
+│ Median Pop   │ 189.65826627386858 │
+│ Total Gold   │ 9293               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=21.23, provisionDistanceMulti=15.85, buildRateLookback=12.18
+[Gen 84] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 84) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1424.64'          │
+│ Median Pop   │ 264.59602197719323 │
+│ Total Gold   │ 7796               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: constructionRoiThreshold=37.90, expandMinDistance=21.23, provisionDistanceMulti=12.04
+[Gen 85] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 85) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1203.79'          │
+│ Median Pop   │ 228.87214901020627 │
+│ Total Gold   │ 4796               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=21.47, provisionDistanceMulti=15.76, constructionRoiThreshold=9.54
+[Gen 86] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 86) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1193.24'          │
+│ Median Pop   │ 209.31350033847764 │
+│ Total Gold   │ 15334              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=21.47, provisionDistanceMulti=15.76, constructionRoiThreshold=9.54
+[Gen 87] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 87) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1169.11'          │
+│ Median Pop   │ 208.72472292971784 │
+│ Total Gold   │ 9294               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=12.07, provisionDistanceMulti=11.29, constructionRoiThreshold=9.21
+[Gen 88] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 88) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1176.81'          │
+│ Median Pop   │ 209.56370446292425 │
+│ Total Gold   │ 6300               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: provisionDistanceMulti=13.45, expandMinDistance=12.08, constructionRoiThreshold=9.02
+[Gen 89] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 89) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1204.32'          │
+│ Median Pop   │ 228.63879802155176 │
+│ Total Gold   │ 10792              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: provisionDistanceMulti=19.60, constructionRoiThreshold=17.35, expandMinDistance=14.95
+[Gen 90] Spawning 11 workers for 50 individuals...
+.....Generation 90 Best Fitness: 1272.52 | Mutation Level: 0.28
+
+
+=== State of the Realm (Gen 90) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1272.52'          │
+│ Median Pop   │ 208.78407442544088 │
+│ Total Gold   │ 7800               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=13.07, buildRateLookback=12.18, provisionDistanceMulti=11.13
+[Gen 91] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 91) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1193.83'          │
+│ Median Pop   │ 149.77525187346652 │
+│ Total Gold   │ 10812              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=20.16, constructionRoiThreshold=11.50, tradeRoiThreshold=9.95
+[Gen 92] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 92) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1248.74'          │
+│ Median Pop   │ 313.71937236915824 │
+│ Total Gold   │ 10797              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=16.46, provisionDistanceMulti=14.60, constructionRoiThreshold=13.38
+[Gen 93] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 93) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1243.01'         │
+│ Median Pop   │ 313.7225027374136 │
+│ Total Gold   │ 1795              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: provisionDistanceMulti=13.44, buildRateLookback=11.82, expandMinDistance=11.36
+[Gen 94] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 94) ===
+┌──────────────┬──────────────────┐
+│ (index)      │ Values           │
+├──────────────┼──────────────────┤
+│ Best Fitness │ '1220.51'        │
+│ Median Pop   │ 178.445667606479 │
+│ Total Gold   │ 6293             │
+│ Max Tier     │ 0                │
+│ Survivors    │ 6                │
+│ Ticks        │ 20000            │
+└──────────────┴──────────────────┘
+Top Genes: expandMinDistance=13.76, provisionDistanceMulti=10.97, tradeRoiThreshold=8.92
+[Gen 95] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 95) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1217.25'          │
+│ Median Pop   │ 178.64340329668403 │
+│ Total Gold   │ 4796               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=21.23, buildRateLookback=11.87, villagerJobScoreMulti=7.28
+[Gen 96] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 96) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1225.78'          │
+│ Median Pop   │ 178.20224235514763 │
+│ Total Gold   │ 10788              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=20.90, buildRateLookback=13.34, tradeRoiThreshold=11.23
+[Gen 97] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 97) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1218.68'          │
+│ Median Pop   │ 178.64726212494995 │
+│ Total Gold   │ 4796               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: provisionDistanceMulti=16.02, expandMinDistance=13.76, buildRateLookback=7.56
+[Gen 98] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 98) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1241.13'          │
+│ Median Pop   │ 197.60286715671705 │
+│ Total Gold   │ 7796               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: provisionDistanceMulti=13.44, expandMinDistance=11.37, villagerJobScoreMulti=7.28
+[Gen 99] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 99) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1332.13'          │
+│ Median Pop   │ 256.33704005772057 │
+│ Total Gold   │ 6292               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=15.33, provisionDistanceMulti=14.89, constructionRoiThreshold=11.98
+[Gen 100] Spawning 11 workers for 50 individuals...
+.....Generation 100 Best Fitness: 1204.76 | Mutation Level: 0.25
+
+
+=== State of the Realm (Gen 100) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1204.76'          │
+│ Median Pop   │ 177.58190252848595 │
+│ Total Gold   │ 9288               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=15.86, provisionDistanceMulti=11.55, buildRateLookback=10.50
+[Gen 101] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 101) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1147.54'         │
+│ Median Pop   │ 189.8892179291438 │
+│ Total Gold   │ 6294              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=14.78, constructionRoiThreshold=12.24, provisionDistanceMulti=11.51
+[Gen 102] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 102) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1231.75'         │
+│ Median Pop   │ 317.7059727667646 │
+│ Total Gold   │ 1800              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=14.78, constructionRoiThreshold=12.24, provisionDistanceMulti=10.62
+[Gen 103] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 103) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1204.63'          │
+│ Median Pop   │ 228.62986177273226 │
+│ Total Gold   │ 7793               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: provisionDistanceMulti=17.18, expandMinDistance=11.37, buildRateLookback=10.50
+[Gen 104] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 104) ===
+┌──────────────┬──────────────────┐
+│ (index)      │ Values           │
+├──────────────┼──────────────────┤
+│ Best Fitness │ '1224.87'        │
+│ Median Pop   │ 178.347554810694 │
+│ Total Gold   │ 10806            │
+│ Max Tier     │ 0                │
+│ Survivors    │ 6                │
+│ Ticks        │ 20000            │
+└──────────────┴──────────────────┘
+Top Genes: provisionDistanceMulti=16.13, expandMinDistance=14.82, buildRateLookback=12.30
+[Gen 105] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 105) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1521.73'          │
+│ Median Pop   │ 444.18550532634777 │
+│ Total Gold   │ 9294               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=18.75, provisionDistanceMulti=15.76, tradeRoiThreshold=8.35
+[Gen 106] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 106) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1241.90'          │
+│ Median Pop   │ 197.07209533720908 │
+│ Total Gold   │ 9294               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=12.55, provisionDistanceMulti=10.91, buildRateLookback=7.89
+[Gen 107] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 107) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1190.53'          │
+│ Median Pop   │ 210.42400861307888 │
+│ Total Gold   │ 10791              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=18.75, provisionDistanceMulti=8.30, villagerJobScoreMulti=6.11
+[Gen 108] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 108) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1301.67'         │
+│ Median Pop   │ 177.3414115005776 │
+│ Total Gold   │ 6299              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=12.27, constructionRoiThreshold=11.50, provisionDistanceMulti=9.22
+[Gen 109] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 109) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1243.51'          │
+│ Median Pop   │ 318.99600771437514 │
+│ Total Gold   │ 6298               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=20.69, provisionDistanceMulti=8.86, tradeRoiThreshold=8.35
+[Gen 110] Spawning 11 workers for 50 individuals...
+.....Generation 110 Best Fitness: 1293.52 | Mutation Level: 0.22
+
+
+=== State of the Realm (Gen 110) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1293.52'          │
+│ Median Pop   │ 236.63808319540365 │
+│ Total Gold   │ 3294               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=17.36, provisionDistanceMulti=12.95, tradeRoiThreshold=8.48
+[Gen 111] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 111) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1222.40'          │
+│ Median Pop   │ 178.54953285541006 │
+│ Total Gold   │ 10798              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: provisionDistanceMulti=9.12, expandMinDistance=8.91, constructionRoiThreshold=8.33
+[Gen 112] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 112) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1291.54'          │
+│ Median Pop   │ 236.77944853959514 │
+│ Total Gold   │ 4795               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=19.25, provisionDistanceMulti=15.32, constructionRoiThreshold=8.87
+[Gen 113] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 113) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1296.94'          │
+│ Median Pop   │ 236.84352844661842 │
+│ Total Gold   │ 6294               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=13.43, provisionDistanceMulti=12.95, buildRateLookback=9.24
+[Gen 114] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 114) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1265.26'         │
+│ Median Pop   │ 208.7010060576005 │
+│ Total Gold   │ 4800              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=12.89, provisionDistanceMulti=12.77, expandMinDistance=7.55
+[Gen 115] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 115) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1194.87'         │
+│ Median Pop   │ 228.7522125323305 │
+│ Total Gold   │ 1800              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=17.65, tradeRoiThreshold=10.64, provisionDistanceMulti=7.62
+[Gen 116] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 116) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1314.21'         │
+│ Median Pop   │ 185.4955437548946 │
+│ Total Gold   │ 10800             │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: provisionDistanceMulti=12.95, expandMinDistance=7.50, tradeRoiThreshold=6.27
+[Gen 117] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 117) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1237.81'         │
+│ Median Pop   │ 197.4239812229475 │
+│ Total Gold   │ 9288              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=12.84, tradeRoiThreshold=10.82, provisionDistanceMulti=8.92
+[Gen 118] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 118) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1243.01'         │
+│ Median Pop   │ 248.8813733442757 │
+│ Total Gold   │ 4795              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=17.92, buildRateLookback=9.48, tradeRoiThreshold=7.86
+[Gen 119] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 119) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1249.12'          │
+│ Median Pop   │ 248.49165694741765 │
+│ Total Gold   │ 10785              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=22.33, provisionDistanceMulti=13.22, tradeRoiThreshold=11.70
+[Gen 120] Spawning 11 workers for 50 individuals...
+.....Generation 120 Best Fitness: 1199.88 | Mutation Level: 0.20
+
+
+=== State of the Realm (Gen 120) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1199.88'         │
+│ Median Pop   │ 176.9581052885044 │
+│ Total Gold   │ 4799              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=20.17, provisionDistanceMulti=10.94, villagerJobScoreMulti=7.93
+[Gen 121] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 121) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1195.16'          │
+│ Median Pop   │ 157.64989497125046 │
+│ Total Gold   │ 9298               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=21.83, provisionDistanceMulti=12.82, villagerJobScoreMulti=9.03
+[Gen 122] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 122) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1197.35'          │
+│ Median Pop   │ 228.98729815404496 │
+│ Total Gold   │ 6294               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=20.17, provisionDistanceMulti=14.50, villagerJobScoreMulti=7.93
+[Gen 123] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 123) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1291.57'         │
+│ Median Pop   │ 236.7841013215546 │
+│ Total Gold   │ 9288              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=16.81, tradeRoiThreshold=14.61, provisionDistanceMulti=12.82
+[Gen 124] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 124) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1243.76'          │
+│ Median Pop   │ 197.77578920826255 │
+│ Total Gold   │ 10791              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=16.81, tradeRoiThreshold=14.61, provisionDistanceMulti=12.82
+[Gen 125] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 125) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1169.73'         │
+│ Median Pop   │ 208.5055700459583 │
+│ Total Gold   │ 10794             │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=14.61, provisionDistanceMulti=11.91, expandMinDistance=9.22
+[Gen 126] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 126) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1242.13'          │
+│ Median Pop   │ 196.98524846327973 │
+│ Total Gold   │ 7798               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=11.31, tradeRoiThreshold=7.49, provisionDistanceMulti=6.18
+[Gen 127] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 127) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1298.63'          │
+│ Median Pop   │ 251.13864518030203 │
+│ Total Gold   │ 9293               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: provisionDistanceMulti=13.50, expandMinDistance=11.31, tradeRoiThreshold=9.37
+[Gen 128] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 128) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1152.37'          │
+│ Median Pop   │ 189.42747648970445 │
+│ Total Gold   │ 10786              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=17.41, provisionDistanceMulti=13.79, constructionRoiThreshold=9.68
+[Gen 129] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 129) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1245.02'          │
+│ Median Pop   │ 197.41785556781662 │
+│ Total Gold   │ 12295              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=19.78, expandMinDistance=17.41, provisionDistanceMulti=14.32
+[Gen 130] Spawning 11 workers for 50 individuals...
+.....Generation 130 Best Fitness: 1311.34 | Mutation Level: 0.17
+
+
+=== State of the Realm (Gen 130) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1311.34'          │
+│ Median Pop   │ 236.88847463876237 │
+│ Total Gold   │ 9293               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=30.94, expandMinDistance=20.32, provisionDistanceMulti=12.46
+[Gen 131] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 131) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1211.88'          │
+│ Median Pop   │ 228.45949229563755 │
+│ Total Gold   │ 13793              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=15.55, provisionDistanceMulti=10.53, tradeRoiThreshold=9.44
+[Gen 132] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 132) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1249.11'          │
+│ Median Pop   │ 189.66828203957516 │
+│ Total Gold   │ 6297               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=18.80, provisionDistanceMulti=14.90, constructionRoiThreshold=8.72
+[Gen 133] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 133) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1298.96'          │
+│ Median Pop   │ 236.74459438666196 │
+│ Total Gold   │ 9298               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=25.68, tradeRoiThreshold=20.01, provisionDistanceMulti=11.91
+[Gen 134] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 134) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1238.01'          │
+│ Median Pop   │ 197.68479311970177 │
+│ Total Gold   │ 4793               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=18.80, provisionDistanceMulti=11.61, tradeRoiThreshold=9.97
+[Gen 135] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 135) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1208.67'          │
+│ Median Pop   │ 177.40090413235413 │
+│ Total Gold   │ 12288              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=18.22, provisionDistanceMulti=14.81, tradeRoiThreshold=11.24
+[Gen 136] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 136) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1283.27'          │
+│ Median Pop   │ 208.62558433149132 │
+│ Total Gold   │ 10792              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=17.37, provisionDistanceMulti=14.81, tradeRoiThreshold=12.51
+[Gen 137] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 137) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1243.03'          │
+│ Median Pop   │ 197.42189271002673 │
+│ Total Gold   │ 12285              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=17.84, tradeRoiThreshold=14.48, provisionDistanceMulti=12.33
+[Gen 138] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 138) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1277.36'          │
+│ Median Pop   │ 217.76613572334293 │
+│ Total Gold   │ 4797               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=16.34, expandMinDistance=13.61, provisionDistanceMulti=11.48
+[Gen 139] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 139) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1334.48'          │
+│ Median Pop   │ 188.34640058051227 │
+│ Total Gold   │ 9297               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=16.12, provisionDistanceMulti=12.06, tradeRoiThreshold=10.23
+[Gen 140] Spawning 11 workers for 50 individuals...
+.....Generation 140 Best Fitness: 1213.45 | Mutation Level: 0.15
+
+
+=== State of the Realm (Gen 140) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1213.45'          │
+│ Median Pop   │ 177.19902919029835 │
+│ Total Gold   │ 6294               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=19.00, tradeRoiThreshold=16.03, provisionDistanceMulti=15.81
+[Gen 141] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 141) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1246.80'          │
+│ Median Pop   │ 188.94866771857073 │
+│ Total Gold   │ 4798               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=15.31, provisionDistanceMulti=11.54, tradeRoiThreshold=11.42
+[Gen 142] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 142) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1338.79'          │
+│ Median Pop   │ 256.64337377736456 │
+│ Total Gold   │ 10795              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=16.85, tradeRoiThreshold=14.48, provisionDistanceMulti=11.14
+[Gen 143] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 143) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1308.87'          │
+│ Median Pop   │ 228.66221648946333 │
+│ Total Gold   │ 10798              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=19.38, tradeRoiThreshold=16.34, provisionDistanceMulti=8.30
+[Gen 144] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 144) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1242.96'          │
+│ Median Pop   │ 248.73827128143796 │
+│ Total Gold   │ 9288               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=23.93, provisionDistanceMulti=17.12, tradeRoiThreshold=9.81
+[Gen 145] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 145) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1302.05'          │
+│ Median Pop   │ 236.58733927042263 │
+│ Total Gold   │ 12296              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=15.64, provisionDistanceMulti=12.48, villagerJobScoreMulti=7.59
+[Gen 146] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 146) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1151.51'          │
+│ Median Pop   │ 189.91731433772213 │
+│ Total Gold   │ 7795               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=24.89, expandMinDistance=16.12, provisionDistanceMulti=12.41
+[Gen 147] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 147) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1181.21'          │
+│ Median Pop   │ 200.61815084969078 │
+│ Total Gold   │ 15294              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=15.01, provisionDistanceMulti=12.48, tradeRoiThreshold=10.88
+[Gen 148] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 148) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1158.73'          │
+│ Median Pop   │ 255.08083502258006 │
+│ Total Gold   │ 10800              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=26.83, expandMinDistance=18.05, provisionDistanceMulti=13.37
+[Gen 149] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 149) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1163.75'         │
+│ Median Pop   │ 208.7548888269635 │
+│ Total Gold   │ 6292              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=15.24, expandMinDistance=14.64, provisionDistanceMulti=13.86
+[Gen 150] Spawning 11 workers for 50 individuals...
+.....Generation 150 Best Fitness: 1278.86 | Mutation Level: 0.13
+
+
+=== State of the Realm (Gen 150) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1278.86'          │
+│ Median Pop   │ 217.44299264331943 │
+│ Total Gold   │ 10812              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=26.83, expandMinDistance=16.85, provisionDistanceMulti=16.33
+[Gen 151] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 151) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1317.06'          │
+│ Median Pop   │ 359.30163644884476 │
+│ Total Gold   │ 4796               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=16.26, tradeRoiThreshold=15.47, provisionDistanceMulti=11.76
+[Gen 152] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 152) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1252.67'          │
+│ Median Pop   │ 189.08305989535046 │
+│ Total Gold   │ 10792              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=25.84, tradeRoiThreshold=17.28, provisionDistanceMulti=11.12
+[Gen 153] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 153) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1186.89'         │
+│ Median Pop   │ 209.7048369645009 │
+│ Total Gold   │ 7796              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=27.69, tradeRoiThreshold=12.15, provisionDistanceMulti=10.89
+[Gen 154] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 154) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1279.47'          │
+│ Median Pop   │ 217.58340864644123 │
+│ Total Gold   │ 9293               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=22.37, expandMinDistance=18.21, provisionDistanceMulti=12.18
+[Gen 155] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 155) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1306.31'          │
+│ Median Pop   │ 228.67767031251657 │
+│ Total Gold   │ 6300               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=16.65, tradeRoiThreshold=16.43, provisionDistanceMulti=10.15
+[Gen 156] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 156) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1243.92'          │
+│ Median Pop   │ 189.66136487687206 │
+│ Total Gold   │ 3298               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=18.45, provisionDistanceMulti=10.25, tradeRoiThreshold=10.12
+[Gen 157] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 157) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1164.72'          │
+│ Median Pop   │ 137.84804651652996 │
+│ Total Gold   │ 10798              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=19.54, tradeRoiThreshold=17.11, provisionDistanceMulti=12.70
+[Gen 158] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 158) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1242.23'          │
+│ Median Pop   │ 197.23669959118737 │
+│ Total Gold   │ 10785              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=19.48, tradeRoiThreshold=10.13, provisionDistanceMulti=9.36
+[Gen 159] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 159) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1193.26'          │
+│ Median Pop   │ 209.95301963913732 │
+│ Total Gold   │ 12291              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=15.18, expandMinDistance=13.78, provisionDistanceMulti=9.36
+[Gen 160] Spawning 11 workers for 50 individuals...
+.....Generation 160 Best Fitness: 1239.77 | Mutation Level: 0.10
+
+
+=== State of the Realm (Gen 160) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1239.77'          │
+│ Median Pop   │ 248.84341430014746 │
+│ Total Gold   │ 6294               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=19.28, provisionDistanceMulti=10.92, tradeRoiThreshold=10.46
+[Gen 161] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 161) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1290.79'         │
+│ Median Pop   │ 236.7846807127075 │
+│ Total Gold   │ 6299              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=17.78, tradeRoiThreshold=17.75, provisionDistanceMulti=10.09
+[Gen 162] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 162) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1291.46'          │
+│ Median Pop   │ 185.16343181085057 │
+│ Total Gold   │ 6297               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=20.72, tradeRoiThreshold=12.30, provisionDistanceMulti=11.01
+[Gen 163] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 163) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1177.34'          │
+│ Median Pop   │ 213.49900899227367 │
+│ Total Gold   │ 6293               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=18.53, tradeRoiThreshold=11.54, provisionDistanceMulti=10.01
+[Gen 164] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 164) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1183.11'          │
+│ Median Pop   │ 158.29642299099712 │
+│ Total Gold   │ 9300               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=15.89, tradeRoiThreshold=14.99, provisionDistanceMulti=10.29
+[Gen 165] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 165) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1319.55'          │
+│ Median Pop   │ 358.19482014118034 │
+│ Total Gold   │ 7788               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=14.96, tradeRoiThreshold=12.53, provisionDistanceMulti=11.13
+[Gen 166] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 166) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1335.66'         │
+│ Median Pop   │ 376.7286805925642 │
+│ Total Gold   │ 9300              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=15.78, tradeRoiThreshold=15.29, provisionDistanceMulti=10.91
+[Gen 167] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 167) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1237.65'         │
+│ Median Pop   │ 197.1230048743428 │
+│ Total Gold   │ 7796              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=19.72, expandMinDistance=15.06, provisionDistanceMulti=11.54
+[Gen 168] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 168) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1240.45'          │
+│ Median Pop   │ 197.07636004806847 │
+│ Total Gold   │ 9297               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=18.65, expandMinDistance=13.98, buildRateLookback=10.19
+[Gen 169] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 169) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1205.51'         │
+│ Median Pop   │ 228.8149567342371 │
+│ Total Gold   │ 7794              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=18.88, tradeRoiThreshold=14.99, provisionDistanceMulti=9.78
+[Gen 170] Spawning 11 workers for 50 individuals...
+.....Generation 170 Best Fitness: 1153.07 | Mutation Level: 0.08
+
+
+=== State of the Realm (Gen 170) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1153.07'          │
+│ Median Pop   │ 245.36811375017155 │
+│ Total Gold   │ 12329              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=21.25, tradeRoiThreshold=16.20, provisionDistanceMulti=12.13
+[Gen 171] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 171) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1201.62'          │
+│ Median Pop   │ 228.80629567102568 │
+│ Total Gold   │ 7797               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=18.76, expandMinDistance=16.66, provisionDistanceMulti=9.89
+[Gen 172] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 172) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1236.06'         │
+│ Median Pop   │ 248.7991334971989 │
+│ Total Gold   │ 4798              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=14.87, tradeRoiThreshold=12.32, provisionDistanceMulti=11.73
+[Gen 173] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 173) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1237.40'          │
+│ Median Pop   │ 197.58283842661638 │
+│ Total Gold   │ 4800               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=19.39, tradeRoiThreshold=15.33, provisionDistanceMulti=12.13
+[Gen 174] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 174) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1273.39'          │
+│ Median Pop   │ 217.48781767422972 │
+│ Total Gold   │ 4797               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=18.76, expandMinDistance=12.58, provisionDistanceMulti=9.89
+[Gen 175] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 175) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1185.03'         │
+│ Median Pop   │ 209.1377198100075 │
+│ Total Gold   │ 6300              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=18.34, expandMinDistance=13.23, provisionDistanceMulti=9.69
+[Gen 176] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 176) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1273.52'         │
+│ Median Pop   │ 272.2474489616596 │
+│ Total Gold   │ 6297              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=18.34, expandMinDistance=13.23, provisionDistanceMulti=9.69
+[Gen 177] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 177) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1181.71'          │
+│ Median Pop   │ 209.35933613024477 │
+│ Total Gold   │ 6298               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=18.19, tradeRoiThreshold=16.45, provisionDistanceMulti=13.43
+[Gen 178] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 178) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1236.80'          │
+│ Median Pop   │ 197.38158825047967 │
+│ Total Gold   │ 6317               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=17.07, expandMinDistance=13.20, provisionDistanceMulti=9.38
+[Gen 179] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 179) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1200.76'         │
+│ Median Pop   │ 228.8733217712704 │
+│ Total Gold   │ 4796              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=18.47, tradeRoiThreshold=17.07, provisionDistanceMulti=12.47
+[Gen 180] Spawning 11 workers for 50 individuals...
+.....Generation 180 Best Fitness: 1273.94 | Mutation Level: 0.05
+
+
+=== State of the Realm (Gen 180) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1273.94'          │
+│ Median Pop   │ 217.88968237927386 │
+│ Total Gold   │ 4819               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=17.24, expandMinDistance=13.32, provisionDistanceMulti=12.94
+[Gen 181] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 181) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1183.55'          │
+│ Median Pop   │ 158.26848872307016 │
+│ Total Gold   │ 6301               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=18.78, tradeRoiThreshold=16.31, provisionDistanceMulti=9.97
+[Gen 182] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 182) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1263.64'          │
+│ Median Pop   │ 216.97119172149377 │
+│ Total Gold   │ 12295              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=20.07, tradeRoiThreshold=17.84, provisionDistanceMulti=13.13
+[Gen 183] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 183) ===
+┌──────────────┬──────────────────┐
+│ (index)      │ Values           │
+├──────────────┼──────────────────┤
+│ Best Fitness │ '1240.08'        │
+│ Median Pop   │ 197.755098542444 │
+│ Total Gold   │ 7794             │
+│ Max Tier     │ 0                │
+│ Survivors    │ 6                │
+│ Ticks        │ 20000            │
+└──────────────┴──────────────────┘
+Top Genes: expandMinDistance=20.16, tradeRoiThreshold=18.58, provisionDistanceMulti=12.20
+[Gen 184] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 184) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1358.06'          │
+│ Median Pop   │ 216.56810976423273 │
+│ Total Gold   │ 6297               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=19.92, tradeRoiThreshold=18.15, provisionDistanceMulti=13.97
+[Gen 185] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 185) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1364.28'          │
+│ Median Pop   │ 216.62979322278377 │
+│ Total Gold   │ 13794              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=19.47, expandMinDistance=12.65, provisionDistanceMulti=12.51
+[Gen 186] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 186) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1276.65'         │
+│ Median Pop   │ 217.9271553250418 │
+│ Total Gold   │ 4801              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=16.45, expandMinDistance=12.65, provisionDistanceMulti=9.10
+[Gen 187] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 187) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1237.49'          │
+│ Median Pop   │ 180.58962772662431 │
+│ Total Gold   │ 7796               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=19.92, tradeRoiThreshold=18.25, provisionDistanceMulti=12.77
+[Gen 188] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 188) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1254.16'          │
+│ Median Pop   │ 216.74102080946057 │
+│ Total Gold   │ 4794               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=19.52, tradeRoiThreshold=17.93, provisionDistanceMulti=11.96
+[Gen 189] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 189) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1205.28'          │
+│ Median Pop   │ 228.81556971452179 │
+│ Total Gold   │ 10791              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=15.67, provisionDistanceMulti=13.18, expandMinDistance=11.68
+[Gen 190] Spawning 11 workers for 50 individuals...
+.....Generation 190 Best Fitness: 1191.68 | Mutation Level: 0.05
+
+
+=== State of the Realm (Gen 190) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1191.68'          │
+│ Median Pop   │ 209.54028333718514 │
+│ Total Gold   │ 12292              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=20.14, tradeRoiThreshold=15.93, provisionDistanceMulti=11.95
+[Gen 191] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 191) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1298.90'          │
+│ Median Pop   │ 236.73744919480828 │
+│ Total Gold   │ 6296               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=19.64, tradeRoiThreshold=15.07, provisionDistanceMulti=14.01
+[Gen 192] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 192) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1279.57'          │
+│ Median Pop   │ 217.90548033696894 │
+│ Total Gold   │ 7806               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=17.10, expandMinDistance=12.19, provisionDistanceMulti=11.70
+[Gen 193] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 193) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1258.39'         │
+│ Median Pop   │ 129.8350249743235 │
+│ Total Gold   │ 9330              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: expandMinDistance=19.91, tradeRoiThreshold=15.47, provisionDistanceMulti=14.01
+[Gen 194] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 194) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '1195.50'         │
+│ Median Pop   │ 228.7152520805824 │
+│ Total Gold   │ 4794              │
+│ Max Tier     │ 0                 │
+│ Survivors    │ 6                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=15.10, provisionDistanceMulti=13.43, expandMinDistance=12.19
+[Gen 195] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 195) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1186.41'          │
+│ Median Pop   │ 149.67974836960582 │
+│ Total Gold   │ 6297               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=16.04, provisionDistanceMulti=12.23, expandMinDistance=11.13
+[Gen 196] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 196) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1212.80'          │
+│ Median Pop   │ 177.80400466603032 │
+│ Total Gold   │ 4795               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=19.60, tradeRoiThreshold=16.06, provisionDistanceMulti=12.42
+[Gen 197] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 197) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1258.29'          │
+│ Median Pop   │ 216.55866507446999 │
+│ Total Gold   │ 10786              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: expandMinDistance=18.71, tradeRoiThreshold=16.28, provisionDistanceMulti=13.90
+[Gen 198] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 198) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1302.76'          │
+│ Median Pop   │ 177.21094353977313 │
+│ Total Gold   │ 9292               │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=16.53, provisionDistanceMulti=13.90, expandMinDistance=12.75
+[Gen 199] Spawning 11 workers for 50 individuals...
+.....
+
+=== State of the Realm (Gen 199) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1228.74'          │
+│ Median Pop   │ 178.33000337994315 │
+│ Total Gold   │ 13791              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=16.47, expandMinDistance=12.43, provisionDistanceMulti=12.42
+[Gen 200] Spawning 11 workers for 50 individuals...
+.....Generation 200 Best Fitness: 1211.45 | Mutation Level: 0.05
+
+
+=== State of the Realm (Gen 200) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '1211.45'          │
+│ Median Pop   │ 228.67001410512984 │
+│ Total Gold   │ 15286              │
+│ Max Tier     │ 0                  │
+│ Survivors    │ 6                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=16.04, provisionDistanceMulti=14.03, expandMinDistance=12.77
+
+Run batch3_1 Complete. Saved apex config to config_results_20000_ticks_1.json
