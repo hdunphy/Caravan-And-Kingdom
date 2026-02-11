@@ -65,4 +65,31 @@ describe('AIController', () => {
         // Should not have updated again
         expect(state.tick - 0).toBeLessThan(interval);
     });
+    it('should execute both BUILD and DISPATCH_VILLAGER in the same tick', () => {
+        // Setup: Low Food (Trigger Build & Gather), High Timber (Can Build), Available Villager
+        settlement.stockpile.Food = 0;
+        settlement.stockpile.Timber = 1000;
+        settlement.availableVillagers = 1;
+
+        // Add a resource nearby for the villager to gather
+        state.map['1,0'] = {
+            id: '1,0',
+            coordinate: { q: 1, r: 0, s: -1 },
+            terrain: 'Plains',
+            ownerId: 'p1',
+            resources: { Food: 100 }
+        };
+        settlement.controlledHexIds.push('1,0');
+
+        controller.update(state, DEFAULT_CONFIG);
+
+        // Assert Build
+        expect(settlement.buildings.length).toBe(1);
+        expect(settlement.buildings[0].type).toBe('GathererHut');
+
+        // Assert Dispatch
+        const villagers = Object.values(state.agents).filter(a => a.type === 'Villager');
+        expect(villagers.length).toBe(1);
+        expect(settlement.availableVillagers).toBe(0);
+    });
 });

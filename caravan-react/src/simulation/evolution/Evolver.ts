@@ -1,6 +1,6 @@
 import { Genome, configToGenome, genomeToConfig } from './Genome';
 import { calculateFitness } from './FitnessEvaluator';
-import { HeadlessRunner } from './HeadlessRunner';
+import { HeadlessRunner, HeadlessOptions } from './HeadlessRunner';
 import { DEFAULT_CONFIG } from '../../types/GameConfig';
 
 export interface Individual {
@@ -25,25 +25,25 @@ export class Evolver {
     private mutate(genome: Genome, amount: number): Genome {
         const newGenome = { ...genome };
         const keys = Object.keys(newGenome) as (keyof Genome)[];
-        
+
         keys.forEach(key => {
             if (Math.random() < 0.3) { // 30% chance to mutate each gene
                 const change = 1 + (Math.random() * 2 - 1) * amount;
                 (newGenome[key] as any) *= change;
             }
         });
-        
+
         return newGenome;
     }
 
-    runGeneration(ticks: number) {
+    runGeneration(options: HeadlessOptions) {
         this.generation++;
-        
+
         // 1. Evaluate
         this.population.forEach(ind => {
             const config = genomeToConfig(ind.genome, DEFAULT_CONFIG);
-            const finalState = HeadlessRunner.run(config, ticks);
-            ind.fitness = calculateFitness(finalState);
+            const result = HeadlessRunner.run(config, options);
+            ind.fitness = calculateFitness(result.state, result.stats);
         });
 
         // 2. Sort by fitness

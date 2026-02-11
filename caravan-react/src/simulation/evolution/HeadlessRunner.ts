@@ -5,48 +5,103 @@ import { GameConfig } from '../../types/GameConfig';
 import { WorldState } from '../../types/WorldTypes';
 import { HexUtils } from '../../utils/HexUtils';
 
+export interface HeadlessOptions {
+    ticks: number;
+    width: number;
+    height: number;
+    factionCount: number;
+}
+
+export interface SimulationStats {
+    survivalTicks: number; // Cumulative ticks spent in SURVIVE mode by all settlements
+    idleTicks: number; // Cumulative ticks spent IDLE by agents
+}
+
 export class HeadlessRunner {
-    static run(config: GameConfig, ticks: number): WorldState {
+    static run(config: GameConfig, options: HeadlessOptions): { state: WorldState, stats: SimulationStats } {
         const state = createInitialState();
-        const WIDTH = 20;
-        const HEIGHT = 20;
+        const WIDTH = options.width;
+        const HEIGHT = options.height;
         const map = MapGenerator.generate(WIDTH, HEIGHT);
         state.map = map;
         state.width = WIDTH;
         state.height = HEIGHT;
 
-        // Initialize same way as useGameSimulation (Simplified)
-        const startingHex = MapGenerator.findStartingLocation(map, WIDTH, HEIGHT, config, []);
-        if (startingHex) {
-            const neighbors = HexUtils.getSpiral(startingHex.coordinate, 1);
-            const controlledIds = neighbors.map(c => HexUtils.getID(c)).filter(id => map[id]);
-            controlledIds.forEach(id => { if (map[id]) map[id].ownerId = 'player_1'; });
-
-            state.settlements['capital'] = {
-                id: 'capital',
-                name: 'Capital',
-                hexId: startingHex.id,
-                population: 100,
-                ownerId: 'player_1',
-                integrity: 100,
-                tier: 0,
-                jobCap: 100,
-                workingPop: 100,
-                availableVillagers: 2,
-                controlledHexIds: controlledIds,
-                buildings: [],
-                stockpile: { Food: 500, Timber: 50, Stone: 0, Ore: 0, Gold: 0, Tools: 0 }
-            };
+        // Initialize Factions
+        const factions = ['player_1'];
+        for (let i = 1; i < options.factionCount; i++) {
+            factions.push(`rival_${i}`);
         }
 
+        // Initialize Settlements for each faction
+        const usedHexes: string[] = [];
+
+        factions.forEach((factionId, index) => {
+            const isPlayer = factionId === 'player_1';
+
+            // Add Faction to state
+            state.factions[factionId] = {
+                id: factionId,
+                name: isPlayer ? 'Player' : `Rival ${index}`,
+                color: isPlayer ? '#00ccff' : '#ff0000',
+                gold: 100
+            };
+
+            const startingHex = MapGenerator.findStartingLocation(map, WIDTH, HEIGHT, config, usedHexes);
+            if (startingHex) {
+                // Mark area as used to avoid overlap
+                usedHexes.push(startingHex.id);
+                const neighbors = HexUtils.getSpiral(startingHex.coordinate, 5); // Reserve larger area
+                neighbors.forEach(n => usedHexes.push(HexUtils.getID(n)));
+
+                // Grant initial territory
+                const territory = HexUtils.getSpiral(startingHex.coordinate, 1);
+                const controlledIds = territory.map(c => HexUtils.getID(c)).filter(id => map[id]);
+                controlledIds.forEach(id => { if (map[id]) map[id].ownerId = factionId; });
+
+                const id = `s_${factionId}_cap`;
+                state.settlements[id] = {
+                    id: id,
+                    name: `${factionId} Capital`,
+                    hexId: startingHex.id,
+                    population: 100,
+                    ownerId: factionId,
+                    integrity: 100,
+                    tier: 0,
+                    jobCap: 100,
+                    workingPop: 100,
+                    availableVillagers: 2,
+                    controlledHexIds: controlledIds,
+                    buildings: [],
+                    stockpile: { Food: 500, Timber: 50, Stone: 0, Ore: 0, Gold: 0, Tools: 0 }
+                };
+            }
+        });
+
         const loop = new GameLoop(state, config);
-        
-        for (let i = 0; i < ticks; i++) {
+
+        const stats: SimulationStats = {
+            survivalTicks: 0,
+            idleTicks: 0
+        };
+
+        for (let i = 0; i < options.ticks; i++) {
             loop.tick();
+
+            // Collect Stats
+            Object.values(state.settlements).forEach(s => {
+                if (s.currentGoal === 'SURVIVE') stats.survivalTicks++;
+            });
+
+            // Agents are transient, but we track active ones
+            Object.values(state.agents).forEach(a => {
+                if (a.status === 'IDLE') stats.idleTicks++;
+            });
+
             // Early out if everyone dies
             if (Object.keys(state.settlements).length === 0) break;
         }
 
-        return state;
+        return { state, stats };
     }
 }
