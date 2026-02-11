@@ -8,7 +8,7 @@ do
    echo "------------------------------------------------"
    echo "STARTING MARATHON RUN $i OF 3 (20,000 TICKS)"
    echo "------------------------------------------------"
-   npx tsx src/simulation/evolution/RunEvolution.ts "batch2_$i" 200 20000 > "evolution_logs_batch2_$i.txt" 2>&1
+   npx tsx src/simulation/evolution/RunEvolution.ts "batch2_$i" 200 20000 "optimized-config-run-2.json" "config_results_20000_ticks_$i.json" > "evolution_logs_batch2_$i.txt" 2>&1
 done
 
 # BATCH 3: The Ultra-Marathon
@@ -16,6 +16,6 @@ done
 echo "------------------------------------------------"
 echo "STARTING ULTRA-MARATHON (50,000 TICKS)"
 echo "------------------------------------------------"
-npx tsx src/simulation/evolution/RunEvolution.ts "ultra" 200 50000 > "evolution_logs_ultra.txt" 2>&1
+npx tsx src/simulation/evolution/RunEvolution.ts "ultra" 200 50000 "optimized-config-run-2.json" "config_results_50000_ticks.json" > "evolution_logs_ultra.txt" 2>&1
 
 echo "ALL BATCHES COMPLETE."

@@ -10,6 +10,7 @@ export interface HeadlessOptions {
     width: number;
     height: number;
     factionCount: number;
+    onHeartbeat?: (progress: number) => void;
 }
 
 export interface SimulationStats {
@@ -17,6 +18,9 @@ export interface SimulationStats {
     idleTicks: number; // Cumulative ticks spent IDLE by agents
     totalTicks: number; // Total ticks run
     totalFactions: number; // Total factions in the run
+    popHistory: number[]; // Population snapshot regularly
+    tiersReached: number; // Max tier reached by any settlement
+    enteredSurviveMode: boolean; // Did they ever enter SURVIVE?
 }
 
 export class HeadlessRunner {
@@ -24,6 +28,7 @@ export class HeadlessRunner {
         const state = createInitialState();
         const WIDTH = options.width;
         const HEIGHT = options.height;
+        // Always generate a fresh map for robustness
         const map = MapGenerator.generate(WIDTH, HEIGHT);
         state.map = map;
         state.width = WIDTH;
@@ -86,16 +91,38 @@ export class HeadlessRunner {
             survivalTicks: 0,
             idleTicks: 0,
             totalTicks: options.ticks,
-            totalFactions: options.factionCount
+            totalFactions: options.factionCount,
+            popHistory: [],
+            tiersReached: 0,
+            enteredSurviveMode: false
         };
+
+        const heartbeatInterval = Math.floor(options.ticks / 10);
 
         for (let i = 0; i < options.ticks; i++) {
             loop.tick();
 
+            // Heartbeat
+            if (options.onHeartbeat && i > 0 && i % heartbeatInterval === 0) {
+                const progress = Math.round((i / options.ticks) * 100);
+                options.onHeartbeat(progress);
+            }
+
             // Collect Stats
+            let currentPop = 0;
             Object.values(state.settlements).forEach(s => {
-                if (s.currentGoal === 'SURVIVE') stats.survivalTicks++;
+                currentPop += s.population;
+                if (s.tier > stats.tiersReached) stats.tiersReached = s.tier;
+                if (s.currentGoal === 'SURVIVE') {
+                    stats.survivalTicks++;
+                    stats.enteredSurviveMode = true;
+                }
             });
+
+            // Sample population every 1000 ticks
+            if (i % 1000 === 0) {
+                stats.popHistory.push(currentPop);
+            }
 
             // Agents are transient, but we track active ones
             Object.values(state.agents).forEach(a => {

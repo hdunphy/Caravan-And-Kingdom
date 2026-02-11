@@ -1,14 +1,33 @@
 import { WorldState } from '../../types/WorldTypes';
 import { SimulationStats } from './HeadlessRunner';
 
-export const calculateFitness = (state: WorldState, stats: SimulationStats): number => {
+export const calculateFitness = (state: WorldState, stats: SimulationStats, generation: number = 0): number => {
     let score = 0;
 
-    // 1. Population is the primary driver (+1 per pop)
-    const totalPop = Object.values(state.settlements).reduce((sum, s) => sum + s.population, 0);
-    score += totalPop;
+    // 1. Historical Stability (Median Population)
+    // Instead of just final pop, we use the median of history to reward consistent growth.
+    const sortedPop = [...stats.popHistory].sort((a, b) => a - b);
+    const medianPop = sortedPop.length > 0 ? sortedPop[Math.floor(sortedPop.length / 2)] : 0;
+    score += medianPop;
 
-    // 2. Tiers represent major milestones
+    // 2. Longevity Reward (Positive enforcement)
+    // Reward simply for existing. 1 point per 100 ticks survived.
+    score += Math.floor(stats.totalTicks / 100);
+
+    // 3. Tier Multiplier
+    // 1.25x for every tier reached.
+    // Tier 0 = 1x
+    // Tier 1 = 1.25x
+    // Tier 2 = 1.56x
+    const tierMultiplier = Math.pow(1.25, stats.tiersReached);
+    score *= tierMultiplier;
+
+    // 4. Smooth Governance Bonus (+15%)
+    // If they never entered SURVIVE mode
+    if (!stats.enteredSurviveMode) {
+        score *= 1.15;
+    }
+
     Object.values(state.settlements).forEach(s => {
         score += 100; // Base settlement score
         if (s.tier === 1) score += 500;
@@ -36,27 +55,21 @@ export const calculateFitness = (state: WorldState, stats: SimulationStats): num
         }
     });
 
-    // 3. Gold is good but secondary
+    // 5. Gold Reserve
     const totalGold = Object.values(state.factions).reduce((sum, f) => sum + (f.gold || 0), 0);
     score += (totalGold * 0.1);
 
-    //Question does this count if a settlement was founded and then died out?
-    // 4. Penalty for dying out
+    // 6. Penalty for dying out
     if (Object.keys(state.settlements).length === 0) {
-        score -= 5000;
+        // Reduced penalty for early generations to encourage exploration
+        const deathPenalty = generation < 50 ? 500 : 5000;
+        score -= deathPenalty;
+
     }
 
-    // 5. Stability Penalty (Normalized Power Curve)
-    // Formula: Penalty = -3000 * (Actual_Survival_Ticks / (numTicks * numFactions))^1.5
-    const totalPotentialTicks = stats.totalTicks * stats.totalFactions;
-    if (totalPotentialTicks > 0) {
-        const survivalRatio = stats.survivalTicks / totalPotentialTicks;
-        const survivalPenalty = 3000 * Math.pow(survivalRatio, 1.5);
-        score -= survivalPenalty;
-    }
-
-    // 6. Idle Penalty (-0.1 per Idle Tick)
-    score -= (stats.idleTicks * 0.1);
+    // 7. Idle Penalty (-0.05 per Idle Tick - Reduced impact)
+    // We want some idle for buffer, but not laziness.
+    score -= (stats.idleTicks * 0.05);
 
     return Math.max(0, score);
 };

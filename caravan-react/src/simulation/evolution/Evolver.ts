@@ -47,7 +47,7 @@ export class Evolver {
         return newGenome;
     }
 
-    runGeneration(options: HeadlessOptions) {
+    runGeneration(options: HeadlessOptions, onProgress?: (percent: number) => void) {
         this.generation++;
 
         // Calculate mutation amount based on "cooling" schedule (decaying mutation)
@@ -57,10 +57,15 @@ export class Evolver {
         const currentMutationAmount = 0.5 * coolingFactor;
 
         // 1. Evaluate
-        this.population.forEach(ind => {
+        this.population.forEach((ind, index) => {
             const config = genomeToConfig(ind.genome, DEFAULT_CONFIG);
-            const result = HeadlessRunner.run(config, options);
-            ind.fitness = calculateFitness(result.state, result.stats);
+            const runOptions = {
+                ...options,
+                onHeartbeat: index === 0 && onProgress ? onProgress : undefined
+            };
+
+            const result = HeadlessRunner.run(config, runOptions);
+            ind.fitness = calculateFitness(result.state, result.stats, this.generation);
         });
 
         // 2. Sort by fitness
