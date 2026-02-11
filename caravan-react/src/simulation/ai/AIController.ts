@@ -15,7 +15,7 @@ import { RecruitStrategy } from './RecruitStrategy';
 import { UpgradeStrategy } from './UpgradeStrategy';
 
 export class AIController {
-    private lastUpdateTick: number = -100;
+    private factionStates: Map<string, { lastTick: number, nextInterval: number }> = new Map();
 
     // Governors
     private civilStrategies: AIStrategy[]; // Spending & Construction
@@ -43,26 +43,57 @@ export class AIController {
 
     update(state: WorldState, config: GameConfig, silent: boolean = false) {
         if (state.tick === 0 && !silent) console.log("AI UPDATING WITH SILENT=FALSE");
-        const interval = config.ai ? config.ai.checkInterval : 10;
-        if (state.tick - this.lastUpdateTick < interval) return;
-        this.lastUpdateTick = state.tick;
 
-        Object.values(state.factions).forEach(faction => {
-            // 1. Update Settlement State & Influence Flags
-            const settlements = Object.values(state.settlements).filter(s => s.ownerId === faction.id);
+        const factionIds = Object.keys(state.factions);
+        // Fisher-Yates shuffle for random order
+        for (let i = factionIds.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [factionIds[i], factionIds[j]] = [factionIds[j], factionIds[i]];
+        }
 
-            settlements.forEach(s => {
-                s.currentGoal = GoalEvaluator.evaluate(state, s, config);
-                this.updateInfluenceFlags(s, config);
-            });
+        factionIds.forEach(factionId => {
 
-            // 2. Evaluate & Execute per Settlement (simplifies grouping)
-            settlements.forEach(s => {
-                this.runGovernor(s, state, config, 'CIVIL', this.civilStrategies, silent);
-                this.runGovernor(s, state, config, 'LABOR', this.hrStrategies, silent);     // New: Labor (Villagers)
-                this.runGovernor(s, state, config, 'TRANSPORT', this.hrStrategies, silent); // New: Transport (Logistics Caravans)
-                this.runGovernor(s, state, config, 'TRADE', this.tradeStrategies, silent);
-            });
+            // Initialize state if needed
+            if (!this.factionStates.has(factionId)) {
+                // Stagger initial start slightly (0-3 ticks)
+                const stagger = Math.floor(Math.random() * 3);
+                this.factionStates.set(factionId, {
+                    lastTick: state.tick - 100 + stagger, // Force immediate first run
+                    nextInterval: (config.ai ? config.ai.checkInterval : 10) + stagger
+                });
+            }
+
+            const fState = this.factionStates.get(factionId)!;
+
+            if (state.tick - fState.lastTick >= fState.nextInterval) {
+                // Update Timing
+                fState.lastTick = state.tick;
+                const baseInterval = config.ai ? config.ai.checkInterval : 10;
+                // +/- 3 ticks jitter
+                const jitter = Math.floor(Math.random() * 7) - 3;
+                fState.nextInterval = Math.max(1, baseInterval + jitter);
+
+                // Execute Logic
+                this.processFaction(factionId, state, config, silent);
+            }
+        });
+    }
+
+    private processFaction(factionId: string, state: WorldState, config: GameConfig, silent: boolean) {
+        // 1. Update Settlement State & Influence Flags
+        const settlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
+
+        settlements.forEach(s => {
+            s.currentGoal = GoalEvaluator.evaluate(state, s, config);
+            this.updateInfluenceFlags(s, config);
+        });
+
+        // 2. Evaluate & Execute per Settlement (simplifies grouping)
+        settlements.forEach(s => {
+            this.runGovernor(s, state, config, 'CIVIL', this.civilStrategies, silent);
+            this.runGovernor(s, state, config, 'LABOR', this.hrStrategies, silent);     // New: Labor (Villagers)
+            this.runGovernor(s, state, config, 'TRANSPORT', this.hrStrategies, silent); // New: Transport (Logistics Caravans)
+            this.runGovernor(s, state, config, 'TRADE', this.tradeStrategies, silent);
         });
     }
 
@@ -154,6 +185,12 @@ export class AIController {
 
         if (relevantActions.length === 0) return;
 
+        // Apply Decision Jitter
+        // Add small random noise (0.00 to 0.05) to break ties or near-ties
+        relevantActions.forEach(a => {
+            a.score += (Math.random() * 0.05);
+        });
+
         // Sort by Score
         relevantActions.sort((a, b) => b.score - a.score);
 
@@ -161,7 +198,7 @@ export class AIController {
         if (!settlement.aiState) settlement.aiState = { surviveMode: false, savingFor: null, focusResources: [] };
         // We'll store top 3 considerations
         if (!settlement.aiState.lastDecisions) settlement.aiState.lastDecisions = {};
-        settlement.aiState.lastDecisions[governorType] = relevantActions.slice(0, 3).map(a => `${a.type}:${a.score.toFixed(1)}`);
+        settlement.aiState.lastDecisions[governorType] = relevantActions.slice(0, 3).map(a => `${a.type}:${a.score.toFixed(2)}`); // Changed to 2 decimals due to jitter
 
         // Multi-Action Execution Loop
         for (const action of relevantActions) {
@@ -189,7 +226,7 @@ export class AIController {
                 }
                 return false;
             case 'BUILD':
-                return ConstructionSystem.build(state, action.settlementId, action.buildingType, action.hexId, config, silent);
+                return ConstructionSystem.build(state, action.settlementId, action.buildingType, action.buildingType === 'PavedRoad' || action.buildingType === 'Masonry' ? action.hexId : action.hexId, config, silent); // Weird generic fix, just trusting hexId logic
             case 'DISPATCH_CARAVAN':
                 if (action.context?.type === 'Settler') {
                     // handled in SPAWN_SETTLER context usually, but just in case

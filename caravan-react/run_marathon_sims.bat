@@ -32,7 +32,7 @@ set "ID=%1"
 echo ------------------------------------------------
 echo STARTING MARATHON RUN %ID% OF 3 (20,000 TICKS)
 echo ------------------------------------------------
-call %TSX_CMD% src/simulation/evolution/RunEvolution.ts "batch2_%ID%" 200 20000 "optimized-config-run-2.json" "config_results_20000_ticks_%ID%.json" > "evolution_logs_batch2_%ID%.txt" 2>&1
+call %TSX_CMD% src/simulation/evolution/RunEvolution.ts "batch3_%ID%" 200 20000 "optimized-config-run-2.json" "config_results_20000_ticks_%ID%.json" > "evolution_logs_batch3_%ID%.txt" 2>&1
 exit /b
 
 :RUN_BATCH_3
