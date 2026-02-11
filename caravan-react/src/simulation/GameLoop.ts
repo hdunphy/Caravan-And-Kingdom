@@ -51,7 +51,7 @@ export class GameLoop {
             CaravanSystem.processTrade(this.state, this.config);
 
             // AI Decisions
-            this.aiController.update(this.state, this.config);
+            this.aiController.update(this.state, this.config, this.silent);
 
             // Calculate Deltas
             Object.values(this.state.settlements).forEach(s => {

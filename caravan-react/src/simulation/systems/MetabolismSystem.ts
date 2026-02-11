@@ -58,6 +58,11 @@ export const MetabolismSystem = {
             // Clamp lowest pop to 0
             settlement.population = Math.max(0, settlement.population);
 
+            // Record History (Max 100)
+            if (!settlement.popHistory) settlement.popHistory = [];
+            settlement.popHistory.push(settlement.population);
+            if (settlement.popHistory.length > 100) settlement.popHistory.shift();
+
             // TAX / PASSIVE INCOME
             // Settlements generate small amount of gold from population interaction (Commerce)
             const taxRate = config.economy?.taxRate || 0.005; // 0.5 Gold per 100 pop per tick

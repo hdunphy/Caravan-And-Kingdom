@@ -33,7 +33,8 @@ describe('AI App Integration', () => {
                     jobCap: 10,
                     workingPop: 0,
                     aiState: { surviveMode: true, savingFor: null, focusResources: [] },
-                    currentGoal: 'SURVIVE'
+                    currentGoal: 'SURVIVE',
+                    popHistory: []
                 }
             },
             agents: {},

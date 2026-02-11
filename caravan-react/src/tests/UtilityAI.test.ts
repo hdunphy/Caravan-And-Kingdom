@@ -43,7 +43,8 @@ describe('Utility AI System', () => {
             integrity: 100,
             controlledHexIds: ['0,0'],
             jobCap: 200,
-            workingPop: 100
+            workingPop: 100,
+            popHistory: []
         };
 
         state = {

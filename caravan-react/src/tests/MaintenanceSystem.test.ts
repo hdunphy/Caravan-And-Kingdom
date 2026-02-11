@@ -21,7 +21,8 @@ describe('MaintenanceSystem', () => {
             workingPop: 100,
             availableVillagers: 0,
             controlledHexIds: ['0,0'],
-            buildings: []
+            buildings: [],
+            popHistory: []
         };
 
         state = {
@@ -57,9 +58,9 @@ describe('MaintenanceSystem', () => {
             integrity: 90,
             level: 1
         }];
-        
+
         MaintenanceSystem.update(state, DEFAULT_CONFIG);
-        
+
         // Decay logic: integrity = max(0, integrity - decay)
         // Repair logic: if integrity < 100, try repair.
         // It happens in the same tick.

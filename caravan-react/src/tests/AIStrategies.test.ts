@@ -22,7 +22,8 @@ describe('AI Strategies', () => {
             workingPop: 100,
             availableVillagers: 0,
             controlledHexIds: ['0,0', '1,0'],
-            buildings: []
+            buildings: [],
+            popHistory: []
         };
 
         state = {
@@ -67,7 +68,8 @@ describe('AI Strategies', () => {
                 id: 's2',
                 hexId: '5,5',
                 stockpile: { Food: 1000, Timber: 1000, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
-                controlledHexIds: ['5,5']
+                controlledHexIds: ['5,5'],
+                popHistory: []
             };
             state.settlements['s2'] = s2;
             state.map['5,5'] = { id: '5,5', coordinate: { q: 5, r: 5, s: -10 }, terrain: 'Forest', ownerId: 'p1', resources: {} };

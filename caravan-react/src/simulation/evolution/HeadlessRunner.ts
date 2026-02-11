@@ -80,6 +80,7 @@ export class HeadlessRunner {
                     availableVillagers: 2,
                     controlledHexIds: controlledIds,
                     buildings: [],
+                    popHistory: [],
                     stockpile: { Food: 500, Timber: 50, Stone: 0, Ore: 0, Gold: 0, Tools: 0 }
                 };
             }

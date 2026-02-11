@@ -21,7 +21,8 @@ describe('ExtractionSystem', () => {
             workingPop: 100,
             availableVillagers: 0,
             controlledHexIds: ['0,0', '1,0'],
-            buildings: []
+            buildings: [],
+            popHistory: []
         };
 
         state = {
@@ -56,9 +57,9 @@ describe('ExtractionSystem', () => {
         settlement.stockpile.Tools = 100;
         const toolBonus = DEFAULT_CONFIG.costs.toolBonus; // 1.5
         const yieldPlains = DEFAULT_CONFIG.yields.Plains.Food || 0;
-        
+
         ExtractionSystem.update(state, DEFAULT_CONFIG);
-        
+
         expect(settlement.stockpile.Food).toBe(yieldPlains * toolBonus);
         expect(settlement.stockpile.Tools).toBeLessThanOrEqual(100);
     });
@@ -71,21 +72,21 @@ describe('ExtractionSystem', () => {
             integrity: 100,
             level: 1
         }];
-        
+
         const yieldPlains = DEFAULT_CONFIG.yields.Plains.Food || 0;
         const effectValue = DEFAULT_CONFIG.buildings.GathererHut.effects?.[0].value || 0; // 0.2
-        
+
         ExtractionSystem.update(state, DEFAULT_CONFIG);
-        
+
         expect(settlement.stockpile.Food).toBeCloseTo(yieldPlains * (1.0 + effectValue), 5);
     });
 
     it('should generate gold for faction from water tiles', () => {
         state.map['1,0'].terrain = 'Water';
         const yieldWaterGold = DEFAULT_CONFIG.yields.Water.Gold || 0;
-        
+
         ExtractionSystem.update(state, DEFAULT_CONFIG);
-        
+
         expect(state.factions['player_1'].gold).toBe(yieldWaterGold);
     });
 });

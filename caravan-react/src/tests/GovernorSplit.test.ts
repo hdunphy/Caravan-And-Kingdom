@@ -29,7 +29,8 @@ describe('Governor Split (Parallel Execution)', () => {
                     jobCap: 10,
                     workingPop: 0,
                     aiState: { surviveMode: false, savingFor: null, focusResources: [] },
-                    currentGoal: 'EXPAND'
+                    currentGoal: 'EXPAND',
+                    popHistory: []
                 }
             },
             agents: {

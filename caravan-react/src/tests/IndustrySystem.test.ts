@@ -21,7 +21,8 @@ describe('IndustrySystem', () => {
             workingPop: 100,
             availableVillagers: 0,
             controlledHexIds: ['0,0'],
-            buildings: []
+            buildings: [],
+            popHistory: []
         };
 
         state = {

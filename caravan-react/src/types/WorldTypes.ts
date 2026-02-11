@@ -77,6 +77,7 @@ export interface Settlement {
         focusResources: string[]; // For HR Governor
         lastDecisions?: Record<string, string[]>; // Governor -> decisions
     };
+    popHistory: number[]; // Last 100 ticks of population
 }
 
 export interface Faction {

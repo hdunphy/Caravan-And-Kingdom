@@ -398,7 +398,8 @@ export const CaravanSystem = {
 
                             // Initialize with default values
                             currentGoal: 'SURVIVE',
-                            lastGrowth: 0
+                            lastGrowth: 0,
+                            popHistory: []
                         };
 
                         // Set Map Owner

@@ -21,7 +21,8 @@ describe('ConstructionSystem', () => {
             workingPop: 100,
             availableVillagers: 0,
             controlledHexIds: ['0,0', '1,0'],
-            buildings: []
+            buildings: [],
+            popHistory: []
         };
 
         state = {
