@@ -1,6 +1,7 @@
 import React from 'react';
 import { WorldState } from '../types/WorldTypes';
-import { Box, User, Shield, Castle, Hammer, AlertTriangle } from 'lucide-react';
+import { Box, User, Shield, Castle, Hammer, AlertTriangle, Trophy } from 'lucide-react';
+import { AIGovernorPanel } from './AIGovernorPanel';
 
 interface Props {
     state: WorldState | null;
@@ -120,6 +121,9 @@ export const Dashboard: React.FC<Props> = ({ state, selectedHexId }) => {
                                 <StockItem label="Tools" value={selectedSettlement.stockpile.Tools} delta={selectedSettlement.resourceChange?.Tools} color="text-blue-400" />
                             </div>
                         </div>
+
+                        {/* AI Governor Panel */}
+                        <AIGovernorPanel settlement={selectedSettlement} />
                     </div>
                 ) : (
                     // Faction Leaderboard...
@@ -169,4 +173,4 @@ const StockItem = ({ label, value, delta, color }: { label: string, value: numbe
     </div>
 );
 
-import { Trophy } from 'lucide-react';
+

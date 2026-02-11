@@ -1,0 +1,18 @@
+﻿
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90mC:/Users/hdunp/Documents/GameDev/Unity/GitHub/Caravan and Kingdom/caravan-react[39m
+
+[90mstdout[2m | src/tests/AIAppIntegration.test.ts[2m > [22m[2mAI App Integration[2m > [22m[2mshould dispatch multiple villagers in one tick (Multi-Action Execution)
+[22m[39m[VillagerStrategy] Generated action for 0,0 score 20
+[VillagerStrategy] Generated action for 1,0 score 20
+[VillagerStrategy] Generated action for 1,-1 score 20
+[VillagerStrategy] Generated action for 0,-1 score 20
+[VillagerStrategy] Generated action for -1,0 score 20
+[AIController] Governor HR executing 11 actions.
+
+ [32mΓ£ô[39m src/tests/AIAppIntegration.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 9[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m   Start at [22m 22:09:41
+[2m   Duration [22m 937ms[2m (transform 204ms, setup 0ms, import 252ms, tests 9ms, environment 0ms)[22m
+

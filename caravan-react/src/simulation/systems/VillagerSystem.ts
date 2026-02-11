@@ -176,7 +176,13 @@ export const VillagerSystem = {
         const targetHex = state.map[targetHexId];
         if (!startHex || !targetHex) return null;
 
-        const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config);
+        let path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config);
+
+        // Allow spawning on same hex
+        if (targetHexId === settlement.hexId) {
+            path = [startHex.coordinate];
+        }
+
         if (!path || path.length === 0) return null;
 
         // Decrement pool

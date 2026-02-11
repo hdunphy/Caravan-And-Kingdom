@@ -22,7 +22,8 @@ describe('AI Strategies', () => {
             workingPop: 100,
             availableVillagers: 0,
             controlledHexIds: ['0,0', '1,0'],
-            buildings: []
+            buildings: [],
+            popHistory: []
         };
 
         state = {
@@ -43,6 +44,7 @@ describe('AI Strategies', () => {
         const strategy = new ConstructionStrategy();
 
         it('should recommend building GathererHut when food is low', () => {
+            settlement.stockpile.Food = DEFAULT_CONFIG.ai.thresholds.surviveFood * 0.5; // Force low food (Threshold ~150)
             settlement.currentGoal = 'SURVIVE';
             const actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1');
             expect(actions).toContainEqual(expect.objectContaining({ type: 'BUILD', buildingType: 'GathererHut' }));
@@ -59,20 +61,22 @@ describe('AI Strategies', () => {
         const strategy = new TradeStrategy();
 
         it('should recommend trade if there is a deficit and a partner with surplus', () => {
+            settlement.currentGoal = 'UPGRADE'; // Force checks for Timber/Stone
             settlement.stockpile.Timber = 0;
             const s2: Settlement = {
                 ...settlement,
                 id: 's2',
                 hexId: '5,5',
                 stockpile: { Food: 1000, Timber: 1000, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
-                controlledHexIds: ['5,5']
+                controlledHexIds: ['5,5'],
+                popHistory: []
             };
             state.settlements['s2'] = s2;
             state.map['5,5'] = { id: '5,5', coordinate: { q: 5, r: 5, s: -10 }, terrain: 'Forest', ownerId: 'p1', resources: {} };
 
             const actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1');
-            expect(actions).toContainEqual(expect.objectContaining({ 
-                type: 'DISPATCH_CARAVAN', 
+            expect(actions).toContainEqual(expect.objectContaining({
+                type: 'DISPATCH_CARAVAN',
                 mission: 'TRADE',
                 settlementId: 's1'
             }));

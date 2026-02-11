@@ -206,7 +206,7 @@ export const CaravanSystem = {
         return agent || null;
     },
 
-    update(state: WorldState, config: GameConfig) {
+    update(state: WorldState, config: GameConfig, silent: boolean = false) {
         const agentsToRemove: string[] = [];
 
         Object.values(state.agents).forEach(agent => {
@@ -291,7 +291,7 @@ export const CaravanSystem = {
                                     agent.cargo[res] = 0;
                                 }
                             });
-                            if (haul.length > 0) {
+                            if (!silent && haul.length > 0) {
                                 console.log(`[Logistics] Caravan returned to ${home.name} with: ${haul.join(', ')}`);
                             }
                         }
@@ -326,10 +326,7 @@ export const CaravanSystem = {
                             settlement.stockpile.Gold += amountToBuy;
                             agent.cargo.Gold = 0;
                             agent.cargo[neededRes] = amountToBuy;
-                        } else {
-                            // Refund Gold upon return (handled by unload)
                         }
-
                         this.returnHome(state, agent, config);
                     } else {
                         // Target invalid?
@@ -351,7 +348,7 @@ export const CaravanSystem = {
                                 agent.cargo[res] = 0;
                             }
                         });
-                        if (haul.length > 0) {
+                        if (!silent && haul.length > 0) {
                             console.log(`[Trade] Caravan returned to ${settlement.name} with: ${haul.join(', ')}`);
                         }
 
@@ -370,7 +367,6 @@ export const CaravanSystem = {
                     // Note: MovementSystem clears agent.target on arrival, so we must use agent.position
                     const targetHex = state.map[HexUtils.getID(agent.position)];
                     const existingSettlement = Object.values(state.settlements).find(s => s.hexId === HexUtils.getID(agent.position));
-
                     if (!existingSettlement && targetHex) {
                         // Create New Settlement
                         const newId = `settlement_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -402,15 +398,15 @@ export const CaravanSystem = {
 
                             // Initialize with default values
                             currentGoal: 'SURVIVE',
-                            lastGrowth: 0
+                            lastGrowth: 0,
+                            popHistory: []
                         };
 
                         // Set Map Owner
                         if (state.map[HexUtils.getID(agent.position)]) {
                             state.map[HexUtils.getID(agent.position)].ownerId = agent.ownerId;
                         }
-
-                        console.log(`[GAME] Settlement Founded at ${HexUtils.getID(agent.position)}`);
+                        if (!silent) console.log(`[GAME] Settlement Founded at ${HexUtils.getID(agent.position)}`);
                     }
 
                     // Consume Settler

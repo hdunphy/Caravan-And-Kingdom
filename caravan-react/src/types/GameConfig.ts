@@ -28,6 +28,7 @@ export interface GameConfig {
             buyCap: number; // Max amount to buy per trip
             loadingTime: number; // Ticks to wait at destination
             forceTradeGold: number;
+            travelCostPerHex: number;
         };
         logistics: {
             caravanIntegrityLossPerHex: number;
@@ -106,6 +107,27 @@ export interface GameConfig {
             goalBonus: number;
             stockpileLow: number;
         };
+        utility: {
+            // 1. SURVIVE
+            surviveThreshold: number; // Consumption * X ticks
+            // 2. GROW
+            growthFoodSafety: number; // Multiplier
+            // 3. PROVISION 
+            provisionDistanceMulti: number;
+            // 4. ASCEND
+            ascendReadinessPower: number;
+            // 5. BUILD
+            buildRateLookback: number;
+            // 6. COMMERCIAL
+            commercialLowThreshold: number;
+            commercialSurplusThreshold: number;
+            // 7. FLEET
+            fleetTargetSize: number;
+            // 8. EXPAND
+            expandSearchRadius: number;
+            expandSaturationPower: number;
+            expandMinDistance: number;
+        };
     };
     maintenance: {
         decayRate: number;
@@ -167,13 +189,14 @@ export const DEFAULT_CONFIG: GameConfig = {
             buyCap: 50,
             loadingTime: 20,
             forceTradeGold: 50,
+            travelCostPerHex: 2,
         },
         logistics: {
             caravanIntegrityLossPerHex: 0.5,
             caravanRepairCost: 2, // Timber
             freightThreshold: 40, // Min resources to dispatch
-            tradeRoiThreshold: 20,
-            constructionRoiThreshold: 50, // Min value to BUILD a new caravan
+            tradeRoiThreshold: 131.4,
+            constructionRoiThreshold: 9.4, // Min value to BUILD a new caravan
             freightConstructionThreshold: 100, // Min resources to BUILD a new caravan
         },
         villagers: {
@@ -189,7 +212,7 @@ export const DEFAULT_CONFIG: GameConfig = {
         taxRate: 0.005,
     },
     industry: {
-        targetToolRatio: 0.2,
+        targetToolRatio: 0.116,
         costTimber: 5,
         costOre: 2,
         surplusThreshold: 50,
@@ -239,7 +262,7 @@ export const DEFAULT_CONFIG: GameConfig = {
     ai: {
         settlementCap: 5,
         settlerCost: 50,
-        expansionBuffer: 1.5,
+        expansionBuffer: 0.187,
         expansionStarterPack: {
             Food: 100,
             Timber: 50,
@@ -253,13 +276,13 @@ export const DEFAULT_CONFIG: GameConfig = {
         thresholds: {
             surviveFood: 50,
             surviveTicks: 20,
-            recruitBuffer: 2.0, // Multiplier of surviveFood for villager recruitment
+            recruitBuffer: 3.03, // Multiplier of surviveFood for villager recruitment
             upgradeMinPop: 0.9,
             upgradePopRatio: 0.8,
             minConstructionBuffer: 50,
             militarySurplusTimber: 200,
             militarySurplusStone: 100,
-            villagerJobScoreMulti: 10,
+            villagerJobScoreMulti: 1.42,
             newSettlementPop: 100,
             newSettlementIntegrity: 100,
         },
@@ -271,7 +294,20 @@ export const DEFAULT_CONFIG: GameConfig = {
             foodBonus: 1.0,
             goalPriority: 2.0, // Multiplier
             goalBonus: 5.0, // Flat
-            stockpileLow: 5.0, // Flat or Mult? Let's say Flat for now or we update system
+            stockpileLow: 5.0,
+        },
+        utility: {
+            surviveThreshold: 1.62,
+            growthFoodSafety: 0.06,
+            provisionDistanceMulti: 13.97,
+            ascendReadinessPower: 17.02,
+            buildRateLookback: 30.91,
+            commercialLowThreshold: 0.16, // 50% of cap or goal
+            commercialSurplusThreshold: 0.41, // 200% of need
+            fleetTargetSize: 1.41,
+            expandSearchRadius: 0.31,
+            expandSaturationPower: 0.55,
+            expandMinDistance: 5.55,
         },
     },
     maintenance: {

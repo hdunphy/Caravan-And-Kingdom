@@ -2,7 +2,7 @@ import { WorldState } from '../../types/WorldTypes';
 import { GameConfig } from '../../types/GameConfig';
 
 export const MetabolismSystem = {
-    update(state: WorldState, config: GameConfig) {
+    update(state: WorldState, config: GameConfig, silent: boolean = false) {
         Object.values(state.settlements).forEach(settlement => {
             const pop = settlement.population;
             const foodConsumption = pop * config.costs.baseConsume;
@@ -58,6 +58,11 @@ export const MetabolismSystem = {
             // Clamp lowest pop to 0
             settlement.population = Math.max(0, settlement.population);
 
+            // Record History (Max 100)
+            if (!settlement.popHistory) settlement.popHistory = [];
+            settlement.popHistory.push(settlement.population);
+            if (settlement.popHistory.length > 100) settlement.popHistory.shift();
+
             // TAX / PASSIVE INCOME
             // Settlements generate small amount of gold from population interaction (Commerce)
             const taxRate = config.economy?.taxRate || 0.005; // 0.5 Gold per 100 pop per tick
@@ -67,7 +72,7 @@ export const MetabolismSystem = {
             if (settlement.population <= 0) {
                 // Remove settlement
                 // We need to mutate state.settlements AND cleanup map ownership
-                console.log(`[DEATH] Settlement ${settlement.name} has died out.`);
+                if (!silent) console.log(`[DEATH] Settlement ${settlement.name} has died out.`);
 
                 // Clear Map Ownership
                 if (settlement.controlledHexIds) {
