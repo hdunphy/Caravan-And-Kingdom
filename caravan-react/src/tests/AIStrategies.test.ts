@@ -43,7 +43,7 @@ describe('AI Strategies', () => {
         const strategy = new ConstructionStrategy();
 
         it('should recommend building GathererHut when food is low', () => {
-            settlement.stockpile.Food = 50; // Force low food (Threshold ~150)
+            settlement.stockpile.Food = DEFAULT_CONFIG.ai.thresholds.surviveFood * 0.5; // Force low food (Threshold ~150)
             settlement.currentGoal = 'SURVIVE';
             const actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1');
             expect(actions).toContainEqual(expect.objectContaining({ type: 'BUILD', buildingType: 'GathererHut' }));

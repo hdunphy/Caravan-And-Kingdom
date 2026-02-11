@@ -23,6 +23,9 @@
     "include": [
         "src"
     ],
+    "exclude": [
+        "src/simulation/evolution/RunEvolution.ts"
+    ],
     "references": [
         {
             "path": "./tsconfig.node.json"

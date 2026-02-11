@@ -1,0 +1,96 @@
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/mnt/c/Users/hdunp/Documents/GameDev/Unity/GitHub/Caravan and Kingdom/caravan-react[39m
+
+ [32m✓[39m src/tests/ExtractionSystem.test.ts[2m > [22mExtractionSystem[2m > [22mshould extract resources from center hex directly to stockpile[32m 2[2mms[22m[39m
+ [32m✓[39m src/tests/ExtractionSystem.test.ts[2m > [22mExtractionSystem[2m > [22mshould accumulate resources on remote hexes[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/ExtractionSystem.test.ts[2m > [22mExtractionSystem[2m > [22mshould apply tool bonus and occasionally break tools[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/ExtractionSystem.test.ts[2m > [22mExtractionSystem[2m > [22mshould apply building yield bonuses[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/ExtractionSystem.test.ts[2m > [22mExtractionSystem[2m > [22mshould generate gold for faction from water tiles[32m 0[2mms[22m[39m
+[90mstdout[2m | src/tests/MetabolismSystem.test.ts[2m > [22m[2mMetabolismSystem[2m > [22m[2mshould remove settlement if population reaches zero
+[22m[39m[DEATH] Settlement Test City has died out.
+
+ [32m✓[39m src/tests/MetabolismSystem.test.ts[2m > [22mMetabolismSystem[2m > [22mshould consume food and grow when fed[32m 2[2mms[22m[39m
+ [32m✓[39m src/tests/MetabolismSystem.test.ts[2m > [22mMetabolismSystem[2m > [22mshould starve population when out of food[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/MetabolismSystem.test.ts[2m > [22mMetabolismSystem[2m > [22mshould generate tax income based on population[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/MetabolismSystem.test.ts[2m > [22mMetabolismSystem[2m > [22mshould remove settlement if population reaches zero[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/MetabolismSystem.test.ts[2m > [22mMetabolismSystem[2m > [22mshould respect soft population caps based on tier[32m 0[2mms[22m[39m
+[90mstdout[2m | src/tests/UpgradeSystem.test.ts[2m > [22m[2mUpgradeSystem[2m > [22m[2mshould upgrade Village to Town when requirements are met
+[22m[39m[Gov] Test City upgraded to Town!
+
+[90mstdout[2m | src/tests/UpgradeSystem.test.ts[2m > [22m[2mUpgradeSystem[2m > [22m[2mshould upgrade Town to City when requirements are met
+[22m[39m[Gov] Test City upgraded to City!
+
+ [32m✓[39m src/tests/UpgradeSystem.test.ts[2m > [22mUpgradeSystem[2m > [22mshould not upgrade if requirements are not met[32m 2[2mms[22m[39m
+ [32m✓[39m src/tests/UpgradeSystem.test.ts[2m > [22mUpgradeSystem[2m > [22mshould upgrade Village to Town when requirements are met[32m 2[2mms[22m[39m
+ [32m✓[39m src/tests/UpgradeSystem.test.ts[2m > [22mUpgradeSystem[2m > [22mshould upgrade Town to City when requirements are met[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/AIStrategies.test.ts[2m > [22mAI Strategies[2m > [22mConstructionStrategy[2m > [22mshould recommend building GathererHut when food is low[32m 2[2mms[22m[39m
+ [32m✓[39m src/tests/AIStrategies.test.ts[2m > [22mAI Strategies[2m > [22mConstructionStrategy[2m > [22mshould not build if resources are below buffer[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/AIStrategies.test.ts[2m > [22mAI Strategies[2m > [22mTradeStrategy[2m > [22mshould recommend trade if there is a deficit and a partner with surplus[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/GoalEvaluator.test.ts[2m > [22mGoalEvaluator[2m > [22mshould prioritize SURVIVE when food is critically low[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/GoalEvaluator.test.ts[2m > [22mGoalEvaluator[2m > [22mshould stay in SURVIVE mode due to hysteresis[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/GoalEvaluator.test.ts[2m > [22mGoalEvaluator[2m > [22mshould exit SURVIVE mode when food is abundant[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/GoalEvaluator.test.ts[2m > [22mGoalEvaluator[2m > [22mshould prioritize UPGRADE when population is high[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/GoalEvaluator.test.ts[2m > [22mGoalEvaluator[2m > [22mshould recommend EXPAND when at max tier and spot exists[32m 1[2mms[22m[39m
+[90mstdout[2m | src/tests/CaravanSystem.test.ts[2m > [22m[2mCaravanSystem[2m > [22m[2mshould handle settler mission and found a new settlement
+[22m[39m[GAME] Settlement Founded at 1,0
+
+ [32m✓[39m src/tests/CaravanSystem.test.ts[2m > [22mCaravanSystem[2m > [22mshould spawn a caravan with correct properties[32m 2[2mms[22m[39m
+ [32m✓[39m src/tests/CaravanSystem.test.ts[2m > [22mCaravanSystem[2m > [22mshould identify deficits and dispatch trade caravans[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/CaravanSystem.test.ts[2m > [22mCaravanSystem[2m > [22mshould handle outbound logistics missions (loading resources)[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/CaravanSystem.test.ts[2m > [22mCaravanSystem[2m > [22mshould handle settler mission and found a new settlement[32m 2[2mms[22m[39m
+ [32m✓[39m src/tests/CaravanSystem.test.ts[2m > [22mCaravanSystem[2m > [22mshould repair idle caravans at home[32m 1[2mms[22m[39m
+[90mstdout[2m | src/tests/ConstructionSystem.test.ts[2m > [22m[2mConstructionSystem[2m > [22m[2mshould build a building when requirements are met
+[22m[39m[Construction] Built Gatherer's Hut at 0,0 for Test City
+
+[90mstdout[2m | src/tests/ConstructionSystem.test.ts[2m > [22m[2mConstructionSystem[2m > [22m[2mshould not build if hex already has a building
+[22m[39m[Construction] Built Gatherer's Hut at 0,0 for Test City
+
+ [32m✓[39m src/tests/ConstructionSystem.test.ts[2m > [22mConstructionSystem[2m > [22mshould build a building when requirements are met[32m 4[2mms[22m[39m
+ [32m✓[39m src/tests/ConstructionSystem.test.ts[2m > [22mConstructionSystem[2m > [22mshould not build if hex is not controlled[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/ConstructionSystem.test.ts[2m > [22mConstructionSystem[2m > [22mshould not build if tier is too low[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/ConstructionSystem.test.ts[2m > [22mConstructionSystem[2m > [22mshould not build if hex already has a building[32m 1[2mms[22m[39m
+[90mstdout[2m | src/tests/AIController.test.ts[2m > [22m[2mAIController[2m > [22m[2mshould update goals and execute actions on interval
+[22m[39m[Construction] Built Gatherer's Hut at 0,0 for S1
+
+ [32m✓[39m src/tests/AIController.test.ts[2m > [22mAIController[2m > [22mshould update goals and execute actions on interval[32m 5[2mms[22m[39m
+ [32m✓[39m src/tests/AIController.test.ts[2m > [22mAIController[2m > [22mshould throttle updates based on checkInterval[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/GameLoop.test.ts[2m > [22mGameLoop[2m > [22mshould increment tick on every update[32m 2[2mms[22m[39m
+ [32m✓[39m src/tests/GameLoop.test.ts[2m > [22mGameLoop[2m > [22mshould run economy systems on resource intervals[32m 2[2mms[22m[39m
+ [32m✓[39m src/tests/GameLoop.test.ts[2m > [22mGameLoop[2m > [22mshould maintain initial availableVillagers after a tick (Bug #16)[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/UtilityAI.test.ts[2m > [22mUtility AI System[2m > [22mDesire: SURVIVE (Food Security)[2m > [22mshould trigger GATHER_FOOD (spawnVillager) when Food is 0[32m 8[2mms[22m[39m
+ [32m✓[39m src/tests/UtilityAI.test.ts[2m > [22mUtility AI System[2m > [22mDesire: ASCEND (Tier Upgrades)[2m > [22mshould NOT trigger UPGRADE if any required resource is missing[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/UtilityAI.test.ts[2m > [22mUtility AI System[2m > [22mDesire: COMMERCIAL (Trade)[2m > [22mshould trigger TRADE when holding massive surplus[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/UtilityAI.test.ts[2m > [22mUtility AI System[2m > [22mDesire: EXPAND (Strategic)[2m > [22mshould trigger EXPAND (Spawn Settler) if a missing resource is found within 5 hexes[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/UtilityAI.test.ts[2m > [22mUtility AI System[2m > [22mIntegration: Conflict Resolution[2m > [22mshould choose GATHER_FOOD (SURVIVE) over EXPAND when Food is critical[32m 1[2mms[22m[39m
+[90mstdout[2m | src/tests/Evolver.test.ts[2m > [22m[2mEvolver[2m > [22m[2mshould run a generation and return the best individual
+[22m[39mGeneration 1 Best Fitness: 201.02499999999998
+
+[90mstdout[2m | src/tests/Evolver.test.ts[2m > [22m[2mEvolver[2m > [22m[2mshould improve fitness over generations (Heuristic Check)
+[22m[39mGeneration 1 Best Fitness: 205.1895140512768
+Generation 2 Best Fitness: 204.8145140512768
+Generation 3 Best Fitness: 205.1895140512768
+Generation 4 Best Fitness: 205.11451405127679
+Generation 5 Best Fitness: 205.1895140512768
+
+ [32m✓[39m src/tests/Evolver.test.ts[2m > [22mEvolver[2m > [22mshould run a generation and return the best individual[32m 14[2mms[22m[39m
+ [32m✓[39m src/tests/Evolver.test.ts[2m > [22mEvolver[2m > [22mshould improve fitness over generations (Heuristic Check)[32m 40[2mms[22m[39m
+ [32m✓[39m src/tests/MaintenanceSystem.test.ts[2m > [22mMaintenanceSystem[2m > [22mshould maintain settlement integrity when resources exist[32m 2[2mms[22m[39m
+ [32m✓[39m src/tests/MaintenanceSystem.test.ts[2m > [22mMaintenanceSystem[2m > [22mshould decay settlement integrity when resources are missing[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/MaintenanceSystem.test.ts[2m > [22mMaintenanceSystem[2m > [22mshould handle building maintenance[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/Pathfinding.test.ts[2m > [22mPathfinding[2m > [22mshould find a simple path between adjacent hexes[32m 2[2mms[22m[39m
+ [32m✓[39m src/tests/Pathfinding.test.ts[2m > [22mPathfinding[2m > [22mshould avoid impassable terrain (Water with high cost)[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/Pathfinding.test.ts[2m > [22mPathfinding[2m > [22mshould return null if no path exists[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/Pathfinding.test.ts[2m > [22mPathfinding[2m > [22mshould return null if target is water (impassable)[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/IndustrySystem.test.ts[2m > [22mIndustrySystem[2m > [22mshould produce tools when below target ratio and materials exist[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/IndustrySystem.test.ts[2m > [22mIndustrySystem[2m > [22mshould respect surplus threshold for production when goal is not TOOLS[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/IndustrySystem.test.ts[2m > [22mIndustrySystem[2m > [22mshould produce even if low resources if goal is TOOLS[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/MovementSystem.test.ts[2m > [22mMovementSystem[2m > [22mshould progress movement and move to next hex when cost reached[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/MovementSystem.test.ts[2m > [22mMovementSystem[2m > [22mshould take multiple ticks for difficult terrain[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/MovementSystem.test.ts[2m > [22mMovementSystem[2m > [22mshould respect wait ticks (loading/unloading)[32m 0[2mms[22m[39m
+ [32m✓[39m src/tests/Sanity.test.ts[2m > [22mSanity Check[2m > [22m1 + 1 should be 2[32m 1[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m16 passed[39m[22m[90m (16)[39m
+[2m      Tests [22m [1m[32m56 passed[39m[22m[90m (56)[39m
+[2m   Start at [22m 20:21:39
+[2m   Duration [22m 11.56s[2m (transform 7.55s, setup 0ms, import 12.86s, tests 137ms, environment 2ms)[22m
+

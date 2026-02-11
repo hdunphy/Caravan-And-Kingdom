@@ -1,0 +1,60 @@
+
+> caravan-react@0.0.0 test
+> vitest run --run
+
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/mnt/c/Users/hdunp/Documents/GameDev/Unity/GitHub/Caravan and Kingdom/caravan-react[39m
+
+[90mstdout[2m | src/tests/ConstructionSystem.test.ts[2m > [22m[2mConstructionSystem[2m > [22m[2mshould build a building when requirements are met
+[22m[39m[Construction] Built Gatherer's Hut at 0,0 for Test City
+
+[90mstdout[2m | src/tests/ConstructionSystem.test.ts[2m > [22m[2mConstructionSystem[2m > [22m[2mshould not build if hex already has a building
+[22m[39m[Construction] Built Gatherer's Hut at 0,0 for Test City
+
+[90mstdout[2m | src/tests/MetabolismSystem.test.ts[2m > [22m[2mMetabolismSystem[2m > [22m[2mshould remove settlement if population reaches zero
+[22m[39m[DEATH] Settlement Test City has died out.
+
+ [32m✓[39m src/tests/ConstructionSystem.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/tests/MetabolismSystem.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+[90mstdout[2m | src/tests/UpgradeSystem.test.ts[2m > [22m[2mUpgradeSystem[2m > [22m[2mshould upgrade Village to Town when requirements are met
+[22m[39m[Gov] Test City upgraded to Town!
+
+[90mstdout[2m | src/tests/UpgradeSystem.test.ts[2m > [22m[2mUpgradeSystem[2m > [22m[2mshould upgrade Town to City when requirements are met
+[22m[39m[Gov] Test City upgraded to City!
+
+ [32m✓[39m src/tests/UpgradeSystem.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/tests/AIStrategies.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m src/tests/GoalEvaluator.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+[90mstdout[2m | src/tests/CaravanSystem.test.ts[2m > [22m[2mCaravanSystem[2m > [22m[2mshould handle settler mission and found a new settlement
+[22m[39m[GAME] Settlement Founded at 1,0
+
+ [32m✓[39m src/tests/CaravanSystem.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m src/tests/ExtractionSystem.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+[90mstdout[2m | src/tests/AIController.test.ts[2m > [22m[2mAIController[2m > [22m[2mshould update goals and execute actions on interval
+[22m[39m[Construction] Built Gatherer's Hut at 0,0 for S1
+
+ [32m✓[39m src/tests/AIController.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m src/tests/UtilityAI.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m src/tests/GameLoop.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+[90mstdout[2m | src/tests/Evolver.test.ts[2m > [22m[2mEvolver[2m > [22m[2mshould run a generation and return the best individual
+[22m[39mGeneration 1 Best Fitness: 200.95
+
+[90mstdout[2m | src/tests/Evolver.test.ts[2m > [22m[2mEvolver[2m > [22m[2mshould improve fitness over generations (Heuristic Check)
+[22m[39mGeneration 1 Best Fitness: 204.8145140512768
+Generation 2 Best Fitness: 204.8145140512768
+Generation 3 Best Fitness: 205.5645140512768
+Generation 4 Best Fitness: 205.1895140512768
+Generation 5 Best Fitness: 205.1895140512768
+
+ [32m✓[39m src/tests/Evolver.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 61[2mms[22m[39m
+ [32m✓[39m src/tests/MaintenanceSystem.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/tests/Pathfinding.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m src/tests/IndustrySystem.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/tests/MovementSystem.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m src/tests/Sanity.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m16 passed[39m[22m[90m (16)[39m
+[2m      Tests [22m [1m[32m56 passed[39m[22m[90m (56)[39m
+[2m   Start at [22m 20:21:14
+[2m   Duration [22m 11.51s[2m (transform 5.84s, setup 0ms, import 9.53s, tests 142ms, environment 2ms)[22m
+
