@@ -6,10 +6,10 @@ export type AIAction = { score: number } & (
     | { type: 'RECRUIT_VILLAGER', settlementId: string }
     | { type: 'DISPATCH_VILLAGER', settlementId: string, targetHexId: string }
     | { type: 'UPGRADE_SETTLEMENT', settlementId: string }
-    | { type: 'SPAWN_SETTLER', settlementId: string, targetHexId: string }
+    | { type: 'SPAWN_SETTLER', settlementId: string, targetHexId: string, context?: any }
     | { type: 'BUILD_CARAVAN', settlementId: string }
 );
 
 export interface AIStrategy {
-    evaluate(state: any, config: any, factionId: string): AIAction[];
+    evaluate(state: any, config: any, factionId: string, settlementId?: string): AIAction[];
 }

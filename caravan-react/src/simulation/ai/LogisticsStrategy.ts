@@ -4,9 +4,13 @@ import { GameConfig } from '../../types/GameConfig';
 import { HexUtils } from '../../utils/HexUtils';
 
 export class LogisticsStrategy implements AIStrategy {
-    evaluate(state: WorldState, config: GameConfig, factionId: string): AIAction[] {
+    evaluate(state: WorldState, config: GameConfig, factionId: string, settlementId?: string): AIAction[] {
         const actions: AIAction[] = [];
-        const factionSettlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
+        let factionSettlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
+
+        if (settlementId) {
+            factionSettlements = factionSettlements.filter(s => s.id === settlementId);
+        }
 
         // Global Fleet Check (Per Faction or Per Settlement? Usually Per Settlement ownership)
         // AI_SPEC: "Spends Timber to build a new Caravan if the need for trade or strategic expansion outweighs the current fleet capacity."

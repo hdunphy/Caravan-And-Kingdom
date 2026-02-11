@@ -4,49 +4,20 @@ import { GameConfig } from '../../types/GameConfig';
 import { HexUtils } from '../../utils/HexUtils';
 
 export class VillagerStrategy implements AIStrategy {
-    evaluate(state: WorldState, config: GameConfig, factionId: string): AIAction[] {
+    evaluate(state: WorldState, config: GameConfig, factionId: string, settlementId?: string): AIAction[] {
         const actions: AIAction[] = [];
-        const factionSettlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
+        let factionSettlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
+
+        if (settlementId) {
+            factionSettlements = factionSettlements.filter(s => s.id === settlementId);
+        }
 
         factionSettlements.forEach(settlement => {
-            // ==========================================
-            // DESIRE 2: GROW (Workforce Recruitment)
-            // ==========================================
-            const popRatio = config.costs.villagers?.popRatio || 10;
-            const maxVillagers = Math.floor(Math.max(config.costs.villagers?.baseVillagers || 2, settlement.population / popRatio));
-            const activeVillagers = Object.values(state.agents).filter(a => a.type === 'Villager' && a.homeId === settlement.id).length;
-            const totalVillagers = settlement.availableVillagers + activeVillagers;
-
-            if (totalVillagers < maxVillagers) {
-                // Food Safety
-                const surviveThreshold = (settlement.population * config.costs.baseConsume) * (config.ai?.utility?.surviveThreshold || 15);
-                const safetyFactor = config.ai?.utility?.growthFoodSafety || 1.0;
-                const recruitCost = config.costs.villagers?.cost || 100;
-
-                const safeFood = surviveThreshold * safetyFactor;
-                let foodMultiplier = 0;
-                if (settlement.stockpile.Food > (safeFood + recruitCost)) {
-                    foodMultiplier = 1.0;
-                } else if (settlement.stockpile.Food > recruitCost) {
-                    foodMultiplier = 0.5;
-                }
-
-                const fulfillment = totalVillagers / maxVillagers;
-                const growScore = (1.0 - fulfillment) * foodMultiplier;
-
-                if (growScore > 0) {
-                    actions.push({
-                        type: 'RECRUIT_VILLAGER',
-                        settlementId: settlement.id,
-                        score: growScore
-                    });
-                }
-            }
-
             // ==========================================
             // DESIRE 1: SURVIVE (Food Security)
             // & DESIRE 3: PROVISION (Internal Logistics)
             // ==========================================
+
 
             const currentAvailable = settlement.availableVillagers;
             if (currentAvailable <= 0) return;
@@ -71,19 +42,17 @@ export class VillagerStrategy implements AIStrategy {
 
                 // SURVIVE: Only care about Food
                 if (hex.resources.Food && hex.resources.Food > 0) {
-                    const distPenalty = Math.max(1, dist * 0.5); // Ensure no div by zero, min 1
-                    jobs.push({
-                        hexId,
-                        score: surviveScore / distPenalty,
-                        type: 'SURVIVE'
-                    });
+                    // Reduce score based on satiation (surviveScore)
+                    // If plenty of food, surviveScore is 0 -> Score 0 -> Villagers do other things
+                    const baseScore = 10 + (hex.resources.Food / 10);
+                    jobs.push({ hexId: hexId, score: baseScore * surviveScore, type: 'SURVIVE' });
                 }
 
                 // PROVISION: Care about Timber, Stone, Ore
                 let provisionSum = 0;
-                if (hex.resources.Timber) provisionSum += hex.resources.Timber;
-                if (hex.resources.Stone) provisionSum += hex.resources.Stone;
-                if (hex.resources.Ore) provisionSum += hex.resources.Ore;
+                if (hex.resources.Timber) provisionSum += hex.resources.Timber * (settlement.aiState?.focusResources.includes('Timber') ? 2.0 : 1.0);
+                if (hex.resources.Stone) provisionSum += hex.resources.Stone * (settlement.aiState?.focusResources.includes('Stone') ? 2.0 : 1.0);
+                if (hex.resources.Ore) provisionSum += hex.resources.Ore * (settlement.aiState?.focusResources.includes('Ore') ? 2.0 : 1.0);
 
                 if (provisionSum > 0) {
                     const distMulti = config.ai?.utility?.provisionDistanceMulti || 10.0;

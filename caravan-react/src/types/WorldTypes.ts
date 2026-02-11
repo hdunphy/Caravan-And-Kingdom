@@ -71,6 +71,12 @@ export interface Settlement {
     // AI
     currentGoal?: GoalType;
     lastGrowth?: number;
+    aiState?: {
+        surviveMode: boolean; // "General Stand-Down"
+        savingFor: 'FLEET' | 'UPGRADE' | null; // "Gold Reserve" / "Material Lock"
+        focusResources: string[]; // For HR Governor
+        lastDecisions?: Record<string, string[]>; // Governor -> decisions
+    };
 }
 
 export interface Faction {

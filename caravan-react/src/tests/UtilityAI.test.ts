@@ -115,6 +115,36 @@ describe('Utility AI System', () => {
             // Expect CaravanSystem.dispatch to be called
             expect(CaravanSystem.dispatch).toHaveBeenCalled();
         });
+
+        it('should trigger TRADE to buy TOOLS when Gold is high', () => {
+            // Setup a neighbor with Tools
+            const neighbor = {
+                ...settlement,
+                id: 'neighbor_tools',
+                ownerId: 'player_2',
+                hexId: '0,2',
+                stockpile: { ...settlement.stockpile, Tools: 500, Gold: 0 }
+            };
+            state.settlements['neighbor_tools'] = neighbor;
+
+            // We have Gold for payment, but trigger comes from Resources
+            settlement.tier = 2; // City (Max Tier) to prevent UPGRADE goal
+            settlement.stockpile.Gold = 1000;
+            settlement.stockpile.Tools = 0;
+            settlement.stockpile.Timber = 500; // Surplus (Trigger)
+            settlement.stockpile.Ore = 500; // Surplus (Trigger)
+
+            controller.update(state, TEST_CONFIG);
+
+            expect(CaravanSystem.dispatch).toHaveBeenCalledWith(
+                expect.anything(),
+                expect.anything(),
+                '0,2', // Target
+                'TRADE',
+                expect.anything(),
+                expect.objectContaining({ resource: 'Tools' }) // Context should specify Tools
+            );
+        });
     });
 
     describe('Desire: EXPAND (Strategic)', () => {

@@ -5,9 +5,9 @@ import { MapGenerator } from '../MapGenerator';
 import { HexUtils } from '../../utils/HexUtils';
 
 export class ExpansionStrategy implements AIStrategy {
-    evaluate(state: WorldState, config: GameConfig, factionId: string): AIAction[] {
+    evaluate(state: WorldState, config: GameConfig, factionId: string, settlementId?: string): AIAction[] {
         const actions: AIAction[] = [];
-        const faction = state.factions[factionId];
+        let faction = state.factions[factionId];
         if (!faction) return [];
 
         const factionSettlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
@@ -17,11 +17,16 @@ export class ExpansionStrategy implements AIStrategy {
 
         if (factionSettlements.length >= cap) return [];
 
-        for (const settlement of factionSettlements) {
+        let potentialSettlers = factionSettlements;
+        if (settlementId) {
+            potentialSettlers = potentialSettlers.filter(s => s.id === settlementId);
+        }
+
+        potentialSettlers.forEach(settlement => {
             // Affordability check
             if (settlement.stockpile.Food < (cost.Food || 0) * buffer ||
                 settlement.stockpile.Timber < (cost.Timber || 0) * buffer) {
-                continue;
+                return; // Use return for forEach equivalent of continue
             }
 
             // ==========================================
@@ -78,7 +83,8 @@ export class ExpansionStrategy implements AIStrategy {
                         type: 'SPAWN_SETTLER',
                         settlementId: settlement.id,
                         targetHexId: bestCandidate.id,
-                        score: finalScore
+                        score: finalScore,
+                        context: { type: 'Settler' }
                     });
                 } else if (saturationScore > 0.5) {
                     const target = MapGenerator.findExpansionLocation(state.map, state.width, state.height, config, Object.values(state.settlements));
@@ -98,11 +104,12 @@ export class ExpansionStrategy implements AIStrategy {
                         type: 'SPAWN_SETTLER',
                         settlementId: settlement.id,
                         targetHexId: target.id,
-                        score: saturationScore
+                        score: saturationScore,
+                        context: { type: 'Settler' }
                     });
                 }
             }
-        }
+        });
 
         return actions;
     }

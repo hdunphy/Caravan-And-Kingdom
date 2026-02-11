@@ -66,9 +66,11 @@ describe('AIController', () => {
         expect(state.tick - 0).toBeLessThan(interval);
     });
     it('should execute both BUILD and DISPATCH_VILLAGER in the same tick', () => {
-        // Setup: Low Food (Trigger Build & Gather), High Timber (Can Build), Available Villager
+        // Setup: Food 0 (Panic/Survive!), but High Timber/Stone.
+        // Expect: Build GathererHut (Exception) AND Dispatch Villager (HR)
         settlement.stockpile.Food = 0;
         settlement.stockpile.Timber = 1000;
+        settlement.stockpile.Stone = 1000;
         settlement.availableVillagers = 1;
 
         // Add a resource nearby for the villager to gather

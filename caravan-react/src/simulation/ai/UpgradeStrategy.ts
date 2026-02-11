@@ -3,9 +3,13 @@ import { WorldState } from '../../types/WorldTypes';
 import { GameConfig } from '../../types/GameConfig';
 
 export class UpgradeStrategy implements AIStrategy {
-    evaluate(state: WorldState, config: GameConfig, factionId: string): AIAction[] {
+    evaluate(state: WorldState, config: GameConfig, factionId: string, settlementId?: string): AIAction[] {
         const actions: AIAction[] = [];
-        const factionSettlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
+        let factionSettlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
+
+        if (settlementId) {
+            factionSettlements = factionSettlements.filter(s => s.id === settlementId);
+        }
 
         factionSettlements.forEach(settlement => {
             // ==========================================

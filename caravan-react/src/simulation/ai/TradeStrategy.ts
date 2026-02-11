@@ -4,9 +4,13 @@ import { GameConfig } from '../../types/GameConfig';
 import { HexUtils } from '../../utils/HexUtils';
 
 export class TradeStrategy implements AIStrategy {
-    evaluate(state: WorldState, config: GameConfig, factionId: string): AIAction[] {
+    evaluate(state: WorldState, config: GameConfig, factionId: string, settlementId?: string): AIAction[] {
         const actions: AIAction[] = [];
-        const factionSettlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
+        let factionSettlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
+
+        if (settlementId) {
+            factionSettlements = factionSettlements.filter(s => s.id === settlementId);
+        }
 
         factionSettlements.forEach(source => {
             const goal = source.currentGoal || 'TOOLS';
@@ -22,16 +26,32 @@ export class TradeStrategy implements AIStrategy {
 
             if (goal === 'UPGRADE') {
                 const nextTier = source.tier + 1;
-                // Simplified tier lookup
                 const cost = nextTier === 1 ? config.upgrades.villageToTown : config.upgrades.townToCity;
-                checkDeficit('Timber', source.stockpile.Timber, cost.costTimber, 2.0);
-                checkDeficit('Stone', source.stockpile.Stone, cost.costStone, 2.0);
+                // Boost importance if Saving For Upgrade
+                const boost = source.aiState?.savingFor === 'UPGRADE' ? 3.0 : 2.0;
+                checkDeficit('Timber', source.stockpile.Timber, cost.costTimber, boost);
+                checkDeficit('Stone', source.stockpile.Stone, cost.costStone, boost);
             } else if (goal === 'EXPAND') {
                 checkDeficit('Food', source.stockpile.Food, config.costs.settlement.Food || 500, 2.0);
                 checkDeficit('Timber', source.stockpile.Timber, config.costs.settlement.Timber || 200, 2.0);
             } else if (goal === 'SURVIVE') {
                 const consumption = Math.max(5, source.population * config.costs.baseConsume);
                 checkDeficit('Food', source.stockpile.Food, config.ai.thresholds.surviveFood || consumption * 50, 3.0);
+            } else {
+                // Default / TOOLS Goal: Buy Tools if we have surplus of construction materials
+                // User Request: "resource cost to build them which was timber and ore"
+                const timberSurplus = source.stockpile.Timber > (config.industry.surplusThreshold * 2);
+                const oreSurplus = source.stockpile.Ore > (config.industry.surplusThreshold * 2);
+
+                if (timberSurplus && oreSurplus) {
+                    checkDeficit('Tools', source.stockpile.Tools, config.industry.surplusThreshold || 50, 2.0);
+                }
+            }
+
+            // Influence Check: Saving for Fleet?
+            if (source.aiState?.savingFor === 'FLEET') {
+                // Reduce all deficit scores to discourage spending Gold
+                deficits.forEach(d => d.score *= 0.5);
             }
 
             // 2. Identify Surplus (Sell)
