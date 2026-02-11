@@ -59,13 +59,19 @@ export class AIController {
 
             const topActions: AIAction[] = [];
             Object.values(settlementActions).forEach(saa => {
-                // Sort by score descending
-                saa.sort((a, b) => b.score - a.score);
+                const villagerActions = saa.filter(a => a.type === 'DISPATCH_VILLAGER');
+                const majorActions = saa.filter(a => a.type !== 'DISPATCH_VILLAGER');
 
-                // Pick top 1 (or top N?)
-                // If we pick top 1, we ensure focus.
-                if (saa.length > 0) {
-                    topActions.push(saa[0]);
+                // Sort both
+                villagerActions.sort((a, b) => b.score - a.score);
+                majorActions.sort((a, b) => b.score - a.score);
+
+                // Add ALL valid villager actions (VillagerStrategy limits count)
+                topActions.push(...villagerActions);
+
+                // Pick top 1 Major Action
+                if (majorActions.length > 0) {
+                    topActions.push(majorActions[0]);
                 }
             });
 
