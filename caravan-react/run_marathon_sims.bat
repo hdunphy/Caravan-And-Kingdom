@@ -32,7 +32,7 @@ set "ID=%1"
 echo ------------------------------------------------
 echo STARTING MARATHON RUN %ID% OF 3 (20,000 TICKS)
 echo ------------------------------------------------
-call %TSX_CMD% src/simulation/evolution/RunEvolution.ts "batch3_%ID%" 200 20000 "optimized-config-run-2.json" "config_results_20000_ticks_%ID%.json" > "evolution_logs_batch3_%ID%.txt" 2>&1
+call %TSX_CMD% src/simulation/evolution/RunEvolution.ts "batch3_%ID%" 200 20000 "config_results_20000_ticks_3.json" "config_results_20000_ticks_%ID%.json" > "evolution_logs_batch3_%ID%.txt" 2>&1
 exit /b
 
 :RUN_BATCH_3
@@ -42,7 +42,7 @@ echo 1 final batch, 200 generations, 50,000 ticks for extreme stability
 echo ------------------------------------------------
 echo STARTING ULTRA-MARATHON (50,000 TICKS)
 echo ------------------------------------------------
-call %TSX_CMD% src/simulation/evolution/RunEvolution.ts "ultra" 200 50000 "optimized-config-run-2.json" "config_results_50000_ticks.json" > "evolution_logs_ultra.txt" 2>&1
+call %TSX_CMD% src/simulation/evolution/RunEvolution.ts "ultra" 200 50000 "config_results_20000_ticks_3.json" "config_results_50000_ticks.json" > "evolution_logs_ultra.txt" 2>&1
 
 echo ALL BATCHES COMPLETE.
 pause
