@@ -77,7 +77,12 @@ export class LogisticsStrategy implements AIStrategy {
 
                         if (!existing) {
                             // Score based on resource amount
-                            const score = (totalResources / 100.0) * 0.5; // Freight is lower priority than Trade usually
+                            // New Normalization: 
+                            // 100 resources = 1.0 score (High Priority)
+                            // 40 resources = 0.4 score (Medium)
+
+                            const score = Math.min(1.0, totalResources / 100.0);
+
                             actions.push({
                                 type: 'DISPATCH_CARAVAN',
                                 settlementId: settlement.id,

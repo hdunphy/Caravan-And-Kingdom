@@ -58,7 +58,8 @@ export class AIController {
             // 2. Evaluate & Execute per Settlement (simplifies grouping)
             settlements.forEach(s => {
                 this.runGovernor(s, state, config, 'CIVIL', this.civilStrategies);
-                this.runGovernor(s, state, config, 'HR', this.hrStrategies);
+                this.runGovernor(s, state, config, 'LABOR', this.hrStrategies);     // New: Labor (Villagers)
+                this.runGovernor(s, state, config, 'TRANSPORT', this.hrStrategies); // New: Transport (Logistics Caravans)
                 this.runGovernor(s, state, config, 'TRADE', this.tradeStrategies);
             });
         });
@@ -114,14 +115,14 @@ export class AIController {
         // Influence Checks
         if (settlement.aiState?.surviveMode) {
             // General Stand-Down: Block everything except HR (Food Gathering) and Critical Infrastructure (GathererHut)
-            if (governorType === 'HR') {
-                // Allowed
+            if (governorType === 'LABOR') {
+                // Villagers allowed to Forage
             } else if (governorType === 'CIVIL') {
                 // Only allow GathererHut
                 relevantActions = relevantActions.filter(a => a.type === 'BUILD' && a.buildingType === 'GathererHut');
                 if (relevantActions.length === 0) return;
             } else {
-                return; // Trade blocked
+                return; // Trade/Transport blocked
             }
         }
 
@@ -129,12 +130,17 @@ export class AIController {
         switch (governorType) {
             case 'CIVIL':
                 relevantActions = relevantActions.filter(a =>
-                    ['BUILD', 'RECRUIT_VILLAGER', 'UPGRADE_SETTLEMENT', 'SPAWN_SETTLER', 'BUILD_CARAVAN'].includes(a.type)
+                    ['BUILD', 'UPGRADE_SETTLEMENT', 'SPAWN_SETTLER'].includes(a.type)
                 );
                 break;
-            case 'HR':
+            case 'LABOR':
                 relevantActions = relevantActions.filter(a =>
-                    a.type === 'DISPATCH_VILLAGER' ||
+                    ['RECRUIT_VILLAGER', 'DISPATCH_VILLAGER'].includes(a.type)
+                );
+                break;
+            case 'TRANSPORT':
+                relevantActions = relevantActions.filter(a =>
+                    ['BUILD_CARAVAN'].includes(a.type) ||
                     (a.type === 'DISPATCH_CARAVAN' && a.mission === 'LOGISTICS')
                 );
                 break;
@@ -158,6 +164,7 @@ export class AIController {
 
         // Multi-Action Execution Loop
         for (const action of relevantActions) {
+
             this.executeAction(state, config, action);
             // If action failed (e.g. not enough resources), we continue to next
             // But we should be careful not to spam if costs aren't deducted immediately in executeAction
@@ -171,6 +178,15 @@ export class AIController {
 
     private executeAction(state: WorldState, config: GameConfig, action: AIAction): boolean {
         switch (action.type) {
+            case 'BUILD_CARAVAN':
+                const cSettlement = state.settlements[action.settlementId];
+                const cCost = config.costs.trade?.caravanTimberCost || 50;
+                if (cSettlement.stockpile.Timber >= cCost) {
+                    cSettlement.stockpile.Timber -= cCost;
+                    CaravanSystem.spawn(state, cSettlement.hexId, cSettlement.hexId, 'Caravan', config); // Home to Home spawn
+                    return true;
+                }
+                return false;
             case 'BUILD':
                 return ConstructionSystem.build(state, action.settlementId, action.buildingType, action.hexId, config);
             case 'DISPATCH_CARAVAN':
@@ -196,7 +212,6 @@ export class AIController {
                     settlement.stockpile.Food -= (config.costs.settlement.Food || 0);
                     settlement.stockpile.Timber -= (config.costs.settlement.Timber || 0);
                     settlement.population -= config.ai.settlerCost;
-                    console.log(`[AI] Spawned Settler from ${settlement.name}`);
                     return true;
                 }
                 return false;

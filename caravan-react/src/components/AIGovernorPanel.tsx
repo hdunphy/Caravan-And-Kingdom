@@ -28,20 +28,29 @@ export const AIGovernorPanel: React.FC<AIGovernorPanelProps> = ({ settlement }) 
                     {renderDecisions(decisions['CIVIL'])}
                 </div>
 
-                {/* HR Governor */}
+                {/* Labor Governor */}
                 <div className="bg-gray-700 p-3 rounded">
                     <div className="flex justify-between items-center mb-2">
-                        <span className="font-semibold text-green-300">HR Governor</span>
-                        <span className="text-xs text-gray-400">Workforce & Logistics</span>
+                        <span className="font-semibold text-green-300">Labor Governor</span>
+                        <span className="text-xs text-gray-400">Workforce (Villagers)</span>
                     </div>
-                    {renderDecisions(decisions['HR'])}
+                    {renderDecisions(decisions['LABOR'])}
+                </div>
+
+                {/* Transport Governor */}
+                <div className="bg-gray-700 p-3 rounded">
+                    <div className="flex justify-between items-center mb-2">
+                        <span className="font-semibold text-orange-300">Transport Governor</span>
+                        <span className="text-xs text-gray-400">Logistics (Internal)</span>
+                    </div>
+                    {renderDecisions(decisions['TRANSPORT'])}
                 </div>
 
                 {/* Trade Governor */}
                 <div className="bg-gray-700 p-3 rounded">
                     <div className="flex justify-between items-center mb-2">
                         <span className="font-semibold text-yellow-300">Trade Governor</span>
-                        <span className="text-xs text-gray-400">Commerce & Exchange</span>
+                        <span className="text-xs text-gray-400">Commerce (External)</span>
                     </div>
                     {renderDecisions(decisions['TRADE'])}
                 </div>

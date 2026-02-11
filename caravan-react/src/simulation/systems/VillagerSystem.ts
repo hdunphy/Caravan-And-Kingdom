@@ -177,6 +177,7 @@ export const VillagerSystem = {
         if (!startHex || !targetHex) return null;
 
         let path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config);
+        console.log(`[VillagerSystem] spawnVillager: start=${settlement.hexId}, target=${targetHexId}, path=${path ? path.length : 'null'}`);
 
         // Allow spawning on same hex
         if (targetHexId === settlement.hexId) {

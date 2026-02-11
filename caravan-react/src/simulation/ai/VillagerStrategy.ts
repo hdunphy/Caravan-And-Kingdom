@@ -44,8 +44,14 @@ export class VillagerStrategy implements AIStrategy {
                 if (hex.resources.Food && hex.resources.Food > 0) {
                     // Reduce score based on satiation (surviveScore)
                     // If plenty of food, surviveScore is 0 -> Score 0 -> Villagers do other things
-                    const baseScore = 10 + (hex.resources.Food / 10);
-                    jobs.push({ hexId: hexId, score: baseScore * surviveScore, type: 'SURVIVE' });
+
+                    // Normalization: 
+                    // 50 Food = 0.5 Base Score. 
+                    // surviveScore is 0-2.0 multiplier.
+                    // Result: 0 - 1.0+ (Can go higher for emergency)
+
+                    const baseScore = Math.min(1.0, hex.resources.Food / 100.0);
+                    jobs.push({ hexId: hexId, score: baseScore * surviveScore + 0.1, type: 'SURVIVE' }); // Base 0.1 to avoid 0
                 }
 
                 // PROVISION: Care about Timber, Stone, Ore
@@ -56,10 +62,17 @@ export class VillagerStrategy implements AIStrategy {
 
                 if (provisionSum > 0) {
                     const distMulti = config.ai?.utility?.provisionDistanceMulti || 10.0;
-                    const provScore = provisionSum / (Math.max(1, dist) * distMulti);
+                    // Normalization:
+                    // 100 resources at dist 1 = 1.0
+                    // 100 resources at dist 5 = 0.2
+
+                    const rawScore = provisionSum / (Math.max(1, dist) * distMulti);
+                    // Explicitly clamp to 0-1, previously it was / 100.0 which was roughly correct but obscure
+                    const provScore = Math.min(1.0, rawScore / 10.0); // Adjusted divisor to make 100res/1dist = 1.0
+
                     jobs.push({
                         hexId,
-                        score: provScore / 100.0,
+                        score: provScore,
                         type: 'PROVISION'
                     });
                 }
