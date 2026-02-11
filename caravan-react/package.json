@@ -8,6 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test": "vitest run",
+    "evolve": "tsx src/simulation/evolution/RunEvolution.ts",
     "preview": "vite preview"
   },
   "dependencies": {

@@ -1,0 +1,45 @@
+
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/mnt/c/Users/hdunp/Documents/GameDev/Unity/GitHub/Caravan and Kingdom/caravan-react[39m
+
+[90mstdout[2m | src/tests/UtilityAI.test.ts[2m > [22m[2mUtility AI System[2m > [22m[2mDesire: SURVIVE (Food Security)[2m > [22m[2mshould trigger GATHER_FOOD (spawnVillager) when Food is 0
+[22m[39mAIController Update Tick: [33m100[39m Faction: player_1 Top Actions: [{"type":"DISPATCH_VILLAGER","settlementId":"test_settlement","targetHexId":"0,0","score":2}]
+
+[90mstdout[2m | src/tests/UtilityAI.test.ts[2m > [22m[2mUtility AI System[2m > [22m[2mDesire: ASCEND (Tier Upgrades)[2m > [22m[2mshould NOT trigger UPGRADE if any required resource is missing
+[22m[39mAIController Update Tick: [33m100[39m Faction: player_1 Top Actions: []
+
+[90mstdout[2m | src/tests/UtilityAI.test.ts[2m > [22m[2mUtility AI System[2m > [22m[2mDesire: COMMERCIAL (Trade)[2m > [22m[2mshould trigger TRADE when holding massive surplus
+[22m[39mAIController Update Tick: [33m100[39m Faction: player_1 Top Actions: [{"type":"BUILD_CARAVAN","settlementId":"test_settlement","score":0.5}]
+
+[90mstdout[2m | src/tests/UtilityAI.test.ts[2m > [22m[2mUtility AI System[2m > [22m[2mDesire: EXPAND (Strategic)[2m > [22m[2mshould trigger EXPAND (Spawn Settler) if a missing resource is found within 5 hexes
+[22m[39mAIController Update Tick: [33m100[39m Faction: player_1 Top Actions: [{"type":"SPAWN_SETTLER","settlementId":"test_settlement","targetHexId":"0,2","score":15.625}]
+
+[90mstdout[2m | src/tests/UtilityAI.test.ts[2m > [22m[2mUtility AI System[2m > [22m[2mIntegration: Conflict Resolution[2m > [22m[2mshould choose GATHER_FOOD (SURVIVE) over EXPAND when Food is critical
+[22m[39mAIController Update Tick: [33m100[39m Faction: player_1 Top Actions: [{"type":"DISPATCH_VILLAGER","settlementId":"test_settlement","targetHexId":"0,0","score":2}]
+
+ [32m✓[39m src/tests/UtilityAI.test.ts[2m > [22mUtility AI System[2m > [22mDesire: SURVIVE (Food Security)[2m > [22mshould trigger GATHER_FOOD (spawnVillager) when Food is 0[32m 4[2mms[22m[39m
+ [32m✓[39m src/tests/UtilityAI.test.ts[2m > [22mUtility AI System[2m > [22mDesire: ASCEND (Tier Upgrades)[2m > [22mshould NOT trigger UPGRADE if any required resource is missing[32m 0[2mms[22m[39m
+ [31m×[39m src/tests/UtilityAI.test.ts[2m > [22mUtility AI System[2m > [22mDesire: COMMERCIAL (Trade)[2m > [22mshould trigger TRADE when holding massive surplus[32m 3[2mms[22m[39m
+[31m   → expected "vi.fn()" to be called at least once[39m
+ [32m✓[39m src/tests/UtilityAI.test.ts[2m > [22mUtility AI System[2m > [22mDesire: EXPAND (Strategic)[2m > [22mshould trigger EXPAND (Spawn Settler) if a missing resource is found within 5 hexes[32m 1[2mms[22m[39m
+ [32m✓[39m src/tests/UtilityAI.test.ts[2m > [22mUtility AI System[2m > [22mIntegration: Conflict Resolution[2m > [22mshould choose GATHER_FOOD (SURVIVE) over EXPAND when Food is critical[32m 1[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m src/tests/UtilityAI.test.ts[2m > [22mUtility AI System[2m > [22mDesire: COMMERCIAL (Trade)[2m > [22mshould trigger TRADE when holding massive surplus
+[31m[1mAssertionError[22m: expected "vi.fn()" to be called at least once[39m
+[36m [2m❯[22m src/tests/UtilityAI.test.ts:[2m119:44[22m[39m
+    [90m117| [39m            // Note: Depending on current AI implementation it might u…
+    [90m118| [39m            [90m// We mocked dispatch.[39m
+    [90m119| [39m            [34mexpect[39m([33mCaravanSystem[39m[33m.[39mdispatch)[33m.[39m[34mtoHaveBeenCalled[39m()[33m;[39m
+    [90m   | [39m                                           [31m^[39m
+    [90m120| [39m        })[33m;[39m
+    [90m121| [39m    })[33m;[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m4 passed[39m[22m[90m (5)[39m
+[2m   Start at [22m 17:47:28
+[2m   Duration [22m 2.19s[2m (transform 488ms, setup 0ms, import 618ms, tests 10ms, environment 0ms)[22m
+

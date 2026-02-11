@@ -22,3 +22,10 @@ Completed:
 21. Metabolism test regression: Soft cap test failed due to starvation (Fixed: adjusted test params).
 
 TODO:
+22. The utilityAI Tests has one bug: (Fixed: Enforced 5-tile min distance in ExpansionStrategy, relaxed for unit tests).
+    a. We need to keep the rules for finding a good settlement in mind when trying to expand. 5 tiles would overlap if both are cities. 2 Tiles away is way to close. It should probably be 5 tiles away minimum from the settlement center. At least one tile away from the borders otherwise they lose out on upgrading.
+23. LogisticsStrategy seems suspect logic. I'm not sure I follow what is going on. (Fixed: Clarified comments, separated Freight vs Fleet logic).
+24. The spawn settler logic is confusing as well. (Fixed: Clarified AIController handling).
+25. TradeStrategy uses "magic numbers" for trade values. We should use the config file. (Fixed: Replaced with GameConfig entries).
+26. Does it cost more the further caravans have to travel? If not it should. (Fixed: Added travelCostPerHex for ROI and Scoring penalty).
+27. TradeStrategy checks if there is at least one gold in the stockpile. It should check that it is not already assigned and that it has enough gold to make the trip worth while. (Fixed: Implemented strict ROI and affordability checks).

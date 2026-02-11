@@ -28,6 +28,7 @@ export interface GameConfig {
             buyCap: number; // Max amount to buy per trip
             loadingTime: number; // Ticks to wait at destination
             forceTradeGold: number;
+            travelCostPerHex: number;
         };
         logistics: {
             caravanIntegrityLossPerHex: number;
@@ -106,6 +107,27 @@ export interface GameConfig {
             goalBonus: number;
             stockpileLow: number;
         };
+        utility: {
+            // 1. SURVIVE
+            surviveThreshold: number; // Consumption * X ticks
+            // 2. GROW
+            growthFoodSafety: number; // Multiplier
+            // 3. PROVISION 
+            provisionDistanceMulti: number;
+            // 4. ASCEND
+            ascendReadinessPower: number;
+            // 5. BUILD
+            buildRateLookback: number;
+            // 6. COMMERCIAL
+            commercialLowThreshold: number;
+            commercialSurplusThreshold: number;
+            // 7. FLEET
+            fleetTargetSize: number;
+            // 8. EXPAND
+            expandSearchRadius: number;
+            expandSaturationPower: number;
+            expandMinDistance: number;
+        };
     };
     maintenance: {
         decayRate: number;
@@ -167,6 +189,7 @@ export const DEFAULT_CONFIG: GameConfig = {
             buyCap: 50,
             loadingTime: 20,
             forceTradeGold: 50,
+            travelCostPerHex: 2,
         },
         logistics: {
             caravanIntegrityLossPerHex: 0.5,
@@ -271,7 +294,20 @@ export const DEFAULT_CONFIG: GameConfig = {
             foodBonus: 1.0,
             goalPriority: 2.0, // Multiplier
             goalBonus: 5.0, // Flat
-            stockpileLow: 5.0, // Flat or Mult? Let's say Flat for now or we update system
+            stockpileLow: 5.0,
+        },
+        utility: {
+            surviveThreshold: 15,
+            growthFoodSafety: 1.0,
+            provisionDistanceMulti: 10.0,
+            ascendReadinessPower: 2.0,
+            buildRateLookback: 10,
+            commercialLowThreshold: 0.5, // 50% of cap or goal
+            commercialSurplusThreshold: 2.0, // 200% of need
+            fleetTargetSize: 3,
+            expandSearchRadius: 5,
+            expandSaturationPower: 3.0,
+            expandMinDistance: 5,
         },
     },
     maintenance: {
