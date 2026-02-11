@@ -13,10 +13,14 @@ export interface Genome {
     expandSearchRadius: number;
     expandSaturationPower: number;
     expandMinDistance: number;
-    
-    // Costs & Efficiency
-    villagerSpeed: number;
-    caravanTimberCost: number;
+
+    // New Genes (Economy & Expansion)
+    recruitBuffer: number;
+    villagerJobScoreMulti: number;
+    expansionBuffer: number;
+    tradeRoiThreshold: number;
+    constructionRoiThreshold: number;
+    targetToolRatio: number;
 }
 
 export const configToGenome = (config: GameConfig): Genome => ({
@@ -31,8 +35,14 @@ export const configToGenome = (config: GameConfig): Genome => ({
     expandSearchRadius: config.ai.utility.expandSearchRadius,
     expandSaturationPower: config.ai.utility.expandSaturationPower,
     expandMinDistance: config.ai.utility.expandMinDistance,
-    villagerSpeed: config.costs.villagers.speed,
-    caravanTimberCost: config.costs.trade.caravanTimberCost
+
+    // New Mappings
+    recruitBuffer: config.ai.thresholds.recruitBuffer,
+    villagerJobScoreMulti: config.ai.thresholds.villagerJobScoreMulti,
+    expansionBuffer: config.ai.expansionBuffer,
+    tradeRoiThreshold: config.costs.logistics.tradeRoiThreshold,
+    constructionRoiThreshold: config.costs.logistics.constructionRoiThreshold,
+    targetToolRatio: config.industry.targetToolRatio,
 });
 
 export const genomeToConfig = (genome: Genome, baseConfig: GameConfig): GameConfig => {
@@ -48,7 +58,14 @@ export const genomeToConfig = (genome: Genome, baseConfig: GameConfig): GameConf
     newConfig.ai.utility.expandSearchRadius = genome.expandSearchRadius;
     newConfig.ai.utility.expandSaturationPower = genome.expandSaturationPower;
     newConfig.ai.utility.expandMinDistance = genome.expandMinDistance;
-    newConfig.costs.villagers.speed = genome.villagerSpeed;
-    newConfig.costs.trade.caravanTimberCost = genome.caravanTimberCost;
+
+    // New Mappings
+    newConfig.ai.thresholds.recruitBuffer = genome.recruitBuffer;
+    newConfig.ai.thresholds.villagerJobScoreMulti = genome.villagerJobScoreMulti;
+    newConfig.ai.expansionBuffer = genome.expansionBuffer;
+    newConfig.costs.logistics.tradeRoiThreshold = genome.tradeRoiThreshold;
+    newConfig.costs.logistics.constructionRoiThreshold = genome.constructionRoiThreshold;
+    newConfig.industry.targetToolRatio = genome.targetToolRatio;
+
     return newConfig;
 };

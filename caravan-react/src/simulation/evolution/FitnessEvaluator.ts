@@ -15,11 +15,11 @@ export const calculateFitness = (state: WorldState, stats: SimulationStats, gene
     score += Math.floor(stats.totalTicks / 100);
 
     // 3. Tier Multiplier
-    // 1.25x for every tier reached.
+    // 1.5x for every tier reached (Buffed from 1.25x)
     // Tier 0 = 1x
-    // Tier 1 = 1.25x
-    // Tier 2 = 1.56x
-    const tierMultiplier = Math.pow(1.25, stats.tiersReached);
+    // Tier 1 = 1.5x
+    // Tier 2 = 2.25x
+    const tierMultiplier = Math.pow(1.5, stats.tiersReached);
     score *= tierMultiplier;
 
     // 4. Smooth Governance Bonus (+15%)
@@ -30,8 +30,8 @@ export const calculateFitness = (state: WorldState, stats: SimulationStats, gene
 
     Object.values(state.settlements).forEach(s => {
         score += 100; // Base settlement score
-        if (s.tier === 1) score += 500;
-        if (s.tier === 2) score += 2000;
+        if (s.tier === 1) score += 1000; // Buffed from 500
+        if (s.tier === 2) score += 2500; // Buffed from 2000
 
         // Diversity Bonus (+100 Max)
         // Spread between largest and smallest stockpile (excluding Tools/Gold)
@@ -55,16 +55,15 @@ export const calculateFitness = (state: WorldState, stats: SimulationStats, gene
         }
     });
 
-    // 5. Gold Reserve
+    // 5. Gold Reserve (Nerfed from 0.1 to 0.001)
     const totalGold = Object.values(state.factions).reduce((sum, f) => sum + (f.gold || 0), 0);
-    score += (totalGold * 0.1);
+    score += (totalGold * 0.001);
 
     // 6. Penalty for dying out
     if (Object.keys(state.settlements).length === 0) {
         // Reduced penalty for early generations to encourage exploration
         const deathPenalty = generation < 50 ? 500 : 5000;
         score -= deathPenalty;
-
     }
 
     // 7. Idle Penalty (-0.05 per Idle Tick - Reduced impact)
