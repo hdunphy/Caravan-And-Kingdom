@@ -8,6 +8,7 @@ const args = process.argv.slice(2);
 const runId = args[0] || '1';
 const numGenerations = parseInt(args[1]) || 200;
 const numTicks = parseInt(args[2]) || 20000;
+const seedFile = args[3];
 const outputFile = `optimized-config-batch2-run-${runId}.json`;
 
 const POP_SIZE = 50; // Increased population for better diversity
@@ -22,7 +23,14 @@ console.log(`\n=== Starting Evolution Run #${runId} ===`);
 console.log(`Generations: ${numGenerations}, Ticks: ${numTicks}`);
 console.log(`Map: ${options.width}x${options.height}, Factions: ${options.factionCount}`);
 
-const evolver = new Evolver(POP_SIZE);
+let seedConfig = undefined;
+if (seedFile && fs.existsSync(seedFile)) {
+    console.log(`Loading seed from ${seedFile}...`);
+    const data = fs.readFileSync(seedFile, 'utf8');
+    seedConfig = JSON.parse(data);
+}
+
+const evolver = new Evolver(POP_SIZE, seedConfig);
 
 for (let g = 0; g < numGenerations; g++) {
     const best = evolver.runGeneration(options);

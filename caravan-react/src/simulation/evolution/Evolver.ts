@@ -1,8 +1,8 @@
-import { Genome, configToGenome, genomeToConfig } from './Genome';
+import { Genome, genomeToConfig, configToGenome } from './Genome';
 import { calculateFitness } from './FitnessEvaluator';
 import { HeadlessRunner, HeadlessOptions } from './HeadlessRunner';
 import { DEFAULT_CONFIG } from '../../types/GameConfig';
-import { SeedManager } from './SeedManager';
+import { GameConfig } from '../../types/GameConfig';
 
 export interface Individual {
     genome: Genome;
@@ -13,8 +13,16 @@ export class Evolver {
     population: Individual[] = [];
     generation: number = 0;
 
-    constructor(size: number) {
-        const seedGenome = SeedManager.getSeed(DEFAULT_CONFIG);
+    constructor(size: number, seedConfig?: GameConfig) {
+        let seedGenome: Genome;
+
+        if (seedConfig) {
+            seedGenome = configToGenome(seedConfig);
+            console.log("Seeding population with provided config.");
+        } else {
+            seedGenome = configToGenome(DEFAULT_CONFIG);
+        }
+
         for (let i = 0; i < size; i++) {
             // Mix: 20% pure seed, 80% mutated seed
             const genome = i < (size * 0.2) ? seedGenome : this.mutate(seedGenome, 0.5);

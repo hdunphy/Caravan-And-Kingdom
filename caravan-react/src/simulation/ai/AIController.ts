@@ -42,6 +42,7 @@ export class AIController {
     }
 
     update(state: WorldState, config: GameConfig, silent: boolean = false) {
+        if (state.tick === 0 && !silent) console.log("AI UPDATING WITH SILENT=FALSE");
         const interval = config.ai ? config.ai.checkInterval : 10;
         if (state.tick - this.lastUpdateTick < interval) return;
         this.lastUpdateTick = state.tick;
@@ -188,7 +189,7 @@ export class AIController {
                 }
                 return false;
             case 'BUILD':
-                return ConstructionSystem.build(state, action.settlementId, action.buildingType, action.hexId, config);
+                return ConstructionSystem.build(state, action.settlementId, action.buildingType, action.hexId, config, silent);
             case 'DISPATCH_CARAVAN':
                 if (action.context?.type === 'Settler') {
                     // handled in SPAWN_SETTLER context usually, but just in case

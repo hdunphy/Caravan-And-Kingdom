@@ -1,0 +1,6 @@
+
+=== Starting Evolution Run #batch2_1 ===
+Generations: 200, Ticks: 20000
+Map: 40x40, Factions: 3
+Seeding population with optimized-config-run-2.json
+Run batch2_1 | Gen 0 | Best Fitness: 0.00
