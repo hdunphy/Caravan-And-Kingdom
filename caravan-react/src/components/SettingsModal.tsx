@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const SettingsModal: React.FC<Props> = ({ onClose }) => {
-    const { config, updateConfig, resetConfig, exportConfig } = useGameConfig();
+    const { config, updateConfig, resetConfig, exportConfig, importConfig } = useGameConfig();
     const [activeTab, setActiveTab] = useState<'gameplay' | 'data'>('gameplay');
 
     // Gameplay State
@@ -34,11 +34,10 @@ export const SettingsModal: React.FC<Props> = ({ onClose }) => {
     const handleSave = () => {
         if (activeTab === 'data') {
             try {
-                const parsed = JSON.parse(jsonText);
-                updateConfig(parsed);
+                importConfig(jsonText);
                 onClose();
             } catch (e) {
-                setError("Invalid JSON");
+                setError("Invalid JSON or Config Format");
             }
         } else {
             updateConfig(localConfig);

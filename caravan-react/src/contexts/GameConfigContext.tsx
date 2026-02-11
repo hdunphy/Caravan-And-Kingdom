@@ -71,6 +71,7 @@ export const GameConfigProvider: React.FC<{ children: ReactNode }> = ({ children
             updateConfig(merged);
         } catch (e) {
             console.error("Invalid Config JSON", e);
+            throw e;
         }
     };
 
