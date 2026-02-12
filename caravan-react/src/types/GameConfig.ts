@@ -130,6 +130,16 @@ export interface GameConfig {
             expandSaturationPower: number;
             expandMinDistance: number;
         };
+        sovereign: {
+            checkInterval: number;
+            foodSurplusRatio: number;
+            desperationFoodRatio: number;
+            scarcityThresholds: Partial<Record<keyof Resources, number>>;
+            urgencyBoosts: Partial<Record<keyof Resources, number>>;
+            capPenalty: number;
+            capOverrideMultiplier: number;
+            stanceShiftThreshold: number;
+        };
         feudal: {
             roleUtilityBonus: number;
             roleCheckInterval: number;
@@ -341,6 +351,24 @@ export const DEFAULT_CONFIG: GameConfig = {
             expandSearchRadius: 0.31,
             expandSaturationPower: 0.55,
             expandMinDistance: 5.55,
+        },
+        sovereign: {
+            checkInterval: 100,
+            foodSurplusRatio: 0.8,
+            desperationFoodRatio: 0.5,
+            scarcityThresholds: {
+                Stone: 0.1,
+                Ore: 0.1,
+                Timber: 0.1,
+            },
+            urgencyBoosts: {
+                Stone: 0.5,
+                Timber: 0.5,
+                Ore: 0.3
+            },
+            capPenalty: 0.1,
+            capOverrideMultiplier: 1.5,
+            stanceShiftThreshold: 0.3,
         },
     },
     maintenance: {

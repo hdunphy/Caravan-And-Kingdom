@@ -12,6 +12,7 @@ import { UpgradeSystem } from '../systems/UpgradeSystem';
 import { RecruitStrategy } from './RecruitStrategy';
 import { UpgradeStrategy } from './UpgradeStrategy';
 import { Logger } from '../../utils/Logger';
+import { SovereignAI } from './SovereignAI';
 
 export class AIController {
     private factionStates: Map<string, { lastTick: number, nextInterval: number }> = new Map();
@@ -77,6 +78,12 @@ export class AIController {
     }
 
     private processFaction(factionId: string, state: WorldState, config: GameConfig) {
+        // 0. Sovereign Check (Faction Level)
+        const faction = state.factions[factionId];
+        if (faction) {
+            SovereignAI.evaluate(faction, state, config);
+        }
+
         // 1. Update Settlement State & Influence Flags
         const settlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
 

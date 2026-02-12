@@ -94,6 +94,17 @@ export interface Faction {
     color: string;
     type?: 'Player' | 'AI'; // Add type
     gold?: number; // Global gold? Or per settlement? Let's keep it here for now if needed.
+    blackboard?: FactionBlackboard;
+}
+
+export interface FactionBlackboard {
+    factionId: string;
+    stances: {
+        expand: number; // 0.0 to 1.0
+        exploit: number; // 0.0 to 1.0
+    };
+    criticalShortages: ResourceType[];
+    targetedHexes: string[];
 }
 
 export type AgentType = 'Caravan' | 'Scout' | 'Army' | 'Settler' | 'Villager';
