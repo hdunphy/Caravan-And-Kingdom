@@ -66,7 +66,8 @@ describe('Reactive Ants (Autonomous Villagers)', () => {
         VillagerSystem.update(state, mockConfig);
 
         const agents = Object.values(state.agents).filter(a => a.type === 'Villager');
-        expect(agents.length).toBe(0); // Should NOT go into water
+        expect(agents.length).toBe(1); // Spawns from pool but stays IDLE
+        expect(agents[0].status).toBe('IDLE');
     });
 
     it('should shift to timber when food goal is met', () => {

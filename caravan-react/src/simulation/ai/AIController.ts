@@ -1,17 +1,16 @@
-import { WorldState, Resources, Settlement } from '../../types/WorldTypes.ts';
-import { GameConfig } from '../../types/GameConfig.ts';
-import { GoalEvaluator } from './GoalEvaluator.ts';
-import { AIAction, AIStrategy } from './AITypes.ts';
-import { ConstructionStrategy } from './ConstructionStrategy.ts';
-import { LogisticsStrategy } from './LogisticsStrategy.ts';
-import { ExpansionStrategy } from './ExpansionStrategy.ts';
-import { TradeStrategy } from './TradeStrategy.ts';
-import { ConstructionSystem } from '../systems/ConstructionSystem.ts';
-import { CaravanSystem } from '../systems/CaravanSystem.ts';
-import { VillagerSystem } from '../systems/VillagerSystem.ts';
-import { UpgradeSystem } from '../systems/UpgradeSystem.ts';
-import { RecruitStrategy } from './RecruitStrategy.ts';
-import { UpgradeStrategy } from './UpgradeStrategy.ts';
+import { WorldState, Resources, Settlement } from '../../types/WorldTypes';
+import { GameConfig } from '../../types/GameConfig';
+import { GoalEvaluator } from './GoalEvaluator';
+import { AIAction, AIStrategy } from './AITypes';
+import { ConstructionStrategy } from './ConstructionStrategy';
+import { LogisticsStrategy } from './LogisticsStrategy';
+import { ExpansionStrategy } from './ExpansionStrategy';
+import { TradeStrategy } from './TradeStrategy';
+import { ConstructionSystem } from '../systems/ConstructionSystem';
+import { CaravanSystem } from '../systems/CaravanSystem';
+import { UpgradeSystem } from '../systems/UpgradeSystem';
+import { RecruitStrategy } from './RecruitStrategy';
+import { UpgradeStrategy } from './UpgradeStrategy';
 import { Logger } from '../../utils/Logger';
 
 export class AIController {
@@ -25,14 +24,13 @@ export class AIController {
     constructor() {
         this.civilStrategies = [
             new ConstructionStrategy(),
-            new ExpansionStrategy(),
             new UpgradeStrategy(),
-            new LogisticsStrategy(), // For BUILD_CARAVAN
-            new RecruitStrategy(),   // For RECRUIT_VILLAGER
         ];
 
         this.hrStrategies = [
-            new LogisticsStrategy() // Internal Trade/Transport (Caravans only)
+            new RecruitStrategy(),
+            new ExpansionStrategy(),
+            new LogisticsStrategy()
         ];
 
         this.tradeStrategies = [
@@ -136,7 +134,11 @@ export class AIController {
         const actions: AIAction[] = [];
 
         strategies.forEach(strategy => {
-            actions.push(...strategy.evaluate(state, config, settlement.ownerId, settlement.id));
+            const evaluated = strategy.evaluate(state, config, settlement.ownerId, settlement.id);
+            if (evaluated.length > 0) {
+                // console.log(`[AI] Strategy produced ${evaluated.length} actions for ${governorType} in ${settlement.name}`);
+            }
+            actions.push(...evaluated);
         });
 
         let relevantActions = actions.filter(a => a.settlementId === settlement.id);
@@ -181,9 +183,16 @@ export class AIController {
                     a.type === 'DISPATCH_CARAVAN' && a.mission === 'TRADE'
                 );
                 break;
+            case 'LABOR':
+                relevantActions = relevantActions.filter(a =>
+                    ['RECRUIT_VILLAGER', 'SPAWN_SETTLER', 'DISPATCH_VILLAGER'].includes(a.type)
+                );
+                break;
         }
 
-        if (relevantActions.length === 0) return;
+        if (relevantActions.length === 0) {
+            return;
+        }
 
         // Apply Decision Jitter
         // Add small random noise (0.00 to 0.05) to break ties or near-ties

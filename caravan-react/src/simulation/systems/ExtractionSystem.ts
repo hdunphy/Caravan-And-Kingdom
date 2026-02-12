@@ -1,6 +1,6 @@
-import { WorldState, Resources, TerrainType, HexCoordinate } from '../../types/WorldTypes.ts';
-import { HexUtils } from '../../utils/HexUtils.ts';
-import { GameConfig } from '../../types/GameConfig.ts';
+import { WorldState, Resources, TerrainType, HexCoordinate } from '../../types/WorldTypes';
+import { HexUtils } from '../../utils/HexUtils';
+import { GameConfig } from '../../types/GameConfig';
 
 export const ExtractionSystem = {
     update(state: WorldState, config: GameConfig) {

@@ -1,6 +1,6 @@
-
 import { describe, it, expect } from 'vitest';
 import { AIController } from '../simulation/ai/AIController';
+import { VillagerSystem } from '../simulation/systems/VillagerSystem';
 import { WorldState } from '../types/WorldTypes';
 import { GameConfig } from '../types/GameConfig';
 
@@ -11,7 +11,7 @@ describe('Governor Split (Parallel Execution)', () => {
             map: {
                 '0,0': { id: '0,0', coordinate: { q: 0, r: 0, s: 0 }, terrain: 'Plains', resources: { Food: 100 }, ownerId: 'player_1' },
                 '1,-1': { id: '1,-1', coordinate: { q: 1, r: -1, s: 0 }, terrain: 'Plains', resources: { Food: 100 }, ownerId: 'player_1' }, // Food for Villager
-                '1,0': { id: '1,0', coordinate: { q: 1, r: 0, s: -1 }, terrain: 'Plains', resources: { Timber: 200 }, ownerId: 'player_1' }, // Timber for Logistics
+                '1,0': { id: '1,0', coordinate: { q: 1, r: 0, s: -1 }, terrain: 'Forest', ownerId: 'player_1', resources: { Timber: 100 } }, // Timber for Logistics
             },
             settlements: {
                 's1': {
@@ -20,7 +20,7 @@ describe('Governor Split (Parallel Execution)', () => {
                     ownerId: 'player_1',
                     hexId: '0,0',
                     population: 10,
-                    availableVillagers: 5,
+                    availableVillagers: 1,
                     controlledHexIds: ['0,0', '1,-1', '1,0'],
                     stockpile: { Food: 100, Timber: 0, Stone: 0, Ore: 0, Gold: 0, Tools: 0 },
                     buildings: [],
@@ -61,7 +61,7 @@ describe('Governor Split (Parallel Execution)', () => {
 
         const config: GameConfig = {
             costs: {
-                villagers: { cost: 10, capacity: 10, range: 5 },
+                villagers: { cost: 10, capacity: 10, range: 5, popRatio: 2 },
                 settlement: { Food: 100, Timber: 100 },
                 baseConsume: 0.1,
                 logistics: { freightThreshold: 50, tradeRoiThreshold: 50 },
@@ -96,6 +96,7 @@ describe('Governor Split (Parallel Execution)', () => {
 
         // Run Update
         controller.update(state, config);
+        VillagerSystem.update(state, config);
 
         // Verify Villager Dispatch (Labor Governor)
         const villagers = Object.values(state.agents).filter(a => a.type === 'Villager');
@@ -111,6 +112,7 @@ describe('Governor Split (Parallel Execution)', () => {
         // Verify AI Decisions Log
         const decisions = state.settlements['s1'].aiState?.lastDecisions;
         expect(decisions).toBeDefined();
+        // Since LABOR might stay empty if we already have enough, but we forced availableVillagers=0
         expect(decisions!['LABOR']).toBeDefined(); // Villager actions
         expect(decisions!['TRANSPORT']).toBeDefined(); // Logistics actions
     });

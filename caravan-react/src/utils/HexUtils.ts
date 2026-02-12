@@ -11,6 +11,11 @@ export const HexUtils = {
         return `${hex.q},${hex.r}`;
     },
 
+    createFromID(id: string): HexCoordinate {
+        const [q, r] = id.split(',').map(Number);
+        return this.create(q, r);
+    },
+
     // Get neighbors (Axial directions)
     getNeighbors(hex: HexCoordinate): HexCoordinate[] {
         const directions = [

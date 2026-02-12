@@ -67,6 +67,7 @@ export class LogisticsStrategy implements AIStrategy {
                     const totalResources = (Object.values(hex.resources) as number[]).reduce((a, b) => a + b, 0);
 
                     if (totalResources >= threshold) {
+                        // console.log(`[AI] LogisticsStrategy: Found ${totalResources} resources on ${hexId} (Threshold: ${threshold})`);
                         // Check for existing assignment
                         const existing = Object.values(state.agents).find(agent =>
                             agent.type === 'Caravan' &&
@@ -76,6 +77,7 @@ export class LogisticsStrategy implements AIStrategy {
                         );
 
                         if (!existing) {
+                            // console.log(`[AI] LogisticsStrategy: Proposing DISPATCH_CARAVAN to ${hexId}`);
                             // Score based on resource amount
                             // New Normalization: 
                             // 100 resources = 1.0 score (High Priority)
@@ -92,6 +94,8 @@ export class LogisticsStrategy implements AIStrategy {
                                 score: score
                             });
                         }
+                    } else {
+                        // console.log(`[AI] LogisticsStrategy: Hex ${hexId} has only ${totalResources} < threshold ${threshold}`);
                     }
                 }
             });

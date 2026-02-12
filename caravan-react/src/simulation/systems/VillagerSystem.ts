@@ -1,13 +1,24 @@
-import { WorldState, Resources, VillagerAgent } from '../../types/WorldTypes.ts';
-import { GameConfig } from '../../types/GameConfig.ts';
-import { HexUtils } from '../../utils/HexUtils.ts';
+import { WorldState, Resources, VillagerAgent, Settlement } from '../../types/WorldTypes';
+import { GameConfig } from '../../types/GameConfig';
+import { HexUtils } from '../../utils/HexUtils';
 import { Logger } from '../../utils/Logger';
-import { Pathfinding } from '../Pathfinding.ts';
+import { Pathfinding } from '../Pathfinding';
 
 export const VillagerSystem = {
     update(state: WorldState, config: GameConfig) {
         const agentsToRemove: string[] = [];
         const agents = Object.values(state.agents).filter(a => a.type === 'Villager') as VillagerAgent[];
+
+        // 0. Spawn Idle Villagers from pool (availableVillagers)
+        Object.values(state.settlements).forEach(settlement => {
+            while (settlement.availableVillagers > 0) {
+                const agent = VillagerSystem.spawnVillager(state, settlement.id, settlement.hexId, config, 'IDLE');
+                if (!agent) break; // Should not happen for home hex
+                // Since this happens during update, we should probably add it to the 'agents' array to be processed this tick
+                // Adding to local 'agents' array for immediate dispatch in the current tick
+                agents.push(agent);
+            }
+        });
 
         agents.forEach(agent => {
             // Validate Home
@@ -33,9 +44,9 @@ export const VillagerSystem = {
                 case 'IDLE':
                     // Reactive Ant Logic: Autonomous Dispatch
                     if (HexUtils.getID(agent.position) === home.hexId) {
-                        this.manageIdleAnt(state, agent, home, config);
+                        VillagerSystem.manageIdleAnt(state, agent, home, config);
                     } else {
-                        this.returnHome(state, agent, config);
+                        VillagerSystem.returnHome(state, agent, config);
                     }
                     break;
 
@@ -210,8 +221,8 @@ export const VillagerSystem = {
         }
     },
 
-    // Called by GovernorAI
-    spawnVillager(state: WorldState, settlementId: string, targetHexId: string, config: GameConfig, mission: 'GATHER' | 'INTERNAL_FREIGHT' = 'GATHER', payload?: any): VillagerAgent | null {
+    // Called by GovernorAI or spawn loop
+    spawnVillager(state: WorldState, settlementId: string, targetHexId: string, config: GameConfig, mission: 'GATHER' | 'INTERNAL_FREIGHT' | 'IDLE' = 'GATHER', payload?: any): VillagerAgent | null {
         const settlement = state.settlements[settlementId];
         if (!settlement) {
             Logger.getInstance().log(`[VillagerSystem] Fail: Settlement ${settlementId} not found`);
@@ -273,28 +284,39 @@ export const VillagerSystem = {
             path: path,
             cargo: cargo,
             integrity: 100,
-            status: 'BUSY',
-            activity: 'MOVING',
+            status: mission === 'IDLE' ? 'IDLE' : 'BUSY',
+            activity: mission === 'IDLE' ? 'IDLE' : 'MOVING',
             mission: mission,
-            gatherTarget: targetHex.coordinate
+            gatherTarget: mission === 'IDLE' ? undefined : targetHex.coordinate
         };
 
         state.agents[id] = agent;
         return agent;
     },
 
-    manageIdleAnt(state: WorldState, agent: VillagerAgent, home: any, config: GameConfig) {
-        // 1. Ensure resource goals exist
-        if (!home.resourceGoals) {
-            home.resourceGoals = { Food: 1000, Timber: 300, Stone: 200, Ore: 100, Tools: 50, Gold: 0 };
+    manageIdleAnt(state: WorldState, agent: VillagerAgent, home: Settlement, config: GameConfig) {
+        if (!home) return;
+        try {
+            // 1. Ensure resource goals exist
+            if (!home.resourceGoals) {
+                Logger.getInstance().log(`[VillagerSystem] Initializing resource goals for ${home.name}`);
+                home.resourceGoals = { Food: 1000, Timber: 300, Stone: 200, Ore: 100, Tools: 50, Gold: 0 };
+            }
+        } catch (e: any) {
+            Logger.getInstance().log(`[VillagerSystem] FATAL ERROR setting resourceGoals for ${home?.name || 'UNKNOWN'}: ${e.message}`);
+            throw e;
         }
 
         // 2. Calculate Pressure Map
         const resources: (keyof Resources)[] = ['Food', 'Timber', 'Stone', 'Ore', 'Tools'];
-        const pressures = resources.map(res => ({
-            res,
-            pressure: Math.max(0, (home.resourceGoals[res] - home.stockpile[res]) / (home.resourceGoals[res] || 1))
-        })).sort((a, b) => b.pressure - a.pressure);
+        const pressures = resources.map(res => {
+            const goal = home.resourceGoals ? (home.resourceGoals as any)[res] : 0;
+            const current = (home.stockpile as any)[res] || 0;
+            return {
+                res,
+                pressure: Math.max(0, (goal - current) / (goal || 1))
+            };
+        }).sort((a, b) => b.pressure - a.pressure);
 
         // 3. Try to find a job matching the highest pressure
         const range = config.costs.villagers?.range || 3;
@@ -303,7 +325,7 @@ export const VillagerSystem = {
             if (p.pressure <= 0) break; // Goal reached for this and subsequent (sorted)
 
             // GATHER Logic: Scan controlled hexes for this resource
-            const targetHexId = home.controlledHexIds.find(id => {
+            const targetHexId = home.controlledHexIds.find((id: string) => {
                 const hex = state.map[id];
                 if (!hex || hex.terrain === 'Water') return false;
                 if (home.unreachableHexes?.[id] && state.tick < home.unreachableHexes[id]) return false;
@@ -316,14 +338,14 @@ export const VillagerSystem = {
 
             if (targetHexId) {
                 // Dispatch locally (System-driven spawn bypasses Governor)
-                this.dispatchAnt(state, agent, targetHexId, 'GATHER', config);
+                VillagerSystem.dispatchAnt(state, agent, targetHexId, 'GATHER', config);
                 return;
             }
         }
 
         // 4. FREIGHT Logic (Surplus distribution)
         // If we reach here, no high-pressure local gathering needed or possible
-        const surpluses = resources.filter(res => home.stockpile[res] > (home.resourceGoals[res] || 0));
+        const surpluses = resources.filter(res => (home.stockpile as any)[res] > (home.resourceGoals ? (home.resourceGoals as any)[res] : 0));
 
         if (surpluses.length > 0) {
             const myFactionSettlements = Object.values(state.settlements).filter(s => s.ownerId === home.ownerId && s.id !== home.id);
@@ -336,13 +358,15 @@ export const VillagerSystem = {
                 if (dist > 10) continue;
 
                 for (const res of surpluses) {
-                    const neighborPressure = (neighbor.resourceGoals[res] - neighbor.stockpile[res]) / (neighbor.resourceGoals[res] || 1);
+                    const goal = neighbor.resourceGoals ? (neighbor.resourceGoals as any)[res] : 0;
+                    const current = (neighbor.stockpile as any)[res] || 0;
+                    const neighborPressure = (goal - current) / (goal || 1);
 
                     if (neighborPressure > 0.5) {
                         // Deliver surplus
-                        const amount = Math.min(20, home.stockpile[res] - neighbor.resourceGoals[res]);
+                        const amount = Math.min(20, (home.stockpile as any)[res] - (home.resourceGoals ? (home.resourceGoals as any)[res] : 0));
                         if (amount > 0) {
-                            this.dispatchAnt(state, agent, neighbor.hexId, 'INTERNAL_FREIGHT', config, { resource: res, amount });
+                            VillagerSystem.dispatchAnt(state, agent, neighbor.hexId, 'INTERNAL_FREIGHT', config, { resource: res, amount });
                             return;
                         }
                     }
