@@ -29,24 +29,20 @@ export const Pathfinding = {
         }
 
         // Default costs if config is missing (fallback)
-        const costs = { ...(config?.costs.terrain || {
-            Plains: 1,
-            Forest: 2,
-            Hills: 3,
-            Mountains: 6,
-            Water: 1000
-        }) };
+        const costs = {
+            ...(config?.costs.terrain || {
+                Plains: 1,
+                Forest: 2,
+                Hills: 3,
+                Mountains: 6,
+                Water: 1000
+            })
+        };
 
-        // Differential Water Cost
-        // Villagers can cross water (slowly), others cannot.
-        const WATER_PASSABLE_COST = 10; 
         const IMPASSABLE = 1000;
 
-        if (agentType === 'Villager') {
-            costs.Water = Math.min(WATER_PASSABLE_COST, costs.Water);
-        } else {
-            costs.Water = Math.max(IMPASSABLE, costs.Water);
-        }
+        // Ensure Water is impassable regardless of config overrides for now
+        costs.Water = IMPASSABLE;
 
         if (startId === endId) return [];
 
@@ -58,7 +54,7 @@ export const Pathfinding = {
 
         const endCost = costs[endCell.terrain];
         if (endCost >= IMPASSABLE) {
-            // Logger.getInstance().log(`[Pathfinding] Fail: Target ${endId} is impassable (${endCell.terrain}) for ${agentType}.`);
+            Logger.getInstance().log(`[Pathfinding] Fail: Target ${endId} is impassable (${endCell.terrain}).`);
             return null; // Target invalid
         }
 

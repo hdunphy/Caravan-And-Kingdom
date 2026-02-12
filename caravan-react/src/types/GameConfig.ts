@@ -405,5 +405,11 @@ export const DEFAULT_CONFIG: GameConfig = {
             description: "Fog Clearance + Defense",
             effects: [{ type: 'DEFENSE', value: 2.0 }]
         },
+        'Fishery': {
+            name: "Fishery",
+            cost: { Timber: 100 },
+            minTier: 0,
+            description: "Extracts from adjacent Water",
+        },
     },
 };

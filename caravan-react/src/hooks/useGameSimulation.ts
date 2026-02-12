@@ -55,7 +55,8 @@ export function useGameSimulation() {
                 buildings: [],
                 popHistory: [],
                 stockpile: { Food: 500, Timber: 50, Stone: 0, Ore: 0, Gold: 0, Tools: 0 },
-                availableVillagers: 2, // Capital starts with 2 free villagers
+                availableVillagers: config.costs.villagers.baseVillagers,
+                unreachableHexes: {},
                 role: 'GENERAL'
             };
 
@@ -85,7 +86,8 @@ export function useGameSimulation() {
                     buildings: [],
                     popHistory: [],
                     stockpile: { Food: 500, Timber: 50, Stone: 0, Ore: 0, Gold: 0, Tools: 0 },
-                    availableVillagers: 2, // Rival capital
+                    availableVillagers: config.costs.villagers.baseVillagers,
+                    unreachableHexes: {},
                     role: 'GENERAL'
                 };
             }

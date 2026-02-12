@@ -37,7 +37,13 @@ export class VillagerStrategy implements AIStrategy {
 
             settlement.controlledHexIds.forEach(hexId => {
                 const hex = state.map[hexId];
-                if (!hex || !hex.resources) return;
+                if (!hex || !hex.resources || hex.terrain === 'Water') return;
+
+                // Check Blacklist
+                if (settlement.unreachableHexes && settlement.unreachableHexes[hexId] && state.tick < settlement.unreachableHexes[hexId]) {
+                    return;
+                }
+
 
                 const dist = HexUtils.distance(centerHex.coordinate, hex.coordinate);
                 if (dist > range) {

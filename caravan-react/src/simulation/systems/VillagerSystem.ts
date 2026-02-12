@@ -230,13 +230,15 @@ export const VillagerSystem = {
 
         let path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config, 'Villager');
 
-        // Allow spawning on same hex
+        // Allow spawning on same hex (Gathering at home)
         if (targetHexId === settlement.hexId) {
-            path = [startHex.coordinate];
-        }
-
-        if (!path || path.length === 0) {
-            Logger.getInstance().log(`[VillagerSystem] Fail: No path for villager from ${settlement.hexId} to ${targetHexId}`);
+            path = [];
+        } else if (!path || path.length === 0) {
+            // BLACKLIST: If No Path, mark as unreachable for 100 ticks
+            const expiry = state.tick + 100;
+            if (!settlement.unreachableHexes) settlement.unreachableHexes = {};
+            settlement.unreachableHexes[targetHexId] = expiry;
+            Logger.getInstance().log(`[VillagerSystem] Blacklisting ${targetHexId} for ${settlement.name} until ${expiry} (Pathfinding Failed)`);
             return null;
         }
 

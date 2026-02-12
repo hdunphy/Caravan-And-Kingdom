@@ -402,17 +402,15 @@ export const CaravanSystem = {
                             }, // Unload Cargo
                             buildings: [],
                             // Grant Range 1 Territory immediately so Villagers have work
-                            controlledHexIds: [
-                                HexUtils.getID(agent.position),
-                                ...HexUtils.getNeighbors(agent.position).map(h => HexUtils.getID(h))
-                            ].filter(id => state.map[id]), // valid hexes only
+                            controlledHexIds: [],
                             jobCap: 0,
                             workingPop: 0,
-                            availableVillagers: 1, // Settler converts to Villager
+                            availableVillagers: config.costs.villagers.baseVillagers,
+                            unreachableHexes: {},
 
                             // Initialize with default values
                             currentGoal: 'SURVIVE',
-                            lastGrowth: 0,
+                            lastGrowth: state.tick,
                             popHistory: [],
                             role: 'GENERAL'
                         };

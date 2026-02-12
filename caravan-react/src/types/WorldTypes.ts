@@ -65,6 +65,9 @@ export interface Settlement {
     jobCap: number;
     workingPop: number;
     availableVillagers: number; // Idle villagers ready to be deployed
+    unreachableHexes?: Record<string, number>; // hexId -> expiryTick
+
+    // UI/AI State fields
     controlledHexIds: string[]; // Hexes this city owns/works
     buildings: BuildingInstance[];
 

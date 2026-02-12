@@ -25,6 +25,7 @@ describe('AI Strategies', () => {
             controlledHexIds: ['0,0', '1,0'],
             buildings: [],
             popHistory: [],
+            unreachableHexes: {},
             role: 'GENERAL'
         };
 
@@ -81,6 +82,7 @@ describe('AI Strategies', () => {
                 stockpile: { Food: 1000, Timber: 1000, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
                 controlledHexIds: ['5,5'],
                 popHistory: [],
+                unreachableHexes: {},
                 role: 'GENERAL'
             };
             state.settlements['s2'] = s2;

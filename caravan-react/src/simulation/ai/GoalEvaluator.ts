@@ -20,11 +20,6 @@ export class GoalEvaluator {
             if (settlement.stockpile.Food < criticalThreshold) return 'SURVIVE'; // Enter panic
         }
 
-        // THRIFTY: If between critical and safe
-        if (settlement.stockpile.Food < safeThreshold) {
-            return 'THRIFTY';
-        }
-
         // 2. UPGRADE: If not max tier
         if (settlement.tier < 2) {
             // Check limits
@@ -52,6 +47,11 @@ export class GoalEvaluator {
         const bestSpot = MapGenerator.findExpansionLocation(state.map, state.width, state.height, config, existingSettlements);
         if (bestSpot) {
             return 'EXPAND';
+        }
+
+        // THRIFTY: If between critical and safe (moved to end to avoid blocking growth)
+        if (settlement.stockpile.Food < safeThreshold) {
+            return 'THRIFTY';
         }
 
         // 4. TOOLS (Default surplus dump)

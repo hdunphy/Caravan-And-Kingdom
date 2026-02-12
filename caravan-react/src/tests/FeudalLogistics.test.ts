@@ -229,7 +229,7 @@ describe('Feudal Logistics V4: ExpansionStrategy', () => {
 
         const settlement: Settlement = {
             id: 's_expand', name: 'Capital', hexId: '0,0', ownerId: 'faction_1',
-            population: 100, stockpile: { Food: 1000, Timber: 1000, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
+            population: 100, stockpile: { Food: 10000, Timber: 1000, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
             controlledHexIds: ['0,0'],
             buildings: [],
             role: 'GENERAL',
