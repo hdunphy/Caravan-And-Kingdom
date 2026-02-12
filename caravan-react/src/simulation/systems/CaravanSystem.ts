@@ -1,7 +1,8 @@
-import { WorldState, Resources, AgentEntity, AgentType } from '../../types/WorldTypes';
-import { GameConfig } from '../../types/GameConfig';
-import { HexUtils } from '../../utils/HexUtils';
-import { Pathfinding } from '../Pathfinding';
+import { WorldState, Resources, AgentEntity, AgentType } from '../../types/WorldTypes.ts';
+import { GameConfig } from '../../types/GameConfig.ts';
+import { HexUtils } from '../../utils/HexUtils.ts';
+import { Pathfinding } from '../Pathfinding.ts';
+import { Logger } from '../../utils/Logger.ts';
 
 export const CaravanSystem = {
     // Determine spawn location (Settlement or from IDLE pool)
@@ -11,7 +12,7 @@ export const CaravanSystem = {
 
         if (!startHex || !targetHex) return null;
 
-        const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config);
+        const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config, type);
         if ((!path || path.length === 0) && startHexId !== targetHexId) return null;
 
         const id = `agent_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -34,7 +35,7 @@ export const CaravanSystem = {
         if (type === 'Caravan') {
             agent = { ...base, type: 'Caravan', mission: 'IDLE' };
         } else if (type === 'Settler') {
-            agent = { ...base, type: 'Settler' };
+            agent = { ...base, type: 'Settler', destinationId: targetHexId };
         } else if (type === 'Villager') {
             // Villagers require homeId, which should be passed. For now, we might need to adjust spawn signature
             // or handle it after spawn.
@@ -173,7 +174,7 @@ export const CaravanSystem = {
             const startHex = state.map[settlement.hexId];
             const targetHex = state.map[targetHexId];
             if (startHex && targetHex) {
-                const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config);
+                const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config, 'Caravan');
                 if (path) {
                     agent.path = path;
                     agent.target = targetHex.coordinate;
@@ -206,7 +207,7 @@ export const CaravanSystem = {
         return agent || null;
     },
 
-    update(state: WorldState, config: GameConfig, silent: boolean = false) {
+    update(state: WorldState, config: GameConfig) {
         const agentsToRemove: string[] = [];
 
         Object.values(state.agents).forEach(agent => {
@@ -228,6 +229,12 @@ export const CaravanSystem = {
             if (agent.waitTicks && agent.waitTicks > 0) {
                 agent.waitTicks--;
                 return;
+            }
+
+            // Stuck Detection Recovery
+            if ((agent.stuckTicks || 0) > 40) {
+                Logger.getInstance().log(`[CaravanSystem] Agent ${agent.id} STUCK. Returning home.`);
+                this.returnHome(state, agent, config);
             }
 
             // Path Following
@@ -291,8 +298,8 @@ export const CaravanSystem = {
                                     agent.cargo[res] = 0;
                                 }
                             });
-                            if (!silent && haul.length > 0) {
-                                console.log(`[Logistics] Caravan returned to ${home.name} with: ${haul.join(', ')}`);
+                            if (haul.length > 0) {
+                                Logger.getInstance().log(`[Logistics] Caravan returned to ${home.name} with: ${haul.join(', ')}`);
                             }
                         }
                     }
@@ -348,8 +355,8 @@ export const CaravanSystem = {
                                 agent.cargo[res] = 0;
                             }
                         });
-                        if (!silent && haul.length > 0) {
-                            console.log(`[Trade] Caravan returned to ${settlement.name} with: ${haul.join(', ')}`);
+                        if (haul.length > 0) {
+                            Logger.getInstance().log(`[Trade] Caravan returned to ${settlement.name} with: ${haul.join(', ')}`);
                         }
 
                         // Set IDLE
@@ -364,8 +371,15 @@ export const CaravanSystem = {
             if (agent.type === 'Settler') {
                 if (!agent.path || agent.path.length === 0) {
                     // Arrival at target
-                    // Note: MovementSystem clears agent.target on arrival, so we must use agent.position
-                    const targetHex = state.map[HexUtils.getID(agent.position)];
+                    const currentHexId = HexUtils.getID(agent.position);
+
+                    // CRITICAL: Verify we are actually at the destination
+                    if (agent.destinationId && currentHexId !== agent.destinationId) {
+                        // Not at destination yet, MovementSystem will handle it
+                        return;
+                    }
+
+                    const targetHex = state.map[currentHexId];
                     const existingSettlement = Object.values(state.settlements).find(s => s.hexId === HexUtils.getID(agent.position));
                     if (!existingSettlement && targetHex) {
                         // Create New Settlement
@@ -388,25 +402,24 @@ export const CaravanSystem = {
                             }, // Unload Cargo
                             buildings: [],
                             // Grant Range 1 Territory immediately so Villagers have work
-                            controlledHexIds: [
-                                HexUtils.getID(agent.position),
-                                ...HexUtils.getNeighbors(agent.position).map(h => HexUtils.getID(h))
-                            ].filter(id => state.map[id]), // valid hexes only
+                            controlledHexIds: [],
                             jobCap: 0,
                             workingPop: 0,
-                            availableVillagers: 1, // Settler converts to Villager
+                            availableVillagers: config.costs.villagers.baseVillagers,
+                            unreachableHexes: {},
 
                             // Initialize with default values
                             currentGoal: 'SURVIVE',
-                            lastGrowth: 0,
-                            popHistory: []
+                            lastGrowth: state.tick,
+                            popHistory: [],
+                            role: 'GENERAL'
                         };
 
                         // Set Map Owner
                         if (state.map[HexUtils.getID(agent.position)]) {
                             state.map[HexUtils.getID(agent.position)].ownerId = agent.ownerId;
                         }
-                        if (!silent) console.log(`[GAME] Settlement Founded at ${HexUtils.getID(agent.position)}`);
+                        Logger.getInstance().log(`[GAME] Settlement Founded at ${HexUtils.getID(agent.position)}`);
                     }
 
                     // Consume Settler
@@ -423,7 +436,7 @@ export const CaravanSystem = {
         const home = state.settlements[agent.homeId];
         if (home) {
             const homeHex = state.map[home.hexId];
-            const path = Pathfinding.findPath(agent.position, homeHex.coordinate, state.map, config);
+            const path = Pathfinding.findPath(agent.position, homeHex.coordinate, state.map, config, 'Caravan');
             if (path) {
                 agent.path = path;
                 agent.target = homeHex.coordinate;

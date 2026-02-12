@@ -1,10 +1,10 @@
 import { parentPort } from 'worker_threads';
-import { HeadlessRunner } from './HeadlessRunner';
-import { calculateFitness } from './FitnessEvaluator';
-import { Pathfinding } from '../Pathfinding';
-import { GameConfig } from '../../types/GameConfig';
-import { genomeToConfig, Genome } from './Genome';
-import { DEFAULT_CONFIG } from '../../types/GameConfig';
+import { HeadlessRunner } from './HeadlessRunner.ts';
+import { calculateFitness } from './FitnessEvaluator.ts';
+import { Pathfinding } from '../Pathfinding.ts';
+import { GameConfig } from '../../types/GameConfig.ts';
+import { genomeToConfig, Genome } from './Genome.ts';
+import { DEFAULT_CONFIG } from '../../types/GameConfig.ts';
 
 if (!parentPort) {
     throw new Error('EvolutionWorker must be run as a worker thread.');

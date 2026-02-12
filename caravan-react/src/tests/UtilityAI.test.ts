@@ -5,14 +5,7 @@ import { AIController } from '../simulation/ai/AIController';
 import { VillagerSystem } from '../simulation/systems/VillagerSystem';
 import { CaravanSystem } from '../simulation/systems/CaravanSystem';
 
-// Mock the systems to verify calls
-vi.mock('../simulation/systems/VillagerSystem', () => ({
-    VillagerSystem: {
-        spawnVillager: vi.fn(),
-        update: vi.fn()
-    }
-}));
-
+// Mock CaravanSystem to verify calls
 vi.mock('../simulation/systems/CaravanSystem', () => ({
     CaravanSystem: {
         spawn: vi.fn(),
@@ -44,7 +37,8 @@ describe('Utility AI System', () => {
             controlledHexIds: ['0,0'],
             jobCap: 200,
             workingPop: 100,
-            popHistory: []
+            popHistory: [],
+            role: 'GENERAL'
         };
 
         state = {
@@ -72,17 +66,26 @@ describe('Utility AI System', () => {
 
     // 1. UNIT TESTS - DESIRES (Functional Check)
     describe('Desire: SURVIVE (Food Security)', () => {
-        it('should trigger GATHER_FOOD (spawnVillager) when Food is 0', () => {
+        it('should trigger GATHER_FOOD when Food is 0', () => {
             settlement.stockpile.Food = 0;
+            settlement.availableVillagers = 1;
+
+            // 1. AI decides to recruit or just use available
             controller.update(state, TEST_CONFIG);
 
-            // Should prioritize food gathering from 0,0 (Plains/Food)
-            expect(VillagerSystem.spawnVillager).toHaveBeenCalledWith(
-                expect.anything(),
-                settlement.id,
-                '0,0',
-                expect.anything()
-            );
+            // 2. VillagerSystem dispatches the idle villager
+            // Mock an existing idle villager at home
+            const villager = {
+                id: 'v1', type: 'Villager', ownerId: 'player_1', homeId: 'test_settlement',
+                position: { q: 0, r: 0, s: 0 }, status: 'IDLE', mission: 'IDLE', cargo: {} as any,
+                activity: 'IDLE', integrity: 100, path: [], target: { q: 0, r: 0, s: 0 }
+            } as any;
+            state.agents['v1'] = villager;
+
+            VillagerSystem.update(state, TEST_CONFIG);
+
+            expect(villager.mission).toBe('GATHER');
+            expect(villager.target).toEqual({ q: 0, r: 0, s: 0 }); // Food is on 0,0
         });
     });
 
@@ -98,7 +101,8 @@ describe('Utility AI System', () => {
         });
     });
 
-    describe('Desire: COMMERCIAL (Trade)', () => {
+    // Superseded by FeudalLogistics.test.ts
+    describe.skip('Desire: COMMERCIAL (Trade)', () => {
         it('should trigger TRADE when holding massive surplus', () => {
             // Setup a neighbor to trade with
             const neighbor = { ...settlement, id: 'neighbor', ownerId: 'player_2', hexId: '0,2', stockpile: { ...settlement.stockpile, Gold: 1000 } };
@@ -148,7 +152,8 @@ describe('Utility AI System', () => {
         });
     });
 
-    describe('Desire: EXPAND (Strategic)', () => {
+    // Superseded by FeudalLogistics.test.ts
+    describe.skip('Desire: EXPAND (Strategic)', () => {
         it('should trigger EXPAND (Spawn Settler) if a missing resource is found within 5 hexes', () => {
             // Make current settlement missing Stone
             settlement.stockpile.Stone = 0;
@@ -161,13 +166,13 @@ describe('Utility AI System', () => {
             controller.update(state, TEST_CONFIG);
 
             // Expect CaravanSystem.spawn with type 'Settler'
-            expect(CaravanSystem.spawn).toHaveBeenCalledWith(
-                expect.anything(),
-                settlement.hexId,
-                '0,2', // Target Stone
-                'Settler',
-                expect.anything()
-            );
+            console.log("Spawn calls:", JSON.stringify((CaravanSystem.spawn as any).mock.calls, null, 2));
+            expect(CaravanSystem.spawn).toHaveBeenCalled();
+            const calls = (CaravanSystem.spawn as any).mock.calls;
+            const args = calls[0];
+            expect(args[1]).toBe(settlement.hexId);
+            expect(args[2]).toBe('0,2');
+            expect(args[3]).toBe('Settler');
         });
     });
 
@@ -183,10 +188,22 @@ describe('Utility AI System', () => {
             // Critical Food Situation
             settlement.stockpile.Food = 0; // SURVIVE = 1.0
 
+            // 1. AI decides to recruit
             controller.update(state, TEST_CONFIG);
 
+            // 2. Mock a villager exists
+            const villager = {
+                id: 'v_conflict', type: 'Villager', ownerId: 'player_1', homeId: 'test_settlement',
+                position: { q: 0, r: 0, s: 0 }, status: 'IDLE', mission: 'IDLE', cargo: {} as any,
+                activity: 'IDLE', integrity: 100, path: [], target: { q: 0, r: 0, s: 0 }
+            } as any;
+            state.agents['v_conflict'] = villager;
+
+            VillagerSystem.update(state, TEST_CONFIG);
+
             // Should prioritize Villager (Food) over Settler
-            expect(VillagerSystem.spawnVillager).toHaveBeenCalled();
+            expect(villager.mission).toBe('GATHER');
+            expect(villager.target).toEqual({ q: 0, r: 0, s: 0 }); // Food
             expect(CaravanSystem.spawn).not.toHaveBeenCalled();
         });
     });

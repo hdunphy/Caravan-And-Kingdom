@@ -1,5 +1,5 @@
-import { WorldState, Resources, TerrainType } from '../../types/WorldTypes';
-
+import { WorldState, Resources, TerrainType, HexCoordinate } from '../../types/WorldTypes';
+import { HexUtils } from '../../utils/HexUtils';
 import { GameConfig } from '../../types/GameConfig';
 
 export const ExtractionSystem = {
@@ -30,6 +30,22 @@ export const ExtractionSystem = {
                 const utilization = 1.0;
 
                 this.extractFromHex(state, settlement, hexId, hex.terrain, config, toolMult, utilization);
+
+                // Fishery Logic: If this land tile has a Fishery, extract from adjacent Water
+                if (settlement.buildings) {
+                    const building = settlement.buildings.find((b: any) => b.hexId === hexId && b.type === 'Fishery' && b.integrity > 0);
+                    if (building) {
+                        const neighbors = HexUtils.getNeighbors(hex.coordinate);
+                        neighbors.forEach((nCoord: HexCoordinate) => {
+                            const nId = HexUtils.getID(nCoord);
+                            const nHex = state.map[nId];
+                            if (nHex && nHex.terrain === 'Water') {
+                                // Extract from water, but deposit ON THIS LAND HEX (the Fishery)
+                                this.extractFromHex(state, settlement, hexId, 'Water', config, toolMult, utilization);
+                            }
+                        });
+                    }
+                }
             });
         });
     },

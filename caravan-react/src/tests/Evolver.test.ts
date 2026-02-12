@@ -4,7 +4,7 @@ import { Evolver } from '../simulation/evolution/Evolver';
 describe('Evolver', () => {
     it('should run a generation and return the best individual', async () => {
         const evolver = new Evolver(5); // Small pop for test
-        const best = await evolver.runGeneration({ ticks: 10, width: 20, height: 20, factionCount: 1 });
+        const best = await evolver.runGeneration({ ticks: 10, width: 20, height: 20, factionCount: 1, useWorker: false });
 
         expect(evolver.generation).toBe(1);
         expect(best).toBeDefined();
@@ -13,7 +13,7 @@ describe('Evolver', () => {
 
     it('should improve fitness over generations (Heuristic Check)', async () => {
         const evolver = new Evolver(10);
-        const options = { ticks: 50, width: 20, height: 20, factionCount: 1 };
+        const options = { ticks: 50, width: 20, height: 20, factionCount: 1, useWorker: false };
         await evolver.runGeneration(options);
 
         // Run 5 generations

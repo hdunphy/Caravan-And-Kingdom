@@ -1,6 +1,8 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ConstructionStrategy } from '../simulation/ai/ConstructionStrategy';
 import { TradeStrategy } from '../simulation/ai/TradeStrategy';
+import { ExpansionStrategy } from '../simulation/ai/ExpansionStrategy';
+import { RecruitStrategy } from '../simulation/ai/RecruitStrategy';
 import { WorldState, Settlement } from '../types/WorldTypes';
 import { DEFAULT_CONFIG } from '../types/GameConfig';
 
@@ -23,7 +25,9 @@ describe('AI Strategies', () => {
             availableVillagers: 0,
             controlledHexIds: ['0,0', '1,0'],
             buildings: [],
-            popHistory: []
+            popHistory: [],
+            unreachableHexes: {},
+            role: 'GENERAL'
         };
 
         state = {
@@ -40,46 +44,85 @@ describe('AI Strategies', () => {
         };
     });
 
+    const TEST_CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+    // Override with test-friendly values
+    TEST_CONFIG.ai.utility.surviveThreshold = 10; // Trigger build if < 10 ticks
+    TEST_CONFIG.ai.utility.expandMinDistance = 1;
+    TEST_CONFIG.ai.utility.expandSearchRadius = 10;
+    TEST_CONFIG.costs.logistics.tradeRoiThreshold = 1;
+    TEST_CONFIG.costs.logistics.freightThreshold = 1;
+
     describe('ConstructionStrategy', () => {
         const strategy = new ConstructionStrategy();
 
-        it('should recommend building GathererHut when food is low', () => {
-            settlement.stockpile.Food = DEFAULT_CONFIG.ai.thresholds.surviveFood * 0.5; // Force low food (Threshold ~150)
-            settlement.currentGoal = 'SURVIVE';
-            const actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1');
-            expect(actions).toContainEqual(expect.objectContaining({ type: 'BUILD', buildingType: 'GathererHut' }));
+        it('should recommend building GathererHut if food is low', () => {
+            settlement.stockpile.Food = 0; // Trigger survive logic
+            const actions = strategy.evaluate(state, TEST_CONFIG, 'p1');
+            const buildAction = actions.find(a => a.type === 'BUILD' && a.buildingType === 'GathererHut');
+            expect(buildAction).toBeDefined();
+            expect(buildAction!.score).toBeGreaterThan(0.5);
         });
 
-        it('should not build if resources are below buffer', () => {
-            settlement.stockpile.Timber = 0;
-            const actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1');
-            expect(actions.length).toBe(0);
+        it('should recommend upgrade when materials and population met', () => {
+            settlement.population = 200;
+            settlement.stockpile.Timber = 1000;
+            settlement.stockpile.Stone = 1000;
+            settlement.stockpile.Tools = 100;
+            const actions = strategy.evaluate(state, TEST_CONFIG, 'p1');
+            const upgradeAction = actions.find(a => a.type === 'UPGRADE_SETTLEMENT');
+            expect(upgradeAction).toBeDefined();
+        });
+    });
+
+    describe('RecruitStrategy', () => {
+        const strategy = new RecruitStrategy();
+
+        it('should recommend recruiting when population supports more villagers', () => {
+            // popRatio 10, pop 100 => 10 villagers. Current 0.
+            const actions = strategy.evaluate(state, TEST_CONFIG, 'p1');
+            const recruitAction = actions.find(a => a.type === 'RECRUIT_VILLAGER');
+            expect(recruitAction).toBeDefined();
+            expect(recruitAction!.score).toBeGreaterThan(0);
         });
     });
 
     describe('TradeStrategy', () => {
         const strategy = new TradeStrategy();
 
-        it('should recommend trade if there is a deficit and a partner with surplus', () => {
-            settlement.currentGoal = 'UPGRADE'; // Force checks for Timber/Stone
-            settlement.stockpile.Timber = 0;
-            const s2: Settlement = {
+        it('should recommend trade if surplus exists and neighbor needs it', () => {
+            settlement.stockpile.Food = 2000; // Surplus
+            const neighbor: Settlement = {
                 ...settlement,
                 id: 's2',
-                hexId: '5,5',
-                stockpile: { Food: 1000, Timber: 1000, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
-                controlledHexIds: ['5,5'],
-                popHistory: []
+                hexId: '1,0',
+                stockpile: { Food: 0, Timber: 0, Stone: 0, Ore: 0, Tools: 0, Gold: 100 }
             };
-            state.settlements['s2'] = s2;
-            state.map['5,5'] = { id: '5,5', coordinate: { q: 5, r: 5, s: -10 }, terrain: 'Forest', ownerId: 'p1', resources: {} };
+            state.settlements['s2'] = neighbor;
 
-            const actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1');
-            expect(actions).toContainEqual(expect.objectContaining({
-                type: 'DISPATCH_CARAVAN',
-                mission: 'TRADE',
-                settlementId: 's1'
-            }));
+            const actions = strategy.evaluate(state, TEST_CONFIG, 'p1', 's1');
+            const tradeAction = actions.find(a => a.type === 'DISPATCH_CARAVAN' && a.mission === 'TRADE');
+            expect(tradeAction).toBeDefined();
+        });
+    });
+
+    describe('ExpansionStrategy', () => {
+        const strategy = new ExpansionStrategy();
+
+        it('should recommend spawning settler when missing resource is nearby', () => {
+            settlement.stockpile.Stone = 0;
+            state.map['2,0'] = { id: '2,0', coordinate: { q: 2, r: 0, s: -2 }, terrain: 'Hills', resources: { Stone: 100 }, ownerId: null };
+
+            const actions = strategy.evaluate(state, TEST_CONFIG, 'p1');
+            const expandAction = actions.find(a => a.type === 'SPAWN_SETTLER');
+            expect(expandAction).toBeDefined();
+            expect(expandAction!.targetHexId).toBe('2,0');
+        });
+
+        it('should NOT recommend spawning settler if resources below expansion buffer', () => {
+            // Cost = 500 Food, 200 Timber. Buffer = 1.5. Required = 750 Food, 300 Timber.
+            settlement.stockpile.Timber = 250;
+            const actions = strategy.evaluate(state, TEST_CONFIG, 'p1');
+            expect(actions.filter(a => a.type === 'SPAWN_SETTLER').length).toBe(0);
         });
     });
 });

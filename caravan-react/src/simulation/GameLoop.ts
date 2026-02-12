@@ -1,29 +1,28 @@
-import { WorldState } from '../types/WorldTypes';
-import { MetabolismSystem } from './systems/MetabolismSystem';
-import { ExtractionSystem } from './systems/ExtractionSystem';
-import { VillagerSystem } from './systems/VillagerSystem';
-import { MovementSystem } from './systems/MovementSystem';
-import { CaravanSystem } from './systems/CaravanSystem';
+import { WorldState } from '../types/WorldTypes.ts';
+import { MetabolismSystem } from './systems/MetabolismSystem.ts';
+import { ExtractionSystem } from './systems/ExtractionSystem.ts';
+import { VillagerSystem } from './systems/VillagerSystem.ts';
+import { MovementSystem } from './systems/MovementSystem.ts';
+import { CaravanSystem } from './systems/CaravanSystem.ts';
 
-import { GameConfig } from '../types/GameConfig';
+import { GameConfig } from '../types/GameConfig.ts';
 
-import { IndustrySystem } from './systems/IndustrySystem';
+import { IndustrySystem } from './systems/IndustrySystem.ts';
 
-import { MaintenanceSystem } from './systems/MaintenanceSystem';
-import { UpgradeSystem } from './systems/UpgradeSystem';
-import { AIController } from './ai/AIController';
+import { MaintenanceSystem } from './systems/MaintenanceSystem.ts';
+import { UpgradeSystem } from './systems/UpgradeSystem.ts';
+import { SettlementSystem } from './systems/SettlementSystem.ts';
+import { AIController } from './ai/AIController.ts';
 
 export class GameLoop {
     state: WorldState;
     config: GameConfig;
     aiController: AIController;
-    silent: boolean = false;
 
-    constructor(state: WorldState, config: GameConfig, silent: boolean = false) {
+    constructor(state: WorldState, config: GameConfig) {
         this.state = state;
         this.config = config;
         this.aiController = new AIController();
-        this.silent = silent;
     }
 
     tick() {
@@ -31,7 +30,7 @@ export class GameLoop {
 
         // Movement always runs (simulation tick)
         MovementSystem.update(this.state, this.config);
-        CaravanSystem.update(this.state, this.config, this.silent);
+        CaravanSystem.update(this.state, this.config);
 
         // Economy runs only on resource intervals
         if (this.state.tick % this.config.simulation.resourceTickInterval === 0) {
@@ -46,12 +45,13 @@ export class GameLoop {
             VillagerSystem.update(this.state, this.config);
             IndustrySystem.update(this.state, this.config);
             MaintenanceSystem.update(this.state, this.config);
-            MetabolismSystem.update(this.state, this.config, this.silent);
-            UpgradeSystem.update(this.state, this.config, this.silent);
+            SettlementSystem.update(this.state, this.config);
+            MetabolismSystem.update(this.state, this.config);
+            UpgradeSystem.update(this.state, this.config);
             CaravanSystem.processTrade(this.state, this.config);
 
             // AI Decisions
-            this.aiController.update(this.state, this.config, this.silent);
+            this.aiController.update(this.state, this.config);
 
             // Calculate Deltas
             Object.values(this.state.settlements).forEach(s => {

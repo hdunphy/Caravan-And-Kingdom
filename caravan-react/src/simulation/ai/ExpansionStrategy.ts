@@ -23,10 +23,25 @@ export class ExpansionStrategy implements AIStrategy {
         }
 
         potentialSettlers.forEach(settlement => {
-            // Affordability check
-            if (settlement.stockpile.Food < (cost.Food || 0) * buffer ||
-                settlement.stockpile.Timber < (cost.Timber || 0) * buffer) {
-                return; // Use return for forEach equivalent of continue
+            // Cooldown Check
+            if (settlement.aiState?.lastSettlerSpawnTick && (state.tick - settlement.aiState.lastSettlerSpawnTick) < config.ai.settlerCooldown) {
+                return;
+            }
+
+            // Affordability check (with buffer)
+            const requiredFood = (cost.Food || 0) * buffer;
+            const requiredTimber = (cost.Timber || 0) * buffer;
+
+            if (settlement.stockpile.Food < requiredFood ||
+                settlement.stockpile.Timber < requiredTimber) {
+                return;
+            }
+
+            // Survival Reserve Check: Don't expand if it would leave us with < 50 ticks of food
+            const consumption = Math.max(5, settlement.population * (config.costs.baseConsume || 0.1));
+            const survivalReserve = consumption * 50;
+            if (settlement.stockpile.Food - (cost.Food || 0) < survivalReserve) {
+                return;
             }
 
             // ==========================================

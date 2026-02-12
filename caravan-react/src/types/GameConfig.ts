@@ -1,10 +1,11 @@
-import { Resources, TerrainType } from './WorldTypes';
+import { Resources, TerrainType } from './WorldTypes.ts';
 
 export interface GameConfig {
     simulation: {
         tickRate: number; // ms per tick (game loop speed)
         resourceTickInterval: number; // How many game ticks per resource tick
     };
+    isSilent?: boolean; // Global silence flag for logs
     costs: {
         movement: number; // Base movement points per tick
         terrain: Record<TerrainType, number>; // Cost per hex
@@ -59,18 +60,18 @@ export interface GameConfig {
     upgrades: {
         villageToTown: {
             population: number;
-            plainsCount: number;
             costTimber: number;
             costStone: number;
             popCap: number;
+            radius: number;
         };
         townToCity: {
             population: number;
-            plainsCount: number;
             costTimber: number;
             costStone: number;
             costOre: number;
             popCap: number;
+            radius: number;
         };
         city: {
             popCap: number;
@@ -80,6 +81,7 @@ export interface GameConfig {
     ai: {
         settlementCap: number;
         settlerCost: number; // Pop cost
+        settlerCooldown: number; // Ticks between settler spawns
         expansionBuffer: number;
         expansionStarterPack: Partial<Resources>;
         checkInterval: number;
@@ -127,6 +129,21 @@ export interface GameConfig {
             expandSearchRadius: number;
             expandSaturationPower: number;
             expandMinDistance: number;
+        };
+        feudal: {
+            roleUtilityBonus: number;
+            roleCheckInterval: number;
+            trade: {
+                maxDistance: number;
+                surplusThreshold: number;
+                deficitThreshold: number;
+                checkInterval: number;
+            };
+            thresholds: {
+                lumberForestRatio: number;
+                miningHillRatio: number;
+                granaryPlainsRatio: number;
+            };
         };
     };
     maintenance: {
@@ -221,17 +238,17 @@ export const DEFAULT_CONFIG: GameConfig = {
         villageToTown: {
             popCap: 200, // Cap for Village (Tier 0)
             population: 100, // Req to Upgrade
-            plainsCount: 1,
             costTimber: 300,
             costStone: 150,
+            radius: 2,
         },
         townToCity: {
             popCap: 500, // Cap for Town (Tier 1)
             population: 400, // Req to Upgrade
-            plainsCount: 2,
             costTimber: 800,
             costStone: 400,
             costOre: 200,
+            radius: 3,
         },
         city: {
             popCap: 2000 // Cap for City (Tier 2)
@@ -262,7 +279,8 @@ export const DEFAULT_CONFIG: GameConfig = {
     ai: {
         settlementCap: 5,
         settlerCost: 50,
-        expansionBuffer: 0.187,
+        settlerCooldown: 100,
+        expansionBuffer: 1.5,
         expansionStarterPack: {
             Food: 100,
             Timber: 50,
@@ -295,6 +313,21 @@ export const DEFAULT_CONFIG: GameConfig = {
             goalPriority: 2.0, // Multiplier
             goalBonus: 5.0, // Flat
             stockpileLow: 5.0,
+        },
+        feudal: {
+            roleUtilityBonus: 0.25,
+            roleCheckInterval: 200,
+            trade: {
+                maxDistance: 10,
+                surplusThreshold: 500, // Fixed amount or ratio? User said "fills my capacity"
+                deficitThreshold: 100,
+                checkInterval: 50
+            },
+            thresholds: {
+                lumberForestRatio: 0.3,
+                miningHillRatio: 0.3,
+                granaryPlainsRatio: 0.5
+            }
         },
         utility: {
             surviveThreshold: 1.62,
@@ -371,6 +404,12 @@ export const DEFAULT_CONFIG: GameConfig = {
             minTier: 0,
             description: "Fog Clearance + Defense",
             effects: [{ type: 'DEFENSE', value: 2.0 }]
+        },
+        'Fishery': {
+            name: "Fishery",
+            cost: { Timber: 100 },
+            minTier: 0,
+            description: "Extracts from adjacent Water",
         },
     },
 };

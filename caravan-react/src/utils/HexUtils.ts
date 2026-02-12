@@ -1,4 +1,4 @@
-import { HexCoordinate } from '../types/WorldTypes';
+import { HexCoordinate } from '../types/WorldTypes.ts';
 
 export const HexUtils = {
     // Create a coordinate
@@ -9,6 +9,11 @@ export const HexUtils = {
     // Get ID string
     getID(hex: HexCoordinate): string {
         return `${hex.q},${hex.r}`;
+    },
+
+    createFromID(id: string): HexCoordinate {
+        const [q, r] = id.split(',').map(Number);
+        return this.create(q, r);
     },
 
     // Get neighbors (Axial directions)

@@ -25,7 +25,9 @@ export interface HexCell {
     resources: Partial<Resources>; // Resources currently ON the hex (not stockpile)
 }
 
-export type GoalType = 'UPGRADE' | 'EXPAND' | 'TOOLS' | 'SURVIVE';
+export type SettlementRole = 'GENERAL' | 'LUMBER' | 'MINING' | 'GRANARY';
+
+export type GoalType = 'UPGRADE' | 'EXPAND' | 'TOOLS' | 'SURVIVE' | 'THRIFTY';
 
 export type BuildingType =
     | 'GathererHut'
@@ -57,11 +59,15 @@ export interface Settlement {
     stockpile: Resources;
     integrity: number;
     tier: number; // 0=Village, 1=Town, 2=City
+    role: SettlementRole; // New Role Property
 
     // Workforce
     jobCap: number;
     workingPop: number;
     availableVillagers: number; // Idle villagers ready to be deployed
+    unreachableHexes?: Record<string, number>; // hexId -> expiryTick
+
+    // UI/AI State fields
     controlledHexIds: string[]; // Hexes this city owns/works
     buildings: BuildingInstance[];
 
@@ -76,8 +82,10 @@ export interface Settlement {
         savingFor: 'FLEET' | 'UPGRADE' | null; // "Gold Reserve" / "Material Lock"
         focusResources: string[]; // For HR Governor
         lastDecisions?: Record<string, string[]>; // Governor -> decisions
+        lastSettlerSpawnTick?: number;
     };
     popHistory: number[]; // Last 100 ticks of population
+    resourceGoals?: Resources; // Target levels for Reactive Ant logic
 }
 
 export interface Faction {
@@ -102,6 +110,8 @@ export interface BaseAgent {
     activity?: 'MOVING' | 'LOADING' | 'UNLOADING' | 'IDLE';
     status?: 'IDLE' | 'BUSY' | 'RETURNING';
     movementProgress?: number;
+    lastHexId?: string;    // For stuck detection
+    stuckTicks?: number;  // For stuck detection
 }
 
 export interface CaravanAgent extends BaseAgent {
@@ -115,12 +125,13 @@ export interface CaravanAgent extends BaseAgent {
 
 export interface SettlerAgent extends BaseAgent {
     type: 'Settler';
+    destinationId?: string; // Hex where the settler intends to found
 }
 
 export interface VillagerAgent extends BaseAgent {
     type: 'Villager';
     homeId: string; // Villagers always belong to a settlement
-    mission?: 'GATHER' | 'IDLE';
+    mission?: 'GATHER' | 'IDLE' | 'INTERNAL_FREIGHT';
     gatherTarget?: HexCoordinate;
     resourceType?: keyof Resources;
 }

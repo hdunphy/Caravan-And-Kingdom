@@ -1,5 +1,5 @@
-import { WorldState } from '../../types/WorldTypes';
-import { SimulationStats } from './HeadlessRunner';
+import { WorldState } from '../../types/WorldTypes.ts';
+import { SimulationStats } from './HeadlessRunner.ts';
 
 export const calculateFitness = (state: WorldState, stats: SimulationStats, generation: number = 0): number => {
     let score = 0;

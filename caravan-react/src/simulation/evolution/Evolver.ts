@@ -2,11 +2,13 @@ import { Worker } from 'worker_threads';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { Genome, genomeToConfig, configToGenome } from './Genome';
-import { HeadlessOptions, SimulationStats } from './HeadlessRunner';
+import { HeadlessOptions, SimulationStats, HeadlessRunner } from './HeadlessRunner';
+import { calculateFitness } from './FitnessEvaluator';
 import { DEFAULT_CONFIG } from '../../types/GameConfig';
 import { GameConfig } from '../../types/GameConfig';
 import { WorldState } from '../../types/WorldTypes';
 import * as os from 'os';
+import { Logger } from '../../utils/Logger';
 
 export interface Individual {
     genome: Genome;
@@ -27,7 +29,7 @@ export class Evolver {
 
         if (seedConfig) {
             seedGenome = configToGenome(seedConfig);
-            console.log("Seeding population with provided config.");
+            Logger.getInstance().log("Seeding population with provided config.");
         } else {
             seedGenome = configToGenome(DEFAULT_CONFIG);
         }
@@ -43,10 +45,9 @@ export class Evolver {
     }
 
     private getWorkerPath(): string {
-        // Resolve absolute path to EvolutionWorker.js (Compiled)
         const __filename = fileURLToPath(import.meta.url);
         const __dirname = path.dirname(__filename);
-        return path.join(__dirname, 'EvolutionWorker.js');
+        return path.join(__dirname, 'EvolutionWorker.ts');
     }
 
 
@@ -72,18 +73,25 @@ export class Evolver {
         const coolingFactor = Math.max(0.1, 1.0 - (this.generation / maxGenerations));
         const currentMutationAmount = 0.5 * coolingFactor;
 
-        // 1. Evaluate in Parallel
-        console.log(`[Gen ${this.generation}] Spawning ${this.poolSize} workers for ${this.population.length} individuals...`);
+        // 1. Evaluate
+        // Fallback to sequential for stability if workers fail or poolSize is 1
+        // Tests should set useWorker: false to avoid TS-Node worker issues
+        const useParallel = options.useWorker === true;
 
-
-        await this.evaluatePopulationParallel(options, onProgress);
+        if (useParallel) {
+            Logger.getInstance().log(`[Gen ${this.generation}] Spawning ${this.poolSize} workers for ${this.population.length} individuals...`);
+            await this.evaluatePopulationParallel(options, onProgress);
+        } else {
+            Logger.getInstance().log(`[Gen ${this.generation}] Running sequential evaluation...`);
+            this.evaluatePopulationSequential(options, onProgress);
+        }
 
         // 2. Sort by fitness
         this.population.sort((a, b) => b.fitness - a.fitness);
 
         const best = this.population[0];
         if (this.generation % 10 === 0) {
-            console.log(`Generation ${this.generation} Best Fitness: ${best.fitness.toFixed(2)} | Mutation Level: ${currentMutationAmount.toFixed(2)}`);
+            Logger.getInstance().log(`Generation ${this.generation} Best Fitness: ${best.fitness.toFixed(2)} | Mutation Level: ${currentMutationAmount.toFixed(2)}`);
         }
 
         // 3. Selection (Keep top 10% elite)
@@ -110,6 +118,25 @@ export class Evolver {
         return best;
     }
 
+    private evaluatePopulationSequential(options: HeadlessOptions, onProgress?: (percent: number) => void) {
+        this.population.forEach((ind, index) => {
+            const config = genomeToConfig(ind.genome, DEFAULT_CONFIG);
+            const runOptions = {
+                ...options,
+                onHeartbeat: index === 0 && onProgress ? onProgress : undefined
+            };
+
+            // Clear cache to be safe - Pathfinding cache is global
+            // We should import Pathfinding to clear it, but for now we rely on HeadlessRunner creating fresh state.
+            // If pathfinding cache issues arise, we'll need to expose Pathfinding.clearCache().
+
+            const result = HeadlessRunner.run(config, runOptions);
+            ind.fitness = calculateFitness(result.state, result.stats, this.generation);
+            ind.stats = result.stats;
+            ind.state = result.state;
+        });
+    }
+
     private async evaluatePopulationParallel(options: HeadlessOptions, onProgress?: (percent: number) => void) {
         const workerPath = this.getWorkerPath();
         const tasks = this.population.map((ind, i) => ({ index: i, individual: ind }));
@@ -125,7 +152,12 @@ export class Evolver {
             let activeWorkers = 0;
 
             const startWorker = () => {
-                const worker = new Worker(workerPath);
+                const loaderPath = path.resolve(process.cwd(), 'node_modules/tsx/dist/loader.mjs');
+                const worker = new Worker(workerPath, {
+                    execArgv: [
+                        '--import', `file://${loaderPath}`
+                    ]
+                });
                 workers.push(worker);
                 activeWorkers++;
 
@@ -167,9 +199,10 @@ export class Evolver {
 
                 worker.on('error', (err: any) => {
                     console.error('Worker crashed:', err);
-                    activeWorkers--; // This might hang if we don't handle retry, but simpler to just fail the task conceptually? 
-                    // ideally we respawn, but for now we assume stability.
-                    if (activeWorkers === 0 && pendingTasks.length === 0) resolve();
+                    // Use reject here!
+                    // If a worker crashes hard, the simulation integrity is compromised.
+                    // Rejecting stops the promise from hanging indefinitely.
+                    reject(err);
                 });
 
                 // Initial Task

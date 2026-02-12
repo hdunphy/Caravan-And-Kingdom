@@ -1,9 +1,9 @@
-import { createInitialState } from '../WorldState';
-import { MapGenerator } from '../MapGenerator';
-import { GameLoop } from '../GameLoop';
-import { GameConfig } from '../../types/GameConfig';
-import { WorldState } from '../../types/WorldTypes';
-import { HexUtils } from '../../utils/HexUtils';
+import { createInitialState } from '../WorldState.ts';
+import { MapGenerator } from '../MapGenerator.ts';
+import { GameLoop } from '../GameLoop.ts';
+import { GameConfig } from '../../types/GameConfig.ts';
+import { WorldState } from '../../types/WorldTypes.ts';
+import { HexUtils } from '../../utils/HexUtils.ts';
 
 export interface HeadlessOptions {
     ticks: number;
@@ -11,6 +11,7 @@ export interface HeadlessOptions {
     height: number;
     factionCount: number;
     onHeartbeat?: (progress: number) => void;
+    useWorker?: boolean;
 }
 
 export interface SimulationStats {
@@ -23,8 +24,11 @@ export interface SimulationStats {
     enteredSurviveMode: boolean; // Did they ever enter SURVIVE?
 }
 
+import { Logger } from '../../utils/Logger.ts';
+
 export class HeadlessRunner {
     static run(config: GameConfig, options: HeadlessOptions): { state: WorldState, stats: SimulationStats } {
+        Logger.getInstance().setSilent(true);
         const state = createInitialState();
         const WIDTH = options.width;
         const HEIGHT = options.height;
@@ -62,7 +66,8 @@ export class HeadlessRunner {
                 neighbors.forEach(n => usedHexes.push(HexUtils.getID(n)));
 
                 // Grant initial territory
-                const territory = HexUtils.getSpiral(startingHex.coordinate, 1);
+                const radius = config.upgrades.villageToTown.radius || 2;
+                const territory = HexUtils.getSpiral(startingHex.coordinate, radius);
                 const controlledIds = territory.map(c => HexUtils.getID(c)).filter(id => map[id]);
                 controlledIds.forEach(id => { if (map[id]) map[id].ownerId = factionId; });
 
@@ -74,19 +79,20 @@ export class HeadlessRunner {
                     population: 100,
                     ownerId: factionId,
                     integrity: 100,
-                    tier: 0,
+                    tier: 1, // Start as Town (Tier 1)
                     jobCap: 100,
                     workingPop: 100,
                     availableVillagers: 2,
                     controlledHexIds: controlledIds,
                     buildings: [],
                     popHistory: [],
-                    stockpile: { Food: 500, Timber: 50, Stone: 0, Ore: 0, Gold: 0, Tools: 0 }
+                    stockpile: { Food: 500, Timber: 50, Stone: 0, Ore: 0, Gold: 0, Tools: 0 },
+                    role: 'GENERAL'
                 };
             }
         });
 
-        const loop = new GameLoop(state, config, true); // SILENT MODE
+        const loop = new GameLoop(state, config); // SILENT MODE via Logger
 
         const stats: SimulationStats = {
             survivalTicks: 0,
