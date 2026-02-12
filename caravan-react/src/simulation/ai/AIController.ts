@@ -13,6 +13,7 @@ import { VillagerSystem } from '../systems/VillagerSystem.ts';
 import { UpgradeSystem } from '../systems/UpgradeSystem.ts';
 import { RecruitStrategy } from './RecruitStrategy.ts';
 import { UpgradeStrategy } from './UpgradeStrategy.ts';
+import { Logger } from '../../utils/Logger';
 
 export class AIController {
     private factionStates: Map<string, { lastTick: number, nextInterval: number }> = new Map();
@@ -41,8 +42,8 @@ export class AIController {
         ];
     }
 
-    update(state: WorldState, config: GameConfig, silent: boolean = false) {
-        if (state.tick === 0 && !silent) console.log("AI UPDATING WITH SILENT=FALSE");
+    update(state: WorldState, config: GameConfig) {
+        if (state.tick === 0) Logger.getInstance().log("AI UPDATING WITH SILENT=FALSE");
 
         const factionIds = Object.keys(state.factions);
         // Fisher-Yates shuffle for random order
@@ -74,12 +75,12 @@ export class AIController {
                 fState.nextInterval = Math.max(1, baseInterval + jitter);
 
                 // Execute Logic
-                this.processFaction(factionId, state, config, silent);
+                this.processFaction(factionId, state, config);
             }
         });
     }
 
-    private processFaction(factionId: string, state: WorldState, config: GameConfig, silent: boolean) {
+    private processFaction(factionId: string, state: WorldState, config: GameConfig) {
         // 1. Update Settlement State & Influence Flags
         const settlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
 
@@ -90,10 +91,10 @@ export class AIController {
 
         // 2. Evaluate & Execute per Settlement (simplifies grouping)
         settlements.forEach(s => {
-            this.runGovernor(s, state, config, 'CIVIL', this.civilStrategies, silent);
-            this.runGovernor(s, state, config, 'LABOR', this.hrStrategies, silent);     // New: Labor (Villagers)
-            this.runGovernor(s, state, config, 'TRANSPORT', this.hrStrategies, silent); // New: Transport (Logistics Caravans)
-            this.runGovernor(s, state, config, 'TRADE', this.tradeStrategies, silent);
+            this.runGovernor(s, state, config, 'CIVIL', this.civilStrategies);
+            this.runGovernor(s, state, config, 'LABOR', this.hrStrategies);     // New: Labor (Villagers)
+            this.runGovernor(s, state, config, 'TRANSPORT', this.hrStrategies); // New: Transport (Logistics Caravans)
+            this.runGovernor(s, state, config, 'TRADE', this.tradeStrategies);
         });
     }
 
@@ -133,7 +134,7 @@ export class AIController {
         }
     }
 
-    private runGovernor(settlement: Settlement, state: WorldState, config: GameConfig, governorType: string, strategies: AIStrategy[], silent: boolean = false) {
+    private runGovernor(settlement: Settlement, state: WorldState, config: GameConfig, governorType: string, strategies: AIStrategy[]) {
         const actions: AIAction[] = [];
 
         // Optimize: Pass settlementId to strategy to avoid evaluating all settlements
@@ -206,7 +207,7 @@ export class AIController {
         // Multi-Action Execution Loop
         for (const action of relevantActions) {
 
-            this.executeAction(state, config, action, silent);
+            this.executeAction(state, config, action);
             // If action failed (e.g. not enough resources), we continue to next
             // But we should be careful not to spam if costs aren't deducted immediately in executeAction
             // executeAction logic handles immediate resource deduction for most things?
@@ -217,7 +218,7 @@ export class AIController {
         }
     }
 
-    private executeAction(state: WorldState, config: GameConfig, action: AIAction, silent: boolean = false): boolean {
+    private executeAction(state: WorldState, config: GameConfig, action: AIAction): boolean {
         switch (action.type) {
             case 'BUILD_CARAVAN':
                 const cSettlement = state.settlements[action.settlementId];
@@ -229,7 +230,7 @@ export class AIController {
                 }
                 return false;
             case 'BUILD':
-                return ConstructionSystem.build(state, action.settlementId, action.buildingType, action.buildingType === 'PavedRoad' || action.buildingType === 'Masonry' ? action.hexId : action.hexId, config, silent); // Weird generic fix, just trusting hexId logic
+                return ConstructionSystem.build(state, action.settlementId, action.buildingType, action.buildingType === 'PavedRoad' || action.buildingType === 'Masonry' ? action.hexId : action.hexId, config); // Weird generic fix, just trusting hexId logic
             case 'DISPATCH_CARAVAN':
                 if (action.context?.type === 'Settler') {
                     // handled in SPAWN_SETTLER context usually, but just in case
@@ -253,7 +254,7 @@ export class AIController {
                     settlement.stockpile.Food -= (config.costs.settlement.Food || 0);
                     settlement.stockpile.Timber -= (config.costs.settlement.Timber || 0);
                     settlement.population -= config.ai.settlerCost;
-                    if (!silent) console.log(`[AI] Spawned Settler from ${settlement.name}`);
+                    Logger.getInstance().log(`[AI] Spawned Settler from ${settlement.name}`);
                     return true;
                 }
                 return false;
@@ -277,7 +278,7 @@ export class AIController {
                 return false;
             case 'UPGRADE_SETTLEMENT':
                 const settlementToUpgrade = state.settlements[action.settlementId];
-                return UpgradeSystem.tryUpgrade(state, settlementToUpgrade, config, silent);
+                return UpgradeSystem.tryUpgrade(state, settlementToUpgrade, config);
         }
         return false;
     }

@@ -1,4 +1,4 @@
-import { BuildingType } from '../../types/WorldTypes';
+import { BuildingType } from '../../types/WorldTypes.ts';
 
 export type AIAction = { score: number } & (
     | { type: 'BUILD', settlementId: string, buildingType: BuildingType, hexId: string }

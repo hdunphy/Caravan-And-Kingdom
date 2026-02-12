@@ -1,6 +1,7 @@
 import { WorldState, Resources, VillagerAgent } from '../../types/WorldTypes.ts';
 import { GameConfig } from '../../types/GameConfig.ts';
 import { HexUtils } from '../../utils/HexUtils.ts';
+import { Logger } from '../../utils/Logger';
 import { Pathfinding } from '../Pathfinding.ts';
 
 export const VillagerSystem = {
@@ -221,7 +222,10 @@ export const VillagerSystem = {
             path = [startHex.coordinate];
         }
 
-        if (!path || path.length === 0) return null;
+        if (!path || path.length === 0) {
+            Logger.getInstance().log(`[VillagerSystem] Fail: No path for villager from ${settlement.hexId} to ${targetHexId}`);
+            return null;
+        }
 
         // Decrement pool
         settlement.availableVillagers--;

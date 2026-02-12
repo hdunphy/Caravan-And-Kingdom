@@ -1,6 +1,7 @@
-import { HexCoordinate, HexCell } from '../types/WorldTypes';
-import { HexUtils } from '../utils/HexUtils';
-import { GameConfig } from '../types/GameConfig';
+import { HexCoordinate, HexCell } from '../types/WorldTypes.ts';
+import { HexUtils } from '../utils/HexUtils.ts';
+import { GameConfig } from '../types/GameConfig.ts';
+import { Logger } from '../utils/Logger.ts';
 
 interface Node {
     id: string;
@@ -41,10 +42,16 @@ export const Pathfinding = {
         if (startId === endId) return [];
 
         const endCell = map[endId];
-        if (!endCell) return null;
+        if (!endCell) {
+            Logger.getInstance().log(`[Pathfinding] Fail: Target ${endId} does not exist in map.`);
+            return null;
+        }
 
         const endCost = costs[endCell.terrain];
-        if (endCost >= IMPASSABLE) return null; // Target invalid
+        if (endCost >= IMPASSABLE) {
+            Logger.getInstance().log(`[Pathfinding] Fail: Target ${endId} is impassable (${endCell.terrain}).`);
+            return null; // Target invalid
+        }
 
         const openList: Node[] = [];
         const closedSet = new Set<string>();
@@ -129,6 +136,7 @@ export const Pathfinding = {
         // OR we cache `null` but we need to cast or trick typescript if the map is strictly HexCoordinate[].
         // Map definition: `Map<string, HexCoordinate[]>`. It cannot hold null.
         // So I will REMOVE the caching of failure for now to avoid bugs.
+        Logger.getInstance().log(`[Pathfinding] Fail: No path found from ${startId} to ${endId}.`);
         return null; // No path found
     }
 };

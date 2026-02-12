@@ -1,7 +1,8 @@
 import { AIAction, AIStrategy } from './AITypes';
-import { WorldState } from '../../types/WorldTypes';
+import { WorldState, Resources } from '../../types/WorldTypes';
 import { GameConfig } from '../../types/GameConfig';
 import { HexUtils } from '../../utils/HexUtils';
+import { Logger } from '../../utils/Logger';
 
 export class VillagerStrategy implements AIStrategy {
     evaluate(state: WorldState, config: GameConfig, factionId: string, settlementId?: string): AIAction[] {
@@ -46,8 +47,8 @@ export class VillagerStrategy implements AIStrategy {
                     // Reduce score based on satiation (surviveScore)
                     // If plenty of food, surviveScore is 0 -> Score 0 -> Villagers do other things
 
-                    // Normalization: 
-                    // 50 Food = 0.5 Base Score. 
+                    // Normalization:
+                    // 50 Food = 0.5 Base Score.
                     // surviveScore is 0-2.0 multiplier.
                     // Result: 0 - 1.0+ (Can go higher for emergency)
 
@@ -96,7 +97,7 @@ export class VillagerStrategy implements AIStrategy {
                     const rawScore = provisionSum / (Math.max(1, dist) * distMulti);
                     const provScore = Math.min(1.0, rawScore / 10.0); // Adjusted divisor to make 100res/1dist = 1.0
 
-                    // if (!config.isSilent) console.log(`[VillagerStrategy] Job ${hexId}: ProvSum=${provisionSum}, Dist=${dist}, DistMulti=${distMulti}, Raw=${rawScore}, Prov=${provScore}`);
+                    Logger.getInstance().log(`[VillagerStrategy] Job ${hexId}: ProvSum=${provisionSum}, Dist=${dist}, DistMulti=${distMulti}, Raw=${rawScore}, Prov=${provScore}`);
 
                     jobs.push({
                         hexId,
@@ -110,21 +111,39 @@ export class VillagerStrategy implements AIStrategy {
             // INTERNAL LOGISTICS (Freight)
             // ==========================================
             if (settlement.tier >= 1) {
-                const neighbors = allFactionSettlements.filter(s => s.id !== settlement.id && HexUtils.distance(centerHex.coordinate, state.map[s.hexId].coordinate) <= 5);
+                const maxDist = config.ai?.feudal?.trade?.maxDistance || 10;
+                const surplusThreshold = config.ai?.feudal?.trade?.surplusThreshold || 500;
+                const deficitThreshold = config.ai?.feudal?.trade?.deficitThreshold || 100;
+
+                const neighbors = allFactionSettlements.filter(s => s.id !== settlement.id && HexUtils.distance(centerHex.coordinate, state.map[s.hexId].coordinate) <= maxDist);
 
                 neighbors.forEach(target => {
-                    const myFood = settlement.stockpile.Food;
-                    const theirFood = target.stockpile.Food;
+                    // Check all resources for potential trade
+                    const resources: (keyof Resources)[] = ['Food', 'Timber', 'Stone', 'Ore', 'Tools', 'Gold'];
 
-                    if (myFood > 500 && theirFood < 100) {
-                        actions.push({
-                            type: 'DISPATCH_VILLAGER',
-                            settlementId: settlement.id,
-                            targetHexId: target.hexId,
-                            score: 0.8,
-                            mission: 'INTERNAL_FREIGHT',
-                            payload: { resource: 'Food', amount: 50 }
-                        });
+                    for (const res of resources) {
+                        const myAmount = settlement.stockpile[res];
+                        const theirAmount = target.stockpile[res];
+
+                        // PUSH Logic: My Surplus -> Their Deficit
+                        if (myAmount > surplusThreshold && theirAmount < deficitThreshold) {
+                            // Calculate dynamic score based on their need?
+                            // The lower their amount, the higher the need.
+                            // 0 amount = 1.0 base score.
+                            // deficitThreshold amount = 0.0 base score.
+
+                            const needRatio = 1.0 - (theirAmount / deficitThreshold);
+                            const tradeScore = 0.5 + (needRatio * 0.5); // 0.5 to 1.0 range
+
+                            actions.push({
+                                type: 'DISPATCH_VILLAGER',
+                                settlementId: settlement.id,
+                                targetHexId: target.hexId,
+                                score: tradeScore,
+                                mission: 'INTERNAL_FREIGHT',
+                                payload: { resource: res, amount: 50 } // Config load capacity?
+                            });
+                        }
                     }
                 });
             }
@@ -149,9 +168,10 @@ export class VillagerStrategy implements AIStrategy {
                         type: 'DISPATCH_VILLAGER',
                         settlementId: settlement.id,
                         targetHexId: job.hexId,
-                        score: adjustedScore
+                        score: adjustedScore,
+                        mission: 'GATHER'
                     };
-                    // if (!config.isSilent) console.log(`[VillagerStrategy] Pushing action: ${JSON.stringify(action)}`);
+                    Logger.getInstance().log(`[VillagerStrategy] Pushing action: ${JSON.stringify(action)}`);
                     actions.push(action);
                     localAvailable--;
                 }

@@ -2,9 +2,11 @@ import { describe, it, expect } from 'vitest';
 import { AIController } from '../simulation/ai/AIController';
 import { DEFAULT_CONFIG } from '../types/GameConfig';
 import { WorldState } from '../types/WorldTypes';
+import { Logger } from '../utils/Logger';
 
 describe('AI App Integration', () => {
     it('should dispatch multiple villagers in one tick (Multi-Action Execution)', () => {
+        Logger.getInstance().setSilent(false);
         // Setup State
         const state: WorldState = {
             map: {
@@ -47,8 +49,11 @@ describe('AI App Integration', () => {
             height: 10
         };
 
+        const TEST_CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+        TEST_CONFIG.ai.utility.surviveThreshold = 50; // Force High Demand
+
         const controller = new AIController();
-        controller.update(state, DEFAULT_CONFIG);
+        controller.update(state, TEST_CONFIG);
 
         // Verify result: Should have spawned 5 villagers
         const villagers = Object.values(state.agents).filter(a => a.type === 'Villager');

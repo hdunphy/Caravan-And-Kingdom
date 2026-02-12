@@ -1,6 +1,6 @@
-import { WorldState } from '../../types/WorldTypes';
-import { HexUtils } from '../../utils/HexUtils';
-import { GameConfig } from '../../types/GameConfig';
+import { WorldState } from '../../types/WorldTypes.ts';
+import { HexUtils } from '../../utils/HexUtils.ts';
+import { GameConfig } from '../../types/GameConfig.ts';
 
 export const MovementSystem = {
     update(state: WorldState, config: GameConfig) {

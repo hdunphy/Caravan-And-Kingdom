@@ -14,6 +14,8 @@ describe('Pathfinding', () => {
             '0,1': { id: '0,1', coordinate: { q: 0, r: 1, s: -1 }, terrain: 'Plains', ownerId: null, resources: {} },
             '1,1': { id: '1,1', coordinate: { q: 1, r: 1, s: -2 }, terrain: 'Plains', ownerId: null, resources: {} }
         };
+
+        Pathfinding.clearCache();
     });
 
     it('should find a simple path between adjacent hexes', () => {
@@ -47,6 +49,7 @@ describe('Pathfinding', () => {
 
     it('should return null if target is water (impassable)', () => {
         map['2,0'].terrain = 'Water';
+        expect(DEFAULT_CONFIG.costs.terrain.Water).toBe(1000);
         const path = Pathfinding.findPath(map['0,0'].coordinate, map['2,0'].coordinate, map, DEFAULT_CONFIG);
         expect(path).toBeNull();
     });

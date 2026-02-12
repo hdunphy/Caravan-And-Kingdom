@@ -82,7 +82,10 @@ describe('CaravanSystem', () => {
         // Surplus threshold for non-food is 100 (hardcoded in CaravanSystem.processTrade currently, TODO move to config)
         s1.stockpile.Timber = 150;
 
-        CaravanSystem.processTrade(state, DEFAULT_CONFIG);
+        const TEST_CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+        TEST_CONFIG.costs.logistics.tradeRoiThreshold = 20;
+
+        CaravanSystem.processTrade(state, TEST_CONFIG);
 
         const tradeAgent = Object.values(state.agents).find(a => a.type === 'Caravan' && a.mission === 'TRADE');
         expect(tradeAgent).toBeDefined();

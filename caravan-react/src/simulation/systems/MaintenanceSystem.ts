@@ -1,5 +1,5 @@
-import { WorldState } from '../../types/WorldTypes';
-import { GameConfig } from '../../types/GameConfig';
+import { WorldState } from '../../types/WorldTypes.ts';
+import { GameConfig } from '../../types/GameConfig.ts';
 
 export const MaintenanceSystem = {
     update(state: WorldState, config: GameConfig) {

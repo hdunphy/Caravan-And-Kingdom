@@ -3,10 +3,12 @@ import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { Genome, genomeToConfig, configToGenome } from './Genome';
 import { HeadlessOptions, SimulationStats, HeadlessRunner } from './HeadlessRunner';
+import { calculateFitness } from './FitnessEvaluator';
 import { DEFAULT_CONFIG } from '../../types/GameConfig';
 import { GameConfig } from '../../types/GameConfig';
 import { WorldState } from '../../types/WorldTypes';
 import * as os from 'os';
+import { Logger } from '../../utils/Logger';
 
 export interface Individual {
     genome: Genome;
@@ -27,7 +29,7 @@ export class Evolver {
 
         if (seedConfig) {
             seedGenome = configToGenome(seedConfig);
-            console.log("Seeding population with provided config.");
+            Logger.getInstance().log("Seeding population with provided config.");
         } else {
             seedGenome = configToGenome(DEFAULT_CONFIG);
         }
@@ -74,13 +76,12 @@ export class Evolver {
         // 1. Evaluate
         // Fallback to sequential for stability if workers fail or poolSize is 1
         // For now, FORCE SEQUENTIAL to ensure Batch 4 runs without import errors
-        const useParallel = false; 
-
+        const useParallel = true;
         if (useParallel) {
-            console.log(`[Gen ${this.generation}] Spawning ${this.poolSize} workers for ${this.population.length} individuals...`);
+            Logger.getInstance().log(`[Gen ${this.generation}] Spawning ${this.poolSize} workers for ${this.population.length} individuals...`);
             await this.evaluatePopulationParallel(options, onProgress);
         } else {
-            console.log(`[Gen ${this.generation}] Running sequential evaluation...`);
+            Logger.getInstance().log(`[Gen ${this.generation}] Running sequential evaluation...`);
             this.evaluatePopulationSequential(options, onProgress);
         }
 
@@ -89,7 +90,7 @@ export class Evolver {
 
         const best = this.population[0];
         if (this.generation % 10 === 0) {
-            console.log(`Generation ${this.generation} Best Fitness: ${best.fitness.toFixed(2)} | Mutation Level: ${currentMutationAmount.toFixed(2)}`);
+            Logger.getInstance().log(`Generation ${this.generation} Best Fitness: ${best.fitness.toFixed(2)} | Mutation Level: ${currentMutationAmount.toFixed(2)}`);
         }
 
         // 3. Selection (Keep top 10% elite)
@@ -200,9 +201,10 @@ export class Evolver {
 
                 worker.on('error', (err: any) => {
                     console.error('Worker crashed:', err);
-                    activeWorkers--; // This might hang if we don't handle retry, but simpler to just fail the task conceptually? 
-                    // ideally we respawn, but for now we assume stability.
-                    if (activeWorkers === 0 && pendingTasks.length === 0) resolve();
+                    // Use reject here!
+                    // If a worker crashes hard, the simulation integrity is compromised.
+                    // Rejecting stops the promise from hanging indefinitely.
+                    reject(err);
                 });
 
                 // Initial Task

@@ -41,19 +41,26 @@ describe('AI Strategies', () => {
         };
     });
 
+    const TEST_CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+    // Override with test-friendly values
+    TEST_CONFIG.ai.utility.surviveThreshold = 10; // Trigger build if < 10 ticks
+    TEST_CONFIG.costs.logistics.tradeRoiThreshold = 20; // Trigger trade easily
+
     describe('ConstructionStrategy', () => {
         const strategy = new ConstructionStrategy();
 
         it('should recommend building GathererHut when food is low', () => {
-            settlement.stockpile.Food = DEFAULT_CONFIG.ai.thresholds.surviveFood * 0.5; // Force low food (Threshold ~150)
+            // Consumption = 100 * 0.1 = 10. Threshold = 10 * 10 = 100.
+            // Set Food to 50. Health = 0.5. Score = 0.5 + 0.2 = 0.7.
+            settlement.stockpile.Food = 50;
             settlement.currentGoal = 'SURVIVE';
-            const actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1');
+            const actions = strategy.evaluate(state, TEST_CONFIG, 'p1');
             expect(actions).toContainEqual(expect.objectContaining({ type: 'BUILD', buildingType: 'GathererHut' }));
         });
 
         it('should not build if resources are below buffer', () => {
             settlement.stockpile.Timber = 0;
-            const actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1');
+            const actions = strategy.evaluate(state, TEST_CONFIG, 'p1');
             expect(actions.length).toBe(0);
         });
     });
@@ -76,7 +83,7 @@ describe('AI Strategies', () => {
             state.settlements['s2'] = s2;
             state.map['5,5'] = { id: '5,5', coordinate: { q: 5, r: 5, s: -10 }, terrain: 'Forest', ownerId: 'p1', resources: {} };
 
-            const actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1');
+            const actions = strategy.evaluate(state, TEST_CONFIG, 'p1');
             expect(actions).toContainEqual(expect.objectContaining({
                 type: 'DISPATCH_CARAVAN',
                 mission: 'TRADE',

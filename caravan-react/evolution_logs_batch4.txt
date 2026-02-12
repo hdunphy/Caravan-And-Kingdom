@@ -1,0 +1,37 @@
+
+=== Starting Evolution Run #BATCH4 ===
+Generations: 200, Ticks: 20000
+Map: 40x40, Factions: 3
+Loading seed from config_results_20000_ticks_3.json...
+Seeding population with provided config.
+[Gen 1] Spawning 11 workers for 50 individuals...
+Worker crashed: Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/mnt/c/Users/hdunp/Documents/GameDev/Unity/GitHub/Caravan and Kingdom/caravan-react/src/types/WorldTypes' imported from /mnt/c/Users/hdunp/Documents/GameDev/Unity/GitHub/Caravan and Kingdom/caravan-react/src/types/GameConfig.ts
+    at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+    at moduleResolve (node:internal/modules/esm/resolve:859:10)
+    at defaultResolve (node:internal/modules/esm/resolve:983:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:731:20)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:708:38)
+    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:310:38)
+    at ModuleJob._link (node:internal/modules/esm/module_job:182:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///mnt/c/Users/hdunp/Documents/GameDev/Unity/GitHub/Caravan%20and%20Kingdom/caravan-react/src/types/WorldTypes'
+}
+
+node:internal/process/promises:394
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+Error [ERR_MODULE_NOT_FOUND]: Cannot find module '/mnt/c/Users/hdunp/Documents/GameDev/Unity/GitHub/Caravan and Kingdom/caravan-react/src/types/WorldTypes' imported from /mnt/c/Users/hdunp/Documents/GameDev/Unity/GitHub/Caravan and Kingdom/caravan-react/src/types/GameConfig.ts
+    at finalizeResolution (node:internal/modules/esm/resolve:274:11)
+    at moduleResolve (node:internal/modules/esm/resolve:859:10)
+    at defaultResolve (node:internal/modules/esm/resolve:983:11)
+    at #cachedDefaultResolve (node:internal/modules/esm/loader:731:20)
+    at ModuleLoader.resolve (node:internal/modules/esm/loader:708:38)
+    at ModuleLoader.getModuleJobForImport (node:internal/modules/esm/loader:310:38)
+    at ModuleJob._link (node:internal/modules/esm/module_job:182:49)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+  code: 'ERR_MODULE_NOT_FOUND',
+  url: 'file:///mnt/c/Users/hdunp/Documents/GameDev/Unity/GitHub/Caravan%20and%20Kingdom/caravan-react/src/types/WorldTypes'
+}
+
+Node.js v22.22.0

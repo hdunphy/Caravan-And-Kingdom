@@ -82,7 +82,9 @@ describe('Utility AI System', () => {
                 expect.anything(),
                 settlement.id,
                 '0,0',
-                expect.anything()
+                expect.anything(),
+                'GATHER',
+                undefined
             );
         });
     });

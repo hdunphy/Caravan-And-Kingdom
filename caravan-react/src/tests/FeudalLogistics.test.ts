@@ -97,7 +97,7 @@ describe('Feudal Logistics V4', () => {
             const controller = new AIController();
 
             // Just verify it doesn't crash and initializes states
-            controller.update(state, mockConfig, true);
+            controller.update(state, mockConfig);
 
             // @ts-ignore
             expect(controller['factionStates'].has('faction_1')).toBe(true);
@@ -123,7 +123,7 @@ describe('Feudal Logistics V4', () => {
             state.map['0,0'] = { id: '0,0', coordinate: { q: 0, r: 0, s: 0 }, terrain: 'Plains', ownerId: 'faction_1', resources: {} };
 
             // Run AI Controller (Labor/Transport)
-            controller.update(state, mockConfig, true);
+            controller.update(state, mockConfig);
 
             // Check for Logistics Caravan or Villager Gatherer
             const logisticsAgents = Object.values(state.agents).filter(a =>
@@ -165,17 +165,17 @@ describe('Feudal Logistics V4', () => {
     });
 
     describe('Internal Logistics (Freight)', () => {
-        it('should dispatch INTERNAL_FREIGHT villager from rich town to poor neighbor', () => {
+        it('should dispatch INTERNAL_FREIGHT villager for non-food resources (Timber)', () => {
             const richTown: Settlement = {
                 id: 'rich', name: 'Rich Town', hexId: '0,0', ownerId: 'faction_1',
-                population: 100, stockpile: { Food: 1000, Timber: 0, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
+                population: 100, stockpile: { Food: 1000, Timber: 600, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
                 integrity: 100, tier: 1, jobCap: 10, workingPop: 0, availableVillagers: 10,
                 controlledHexIds: ['0,0'], buildings: [], popHistory: [],
                 role: 'GENERAL'
             };
             const poorTown: Settlement = {
                 id: 'poor', name: 'Poor Town', hexId: '0,1', ownerId: 'faction_1',
-                population: 100, stockpile: { Food: 50, Timber: 0, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
+                population: 100, stockpile: { Food: 1000, Timber: 0, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
                 integrity: 100, tier: 0, jobCap: 10, workingPop: 0, availableVillagers: 10,
                 controlledHexIds: ['0,1'], buildings: [], popHistory: [],
                 role: 'GENERAL'
@@ -191,7 +191,9 @@ describe('Feudal Logistics V4', () => {
             const freightAction = actions.find(a =>
                 a.type === 'DISPATCH_VILLAGER' &&
                 // @ts-ignore
-                a.mission === 'INTERNAL_FREIGHT'
+                a.mission === 'INTERNAL_FREIGHT' &&
+                // @ts-ignore
+                a.payload?.resource === 'Timber'
             );
 
             expect(freightAction).toBeDefined();

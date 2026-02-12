@@ -23,8 +23,11 @@ export interface SimulationStats {
     enteredSurviveMode: boolean; // Did they ever enter SURVIVE?
 }
 
+import { Logger } from '../../utils/Logger.ts';
+
 export class HeadlessRunner {
     static run(config: GameConfig, options: HeadlessOptions): { state: WorldState, stats: SimulationStats } {
+        Logger.getInstance().setSilent(true);
         const state = createInitialState();
         const WIDTH = options.width;
         const HEIGHT = options.height;
@@ -88,7 +91,7 @@ export class HeadlessRunner {
             }
         });
 
-        const loop = new GameLoop(state, config, true); // SILENT MODE
+        const loop = new GameLoop(state, config); // SILENT MODE via Logger
 
         const stats: SimulationStats = {
             survivalTicks: 0,

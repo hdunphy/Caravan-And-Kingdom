@@ -3,7 +3,7 @@ import { GameConfig } from '../../types/GameConfig';
 
 
 export const ConstructionSystem = {
-    build(state: WorldState, settlementId: string, buildingType: BuildingType, hexId: string, config: GameConfig, _silent: boolean = false): boolean {
+    build(state: WorldState, settlementId: string, buildingType: BuildingType, hexId: string, config: GameConfig): boolean {
         const settlement = state.settlements[settlementId];
         if (!settlement) return false;
 

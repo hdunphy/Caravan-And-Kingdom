@@ -1,6 +1,6 @@
-import { WorldState, Resources, TerrainType } from '../../types/WorldTypes';
+import { WorldState, Resources, TerrainType } from '../../types/WorldTypes.ts';
 
-import { GameConfig } from '../../types/GameConfig';
+import { GameConfig } from '../../types/GameConfig.ts';
 
 export const ExtractionSystem = {
     update(state: WorldState, config: GameConfig) {

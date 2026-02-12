@@ -1,4 +1,4 @@
-import { GameConfig } from '../../types/GameConfig';
+import { GameConfig } from '../../types/GameConfig.ts';
 
 export interface Genome {
     // AI Utility Weights

@@ -21,13 +21,16 @@ const options = {
     factionCount: 3 // More factions for competitive pressure
 };
 
-console.log(`\n=== Starting Evolution Run #${runId} ===`);
-console.log(`Generations: ${numGenerations}, Ticks: ${numTicks}`);
-console.log(`Map: ${options.width}x${options.height}, Factions: ${options.factionCount}`);
+import { Logger } from '../../utils/Logger';
+
+// ...
+Logger.getInstance().log(`\n=== Starting Evolution Run #${runId} ===`);
+Logger.getInstance().log(`Generations: ${numGenerations}, Ticks: ${numTicks}`);
+Logger.getInstance().log(`Map: ${options.width}x${options.height}, Factions: ${options.factionCount}`);
 
 let seedConfig = undefined;
 if (seedFile && fs.existsSync(seedFile)) {
-    console.log(`Loading seed from ${seedFile}...`);
+    Logger.getInstance().log(`Loading seed from ${seedFile}...`);
     const data = fs.readFileSync(seedFile, 'utf8');
     seedConfig = JSON.parse(data);
 }
@@ -41,7 +44,7 @@ const evolver = new Evolver(POP_SIZE, seedConfig);
             // Overwrite line to prevent spam? Simple log for now.
             // process.stdout.write(`\r[Gen ${g+1}] Agent 1 Evaluation: ${percent}%...`);
             // Use standard log for safety if \r is flaky in some terminals
-            // console.log(`[Gen ${g+1}] Agent 1 Evaluation: ${percent}%...`);
+            // Logger.getInstance().log(`[Gen ${g+1}] Agent 1 Evaluation: ${percent}%...`);
         };
 
         // Run Generation
@@ -65,7 +68,8 @@ const evolver = new Evolver(POP_SIZE, seedConfig);
         const sortedPop = [...s.popHistory].sort((a, b) => a - b);
         const medianPop = sortedPop.length > 0 ? sortedPop[Math.floor(sortedPop.length / 2)] : 0;
 
-        console.log(`\n=== State of the Realm (Gen ${g + 1}) ===`);
+        Logger.getInstance().setSilent(false);
+        Logger.getInstance().log(`\n=== State of the Realm (Gen ${g + 1}) ===`);
         console.table({
             'Best Fitness': best.fitness.toFixed(2),
             'Median Pop': medianPop,
@@ -82,12 +86,12 @@ const evolver = new Evolver(POP_SIZE, seedConfig);
             .sort((a, b) => b.val - a.val)
             .slice(0, 3);
 
-        console.log(`Top Genes: ${topGenes.map(g => `${g.key}=${g.val.toFixed(2)}`).join(', ')}`);
+        Logger.getInstance().log(`Top Genes: ${topGenes.map(g => `${g.key}=${g.val.toFixed(2)}`).join(', ')}`);
     }
 
     const finalBest = evolver.population[0];
     const finalConfig = genomeToConfig(finalBest.genome, DEFAULT_CONFIG);
 
     fs.writeFileSync(outputFile, JSON.stringify(finalConfig, null, 2));
-    console.log(`\nRun ${runId} Complete. Saved apex config to ${outputFile}`);
+    Logger.getInstance().log(`\nRun ${runId} Complete. Saved apex config to ${outputFile}`);
 })();

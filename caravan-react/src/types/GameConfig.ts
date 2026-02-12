@@ -1,4 +1,4 @@
-import { Resources, TerrainType } from './WorldTypes';
+import { Resources, TerrainType } from './WorldTypes.ts';
 
 export interface GameConfig {
     simulation: {
@@ -131,11 +131,17 @@ export interface GameConfig {
         };
         feudal: {
             roleUtilityBonus: number;
+            roleCheckInterval: number;
             trade: {
                 maxDistance: number;
                 surplusThreshold: number;
                 deficitThreshold: number;
                 checkInterval: number;
+            };
+            thresholds: {
+                lumberForestRatio: number;
+                miningHillRatio: number;
+                granaryPlainsRatio: number;
             };
         };
     };
@@ -308,11 +314,17 @@ export const DEFAULT_CONFIG: GameConfig = {
         },
         feudal: {
             roleUtilityBonus: 0.25,
+            roleCheckInterval: 200,
             trade: {
                 maxDistance: 10,
                 surplusThreshold: 500, // Fixed amount or ratio? User said "fills my capacity"
                 deficitThreshold: 100,
                 checkInterval: 50
+            },
+            thresholds: {
+                lumberForestRatio: 0.3,
+                miningHillRatio: 0.3,
+                granaryPlainsRatio: 0.5
             }
         },
         utility: {

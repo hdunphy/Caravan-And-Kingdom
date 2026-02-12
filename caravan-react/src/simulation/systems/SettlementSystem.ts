@@ -1,6 +1,5 @@
-import { WorldState, Settlement, SettlementRole } from '../../types/WorldTypes';
-import { GameConfig } from '../../types/GameConfig';
-import { HexUtils } from '../../utils/HexUtils';
+import { WorldState, Settlement, SettlementRole } from '../../types/WorldTypes.ts';
+import { GameConfig } from '../../types/GameConfig.ts';
 
 export const SettlementSystem = {
     update(state: WorldState, config: GameConfig) {
