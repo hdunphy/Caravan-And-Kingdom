@@ -31,9 +31,10 @@ export const VillagerSystem = {
             // 2. State Machine
             switch (agent.status) {
                 case 'IDLE':
-                    // Handled by GovernorAI (Dispatch)
-                    // If IDLE and not at home, return home?
-                    if (HexUtils.getID(agent.position) !== home.hexId) {
+                    // Reactive Ant Logic: Autonomous Dispatch
+                    if (HexUtils.getID(agent.position) === home.hexId) {
+                        this.manageIdleAnt(state, agent, home, config);
+                    } else {
                         this.returnHome(state, agent, config);
                     }
                     break;
@@ -280,5 +281,104 @@ export const VillagerSystem = {
 
         state.agents[id] = agent;
         return agent;
+    },
+
+    manageIdleAnt(state: WorldState, agent: VillagerAgent, home: any, config: GameConfig) {
+        // 1. Ensure resource goals exist
+        if (!home.resourceGoals) {
+            home.resourceGoals = { Food: 1000, Timber: 300, Stone: 200, Ore: 100, Tools: 50, Gold: 0 };
+        }
+
+        // 2. Calculate Pressure Map
+        const resources: (keyof Resources)[] = ['Food', 'Timber', 'Stone', 'Ore', 'Tools'];
+        const pressures = resources.map(res => ({
+            res,
+            pressure: Math.max(0, (home.resourceGoals[res] - home.stockpile[res]) / (home.resourceGoals[res] || 1))
+        })).sort((a, b) => b.pressure - a.pressure);
+
+        // 3. Try to find a job matching the highest pressure
+        const range = config.costs.villagers?.range || 3;
+
+        for (const p of pressures) {
+            if (p.pressure <= 0) break; // Goal reached for this and subsequent (sorted)
+
+            // GATHER Logic: Scan controlled hexes for this resource
+            const targetHexId = home.controlledHexIds.find(id => {
+                const hex = state.map[id];
+                if (!hex || hex.terrain === 'Water') return false;
+                if (home.unreachableHexes?.[id] && state.tick < home.unreachableHexes[id]) return false;
+
+                const dist = HexUtils.distance(HexUtils.createFromID(home.hexId), hex.coordinate);
+                if (dist > range) return false;
+
+                return (hex.resources?.[p.res] || 0) > 0;
+            });
+
+            if (targetHexId) {
+                // Dispatch locally (System-driven spawn bypasses Governor)
+                this.dispatchAnt(state, agent, targetHexId, 'GATHER', config);
+                return;
+            }
+        }
+
+        // 4. FREIGHT Logic (Surplus distribution)
+        // If we reach here, no high-pressure local gathering needed or possible
+        const surpluses = resources.filter(res => home.stockpile[res] > (home.resourceGoals[res] || 0));
+
+        if (surpluses.length > 0) {
+            const myFactionSettlements = Object.values(state.settlements).filter(s => s.ownerId === home.ownerId && s.id !== home.id);
+
+            for (const neighbor of myFactionSettlements) {
+                // Ensure neighbor has goals
+                if (!neighbor.resourceGoals) continue;
+
+                const dist = HexUtils.distance(HexUtils.createFromID(home.hexId), HexUtils.createFromID(neighbor.hexId));
+                if (dist > 10) continue;
+
+                for (const res of surpluses) {
+                    const neighborPressure = (neighbor.resourceGoals[res] - neighbor.stockpile[res]) / (neighbor.resourceGoals[res] || 1);
+
+                    if (neighborPressure > 0.5) {
+                        // Deliver surplus
+                        const amount = Math.min(20, home.stockpile[res] - neighbor.resourceGoals[res]);
+                        if (amount > 0) {
+                            this.dispatchAnt(state, agent, neighbor.hexId, 'INTERNAL_FREIGHT', config, { resource: res, amount });
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+    },
+
+    dispatchAnt(state: WorldState, agent: VillagerAgent, targetHexId: string, mission: any, config: GameConfig, payload?: any) {
+        const targetHex = state.map[targetHexId];
+        if (!targetHex) return;
+
+        const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config, 'Villager');
+        if (path) {
+            agent.path = path;
+            agent.target = targetHex.coordinate;
+            agent.status = 'BUSY';
+            agent.activity = 'MOVING';
+            agent.mission = mission;
+            agent.gatherTarget = targetHex.coordinate;
+
+            if (mission === 'INTERNAL_FREIGHT' && payload) {
+                const res = payload.resource as keyof Resources;
+                const amt = payload.amount;
+                if (state.settlements[agent.homeId].stockpile[res] >= amt) {
+                    state.settlements[agent.homeId].stockpile[res] -= amt;
+                    agent.cargo[res] = amt;
+                }
+            }
+        } else {
+            // Mark unreachable
+            const home = state.settlements[agent.homeId];
+            if (home) {
+                if (!home.unreachableHexes) home.unreachableHexes = {};
+                home.unreachableHexes[targetHexId] = state.tick + 100;
+            }
+        }
     }
 };

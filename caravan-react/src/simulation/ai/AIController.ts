@@ -5,7 +5,6 @@ import { AIAction, AIStrategy } from './AITypes.ts';
 import { ConstructionStrategy } from './ConstructionStrategy.ts';
 import { LogisticsStrategy } from './LogisticsStrategy.ts';
 import { ExpansionStrategy } from './ExpansionStrategy.ts';
-import { VillagerStrategy } from './VillagerStrategy.ts';
 import { TradeStrategy } from './TradeStrategy.ts';
 import { ConstructionSystem } from '../systems/ConstructionSystem.ts';
 import { CaravanSystem } from '../systems/CaravanSystem.ts';
@@ -33,8 +32,7 @@ export class AIController {
         ];
 
         this.hrStrategies = [
-            new VillagerStrategy(), // Dispatch
-            new LogisticsStrategy() // Internal Trade/Transport
+            new LogisticsStrategy() // Internal Trade/Transport (Caravans only)
         ];
 
         this.tradeStrategies = [
@@ -166,7 +164,7 @@ export class AIController {
                 break;
             case 'LABOR':
                 relevantActions = relevantActions.filter(a =>
-                    ['RECRUIT_VILLAGER', 'DISPATCH_VILLAGER'].includes(a.type)
+                    ['RECRUIT_VILLAGER'].includes(a.type)
                 );
                 if (settlement.currentGoal === 'THRIFTY') {
                     relevantActions = relevantActions.filter(a => a.type !== 'RECRUIT_VILLAGER');
@@ -268,14 +266,6 @@ export class AIController {
                     s.stockpile.Food -= cost;
                     s.availableVillagers++;
                     return true;
-                }
-                return false;
-            case 'DISPATCH_VILLAGER':
-                // Check if villagers are available
-                const vSettlement = state.settlements[action.settlementId];
-                if (vSettlement.availableVillagers > 0) {
-                    const agent = VillagerSystem.spawnVillager(state, action.settlementId, action.targetHexId, config, action.mission, action.payload);
-                    return agent !== null;
                 }
                 return false;
             case 'UPGRADE_SETTLEMENT':

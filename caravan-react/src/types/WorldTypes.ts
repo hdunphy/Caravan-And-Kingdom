@@ -85,6 +85,7 @@ export interface Settlement {
         lastSettlerSpawnTick?: number;
     };
     popHistory: number[]; // Last 100 ticks of population
+    resourceGoals?: Resources; // Target levels for Reactive Ant logic
 }
 
 export interface Faction {

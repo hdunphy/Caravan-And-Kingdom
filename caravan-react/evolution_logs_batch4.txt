@@ -1596,3 +1596,303 @@ Top Genes: tradeRoiThreshold=70.03, ascendReadinessPower=23.66, buildRateLookbac
 Top Genes: tradeRoiThreshold=79.98, ascendReadinessPower=20.52, provisionDistanceMulti=17.31
 [Gen 107] Running sequential evaluation...
 ....
+
+=== State of the Realm (Gen 107) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3867.67'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 18300             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=77.67, ascendReadinessPower=22.23, provisionDistanceMulti=14.41
+[Gen 108] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 108) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3863.17'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 13800             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=54.29, ascendReadinessPower=24.26, provisionDistanceMulti=9.98
+[Gen 109] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 109) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3869.17'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 19800             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=62.81, ascendReadinessPower=21.53, provisionDistanceMulti=12.26
+[Gen 110] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 110) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3864.67'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 15300             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=73.87, ascendReadinessPower=21.76, buildRateLookback=15.54
+[Gen 111] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 111) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3867.67'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 18300             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=63.01, ascendReadinessPower=23.66, provisionDistanceMulti=11.86
+[Gen 112] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 112) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3858.67'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 9300              │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=75.69, ascendReadinessPower=20.46, provisionDistanceMulti=14.41
+[Gen 113] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 113) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3867.67'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 18300             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=63.01, ascendReadinessPower=21.83, buildRateLookback=17.41
+[Gen 114] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 114) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3863.17'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 13800             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=57.27, ascendReadinessPower=18.77, provisionDistanceMulti=9.97
+[Gen 115] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 115) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3875.17'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 25800             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=47.89, ascendReadinessPower=8.75, provisionDistanceMulti=8.60
+[Gen 116] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 116) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3861.67'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 12300             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=69.12, provisionDistanceMulti=15.98, buildRateLookback=9.66
+[Gen 117] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 117) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '3820.78'          │
+│ Median Pop   │ 100.61149638209925 │
+│ Total Gold   │ 24300              │
+│ Max Tier     │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 20000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=58.86, buildRateLookback=16.45, provisionDistanceMulti=9.08
+[Gen 118] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 118) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3861.67'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 12300             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=72.98, ascendReadinessPower=18.34, provisionDistanceMulti=12.70
+[Gen 119] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 119) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3867.67'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 18300             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=54.46, ascendReadinessPower=16.29, buildRateLookback=7.81
+[Gen 120] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 120) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3866.17'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 16800             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=59.11, ascendReadinessPower=15.06, provisionDistanceMulti=8.74
+[Gen 121] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 121) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3857.17'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 7800              │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=61.31, ascendReadinessPower=18.48, buildRateLookback=12.42
+[Gen 122] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 122) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3866.17'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 16800             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=47.09, ascendReadinessPower=26.58, buildRateLookback=9.89
+[Gen 123] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 123) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3864.67'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 15300             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=87.50, ascendReadinessPower=15.74, provisionDistanceMulti=12.70
+[Gen 124] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 124) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3860.17'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 10800             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=99.72, ascendReadinessPower=15.38, provisionDistanceMulti=10.38
+[Gen 125] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 125) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3863.17'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 13800             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=85.47, ascendReadinessPower=13.31, provisionDistanceMulti=13.00
+[Gen 126] Running sequential evaluation...
+....
+
+=== State of the Realm (Gen 126) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '3870.67'         │
+│ Median Pop   │ 120.6803695469755 │
+│ Total Gold   │ 21300             │
+│ Max Tier     │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 20000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=57.75, ascendReadinessPower=20.72, provisionDistanceMulti=8.71
+[Gen 127] Running sequential evaluation...
+....
