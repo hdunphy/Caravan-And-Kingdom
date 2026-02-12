@@ -75,8 +75,9 @@ export class Evolver {
 
         // 1. Evaluate
         // Fallback to sequential for stability if workers fail or poolSize is 1
-        // For now, FORCE SEQUENTIAL to ensure Batch 4 runs without import errors
-        const useParallel = true;
+        // Tests should set useWorker: false to avoid TS-Node worker issues
+        const useParallel = options.useWorker === true;
+
         if (useParallel) {
             Logger.getInstance().log(`[Gen ${this.generation}] Spawning ${this.poolSize} workers for ${this.population.length} individuals...`);
             await this.evaluatePopulationParallel(options, onProgress);
@@ -125,12 +126,9 @@ export class Evolver {
                 onHeartbeat: index === 0 && onProgress ? onProgress : undefined
             };
 
-            // Clear cache to be safe
-            // Pathfinding.clearCache(); // We need to import Pathfinding if we want to clear it, but checking imports...
-            // It's not imported. That's fine, sequential runs share memory so cache might be useful or dangerous.
-            // HeadlessRunner makes a new map every time.
-            // If Pathfinding cache is global, we MUST clear it.
-            // I'll import Pathfinding.
+            // Clear cache to be safe - Pathfinding cache is global
+            // We should import Pathfinding to clear it, but for now we rely on HeadlessRunner creating fresh state.
+            // If pathfinding cache issues arise, we'll need to expose Pathfinding.clearCache().
 
             const result = HeadlessRunner.run(config, runOptions);
             ind.fitness = calculateFitness(result.state, result.stats, this.generation);

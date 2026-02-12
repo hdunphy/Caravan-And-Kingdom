@@ -18,13 +18,11 @@ export class GameLoop {
     state: WorldState;
     config: GameConfig;
     aiController: AIController;
-    silent: boolean = false;
 
-    constructor(state: WorldState, config: GameConfig, silent: boolean = false) {
+    constructor(state: WorldState, config: GameConfig) {
         this.state = state;
         this.config = config;
         this.aiController = new AIController();
-        this.silent = silent;
     }
 
     tick() {
@@ -32,7 +30,7 @@ export class GameLoop {
 
         // Movement always runs (simulation tick)
         MovementSystem.update(this.state, this.config);
-        CaravanSystem.update(this.state, this.config, this.silent);
+        CaravanSystem.update(this.state, this.config);
 
         // Economy runs only on resource intervals
         if (this.state.tick % this.config.simulation.resourceTickInterval === 0) {
@@ -48,12 +46,12 @@ export class GameLoop {
             IndustrySystem.update(this.state, this.config);
             MaintenanceSystem.update(this.state, this.config);
             SettlementSystem.update(this.state, this.config);
-            MetabolismSystem.update(this.state, this.config, this.silent);
-            UpgradeSystem.update(this.state, this.config, this.silent);
+            MetabolismSystem.update(this.state, this.config);
+            UpgradeSystem.update(this.state, this.config);
             CaravanSystem.processTrade(this.state, this.config);
 
             // AI Decisions
-            this.aiController.update(this.state, this.config, this.silent);
+            this.aiController.update(this.state, this.config);
 
             // Calculate Deltas
             Object.values(this.state.settlements).forEach(s => {

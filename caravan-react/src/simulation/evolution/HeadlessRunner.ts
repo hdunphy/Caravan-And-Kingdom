@@ -11,6 +11,7 @@ export interface HeadlessOptions {
     height: number;
     factionCount: number;
     onHeartbeat?: (progress: number) => void;
+    useWorker?: boolean;
 }
 
 export interface SimulationStats {

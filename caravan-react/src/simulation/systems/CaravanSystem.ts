@@ -2,6 +2,7 @@ import { WorldState, Resources, AgentEntity, AgentType } from '../../types/World
 import { GameConfig } from '../../types/GameConfig.ts';
 import { HexUtils } from '../../utils/HexUtils.ts';
 import { Pathfinding } from '../Pathfinding.ts';
+import { Logger } from '../../utils/Logger.ts';
 
 export const CaravanSystem = {
     // Determine spawn location (Settlement or from IDLE pool)
@@ -206,7 +207,7 @@ export const CaravanSystem = {
         return agent || null;
     },
 
-    update(state: WorldState, config: GameConfig, silent: boolean = false) {
+    update(state: WorldState, config: GameConfig) {
         const agentsToRemove: string[] = [];
 
         Object.values(state.agents).forEach(agent => {
@@ -291,8 +292,8 @@ export const CaravanSystem = {
                                     agent.cargo[res] = 0;
                                 }
                             });
-                            if (!silent && haul.length > 0) {
-                                console.log(`[Logistics] Caravan returned to ${home.name} with: ${haul.join(', ')}`);
+                            if (haul.length > 0) {
+                                Logger.getInstance().log(`[Logistics] Caravan returned to ${home.name} with: ${haul.join(', ')}`);
                             }
                         }
                     }
@@ -348,8 +349,8 @@ export const CaravanSystem = {
                                 agent.cargo[res] = 0;
                             }
                         });
-                        if (!silent && haul.length > 0) {
-                            console.log(`[Trade] Caravan returned to ${settlement.name} with: ${haul.join(', ')}`);
+                        if (haul.length > 0) {
+                            Logger.getInstance().log(`[Trade] Caravan returned to ${settlement.name} with: ${haul.join(', ')}`);
                         }
 
                         // Set IDLE
@@ -407,7 +408,7 @@ export const CaravanSystem = {
                         if (state.map[HexUtils.getID(agent.position)]) {
                             state.map[HexUtils.getID(agent.position)].ownerId = agent.ownerId;
                         }
-                        if (!silent) console.log(`[GAME] Settlement Founded at ${HexUtils.getID(agent.position)}`);
+                        Logger.getInstance().log(`[GAME] Settlement Founded at ${HexUtils.getID(agent.position)}`);
                     }
 
                     // Consume Settler
