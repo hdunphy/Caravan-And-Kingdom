@@ -1,4 +1,4 @@
-import { HexCoordinate, HexCell } from '../types/WorldTypes.ts';
+import { HexCoordinate, HexCell, AgentType } from '../types/WorldTypes.ts';
 import { HexUtils } from '../utils/HexUtils.ts';
 import { GameConfig } from '../types/GameConfig.ts';
 import { Logger } from '../utils/Logger.ts';
@@ -19,25 +19,34 @@ export const Pathfinding = {
         pathCache.clear();
     },
 
-    findPath(start: HexCoordinate, end: HexCoordinate, map: Record<string, HexCell>, config?: GameConfig): HexCoordinate[] | null {
+    findPath(start: HexCoordinate, end: HexCoordinate, map: Record<string, HexCell>, config?: GameConfig, agentType: AgentType = 'Caravan'): HexCoordinate[] | null {
         const startId = HexUtils.getID(start);
         const endId = HexUtils.getID(end);
-        const cacheKey = `${startId}_${endId}`;
+        const cacheKey = `${agentType}_${startId}_${endId}`;
 
         if (pathCache.has(cacheKey)) {
-            return pathCache.get(cacheKey)!;
+            return [...pathCache.get(cacheKey)!];
         }
 
         // Default costs if config is missing (fallback)
-        const costs = config?.costs.terrain || {
+        const costs = { ...(config?.costs.terrain || {
             Plains: 1,
             Forest: 2,
             Hills: 3,
             Mountains: 6,
             Water: 1000
-        };
+        }) };
 
+        // Differential Water Cost
+        // Villagers can cross water (slowly), others cannot.
+        const WATER_PASSABLE_COST = 10; 
         const IMPASSABLE = 1000;
+
+        if (agentType === 'Villager') {
+            costs.Water = Math.min(WATER_PASSABLE_COST, costs.Water);
+        } else {
+            costs.Water = Math.max(IMPASSABLE, costs.Water);
+        }
 
         if (startId === endId) return [];
 
@@ -49,7 +58,7 @@ export const Pathfinding = {
 
         const endCost = costs[endCell.terrain];
         if (endCost >= IMPASSABLE) {
-            Logger.getInstance().log(`[Pathfinding] Fail: Target ${endId} is impassable (${endCell.terrain}).`);
+            // Logger.getInstance().log(`[Pathfinding] Fail: Target ${endId} is impassable (${endCell.terrain}) for ${agentType}.`);
             return null; // Target invalid
         }
 
@@ -122,21 +131,8 @@ export const Pathfinding = {
             }
         }
 
-        pathCache.set(cacheKey, []); // Cache failure as empty array? Warning: findPath returns null on fail.
-        // If we cache [], next time we return [], checking type... [] is HexCoordinate[] so it fits return type.
-        // BUT logic above says `if (pathCache.has) return get`. unique nuance: [] is truthy.
-        // The original code returned `null` on failure.
-        // If I return [], the caller might think it found a path (of length 0? or just empty). 
-        // HexCoordinate[] usually implies a path. Length 0 means... ?
-        // Line 30: `if (startId === endId) return [];`
-        // So empty array means "already there".
-        // Null means "unreachable".
-        // WE CANNOT RETURN [] for UNREACHABLE.
-        // So we should probably NOT cache unreachable for now to avoid breaking logic, 
-        // OR we cache `null` but we need to cast or trick typescript if the map is strictly HexCoordinate[].
-        // Map definition: `Map<string, HexCoordinate[]>`. It cannot hold null.
-        // So I will REMOVE the caching of failure for now to avoid bugs.
-        Logger.getInstance().log(`[Pathfinding] Fail: No path found from ${startId} to ${endId}.`);
-        return null; // No path found
+        // No path found
+        Logger.getInstance().log(`[Pathfinding] Fail: Search exhausted for ${startId} to ${endId}. ClosedSet size: ${closedSet.size}`);
+        return null;
     }
 };

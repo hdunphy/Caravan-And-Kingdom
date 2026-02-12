@@ -81,6 +81,7 @@ export interface GameConfig {
     ai: {
         settlementCap: number;
         settlerCost: number; // Pop cost
+        settlerCooldown: number; // Ticks between settler spawns
         expansionBuffer: number;
         expansionStarterPack: Partial<Resources>;
         checkInterval: number;
@@ -278,7 +279,8 @@ export const DEFAULT_CONFIG: GameConfig = {
     ai: {
         settlementCap: 5,
         settlerCost: 50,
-        expansionBuffer: 0.187,
+        settlerCooldown: 100,
+        expansionBuffer: 1.5,
         expansionStarterPack: {
             Food: 100,
             Timber: 50,

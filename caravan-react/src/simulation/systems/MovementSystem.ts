@@ -9,11 +9,16 @@ export const MovementSystem = {
 
             // Handle Waiting (e.g. Loading/Unloading)
             if (agent.waitTicks && agent.waitTicks > 0) {
-                // Wait ticks are handled in CaravanSystem for trade logic. 
-                // But if we have a generic wait, we should respect it here too.
-                // However, CaravanSystem updates first and decrements it. 
-                // Let's just check if it's > 0 to block movement.
                 return;
+            }
+
+            // Stuck detection: If we have a path but aren't moving hexes
+            const currentHexId = HexUtils.getID(agent.position);
+            if (agent.lastHexId === currentHexId) {
+                agent.stuckTicks = (agent.stuckTicks || 0) + 1;
+            } else {
+                agent.lastHexId = currentHexId;
+                agent.stuckTicks = 0;
             }
 
             const nextStep = agent.path[0];

@@ -12,7 +12,7 @@ export const CaravanSystem = {
 
         if (!startHex || !targetHex) return null;
 
-        const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config);
+        const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config, type);
         if ((!path || path.length === 0) && startHexId !== targetHexId) return null;
 
         const id = `agent_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -35,7 +35,7 @@ export const CaravanSystem = {
         if (type === 'Caravan') {
             agent = { ...base, type: 'Caravan', mission: 'IDLE' };
         } else if (type === 'Settler') {
-            agent = { ...base, type: 'Settler' };
+            agent = { ...base, type: 'Settler', destinationId: targetHexId };
         } else if (type === 'Villager') {
             // Villagers require homeId, which should be passed. For now, we might need to adjust spawn signature
             // or handle it after spawn.
@@ -174,7 +174,7 @@ export const CaravanSystem = {
             const startHex = state.map[settlement.hexId];
             const targetHex = state.map[targetHexId];
             if (startHex && targetHex) {
-                const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config);
+                const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config, 'Caravan');
                 if (path) {
                     agent.path = path;
                     agent.target = targetHex.coordinate;
@@ -229,6 +229,12 @@ export const CaravanSystem = {
             if (agent.waitTicks && agent.waitTicks > 0) {
                 agent.waitTicks--;
                 return;
+            }
+
+            // Stuck Detection Recovery
+            if ((agent.stuckTicks || 0) > 40) {
+                Logger.getInstance().log(`[CaravanSystem] Agent ${agent.id} STUCK. Returning home.`);
+                this.returnHome(state, agent, config);
             }
 
             // Path Following
@@ -365,8 +371,15 @@ export const CaravanSystem = {
             if (agent.type === 'Settler') {
                 if (!agent.path || agent.path.length === 0) {
                     // Arrival at target
-                    // Note: MovementSystem clears agent.target on arrival, so we must use agent.position
-                    const targetHex = state.map[HexUtils.getID(agent.position)];
+                    const currentHexId = HexUtils.getID(agent.position);
+
+                    // CRITICAL: Verify we are actually at the destination
+                    if (agent.destinationId && currentHexId !== agent.destinationId) {
+                        // Not at destination yet, MovementSystem will handle it
+                        return;
+                    }
+
+                    const targetHex = state.map[currentHexId];
                     const existingSettlement = Object.values(state.settlements).find(s => s.hexId === HexUtils.getID(agent.position));
                     if (!existingSettlement && targetHex) {
                         // Create New Settlement
@@ -425,7 +438,7 @@ export const CaravanSystem = {
         const home = state.settlements[agent.homeId];
         if (home) {
             const homeHex = state.map[home.hexId];
-            const path = Pathfinding.findPath(agent.position, homeHex.coordinate, state.map, config);
+            const path = Pathfinding.findPath(agent.position, homeHex.coordinate, state.map, config, 'Caravan');
             if (path) {
                 agent.path = path;
                 agent.target = homeHex.coordinate;

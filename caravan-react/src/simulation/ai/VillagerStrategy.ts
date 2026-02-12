@@ -1,5 +1,5 @@
 import { AIAction, AIStrategy } from './AITypes';
-import { WorldState, Resources } from '../../types/WorldTypes';
+import { WorldState, Resources, HexCoordinate } from '../../types/WorldTypes';
 import { GameConfig } from '../../types/GameConfig';
 import { HexUtils } from '../../utils/HexUtils';
 import { Logger } from '../../utils/Logger';
@@ -32,7 +32,7 @@ export class VillagerStrategy implements AIStrategy {
             if (foodRatio < 0.2) surviveScore *= 2.0; // Urgent!
 
             const range = config.costs.villagers?.range || 3;
-            const jobs: { hexId: string, score: number, type: 'SURVIVE' | 'PROVISION' }[] = [];
+            const jobs: { hexId: string, score: number, type: 'SURVIVE' | 'PROVISION', coord: HexCoordinate, dist: number }[] = [];
             const centerHex = state.map[settlement.hexId];
 
             settlement.controlledHexIds.forEach(hexId => {
@@ -40,7 +40,10 @@ export class VillagerStrategy implements AIStrategy {
                 if (!hex || !hex.resources) return;
 
                 const dist = HexUtils.distance(centerHex.coordinate, hex.coordinate);
-                if (dist > range) return;
+                if (dist > range) {
+                    // Logger.getInstance().log(`[VillagerStrategy] Skip ${hexId}: Dist ${dist.toFixed(1)} > Range ${range}`);
+                    return;
+                }
 
                 // SURVIVE: Only care about Food
                 if (hex.resources.Food && hex.resources.Food > 0) {
@@ -53,7 +56,8 @@ export class VillagerStrategy implements AIStrategy {
                     // Result: 0 - 1.0+ (Can go higher for emergency)
 
                     const baseScore = Math.min(1.0, hex.resources.Food / 100.0);
-                    jobs.push({ hexId: hexId, score: baseScore * surviveScore + 0.1, type: 'SURVIVE' }); // Base 0.1 to avoid 0
+                    // Base 0.4 to make it competitive with Provision, boost if surviveScore > 0
+                    jobs.push({ hexId: hexId, score: baseScore * (0.4 + surviveScore), type: 'SURVIVE', coord: hex.coordinate, dist });
                 }
 
                 // PROVISION: Care about Timber, Stone, Ore
@@ -102,7 +106,9 @@ export class VillagerStrategy implements AIStrategy {
                     jobs.push({
                         hexId,
                         score: provScore,
-                        type: 'PROVISION'
+                        type: 'PROVISION',
+                        coord: hex.coordinate,
+                        dist
                     });
                 }
             });
@@ -163,7 +169,7 @@ export class VillagerStrategy implements AIStrategy {
 
                 const adjustedScore = job.score / (assignedCount + 1);
 
-                if (adjustedScore > 0.1) {
+                if (adjustedScore > 0.01) {
                     const action: AIAction = {
                         type: 'DISPATCH_VILLAGER',
                         settlementId: settlement.id,
@@ -171,7 +177,7 @@ export class VillagerStrategy implements AIStrategy {
                         score: adjustedScore,
                         mission: 'GATHER'
                     };
-                    Logger.getInstance().log(`[VillagerStrategy] Pushing action: ${JSON.stringify(action)}`);
+                    Logger.getInstance().log(`[VillagerStrategy] Pushing action: ${JSON.stringify(action)} | StartCoord: ${JSON.stringify(centerHex.coordinate)}, TargetCoord: ${JSON.stringify(job.coord)}, CalcDist: ${job.dist}`);
                     actions.push(action);
                     localAvailable--;
                 }

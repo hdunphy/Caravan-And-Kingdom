@@ -79,6 +79,7 @@ export interface Settlement {
         savingFor: 'FLEET' | 'UPGRADE' | null; // "Gold Reserve" / "Material Lock"
         focusResources: string[]; // For HR Governor
         lastDecisions?: Record<string, string[]>; // Governor -> decisions
+        lastSettlerSpawnTick?: number;
     };
     popHistory: number[]; // Last 100 ticks of population
 }
@@ -105,6 +106,8 @@ export interface BaseAgent {
     activity?: 'MOVING' | 'LOADING' | 'UNLOADING' | 'IDLE';
     status?: 'IDLE' | 'BUSY' | 'RETURNING';
     movementProgress?: number;
+    lastHexId?: string;    // For stuck detection
+    stuckTicks?: number;  // For stuck detection
 }
 
 export interface CaravanAgent extends BaseAgent {
@@ -118,6 +121,7 @@ export interface CaravanAgent extends BaseAgent {
 
 export interface SettlerAgent extends BaseAgent {
     type: 'Settler';
+    destinationId?: string; // Hex where the settler intends to found
 }
 
 export interface VillagerAgent extends BaseAgent {

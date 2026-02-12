@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ConstructionStrategy } from '../simulation/ai/ConstructionStrategy';
 import { TradeStrategy } from '../simulation/ai/TradeStrategy';
+import { ExpansionStrategy } from '../simulation/ai/ExpansionStrategy';
 import { WorldState, Settlement } from '../types/WorldTypes';
 import { DEFAULT_CONFIG } from '../types/GameConfig';
 
@@ -45,6 +46,8 @@ describe('AI Strategies', () => {
     // Override with test-friendly values
     TEST_CONFIG.ai.utility.surviveThreshold = 10; // Trigger build if < 10 ticks
     TEST_CONFIG.costs.logistics.tradeRoiThreshold = 20; // Trigger trade easily
+    TEST_CONFIG.ai.utility.expandSearchRadius = 20;
+    TEST_CONFIG.ai.utility.expandMinDistance = 5;
 
     describe('ConstructionStrategy', () => {
         const strategy = new ConstructionStrategy();
@@ -89,6 +92,54 @@ describe('AI Strategies', () => {
                 mission: 'TRADE',
                 settlementId: 's1'
             }));
+        });
+    });
+
+    describe('ExpansionStrategy', () => {
+        const strategy = new ExpansionStrategy();
+
+        beforeEach(() => {
+            settlement.stockpile = { Food: 1000, Timber: 1000, Stone: 1000, Ore: 1000, Tools: 0, Gold: 100 };
+            settlement.currentGoal = 'EXPAND';
+            if (!settlement.aiState) {
+                settlement.aiState = { surviveMode: false, savingFor: null, focusResources: [], lastSettlerSpawnTick: undefined };
+            } else {
+                settlement.aiState.lastSettlerSpawnTick = undefined;
+            }
+            state.tick = 200;
+            // Add an unowned hex far away to satisfy distance check
+            state.map['10,10'] = { id: '10,10', coordinate: { q: 10, r: 10, s: -20 }, terrain: 'Hills', ownerId: null, resources: {} };
+            // Ensure ExpandStrategy scan finds it by making Stone "missing"
+            settlement.stockpile.Stone = 0;
+            // Ensure distance requirement is met (minDistance is 5.55)
+            // Hex (0,0,0) to (10,10,-20) distance is 20.
+        });
+
+        it('should recommend spawning settler when resources and cooldown are okay', () => {
+            const actions = strategy.evaluate(state, TEST_CONFIG, 'p1');
+            expect(actions).toContainEqual(expect.objectContaining({ type: 'SPAWN_SETTLER' }));
+        });
+
+        it('should NOT recommend spawning settler during cooldown', () => {
+            settlement.aiState!.lastSettlerSpawnTick = 150; // 50 ticks ago
+            // Cooldown is 100 in DEFAULT_CONFIG (merged into TEST_CONFIG)
+            const actions = strategy.evaluate(state, TEST_CONFIG, 'p1');
+            expect(actions.filter(a => a.type === 'SPAWN_SETTLER').length).toBe(0);
+        });
+
+        it('should NOT recommend spawning settler if food is below survival reserve', () => {
+            // Consumption = 100 * 0.1 = 10. Reserve = 10 * 50 = 500.
+            // Cost Food = 500. Total needed = 1000.
+            settlement.stockpile.Food = 900;
+            const actions = strategy.evaluate(state, TEST_CONFIG, 'p1');
+            expect(actions.filter(a => a.type === 'SPAWN_SETTLER').length).toBe(0);
+        });
+
+        it('should NOT recommend spawning settler if resources below expansion buffer', () => {
+            // Cost = 500 Food, 200 Timber. Buffer = 1.5. Required = 750 Food, 300 Timber.
+            settlement.stockpile.Timber = 250;
+            const actions = strategy.evaluate(state, TEST_CONFIG, 'p1');
+            expect(actions.filter(a => a.type === 'SPAWN_SETTLER').length).toBe(0);
         });
     });
 });

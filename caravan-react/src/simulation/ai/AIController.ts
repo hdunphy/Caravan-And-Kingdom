@@ -137,12 +137,10 @@ export class AIController {
     private runGovernor(settlement: Settlement, state: WorldState, config: GameConfig, governorType: string, strategies: AIStrategy[]) {
         const actions: AIAction[] = [];
 
-        // Optimize: Pass settlementId to strategy to avoid evaluating all settlements
         strategies.forEach(strategy => {
             actions.push(...strategy.evaluate(state, config, settlement.ownerId, settlement.id));
         });
 
-        // Filter for THIS settlement (Double check, though strategies should now filter)
         let relevantActions = actions.filter(a => a.settlementId === settlement.id);
 
         // Influence Checks
@@ -206,15 +204,10 @@ export class AIController {
 
         // Multi-Action Execution Loop
         for (const action of relevantActions) {
-
-            this.executeAction(state, config, action);
-            // If action failed (e.g. not enough resources), we continue to next
-            // But we should be careful not to spam if costs aren't deducted immediately in executeAction
-            // executeAction logic handles immediate resource deduction for most things?
-            // RECRUIT: yes
-            // SPAWN_SETTLER: yes
-            // BUILD: ConstructionSystem checks cost. If we drain resources, subsequent builds fail.
-            // DISPATCH_VILLAGER: Checks availableVillagers.
+            const success = this.executeAction(state, config, action);
+            if (success) {
+                Logger.getInstance().log(`[AI] ${governorType} Governor executed ${action.type} for ${settlement.name}`);
+            }
         }
     }
 
@@ -244,6 +237,11 @@ export class AIController {
                 }
             case 'SPAWN_SETTLER':
                 const settlement = state.settlements[action.settlementId];
+                const sCost = config.costs.settlement;
+                if (settlement.stockpile.Food < (sCost.Food || 0) || settlement.stockpile.Timber < (sCost.Timber || 0)) {
+                    return false;
+                }
+
                 const agent = CaravanSystem.spawn(state, settlement.hexId, action.targetHexId, 'Settler', config);
                 if (agent) {
                     agent.ownerId = settlement.ownerId;
@@ -251,9 +249,13 @@ export class AIController {
                         agent.cargo[res as keyof Resources] = amt as number;
                     });
                     // Costs handled by strategy/system verification usually, but deducting here for safety
-                    settlement.stockpile.Food -= (config.costs.settlement.Food || 0);
-                    settlement.stockpile.Timber -= (config.costs.settlement.Timber || 0);
+                    settlement.stockpile.Food -= (sCost.Food || 0);
+                    settlement.stockpile.Timber -= (sCost.Timber || 0);
                     settlement.population -= config.ai.settlerCost;
+
+                    if (!settlement.aiState) settlement.aiState = { surviveMode: false, savingFor: null, focusResources: [] };
+                    settlement.aiState.lastSettlerSpawnTick = state.tick;
+
                     Logger.getInstance().log(`[AI] Spawned Settler from ${settlement.name}`);
                     return true;
                 }
@@ -272,8 +274,8 @@ export class AIController {
                 // Check if villagers are available
                 const vSettlement = state.settlements[action.settlementId];
                 if (vSettlement.availableVillagers > 0) {
-                    VillagerSystem.spawnVillager(state, action.settlementId, action.targetHexId, config, action.mission, action.payload);
-                    return true;
+                    const agent = VillagerSystem.spawnVillager(state, action.settlementId, action.targetHexId, config, action.mission, action.payload);
+                    return agent !== null;
                 }
                 return false;
             case 'UPGRADE_SETTLEMENT':

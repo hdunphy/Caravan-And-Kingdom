@@ -20,8 +20,11 @@ export const VillagerSystem = {
 
             // 1. Handle Movement / Pathfinding
             if (agent.path && agent.path.length > 0) {
-                // Movement is handled by MovementSystem. 
-                // We just wait for arrival (path empty).
+                // Stuck Detection Recovery
+                if ((agent.stuckTicks || 0) > 20) {
+                    Logger.getInstance().log(`[VillagerSystem] Agent ${agent.id} STUCK for ${agent.stuckTicks} ticks. Returning home.`);
+                    this.returnHome(state, agent, config);
+                }
                 return;
             }
 
@@ -83,7 +86,7 @@ export const VillagerSystem = {
             const targetHex = state.map[targetHexId];
             if (targetHex) {
                 if (!agent.path || agent.path.length === 0) {
-                    const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config);
+                    const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config, 'Villager');
                     if (path) {
                         agent.path = path;
                         agent.target = targetHex.coordinate;
@@ -145,7 +148,7 @@ export const VillagerSystem = {
             // If we are here, we might need to repath?
             const targetHex = state.map[HexUtils.getID(agent.gatherTarget)];
             if (targetHex) {
-                const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config);
+                const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config, 'Villager');
                 if (path) {
                     agent.path = path;
                     agent.target = targetHex.coordinate;
@@ -191,7 +194,7 @@ export const VillagerSystem = {
         if (!home) return;
 
         const homeHex = state.map[home.hexId];
-        const path = Pathfinding.findPath(agent.position, homeHex.coordinate, state.map, config);
+        const path = Pathfinding.findPath(agent.position, homeHex.coordinate, state.map, config, 'Villager');
 
         if (path) {
             agent.path = path;
@@ -209,13 +212,23 @@ export const VillagerSystem = {
     // Called by GovernorAI
     spawnVillager(state: WorldState, settlementId: string, targetHexId: string, config: GameConfig, mission: 'GATHER' | 'INTERNAL_FREIGHT' = 'GATHER', payload?: any): VillagerAgent | null {
         const settlement = state.settlements[settlementId];
-        if (!settlement || settlement.availableVillagers <= 0) return null;
+        if (!settlement) {
+            Logger.getInstance().log(`[VillagerSystem] Fail: Settlement ${settlementId} not found`);
+            return null;
+        }
+        if (settlement.availableVillagers <= 0) {
+            Logger.getInstance().log(`[VillagerSystem] Fail: No available villagers in ${settlement.name}`);
+            return null;
+        }
 
         const startHex = state.map[settlement.hexId];
         const targetHex = state.map[targetHexId];
-        if (!startHex || !targetHex) return null;
+        if (!startHex || !targetHex) {
+            Logger.getInstance().log(`[VillagerSystem] Fail: Hex search failed for ${settlement.hexId} or ${targetHexId}`);
+            return null;
+        }
 
-        let path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config);
+        let path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config, 'Villager');
 
         // Allow spawning on same hex
         if (targetHexId === settlement.hexId) {
