@@ -38,15 +38,7 @@ export const UpgradeSystem = {
         if (settlement.stockpile.Timber < upgradeConfig.costTimber) return false;
         if (settlement.stockpile.Stone < upgradeConfig.costStone) return false;
 
-        // Terrain
-        const centerHex = state.map[settlement.hexId];
-        if (!centerHex) return false;
-        const neighbors = HexUtils.getNeighbors(centerHex.coordinate);
-        let plainsCount = (centerHex.terrain === 'Plains' ? 1 : 0);
-        neighbors.forEach(n => {
-            if (state.map[HexUtils.getID(n)]?.terrain === 'Plains') plainsCount++;
-        });
-        return plainsCount >= upgradeConfig.plainsCount;
+        return true;
     },
 
     performUpgradeToTown(state: WorldState, settlement: any, config: GameConfig, silent: boolean = false) {
@@ -67,15 +59,7 @@ export const UpgradeSystem = {
         if (settlement.stockpile.Stone < upgradeConfig.costStone) return false;
         if (settlement.stockpile.Ore < upgradeConfig.costOre) return false;
 
-        // Terrain
-        const centerHex = state.map[settlement.hexId];
-        if (!centerHex) return false;
-        const neighbors = HexUtils.getNeighbors(centerHex.coordinate);
-        let plainsCount = (centerHex.terrain === 'Plains' ? 1 : 0);
-        neighbors.forEach(n => {
-            if (state.map[HexUtils.getID(n)]?.terrain === 'Plains') plainsCount++;
-        });
-        return plainsCount >= upgradeConfig.plainsCount;
+        return true;
     },
 
     performUpgradeToCity(state: WorldState, settlement: any, config: GameConfig, silent: boolean = false) {

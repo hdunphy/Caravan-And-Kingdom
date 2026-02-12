@@ -1,18 +1,18 @@
-import { WorldState, Resources, Settlement } from '../../types/WorldTypes';
-import { GameConfig } from '../../types/GameConfig';
-import { GoalEvaluator } from './GoalEvaluator';
-import { AIAction, AIStrategy } from './AITypes';
-import { ConstructionStrategy } from './ConstructionStrategy';
-import { LogisticsStrategy } from './LogisticsStrategy';
-import { ExpansionStrategy } from './ExpansionStrategy';
-import { VillagerStrategy } from './VillagerStrategy';
-import { TradeStrategy } from './TradeStrategy';
-import { ConstructionSystem } from '../systems/ConstructionSystem';
-import { CaravanSystem } from '../systems/CaravanSystem';
-import { VillagerSystem } from '../systems/VillagerSystem';
-import { UpgradeSystem } from '../systems/UpgradeSystem';
-import { RecruitStrategy } from './RecruitStrategy';
-import { UpgradeStrategy } from './UpgradeStrategy';
+import { WorldState, Resources, Settlement } from '../../types/WorldTypes.ts';
+import { GameConfig } from '../../types/GameConfig.ts';
+import { GoalEvaluator } from './GoalEvaluator.ts';
+import { AIAction, AIStrategy } from './AITypes.ts';
+import { ConstructionStrategy } from './ConstructionStrategy.ts';
+import { LogisticsStrategy } from './LogisticsStrategy.ts';
+import { ExpansionStrategy } from './ExpansionStrategy.ts';
+import { VillagerStrategy } from './VillagerStrategy.ts';
+import { TradeStrategy } from './TradeStrategy.ts';
+import { ConstructionSystem } from '../systems/ConstructionSystem.ts';
+import { CaravanSystem } from '../systems/CaravanSystem.ts';
+import { VillagerSystem } from '../systems/VillagerSystem.ts';
+import { UpgradeSystem } from '../systems/UpgradeSystem.ts';
+import { RecruitStrategy } from './RecruitStrategy.ts';
+import { UpgradeStrategy } from './UpgradeStrategy.ts';
 
 export class AIController {
     private factionStates: Map<string, { lastTick: number, nextInterval: number }> = new Map();
@@ -169,6 +169,9 @@ export class AIController {
                 relevantActions = relevantActions.filter(a =>
                     ['RECRUIT_VILLAGER', 'DISPATCH_VILLAGER'].includes(a.type)
                 );
+                if (settlement.currentGoal === 'THRIFTY') {
+                    relevantActions = relevantActions.filter(a => a.type !== 'RECRUIT_VILLAGER');
+                }
                 break;
             case 'TRANSPORT':
                 relevantActions = relevantActions.filter(a =>
@@ -268,7 +271,7 @@ export class AIController {
                 // Check if villagers are available
                 const vSettlement = state.settlements[action.settlementId];
                 if (vSettlement.availableVillagers > 0) {
-                    VillagerSystem.spawnVillager(state, action.settlementId, action.targetHexId, config);
+                    VillagerSystem.spawnVillager(state, action.settlementId, action.targetHexId, config, action.mission, action.payload);
                     return true;
                 }
                 return false;

@@ -86,7 +86,8 @@ describe('Sovereign AI (Jitter & Decentralization)', () => {
             popHistory: [],
             integrity: 100,
             jobCap: 10,
-            workingPop: 0
+            workingPop: 0,
+            role: 'GENERAL'
         };
         state.settlements['s1'] = settlement;
 

@@ -34,7 +34,8 @@ describe('AI App Integration', () => {
                     workingPop: 0,
                     aiState: { surviveMode: true, savingFor: null, focusResources: [] },
                     currentGoal: 'SURVIVE',
-                    popHistory: []
+                    popHistory: [],
+                    role: 'GENERAL'
                 }
             },
             agents: {},

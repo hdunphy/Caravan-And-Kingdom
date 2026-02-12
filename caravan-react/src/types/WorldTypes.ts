@@ -25,7 +25,9 @@ export interface HexCell {
     resources: Partial<Resources>; // Resources currently ON the hex (not stockpile)
 }
 
-export type GoalType = 'UPGRADE' | 'EXPAND' | 'TOOLS' | 'SURVIVE';
+export type SettlementRole = 'GENERAL' | 'LUMBER' | 'MINING' | 'GRANARY';
+
+export type GoalType = 'UPGRADE' | 'EXPAND' | 'TOOLS' | 'SURVIVE' | 'THRIFTY';
 
 export type BuildingType =
     | 'GathererHut'
@@ -57,6 +59,7 @@ export interface Settlement {
     stockpile: Resources;
     integrity: number;
     tier: number; // 0=Village, 1=Town, 2=City
+    role: SettlementRole; // New Role Property
 
     // Workforce
     jobCap: number;
@@ -120,7 +123,7 @@ export interface SettlerAgent extends BaseAgent {
 export interface VillagerAgent extends BaseAgent {
     type: 'Villager';
     homeId: string; // Villagers always belong to a settlement
-    mission?: 'GATHER' | 'IDLE';
+    mission?: 'GATHER' | 'IDLE' | 'INTERNAL_FREIGHT';
     gatherTarget?: HexCoordinate;
     resourceType?: keyof Resources;
 }

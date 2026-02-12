@@ -31,7 +31,8 @@ export function useGameSimulation() {
 
             // Set Capital Ownership (Center + Neighbors)
             // Use HexUtils to get neighbors for initial control
-            const neighbors = HexUtils.getSpiral(startingHex.coordinate, 1);
+            const radius = config.upgrades.villageToTown.radius || 2;
+            const neighbors = HexUtils.getSpiral(startingHex.coordinate, radius);
             const controlledIds = neighbors.map(c => HexUtils.getID(c)).filter(id => map[id]);
 
             controlledIds.forEach(id => {
@@ -46,7 +47,7 @@ export function useGameSimulation() {
                 population: 100,
                 ownerId: 'player_1',
                 integrity: 100,
-                tier: 0,
+                tier: 1, // Start as Town
                 resourceChange: {},
                 workingPop: 100,
                 jobCap: 100, // Will be updated by ExtractionSystem
@@ -54,14 +55,15 @@ export function useGameSimulation() {
                 buildings: [],
                 popHistory: [],
                 stockpile: { Food: 500, Timber: 50, Stone: 0, Ore: 0, Gold: 0, Tools: 0 },
-                availableVillagers: 2 // Capital starts with 2 free villagers
+                availableVillagers: 2, // Capital starts with 2 free villagers
+                role: 'GENERAL'
             };
 
             // Spawn Rival Faction "The Iron Pact"
             const rivalHex = MapGenerator.findStartingLocation(map, WIDTH, HEIGHT, config, Object.values(state.settlements));
             if (rivalHex) {
                 const rivalId = rivalHex.id;
-                const neighbors = HexUtils.getSpiral(rivalHex.coordinate, 1);
+                const neighbors = HexUtils.getSpiral(rivalHex.coordinate, radius); // Use same radius
                 const controlledIds = neighbors.map(c => HexUtils.getID(c)).filter(id => map[id]);
 
                 controlledIds.forEach(id => {
@@ -75,7 +77,7 @@ export function useGameSimulation() {
                     population: 100,
                     ownerId: 'rival_1',
                     integrity: 100,
-                    tier: 0,
+                    tier: 1, // Start as Town
                     resourceChange: {},
                     workingPop: 100,
                     jobCap: 100,
@@ -83,7 +85,8 @@ export function useGameSimulation() {
                     buildings: [],
                     popHistory: [],
                     stockpile: { Food: 500, Timber: 50, Stone: 0, Ore: 0, Gold: 0, Tools: 0 },
-                    availableVillagers: 2 // Rival capital
+                    availableVillagers: 2, // Rival capital
+                    role: 'GENERAL'
                 };
             }
 

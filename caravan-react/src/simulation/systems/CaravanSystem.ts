@@ -1,7 +1,7 @@
-import { WorldState, Resources, AgentEntity, AgentType } from '../../types/WorldTypes';
-import { GameConfig } from '../../types/GameConfig';
-import { HexUtils } from '../../utils/HexUtils';
-import { Pathfinding } from '../Pathfinding';
+import { WorldState, Resources, AgentEntity, AgentType } from '../../types/WorldTypes.ts';
+import { GameConfig } from '../../types/GameConfig.ts';
+import { HexUtils } from '../../utils/HexUtils.ts';
+import { Pathfinding } from '../Pathfinding.ts';
 
 export const CaravanSystem = {
     // Determine spawn location (Settlement or from IDLE pool)
@@ -399,7 +399,8 @@ export const CaravanSystem = {
                             // Initialize with default values
                             currentGoal: 'SURVIVE',
                             lastGrowth: 0,
-                            popHistory: []
+                            popHistory: [],
+                            role: 'GENERAL'
                         };
 
                         // Set Map Owner

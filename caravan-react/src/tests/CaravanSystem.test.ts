@@ -24,7 +24,8 @@ describe('CaravanSystem', () => {
             availableVillagers: 0,
             controlledHexIds: ['0,0'],
             buildings: [],
-            popHistory: []
+            popHistory: [],
+            role: 'GENERAL'
         };
 
         s2 = {
@@ -41,7 +42,8 @@ describe('CaravanSystem', () => {
             availableVillagers: 0,
             controlledHexIds: ['2,0'],
             buildings: [],
-            popHistory: []
+            popHistory: [],
+            role: 'GENERAL'
         };
 
         state = {

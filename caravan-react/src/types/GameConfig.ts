@@ -5,6 +5,7 @@ export interface GameConfig {
         tickRate: number; // ms per tick (game loop speed)
         resourceTickInterval: number; // How many game ticks per resource tick
     };
+    isSilent?: boolean; // Global silence flag for logs
     costs: {
         movement: number; // Base movement points per tick
         terrain: Record<TerrainType, number>; // Cost per hex
@@ -59,18 +60,18 @@ export interface GameConfig {
     upgrades: {
         villageToTown: {
             population: number;
-            plainsCount: number;
             costTimber: number;
             costStone: number;
             popCap: number;
+            radius: number;
         };
         townToCity: {
             population: number;
-            plainsCount: number;
             costTimber: number;
             costStone: number;
             costOre: number;
             popCap: number;
+            radius: number;
         };
         city: {
             popCap: number;
@@ -127,6 +128,15 @@ export interface GameConfig {
             expandSearchRadius: number;
             expandSaturationPower: number;
             expandMinDistance: number;
+        };
+        feudal: {
+            roleUtilityBonus: number;
+            trade: {
+                maxDistance: number;
+                surplusThreshold: number;
+                deficitThreshold: number;
+                checkInterval: number;
+            };
         };
     };
     maintenance: {
@@ -221,17 +231,17 @@ export const DEFAULT_CONFIG: GameConfig = {
         villageToTown: {
             popCap: 200, // Cap for Village (Tier 0)
             population: 100, // Req to Upgrade
-            plainsCount: 1,
             costTimber: 300,
             costStone: 150,
+            radius: 2,
         },
         townToCity: {
             popCap: 500, // Cap for Town (Tier 1)
             population: 400, // Req to Upgrade
-            plainsCount: 2,
             costTimber: 800,
             costStone: 400,
             costOre: 200,
+            radius: 3,
         },
         city: {
             popCap: 2000 // Cap for City (Tier 2)
@@ -295,6 +305,15 @@ export const DEFAULT_CONFIG: GameConfig = {
             goalPriority: 2.0, // Multiplier
             goalBonus: 5.0, // Flat
             stockpileLow: 5.0,
+        },
+        feudal: {
+            roleUtilityBonus: 0.25,
+            trade: {
+                maxDistance: 10,
+                surplusThreshold: 500, // Fixed amount or ratio? User said "fills my capacity"
+                deficitThreshold: 100,
+                checkInterval: 50
+            }
         },
         utility: {
             surviveThreshold: 1.62,

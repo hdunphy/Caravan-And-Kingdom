@@ -1,6 +1,6 @@
-import { WorldState, Settlement, GoalType } from '../../types/WorldTypes';
-import { GameConfig } from '../../types/GameConfig';
-import { MapGenerator } from '../MapGenerator';
+import { WorldState, Settlement, GoalType } from '../../types/WorldTypes.ts';
+import { GameConfig } from '../../types/GameConfig.ts';
+import { MapGenerator } from '../MapGenerator.ts';
 
 export class GoalEvaluator {
     static evaluate(state: WorldState, settlement: Settlement, config: GameConfig): GoalType {
@@ -18,6 +18,11 @@ export class GoalEvaluator {
             if (settlement.stockpile.Food < safeThreshold) return 'SURVIVE'; // Stay in panic
         } else {
             if (settlement.stockpile.Food < criticalThreshold) return 'SURVIVE'; // Enter panic
+        }
+
+        // THRIFTY: If between critical and safe
+        if (settlement.stockpile.Food < safeThreshold) {
+            return 'THRIFTY';
         }
 
         // 2. UPGRADE: If not max tier

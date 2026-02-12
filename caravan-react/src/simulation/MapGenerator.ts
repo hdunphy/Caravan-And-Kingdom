@@ -1,5 +1,5 @@
-import { HexCell, TerrainType } from '../types/WorldTypes';
-import { HexUtils } from '../utils/HexUtils';
+import { HexCell, TerrainType } from '../types/WorldTypes.ts';
+import { HexUtils } from '../utils/HexUtils.ts';
 
 export const MapGenerator = {
     generate(width: number, height: number): Record<string, HexCell> {

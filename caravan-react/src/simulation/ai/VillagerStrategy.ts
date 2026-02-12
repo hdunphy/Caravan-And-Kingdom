@@ -6,7 +6,8 @@ import { HexUtils } from '../../utils/HexUtils';
 export class VillagerStrategy implements AIStrategy {
     evaluate(state: WorldState, config: GameConfig, factionId: string, settlementId?: string): AIAction[] {
         const actions: AIAction[] = [];
-        let factionSettlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
+        const allFactionSettlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
+        let factionSettlements = allFactionSettlements;
 
         if (settlementId) {
             factionSettlements = factionSettlements.filter(s => s.id === settlementId);
@@ -56,9 +57,33 @@ export class VillagerStrategy implements AIStrategy {
 
                 // PROVISION: Care about Timber, Stone, Ore
                 let provisionSum = 0;
-                if (hex.resources.Timber) provisionSum += hex.resources.Timber * (settlement.aiState?.focusResources.includes('Timber') ? 2.0 : 1.0);
-                if (hex.resources.Stone) provisionSum += hex.resources.Stone * (settlement.aiState?.focusResources.includes('Stone') ? 2.0 : 1.0);
-                if (hex.resources.Ore) provisionSum += hex.resources.Ore * (settlement.aiState?.focusResources.includes('Ore') ? 2.0 : 1.0);
+
+                // Role Bonus
+                // "Settlements get a +25% utility score bonus for actions matching their role"
+                // LUMBER -> Timber
+                // MINING -> Stone/Ore
+                // GRANARY -> Food (Handled in SURVIVE, but maybe here too for surplus?)
+
+                const roleBonus = config.ai?.feudal?.roleUtilityBonus || 0.25;
+                const isLumber = settlement.role === 'LUMBER';
+                const isMining = settlement.role === 'MINING';
+
+                let timberMult = settlement.aiState?.focusResources.includes('Timber') ? 2.0 : 1.0;
+                if (isLumber) timberMult += roleBonus;
+
+                let stoneMult = settlement.aiState?.focusResources.includes('Stone') ? 2.0 : 1.0;
+                let oreMult = settlement.aiState?.focusResources.includes('Ore') ? 2.0 : 1.0;
+                if (isMining) {
+                    stoneMult += roleBonus;
+                    oreMult += roleBonus;
+                }
+
+                if (hex.resources.Timber) {
+                    const val = hex.resources.Timber * timberMult;
+                    provisionSum += val;
+                }
+                if (hex.resources.Stone) provisionSum += hex.resources.Stone * stoneMult;
+                if (hex.resources.Ore) provisionSum += hex.resources.Ore * oreMult;
 
                 if (provisionSum > 0) {
                     const distMulti = config.ai?.utility?.provisionDistanceMulti || 10.0;
@@ -66,9 +91,12 @@ export class VillagerStrategy implements AIStrategy {
                     // 100 resources at dist 1 = 1.0
                     // 100 resources at dist 5 = 0.2
 
-                    const rawScore = provisionSum / (Math.max(1, dist) * distMulti);
+                    // const rawScore = provisionSum / (Math.max(1, dist) * distMulti);
                     // Explicitly clamp to 0-1, previously it was / 100.0 which was roughly correct but obscure
+                    const rawScore = provisionSum / (Math.max(1, dist) * distMulti);
                     const provScore = Math.min(1.0, rawScore / 10.0); // Adjusted divisor to make 100res/1dist = 1.0
+
+                    // if (!config.isSilent) console.log(`[VillagerStrategy] Job ${hexId}: ProvSum=${provisionSum}, Dist=${dist}, DistMulti=${distMulti}, Raw=${rawScore}, Prov=${provScore}`);
 
                     jobs.push({
                         hexId,
@@ -77,6 +105,29 @@ export class VillagerStrategy implements AIStrategy {
                     });
                 }
             });
+
+            // ==========================================
+            // INTERNAL LOGISTICS (Freight)
+            // ==========================================
+            if (settlement.tier >= 1) {
+                const neighbors = allFactionSettlements.filter(s => s.id !== settlement.id && HexUtils.distance(centerHex.coordinate, state.map[s.hexId].coordinate) <= 5);
+
+                neighbors.forEach(target => {
+                    const myFood = settlement.stockpile.Food;
+                    const theirFood = target.stockpile.Food;
+
+                    if (myFood > 500 && theirFood < 100) {
+                        actions.push({
+                            type: 'DISPATCH_VILLAGER',
+                            settlementId: settlement.id,
+                            targetHexId: target.hexId,
+                            score: 0.8,
+                            mission: 'INTERNAL_FREIGHT',
+                            payload: { resource: 'Food', amount: 50 }
+                        });
+                    }
+                });
+            }
 
             // Sort jobs by score
             jobs.sort((a, b) => b.score - a.score);
@@ -94,12 +145,14 @@ export class VillagerStrategy implements AIStrategy {
                 const adjustedScore = job.score / (assignedCount + 1);
 
                 if (adjustedScore > 0.1) {
-                    actions.push({
+                    const action: AIAction = {
                         type: 'DISPATCH_VILLAGER',
                         settlementId: settlement.id,
                         targetHexId: job.hexId,
                         score: adjustedScore
-                    });
+                    };
+                    // if (!config.isSilent) console.log(`[VillagerStrategy] Pushing action: ${JSON.stringify(action)}`);
+                    actions.push(action);
                     localAvailable--;
                 }
             }

@@ -1,7 +1,7 @@
-import { WorldState, Resources, VillagerAgent } from '../../types/WorldTypes';
-import { GameConfig } from '../../types/GameConfig';
-import { HexUtils } from '../../utils/HexUtils';
-import { Pathfinding } from '../Pathfinding';
+import { WorldState, Resources, VillagerAgent } from '../../types/WorldTypes.ts';
+import { GameConfig } from '../../types/GameConfig.ts';
+import { HexUtils } from '../../utils/HexUtils.ts';
+import { Pathfinding } from '../Pathfinding.ts';
 
 export const VillagerSystem = {
     update(state: WorldState, config: GameConfig) {
@@ -35,8 +35,12 @@ export const VillagerSystem = {
                     break;
 
                 case 'BUSY':
-                    // usually means OUTBOUND to GATHER
-                    this.handleGather(state, agent, config);
+                    if (agent.mission === 'INTERNAL_FREIGHT') {
+                        this.handleFreight(state, agent, config);
+                    } else {
+                        // usually means OUTBOUND to GATHER
+                        this.handleGather(state, agent, config);
+                    }
                     break;
 
                 case 'RETURNING':
@@ -48,7 +52,51 @@ export const VillagerSystem = {
         agentsToRemove.forEach(id => delete state.agents[id]);
     },
 
+    handleFreight(state: WorldState, agent: VillagerAgent, config: GameConfig) {
+        if (!agent.gatherTarget) {
+            this.returnHome(state, agent, config);
+            return;
+        }
+
+        const currentHexId = HexUtils.getID(agent.position);
+        const targetHexId = HexUtils.getID(agent.gatherTarget);
+
+        if (currentHexId === targetHexId) {
+            // Arrived at Target Settlement -> DEPOSIT payload
+            const targetSettlement = Object.values(state.settlements).find(s => s.hexId === targetHexId);
+
+            if (targetSettlement && agent.cargo) {
+                for (const [res, amount] of Object.entries(agent.cargo)) {
+                    if (amount > 0) {
+                        targetSettlement.stockpile[res as keyof Resources] += amount;
+                        agent.cargo[res as keyof Resources] = 0;
+                        // console.log(`[Logistics] Villager delivered ${amount} ${res} to ${targetSettlement.name}`);
+                    }
+                }
+            }
+
+            // Return Home
+            this.returnHome(state, agent, config);
+        } else {
+            // Move towards target
+            const targetHex = state.map[targetHexId];
+            if (targetHex) {
+                if (!agent.path || agent.path.length === 0) {
+                    const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config);
+                    if (path) {
+                        agent.path = path;
+                        agent.target = targetHex.coordinate;
+                        agent.activity = 'MOVING';
+                    } else {
+                        this.returnHome(state, agent, config);
+                    }
+                }
+            }
+        }
+    },
+
     handleGather(state: WorldState, agent: VillagerAgent, config: GameConfig) {
+        // ... existing handleGather code ...
         // Arrived at target?
         if (!agent.gatherTarget) {
             // Error state, return home
@@ -110,6 +158,7 @@ export const VillagerSystem = {
     },
 
     handleReturn(state: WorldState, agent: VillagerAgent, home: any) {
+        // ... existing handleReturn code ...
         const currentHexId = HexUtils.getID(agent.position);
 
         if (currentHexId === home.hexId) {
@@ -126,17 +175,6 @@ export const VillagerSystem = {
             agent.mission = 'IDLE';
             agent.activity = 'IDLE';
             agent.gatherTarget = undefined;
-
-            // Increment available villagers count in settlement?
-            // "Settlement.availableVillagers" keeps track of *total* or *idle*?
-            // "Transient agents": The plan says "Villagers are transient... spawned when needed?"
-            // OR "Settlement has a pool of availableVillagers. When dispatching, we decrement pool and spawn agent. When agent returns/dies, we increment pool."
-            // Let's go with: Agent DESPAWNS on return to save entity count?
-            // User Plan: "Job Board... Dispatch Villager... Return... Deposit... Agent Despawns?"
-            // Plan says: "Villagers are persistent? No, 'Transient agents' might be better for performance... keeping 100 agents active is heavy."
-            // "Idea: Villagers object pool?"
-            // Let's stick to "Despawn on completion" to keep Agent list small.
-            // So:
 
             home.availableVillagers++; // Return to pool
             delete state.agents[agent.id]; // Despawn
@@ -168,7 +206,7 @@ export const VillagerSystem = {
     },
 
     // Called by GovernorAI
-    spawnVillager(state: WorldState, settlementId: string, targetHexId: string, config: GameConfig): VillagerAgent | null {
+    spawnVillager(state: WorldState, settlementId: string, targetHexId: string, config: GameConfig, mission: 'GATHER' | 'INTERNAL_FREIGHT' = 'GATHER', payload?: any): VillagerAgent | null {
         const settlement = state.settlements[settlementId];
         if (!settlement || settlement.availableVillagers <= 0) return null;
 
@@ -188,6 +226,22 @@ export const VillagerSystem = {
         // Decrement pool
         settlement.availableVillagers--;
 
+        // Prepare Cargo for Freight
+        const cargo: any = {};
+        if (mission === 'INTERNAL_FREIGHT' && payload) {
+            // Deduct from settlement stockpile
+            const res = payload.resource as keyof Resources;
+            const amount = payload.amount;
+            if (settlement.stockpile[res] >= amount) {
+                settlement.stockpile[res] -= amount;
+                cargo[res] = amount;
+            } else {
+                // Abort if not enough resources
+                settlement.availableVillagers++;
+                return null;
+            }
+        }
+
         const id = `villager_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
         const agent: VillagerAgent = {
             id,
@@ -197,11 +251,11 @@ export const VillagerSystem = {
             position: startHex.coordinate,
             target: targetHex.coordinate,
             path: path,
-            cargo: {},
+            cargo: cargo,
             integrity: 100,
             status: 'BUSY',
             activity: 'MOVING',
-            mission: 'GATHER',
+            mission: mission,
             gatherTarget: targetHex.coordinate
         };
 

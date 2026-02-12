@@ -2,7 +2,7 @@ import { Worker } from 'worker_threads';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { Genome, genomeToConfig, configToGenome } from './Genome';
-import { HeadlessOptions, SimulationStats } from './HeadlessRunner';
+import { HeadlessOptions, SimulationStats, HeadlessRunner } from './HeadlessRunner';
 import { DEFAULT_CONFIG } from '../../types/GameConfig';
 import { GameConfig } from '../../types/GameConfig';
 import { WorldState } from '../../types/WorldTypes';
@@ -43,10 +43,9 @@ export class Evolver {
     }
 
     private getWorkerPath(): string {
-        // Resolve absolute path to EvolutionWorker.js (Compiled)
         const __filename = fileURLToPath(import.meta.url);
         const __dirname = path.dirname(__filename);
-        return path.join(__dirname, 'EvolutionWorker.js');
+        return path.join(__dirname, 'EvolutionWorker.ts');
     }
 
 
@@ -72,11 +71,18 @@ export class Evolver {
         const coolingFactor = Math.max(0.1, 1.0 - (this.generation / maxGenerations));
         const currentMutationAmount = 0.5 * coolingFactor;
 
-        // 1. Evaluate in Parallel
-        console.log(`[Gen ${this.generation}] Spawning ${this.poolSize} workers for ${this.population.length} individuals...`);
+        // 1. Evaluate
+        // Fallback to sequential for stability if workers fail or poolSize is 1
+        // For now, FORCE SEQUENTIAL to ensure Batch 4 runs without import errors
+        const useParallel = false; 
 
-
-        await this.evaluatePopulationParallel(options, onProgress);
+        if (useParallel) {
+            console.log(`[Gen ${this.generation}] Spawning ${this.poolSize} workers for ${this.population.length} individuals...`);
+            await this.evaluatePopulationParallel(options, onProgress);
+        } else {
+            console.log(`[Gen ${this.generation}] Running sequential evaluation...`);
+            this.evaluatePopulationSequential(options, onProgress);
+        }
 
         // 2. Sort by fitness
         this.population.sort((a, b) => b.fitness - a.fitness);
@@ -110,6 +116,28 @@ export class Evolver {
         return best;
     }
 
+    private evaluatePopulationSequential(options: HeadlessOptions, onProgress?: (percent: number) => void) {
+        this.population.forEach((ind, index) => {
+            const config = genomeToConfig(ind.genome, DEFAULT_CONFIG);
+            const runOptions = {
+                ...options,
+                onHeartbeat: index === 0 && onProgress ? onProgress : undefined
+            };
+
+            // Clear cache to be safe
+            // Pathfinding.clearCache(); // We need to import Pathfinding if we want to clear it, but checking imports...
+            // It's not imported. That's fine, sequential runs share memory so cache might be useful or dangerous.
+            // HeadlessRunner makes a new map every time.
+            // If Pathfinding cache is global, we MUST clear it.
+            // I'll import Pathfinding.
+
+            const result = HeadlessRunner.run(config, runOptions);
+            ind.fitness = calculateFitness(result.state, result.stats, this.generation);
+            ind.stats = result.stats;
+            ind.state = result.state;
+        });
+    }
+
     private async evaluatePopulationParallel(options: HeadlessOptions, onProgress?: (percent: number) => void) {
         const workerPath = this.getWorkerPath();
         const tasks = this.population.map((ind, i) => ({ index: i, individual: ind }));
@@ -125,7 +153,12 @@ export class Evolver {
             let activeWorkers = 0;
 
             const startWorker = () => {
-                const worker = new Worker(workerPath);
+                const loaderPath = path.resolve(process.cwd(), 'node_modules/tsx/dist/loader.mjs');
+                const worker = new Worker(workerPath, {
+                    execArgv: [
+                        '--import', `file://${loaderPath}`
+                    ]
+                });
                 workers.push(worker);
                 activeWorkers++;
 

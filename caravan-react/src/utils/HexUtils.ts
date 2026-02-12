@@ -1,4 +1,4 @@
-import { HexCoordinate } from '../types/WorldTypes';
+import { HexCoordinate } from '../types/WorldTypes.ts';
 
 export const HexUtils = {
     // Create a coordinate
