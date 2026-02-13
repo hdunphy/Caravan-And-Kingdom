@@ -81,6 +81,9 @@ export class AIController {
             SettlementGovernor.evaluate(s, faction, state, config);
             this.updateInfluenceFlags(s, config);
         });
+
+        // Resolve Instant Actions from Blackboard (Recruitment, Settlers)
+        this.resolveInstantDesires(faction, state, config);
     }
 
     private updateInfluenceFlags(settlement: Settlement, config: GameConfig) {
@@ -94,5 +97,30 @@ export class AIController {
         const panicThreshold = consumption * 5; // 5 ticks of food
 
         settlement.aiState.surviveMode = food < panicThreshold;
+    }
+
+    private resolveInstantDesires(faction: any, state: WorldState, config: GameConfig) {
+        if (!faction.blackboard || !faction.blackboard.desires) return;
+
+        const desires = faction.blackboard.desires;
+        // Filter for instant actions
+        const instantDesires = desires.filter((d: any) => d.type === 'RECRUIT_VILLAGER' || d.type === 'SETTLER');
+
+        instantDesires.forEach((d: any) => {
+            const settlement = state.settlements[d.settlementId];
+            if (!settlement) return;
+
+            if (d.type === 'RECRUIT_VILLAGER') {
+                const cost = config.costs.agents.Villager.Food || 100;
+                if (settlement.stockpile.Food >= cost) {
+                    settlement.stockpile.Food -= cost;
+                    settlement.availableVillagers = (settlement.availableVillagers || 0) + 1;
+                    Logger.getInstance().log(`[AI] ${settlement.id} recruited villager. Pop: ${settlement.population}`);
+                }
+            } else if (d.type === 'SETTLER') {
+                // Settler logic (consume resources, spawn unit) -> Handled by logic similar to above or specific system
+                // For now, implementing Villager fixes explicitly requested.
+            }
+        });
     }
 }

@@ -73,7 +73,8 @@ export class SettlementGovernor {
         // 4. Labor Ambition (VILLAGER)
         if (!settlement.aiState?.surviveMode) {
             const jobCap = settlement.jobCap || 10;
-            const jobRatio = Math.min(1.0, settlement.population / jobCap);
+            const currentLabor = (settlement.workingPop || 0) + (settlement.availableVillagers || 0);
+            const jobRatio = Math.min(1.0, currentLabor / jobCap);
 
             // Calculate local food surplus ratio
             // SafeLevel = consumption * surviveTicks

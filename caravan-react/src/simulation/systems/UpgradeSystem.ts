@@ -77,9 +77,31 @@ export const UpgradeSystem = {
         const centerHex = state.map[settlement.hexId];
         if (centerHex) {
             const expandedCoords = HexUtils.getSpiral(centerHex.coordinate, range);
-            const newControlledIds = expandedCoords
-                .map(c => HexUtils.getID(c))
-                .filter(id => state.map[id]);
+            const newControlledIds: string[] = [];
+
+            expandedCoords.forEach(coord => {
+                const id = HexUtils.getID(coord);
+                const hex = state.map[id];
+                if (!hex) return;
+
+                // Exclusive Ownership Logic:
+                // 1. If unowned, claim it (Set ownerId)
+                // 2. If owned by SAME owner, keep it (Shared territory or re-affirming)
+                // 3. If owned by DIFFERENT owner, SKIP it (Exclusive)
+
+                if (hex.ownerId === null || hex.ownerId === undefined) {
+                    // Claim it
+                    hex.ownerId = settlement.ownerId;
+                    newControlledIds.push(id);
+                } else if (hex.ownerId === settlement.ownerId) {
+                    // Already owned by us (or faction), keep it
+                    newControlledIds.push(id);
+                } else {
+                    // Owned by rival, skip
+                    // Logger.getInstance().log(`[UpgradeSystem] ${settlement.name} could not claim ${id} (Owned by ${hex.ownerId})`);
+                }
+            });
+
             settlement.controlledHexIds = newControlledIds;
             Logger.getInstance().log(`Territory expanded to ${newControlledIds.length} hexes.`);
         }

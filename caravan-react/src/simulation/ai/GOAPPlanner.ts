@@ -96,12 +96,22 @@ export class GOAPPlanner {
         switch (desire.type) {
             case 'UPGRADE':
                 const nextTier = settlement.tier + 1;
-                return (nextTier === 1 ? config.upgrades.villageToTown : config.upgrades.townToCity) as Partial<Resources>;
+                const upgradeConfig = (nextTier === 1 ? config.upgrades.villageToTown : config.upgrades.townToCity);
+
+                // Map config keys (costTimber) to Resource keys (Timber)
+                const costs: Partial<Resources> = {};
+                if ('costTimber' in upgradeConfig) costs.Timber = (upgradeConfig as any).costTimber;
+                if ('costStone' in upgradeConfig) costs.Stone = (upgradeConfig as any).costStone;
+                if ('costOre' in upgradeConfig) costs.Ore = (upgradeConfig as any).costOre;
+
+                return costs;
+
             case 'REPLENISH':
                 const res = desire.needs[0] as keyof Resources;
                 const goal = settlement.resourceGoals?.[res] || 100;
-                const stock = settlement.stockpile[res] || 0;
-                return { [res]: Math.max(0, goal - stock) };
+                // Return the TARGET STOCK level, not the deficit.
+                // The deficit is calculated in Pass 2 by subtracting current stock.
+                return { [res]: goal };
             case 'RECRUIT_VILLAGER':
                 return config.costs.agents.Villager as Partial<Resources>;
             case 'SETTLER':

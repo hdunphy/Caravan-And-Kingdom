@@ -5,7 +5,7 @@ export const HexUtils = {
     create(q: number, r: number): HexCoordinate {
         const rq = Math.round(q);
         const rr = Math.round(r);
-        return { q: rq, r: rr, s: -rq - rr };
+        return { q: rq + 0, r: rr + 0, s: (-rq - rr) + 0 };
     },
 
     // Get ID string

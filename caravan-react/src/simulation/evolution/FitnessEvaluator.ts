@@ -1,7 +1,7 @@
 import { WorldState } from '../../types/WorldTypes.ts';
 import { SimulationStats } from './HeadlessRunner.ts';
 
-export const calculateFitness = (_state: WorldState, stats: SimulationStats, factionId: string, generation: number = 0): number => {
+export const calculateFitness = (_state: WorldState, stats: SimulationStats, factionId: string, _generation: number = 0): number => {
     let score = 0;
     const fStats = stats.factions[factionId];
 

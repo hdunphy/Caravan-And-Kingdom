@@ -304,10 +304,12 @@ export const VillagerSystem = {
             if (path && path.length === 0) {
                 Logger.getInstance().log(`[VillagerSystem DEBUG] ReturnHome path for ${agent.id} returned EMPTY!`);
             }
-            // Teleport if stuck? Or die?
-            // Die to free up slot
-            delete state.agents[agent.id];
-            home.availableVillagers++;
+            // Do NOT despawn/teleport. Just stay IDLE and try again next tick.
+            Logger.getInstance().log(`[VillagerSystem] Agent ${agent.id} failed to find path home from ${HexUtils.getID(agent.position)}. Waiting.`);
+            agent.status = 'IDLE';
+            agent.activity = 'IDLE';
+            agent.path = [];
+            // Do not delete. Do not increment availableVillagers.
         }
     },
 

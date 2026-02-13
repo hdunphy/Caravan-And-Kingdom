@@ -1,0 +1,4635 @@
+
+=== Starting Evolution Run #BATCH9 ===
+Generations: 200, Ticks: 25000
+Map: 40x40, Factions (per match): 3
+No seed config found. Using default config.
+Seeding population with provided config.
+[Gen 1] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 1) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22501.88'        │
+│ Pop          │ 270.3498826342832 │
+│ Wealth       │ 100               │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=147.75, buildRateLookback=38.42, ascendReadinessPower=14.49
+[Gen 2] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 2) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '12401.33'         │
+│ Pop          │ 160.85261690746188 │
+│ Wealth       │ 44938              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=131.40, buildRateLookback=30.91, ascendReadinessPower=17.02
+[Gen 3] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 3) ===
+┌──────────────┬──────────────────┐
+│ (index)      │ Values           │
+├──────────────┼──────────────────┤
+│ Best Fitness │ '21916.57'       │
+│ Pop          │ 222.517624479263 │
+│ Wealth       │ 29809            │
+│ Max Tier     │ 1                │
+│ Goals        │ 1                │
+│ Survivors    │ 3                │
+│ Ticks        │ 25000            │
+└──────────────┴──────────────────┘
+Top Genes: tradeRoiThreshold=131.40, buildRateLookback=36.64, provisionDistanceMulti=20.83
+[Gen 4] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 4) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11596.15'         │
+│ Pop          │ 100.07495258264234 │
+│ Wealth       │ 15100              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=131.40, buildRateLookback=30.91, ascendReadinessPower=19.81
+[Gen 5] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 5) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22623.62'        │
+│ Pop          │ 502.4400399275216 │
+│ Wealth       │ 44932             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=131.40, buildRateLookback=28.14, ascendReadinessPower=15.91
+[Gen 6] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 6) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22304.89'        │
+│ Pop          │ 99.50443323556482 │
+│ Wealth       │ 30100             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=123.84, buildRateLookback=30.91, ascendReadinessPower=15.78
+[Gen 7] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 7) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '22079.39' │
+│ Pop          │ 0          │
+│ Wealth       │ 16286      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=142.53, buildRateLookback=27.99, ascendReadinessPower=17.05
+[Gen 8] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 8) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '15732.25'         │
+│ Pop          │ 374.98579686729704 │
+│ Wealth       │ 53002              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=112.52, constructionRoiThreshold=17.33, ascendReadinessPower=17.02
+[Gen 9] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 9) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '11759.16' │
+│ Pop          │ 0          │
+│ Wealth       │ 11575      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=142.53, buildRateLookback=16.36, ascendReadinessPower=14.38
+[Gen 10] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.Generation 10 Best Fitness: 15354.45 | Mutation Level: 0.47
+
+
+=== State of the Realm (Gen 10) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15354.45'        │
+│ Pop          │ 296.5807765728672 │
+│ Wealth       │ 55420             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=112.52, buildRateLookback=48.34, ascendReadinessPower=25.19
+[Gen 11] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 11) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22118.20'         │
+│ Pop          │ 418.91992700147046 │
+│ Wealth       │ 33710              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=91.58, buildRateLookback=44.04, provisionDistanceMulti=20.22
+[Gen 12] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 12) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11913.98'         │
+│ Pop          │ 386.62107965897354 │
+│ Wealth       │ 33787              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 1                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=243.35, buildRateLookback=33.62, ascendReadinessPower=13.38
+[Gen 13] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 13) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '11944.57'        │
+│ Pop          │ 390.2738633421737 │
+│ Wealth       │ 33715             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: buildRateLookback=37.89, tradeRoiThreshold=29.46, ascendReadinessPower=15.28
+[Gen 14] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 14) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '22640.15' │
+│ Pop          │ 0          │
+│ Wealth       │ 18748      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=149.93, buildRateLookback=53.20, constructionRoiThreshold=25.27
+[Gen 15] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 15) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15426.13'        │
+│ Pop          │ 270.5038633503872 │
+│ Wealth       │ 75421             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=149.93, buildRateLookback=23.51, provisionDistanceMulti=18.37
+[Gen 16] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 16) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '12073.63'        │
+│ Pop          │ 99.50443323556473 │
+│ Wealth       │ 100               │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: buildRateLookback=31.49, constructionRoiThreshold=25.27, tradeRoiThreshold=24.00
+[Gen 17] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 17) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '21960.96'        │
+│ Pop          │ 99.65537565261967 │
+│ Wealth       │ 7600              │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=214.59, buildRateLookback=41.69, ascendReadinessPower=20.81
+[Gen 18] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 18) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '22619.00' │
+│ Pop          │ 0          │
+│ Wealth       │ 10537      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=203.88, buildRateLookback=66.87, constructionRoiThreshold=24.29
+[Gen 19] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 19) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '12203.30'        │
+│ Pop          │ 390.3309044183314 │
+│ Wealth       │ 56140             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=149.93, buildRateLookback=52.79, ascendReadinessPower=17.13
+[Gen 20] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.Generation 20 Best Fitness: 22287.28 | Mutation Level: 0.45
+
+
+=== State of the Realm (Gen 20) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '22287.28' │
+│ Pop          │ 0          │
+│ Wealth       │ 11812      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 1          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=149.93, provisionDistanceMulti=18.09, constructionRoiThreshold=18.04
+[Gen 21] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 21) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '25944.92'        │
+│ Pop          │ 455.0887732433067 │
+│ Wealth       │ 44218             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=149.93, provisionDistanceMulti=18.09, constructionRoiThreshold=18.04
+[Gen 22] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 22) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '11692.28' │
+│ Pop          │ 0          │
+│ Wealth       │ 14374      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 1          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: buildRateLookback=66.87, tradeRoiThreshold=15.21, ascendReadinessPower=9.91
+[Gen 23] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 23) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22310.49'         │
+│ Pop          │ 50.010075256018055 │
+│ Wealth       │ 15100              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=302.53, buildRateLookback=128.58, constructionRoiThreshold=16.41
+[Gen 24] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 24) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '22044.36' │
+│ Pop          │ 0          │
+│ Wealth       │ 5117       │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 1          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=238.44, ascendReadinessPower=26.34, buildRateLookback=11.43
+[Gen 25] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 25) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22380.07'        │
+│ Pop          │ 50.07819504026713 │
+│ Wealth       │ 22600             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: buildRateLookback=19.56, provisionDistanceMulti=18.37, constructionRoiThreshold=16.41
+[Gen 26] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 26) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22370.88'        │
+│ Pop          │ 500.7370489643561 │
+│ Wealth       │ 22129             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=177.97, constructionRoiThreshold=16.41, provisionDistanceMulti=10.96
+[Gen 27] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 27) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22206.06'        │
+│ Pop          │ 99.50443323556473 │
+│ Wealth       │ 7600              │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=82.78, buildRateLookback=43.13, provisionDistanceMulti=14.16
+[Gen 28] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 28) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11532.75'         │
+│ Pop          │ 50.010075256018055 │
+│ Wealth       │ 15100              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=166.98, constructionRoiThreshold=24.11, provisionDistanceMulti=16.53
+[Gen 29] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 29) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22317.11'         │
+│ Pop          │ 378.87846468208323 │
+│ Wealth       │ 45058              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=177.97, buildRateLookback=31.26, ascendReadinessPower=10.73
+[Gen 30] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.Generation 30 Best Fitness: 15438.57 | Mutation Level: 0.42
+
+
+=== State of the Realm (Gen 30) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '15438.57'         │
+│ Pop          │ 385.46851223170114 │
+│ Wealth       │ 52427              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=65.34, buildRateLookback=56.16, provisionDistanceMulti=15.58
+[Gen 31] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 31) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '12079.72' │
+│ Pop          │ 0          │
+│ Wealth       │ 20764      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=134.74, buildRateLookback=116.50, constructionRoiThreshold=14.06
+[Gen 32] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 32) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15675.39'        │
+│ Pop          │ 388.8434820724065 │
+│ Wealth       │ 43087             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=222.12, buildRateLookback=27.14, ascendReadinessPower=23.81
+[Gen 33] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 33) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '26250.71'        │
+│ Pop          │ 511.0558462773583 │
+│ Wealth       │ 42383             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=134.74, buildRateLookback=116.50, constructionRoiThreshold=14.06
+[Gen 34] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 34) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '22452.84' │
+│ Pop          │ 0          │
+│ Wealth       │ 22492      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 1          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=105.82, buildRateLookback=56.16, constructionRoiThreshold=14.55
+[Gen 35] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 35) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '26627.34'        │
+│ Pop          │ 510.5896482852141 │
+│ Wealth       │ 76349             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=222.12, ascendReadinessPower=35.09, provisionDistanceMulti=13.54
+[Gen 36] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 36) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '11540.67' │
+│ Pop          │ 0          │
+│ Wealth       │ 29122      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=170.51, buildRateLookback=116.50, ascendReadinessPower=22.37
+[Gen 37] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 37) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15424.02'        │
+│ Pop          │ 269.9353280293655 │
+│ Wealth       │ 76409             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=170.51, provisionDistanceMulti=15.39, constructionRoiThreshold=12.21
+[Gen 38] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 38) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '26316.13'        │
+│ Pop          │ 510.9427448032728 │
+│ Wealth       │ 43961             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=151.13, buildRateLookback=76.55, constructionRoiThreshold=16.10
+[Gen 39] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 39) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22247.00'         │
+│ Pop          │ 453.83603968564057 │
+│ Wealth       │ 44932              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=240.24, ascendReadinessPower=43.99, provisionDistanceMulti=14.97
+[Gen 40] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.Generation 40 Best Fitness: 21942.80 | Mutation Level: 0.40
+
+
+=== State of the Realm (Gen 40) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '21942.80'        │
+│ Pop          │ 59.20309017291475 │
+│ Wealth       │ 100               │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=123.18, provisionDistanceMulti=18.12, constructionRoiThreshold=8.01
+[Gen 41] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 41) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22385.77'        │
+│ Pop          │ 316.5095024559258 │
+│ Wealth       │ 11183             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=119.63, buildRateLookback=110.99, provisionDistanceMulti=14.07
+[Gen 42] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 42) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '21988.53'        │
+│ Pop          │ 389.0771379114654 │
+│ Wealth       │ 100               │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=149.79, buildRateLookback=46.96, provisionDistanceMulti=22.98
+[Gen 43] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 43) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '12052.25'        │
+│ Pop          │ 99.50443323556473 │
+│ Wealth       │ 7600              │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=187.07, expansionBuffer=12.26, provisionDistanceMulti=7.44
+[Gen 44] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 44) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '11939.30' │
+│ Pop          │ 0          │
+│ Wealth       │ 8797       │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=334.31, expandMinDistance=14.32, expansionBuffer=11.82
+[Gen 45] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 45) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22116.01'        │
+│ Pop          │ 50.23546680790889 │
+│ Wealth       │ 15100             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=145.26, provisionDistanceMulti=14.69, ascendReadinessPower=7.04
+[Gen 46] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 46) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15359.42'        │
+│ Pop          │ 277.4604511491322 │
+│ Wealth       │ 65197             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=145.26, constructionRoiThreshold=13.79, provisionDistanceMulti=9.90
+[Gen 47] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 47) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11883.33'         │
+│ Pop          │ 271.24091570025365 │
+│ Wealth       │ 67474              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=335.22, provisionDistanceMulti=8.73, constructionRoiThreshold=8.55
+[Gen 48] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 48) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '22389.95' │
+│ Pop          │ 0          │
+│ Wealth       │ 29962      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 1          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=159.21, buildRateLookback=51.91, ascendReadinessPower=14.35
+[Gen 49] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 49) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '12092.45'         │
+│ Pop          │ 388.84348207240754 │
+│ Wealth       │ 45028              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=135.05, buildRateLookback=103.33, ascendReadinessPower=14.35
+[Gen 50] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.Generation 50 Best Fitness: 26594.36 | Mutation Level: 0.38
+
+
+=== State of the Realm (Gen 50) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '26594.36'        │
+│ Pop          │ 504.7598668518938 │
+│ Wealth       │ 75686             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: buildRateLookback=133.63, tradeRoiThreshold=54.24, expansionBuffer=12.32
+[Gen 51] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 51) ===
+┌──────────────┬──────────────────┐
+│ (index)      │ Values           │
+├──────────────┼──────────────────┤
+│ Best Fitness │ '21861.56'       │
+│ Pop          │ 449.560926747665 │
+│ Wealth       │ 33796            │
+│ Max Tier     │ 1                │
+│ Goals        │ 1                │
+│ Survivors    │ 3                │
+│ Ticks        │ 25000            │
+└──────────────┴──────────────────┘
+Top Genes: tradeRoiThreshold=85.38, ascendReadinessPower=15.78, provisionDistanceMulti=11.78
+[Gen 52] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 52) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11852.33'         │
+│ Pop          │ 240.54100607649838 │
+│ Wealth       │ 44938              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=368.05, buildRateLookback=133.63, ascendReadinessPower=16.65
+[Gen 53] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 53) ===
+┌──────────────┬──────────────────┐
+│ (index)      │ Values           │
+├──────────────┼──────────────────┤
+│ Best Fitness │ '15134.44'       │
+│ Pop          │ 209.832071858854 │
+│ Wealth       │ 77522            │
+│ Max Tier     │ 2                │
+│ Goals        │ 1                │
+│ Survivors    │ 1                │
+│ Ticks        │ 25000            │
+└──────────────┴──────────────────┘
+Top Genes: tradeRoiThreshold=99.48, buildRateLookback=51.91, ascendReadinessPower=15.78
+[Gen 54] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 54) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '26243.18'         │
+│ Pop          │ 449.53781763646964 │
+│ Wealth       │ 75524              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=47.26, provisionDistanceMulti=12.14, ascendReadinessPower=11.27
+[Gen 55] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 55) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '11862.15'        │
+│ Pop          │ 99.50443323556473 │
+│ Wealth       │ 100               │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=101.80, buildRateLookback=51.91, provisionDistanceMulti=12.44
+[Gen 56] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 56) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22173.50'         │
+│ Pop          │ 431.39433177157554 │
+│ Wealth       │ 33823              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=47.26, constructionRoiThreshold=9.84, provisionDistanceMulti=8.28
+[Gen 57] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 57) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22322.57'         │
+│ Pop          │ 502.25885802105677 │
+│ Wealth       │ 11327              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=246.06, ascendReadinessPower=15.04, expansionBuffer=8.89
+[Gen 58] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 58) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22024.20'         │
+│ Pop          │ 120.89384789083378 │
+│ Wealth       │ 44938              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=111.25, ascendReadinessPower=12.91, expansionBuffer=7.82
+[Gen 59] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 59) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15743.75'        │
+│ Pop          │ 373.9921352764592 │
+│ Wealth       │ 55399             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=248.35, buildRateLookback=133.63, expansionBuffer=16.97
+[Gen 60] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.Generation 60 Best Fitness: 15199.62 | Mutation Level: 0.35
+
+
+=== State of the Realm (Gen 60) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15199.62'        │
+│ Pop          │ 268.3733421260906 │
+│ Wealth       │ 54730             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=248.35, expansionBuffer=16.97, provisionDistanceMulti=9.60
+[Gen 61] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 61) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15316.02'        │
+│ Pop          │ 296.0658696035692 │
+│ Wealth       │ 53914             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=231.77, expandMinDistance=12.81, ascendReadinessPower=12.64
+[Gen 62] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 62) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22544.02'        │
+│ Pop          │ 503.3970233386491 │
+│ Wealth       │ 45058             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: buildRateLookback=37.79, tradeRoiThreshold=33.71, ascendReadinessPower=18.07
+[Gen 63] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 63) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22608.79'        │
+│ Pop          │ 50.01007525601825 │
+│ Wealth       │ 8297              │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=508.45, buildRateLookback=58.04, ascendReadinessPower=9.25
+[Gen 64] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 64) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22537.75'        │
+│ Pop          │ 500.3408295007905 │
+│ Wealth       │ 33805             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: buildRateLookback=157.46, tradeRoiThreshold=42.36, ascendReadinessPower=16.48
+[Gen 65] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 65) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22176.95'         │
+│ Pop          │ 269.06628900318367 │
+│ Wealth       │ 11339              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=508.45, ascendReadinessPower=13.05, expandMinDistance=12.81
+[Gen 66] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 66) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11984.26'         │
+│ Pop          │ 120.89384789083378 │
+│ Wealth       │ 45046              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: buildRateLookback=157.46, tradeRoiThreshold=42.36, expansionBuffer=20.02
+[Gen 67] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 67) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22265.31'         │
+│ Pop          │ 269.32322204054935 │
+│ Wealth       │ 33715              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: buildRateLookback=157.46, tradeRoiThreshold=42.36, expansionBuffer=20.02
+[Gen 68] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 68) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11797.90'         │
+│ Pop          │ 311.84454421034155 │
+│ Wealth       │ 56162              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=432.09, buildRateLookback=38.47, expansionBuffer=10.28
+[Gen 69] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 69) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '22089.86' │
+│ Pop          │ 0          │
+│ Wealth       │ 22352      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: buildRateLookback=41.99, tradeRoiThreshold=36.39, expansionBuffer=16.97
+[Gen 70] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.Generation 70 Best Fitness: 14686.36 | Mutation Level: 0.33
+
+
+=== State of the Realm (Gen 70) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '14686.36'        │
+│ Pop          │ 391.1293889549672 │
+│ Wealth       │ 54271             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: buildRateLookback=157.46, tradeRoiThreshold=42.36, expandMinDistance=21.75
+[Gen 71] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 71) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '25675.46'        │
+│ Pop          │ 431.3943317715764 │
+│ Wealth       │ 55399             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=567.20, buildRateLookback=180.29, expandMinDistance=16.49
+[Gen 72] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 72) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22483.47'        │
+│ Pop          │ 100.7111096133468 │
+│ Wealth       │ 8827              │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=519.12, buildRateLookback=130.48, expandMinDistance=14.25
+[Gen 73] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 73) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '16240.13'        │
+│ Pop          │ 390.4204169544655 │
+│ Wealth       │ 98083             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=519.12, buildRateLookback=66.45, expansionBuffer=16.33
+[Gen 74] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 74) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15945.66'        │
+│ Pop          │ 325.2013636895869 │
+│ Wealth       │ 98030             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=582.30, expansionBuffer=10.35, expandMinDistance=8.06
+[Gen 75] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 75) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '21985.56'        │
+│ Pop          │ 222.5176244792626 │
+│ Wealth       │ 45052             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=200.76, buildRateLookback=82.29, expandMinDistance=19.71
+[Gen 76] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 76) ===
+┌──────────────┬──────────────────┐
+│ (index)      │ Values           │
+├──────────────┼──────────────────┤
+│ Best Fitness │ '26788.87'       │
+│ Pop          │ 504.794908231853 │
+│ Wealth       │ 105745           │
+│ Max Tier     │ 2                │
+│ Goals        │ 1                │
+│ Survivors    │ 3                │
+│ Ticks        │ 25000            │
+└──────────────┴──────────────────┘
+Top Genes: tradeRoiThreshold=445.59, buildRateLookback=120.53, expansionBuffer=20.02
+[Gen 77] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 77) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22403.67'         │
+│ Pop          │ 430.72465969518123 │
+│ Wealth       │ 56305              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=512.25, buildRateLookback=157.46, expansionBuffer=24.70
+[Gen 78] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 78) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22503.71'         │
+│ Pop          │ 500.21207822354876 │
+│ Wealth       │ 33809              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=512.25, buildRateLookback=155.01, expansionBuffer=14.30
+[Gen 79] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 79) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '25923.45'        │
+│ Pop          │ 449.8121321766282 │
+│ Wealth       │ 32644             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=249.98, buildRateLookback=152.90, expansionBuffer=9.19
+[Gen 80] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.Generation 80 Best Fitness: 15596.48 | Mutation Level: 0.30
+
+
+=== State of the Realm (Gen 80) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15596.48'        │
+│ Pop          │ 392.0868966768708 │
+│ Wealth       │ 33029             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=249.98, buildRateLookback=152.90, expansionBuffer=9.19
+[Gen 81] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 81) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '21556.76'         │
+│ Pop          │ 452.96103952553375 │
+│ Wealth       │ 100                │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 1                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=249.98, buildRateLookback=157.82, expandMinDistance=23.35
+[Gen 82] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 82) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22122.81'         │
+│ Pop          │ 449.98282959725117 │
+│ Wealth       │ 22570              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=470.05, buildRateLookback=139.30, expandMinDistance=33.23
+[Gen 83] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 83) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '15356.70'         │
+│ Pop          │ 277.46045114913125 │
+│ Wealth       │ 65860              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=735.51, buildRateLookback=212.15, expandMinDistance=24.26
+[Gen 84] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 84) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '25826.22'        │
+│ Pop          │ 453.7192350069251 │
+│ Wealth       │ 21622             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=735.51, buildRateLookback=123.65, expandMinDistance=24.26
+[Gen 85] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 85) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22531.59'        │
+│ Pop          │ 99.52409044309489 │
+│ Wealth       │ 15196             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=508.61, buildRateLookback=106.11, expandMinDistance=33.23
+[Gen 86] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 86) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22200.65'         │
+│ Pop          │ 436.37626367047267 │
+│ Wealth       │ 33791              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=693.99, expandMinDistance=25.98, expansionBuffer=9.38
+[Gen 87] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 87) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '11907.54'        │
+│ Pop          │ 101.1555520247314 │
+│ Wealth       │ 22600             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=660.05, buildRateLookback=118.21, expandMinDistance=26.85
+[Gen 88] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 88) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15306.09'        │
+│ Pop          │ 296.5587891138295 │
+│ Wealth       │ 51989             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=515.56, buildRateLookback=135.04, expandMinDistance=35.82
+[Gen 89] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 89) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '16245.32'         │
+│ Pop          │ 394.32760855348783 │
+│ Wealth       │ 96598              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=559.74, buildRateLookback=158.85, expandMinDistance=26.85
+[Gen 90] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.Generation 90 Best Fitness: 15573.78 | Mutation Level: 0.28
+
+
+=== State of the Realm (Gen 90) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15573.78'        │
+│ Pop          │ 388.9375958252938 │
+│ Wealth       │ 64279             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=424.14, expandMinDistance=31.82, expansionBuffer=15.03
+[Gen 91] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 91) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '11436.77'        │
+│ Pop          │ 50.25950621276993 │
+│ Wealth       │ 17311             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=566.38, buildRateLookback=132.53, expandMinDistance=47.70
+[Gen 92] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 92) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '12052.82'         │
+│ Pop          │ 390.28769125561024 │
+│ Wealth       │ 44938              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=508.61, expandMinDistance=26.85, expansionBuffer=13.25
+[Gen 93] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 93) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11649.91'         │
+│ Pop          │ 331.19358644783915 │
+│ Wealth       │ 33814              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=559.74, buildRateLookback=112.02, expandMinDistance=40.24
+[Gen 94] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 94) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '22603.07' │
+│ Pop          │ 0          │
+│ Wealth       │ 35344      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=508.61, buildRateLookback=126.50, expandMinDistance=34.36
+[Gen 95] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 95) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22605.19'        │
+│ Pop          │ 273.1663862865868 │
+│ Wealth       │ 67501             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=566.38, buildRateLookback=132.53, expandMinDistance=23.70
+[Gen 96] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 96) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22723.84'         │
+│ Pop          │ 500.75290782920774 │
+│ Wealth       │ 56267              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=566.38, expandMinDistance=27.51, provisionDistanceMulti=8.50
+[Gen 97] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 97) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '15503.41'         │
+│ Pop          │ 290.04356694447915 │
+│ Wealth       │ 72419              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=351.05, expansionBuffer=29.94, expandMinDistance=17.88
+[Gen 98] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 98) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '21730.92'        │
+│ Pop          │ 143.1169487626471 │
+│ Wealth       │ 56282             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=365.53, expansionBuffer=29.94, expandMinDistance=22.10
+[Gen 99] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 99) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '15264.28'         │
+│ Pop          │ 327.84071167464936 │
+│ Wealth       │ 32777              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=301.93, expandMinDistance=30.67, expansionBuffer=9.45
+[Gen 100] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.Generation 100 Best Fitness: 22618.66 | Mutation Level: 0.25
+
+
+=== State of the Realm (Gen 100) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22618.66'        │
+│ Pop          │ 240.5410060764981 │
+│ Wealth       │ 33809             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=557.30, expandMinDistance=57.49, provisionDistanceMulti=11.09
+[Gen 101] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 101) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22426.10'         │
+│ Pop          │ 292.24755977733247 │
+│ Wealth       │ 31033              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=557.30, buildRateLookback=74.79, expandMinDistance=57.49
+[Gen 102] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 102) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '21990.11'        │
+│ Pop          │ 240.5410060764981 │
+│ Wealth       │ 67537             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=424.32, expandMinDistance=40.71, expansionBuffer=12.75
+[Gen 103] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 103) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22308.83'         │
+│ Pop          │ 454.61069367443173 │
+│ Wealth       │ 33778              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=531.46, expansionBuffer=20.57, expandMinDistance=17.96
+[Gen 104] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 104) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22366.34'         │
+│ Pop          │ 496.59269556010526 │
+│ Wealth       │ 22513              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=464.81, expandMinDistance=27.91, expansionBuffer=10.92
+[Gen 105] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 105) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '15179.40'         │
+│ Pop          │ 270.03917791031245 │
+│ Wealth       │ 66275              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=443.49, expandMinDistance=47.49, expansionBuffer=12.14
+[Gen 106] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 106) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22435.31'        │
+│ Pop          │ 195.4294011726784 │
+│ Wealth       │ 33823             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=443.49, expandMinDistance=43.23, expansionBuffer=11.58
+[Gen 107] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 107) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15866.53'        │
+│ Pop          │ 395.2720824402219 │
+│ Wealth       │ 54221             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=414.44, expandMinDistance=20.43, expansionBuffer=9.74
+[Gen 108] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 108) ===
+┌──────────────┬──────────────────┐
+│ (index)      │ Values           │
+├──────────────┼──────────────────┤
+│ Best Fitness │ '21959.65'       │
+│ Pop          │ 454.044516821939 │
+│ Wealth       │ 22402            │
+│ Max Tier     │ 1                │
+│ Goals        │ 1                │
+│ Survivors    │ 3                │
+│ Ticks        │ 25000            │
+└──────────────┴──────────────────┘
+Top Genes: tradeRoiThreshold=414.44, expandMinDistance=24.95, expansionBuffer=12.46
+[Gen 109] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 109) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '12069.58'         │
+│ Pop          │ 50.010075256018055 │
+│ Wealth       │ 22600              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=484.49, expandMinDistance=23.87, expansionBuffer=20.57
+[Gen 110] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.Generation 110 Best Fitness: 12083.28 | Mutation Level: 0.22
+
+
+=== State of the Realm (Gen 110) ===
+┌──────────────┬──────────────────┐
+│ (index)      │ Values           │
+├──────────────┼──────────────────┤
+│ Best Fitness │ '12083.28'       │
+│ Pop          │ 200.569459430941 │
+│ Wealth       │ 67357            │
+│ Max Tier     │ 1                │
+│ Goals        │ 1                │
+│ Survivors    │ 3                │
+│ Ticks        │ 25000            │
+└──────────────┴──────────────────┘
+Top Genes: tradeRoiThreshold=277.58, expandMinDistance=23.01, expansionBuffer=20.57
+[Gen 111] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 111) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11602.99'         │
+│ Pop          │ 314.01915337062155 │
+│ Wealth       │ 33769              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=443.49, expandMinDistance=18.60, provisionDistanceMulti=8.40
+[Gen 112] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 112) ===
+┌──────────────┬──────────────────┐
+│ (index)      │ Values           │
+├──────────────┼──────────────────┤
+│ Best Fitness │ '22259.48'       │
+│ Pop          │ 50.0191828002982 │
+│ Wealth       │ 33418            │
+│ Max Tier     │ 1                │
+│ Goals        │ 1                │
+│ Survivors    │ 3                │
+│ Ticks        │ 25000            │
+└──────────────┴──────────────────┘
+Top Genes: tradeRoiThreshold=552.36, expandMinDistance=16.82, provisionDistanceMulti=8.20
+[Gen 113] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 113) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22249.71'         │
+│ Pop          │ 180.78616536807704 │
+│ Wealth       │ 45046              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=402.59, expandMinDistance=20.05, expansionBuffer=16.48
+[Gen 114] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 114) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22253.83'         │
+│ Pop          │ 195.42940117267943 │
+│ Wealth       │ 22558              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=610.14, expandMinDistance=20.93, ascendReadinessPower=12.33
+[Gen 115] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 115) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11960.83'         │
+│ Pop          │ 392.62774023722545 │
+│ Wealth       │ 33719              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=427.93, expandMinDistance=20.93, provisionDistanceMulti=13.26
+[Gen 116] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 116) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22248.40'         │
+│ Pop          │ 316.59270040424985 │
+│ Wealth       │ 33724              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=427.93, expandMinDistance=20.75, provisionDistanceMulti=9.32
+[Gen 117] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 117) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '21803.61'         │
+│ Pop          │ 217.51040797832414 │
+│ Wealth       │ 33787              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=616.83, expandMinDistance=21.37, expansionBuffer=9.96
+[Gen 118] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 118) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '11523.56'        │
+│ Pop          │ 391.6178753452336 │
+│ Wealth       │ 11305             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=431.96, provisionDistanceMulti=9.70, expandMinDistance=9.13
+[Gen 119] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 119) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '22186.55' │
+│ Pop          │ 0          │
+│ Wealth       │ 11089      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=427.93, expandMinDistance=19.09, provisionDistanceMulti=9.70
+[Gen 120] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.Generation 120 Best Fitness: 22510.59 | Mutation Level: 0.20
+
+
+=== State of the Realm (Gen 120) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22510.59'        │
+│ Pop          │ 502.3068531775793 │
+│ Wealth       │ 33800             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=542.10, expandMinDistance=10.16, provisionDistanceMulti=8.89
+[Gen 121] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 121) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '15433.83'         │
+│ Pop          │ 271.70342072241186 │
+│ Wealth       │ 77491              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=484.72, expandMinDistance=15.01, provisionDistanceMulti=9.70
+[Gen 122] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 122) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '21982.82'         │
+│ Pop          │ 434.58982509750643 │
+│ Wealth       │ 11332              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=284.54, expandMinDistance=9.74, provisionDistanceMulti=8.89
+[Gen 123] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 123) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22353.50'         │
+│ Pop          │ 120.89384789083337 │
+│ Wealth       │ 11327              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=624.31, expandMinDistance=23.34, provisionDistanceMulti=8.97
+[Gen 124] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 124) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22596.68'         │
+│ Pop          │ 497.99305249593505 │
+│ Wealth       │ 44926              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=463.73, expandMinDistance=9.13, provisionDistanceMulti=8.89
+[Gen 125] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 125) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22173.47'        │
+│ Pop          │ 458.0175324831959 │
+│ Wealth       │ 22513             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=624.31, expandMinDistance=9.74, expansionBuffer=9.06
+[Gen 126] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 126) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22516.76'         │
+│ Pop          │ 240.54100607649758 │
+│ Wealth       │ 22516              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=391.94, expandMinDistance=27.47, provisionDistanceMulti=8.37
+[Gen 127] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 127) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22198.29'         │
+│ Pop          │ 120.89384789083378 │
+│ Wealth       │ 33823              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=359.04, expansionBuffer=10.67, expandMinDistance=9.30
+[Gen 128] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 128) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15534.18'        │
+│ Pop          │ 270.3498826342832 │
+│ Wealth       │ 87533             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=581.78, expandMinDistance=27.47, provisionDistanceMulti=10.08
+[Gen 129] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 129) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15374.59'        │
+│ Pop          │ 328.4641349709427 │
+│ Wealth       │ 43447             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=706.62, expandMinDistance=27.47, provisionDistanceMulti=7.75
+[Gen 130] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.Generation 130 Best Fitness: 21943.03 | Mutation Level: 0.17
+
+
+=== State of the Realm (Gen 130) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '21943.03'        │
+│ Pop          │ 431.3943317715751 │
+│ Wealth       │ 11341             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=581.78, expandMinDistance=27.47, provisionDistanceMulti=9.30
+[Gen 131] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 131) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '12052.90'         │
+│ Pop          │ 50.010075256018055 │
+│ Wealth       │ 15100              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=595.65, expandMinDistance=10.06, provisionDistanceMulti=9.62
+[Gen 132] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 132) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15463.24'        │
+│ Pop          │ 341.5075503755954 │
+│ Wealth       │ 43450             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=406.10, expansionBuffer=10.90, expandMinDistance=9.30
+[Gen 133] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 133) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22306.43'         │
+│ Pop          │ 434.74974948015415 │
+│ Wealth       │ 45058              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=619.66, expandMinDistance=29.21, provisionDistanceMulti=9.48
+[Gen 134] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 134) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '14872.30'         │
+│ Pop          │ 269.44287886965395 │
+│ Wealth       │ 21803              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=141.84, expandMinDistance=21.24, provisionDistanceMulti=8.96
+[Gen 135] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 135) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22542.10'         │
+│ Pop          │ 120.89384789083377 │
+│ Wealth       │ 22537              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=700.88, expandMinDistance=21.74, provisionDistanceMulti=12.32
+[Gen 136] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 136) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '15121.61'         │
+│ Pop          │ 253.36051232201496 │
+│ Wealth       │ 53176              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=689.34, expandMinDistance=25.51, expansionBuffer=7.01
+[Gen 137] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 137) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11930.62'         │
+│ Pop          │ 315.91889503922084 │
+│ Wealth       │ 67528              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=673.15, expandMinDistance=26.18, provisionDistanceMulti=6.88
+[Gen 138] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 138) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22493.20'        │
+│ Pop          │ 499.5311084611543 │
+│ Wealth       │ 33724             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=665.02, expandMinDistance=22.78, provisionDistanceMulti=11.10
+[Gen 139] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 139) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11717.04'         │
+│ Pop          │ 120.89384789083378 │
+│ Wealth       │ 45046              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=668.30, expandMinDistance=20.10, constructionRoiThreshold=8.64
+[Gen 140] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.Generation 140 Best Fitness: 22571.76 | Mutation Level: 0.15
+
+
+=== State of the Realm (Gen 140) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '22571.76' │
+│ Pop          │ 0          │
+│ Wealth       │ 19822      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=472.46, expandMinDistance=24.74, constructionRoiThreshold=6.28
+[Gen 141] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 141) ===
+┌──────────────┬─────────────────┐
+│ (index)      │ Values          │
+├──────────────┼─────────────────┤
+│ Best Fitness │ '26094.20'      │
+│ Pop          │ 454.85099590468 │
+│ Wealth       │ 52435           │
+│ Max Tier     │ 2               │
+│ Goals        │ 1               │
+│ Survivors    │ 3               │
+│ Ticks        │ 25000           │
+└──────────────┴─────────────────┘
+Top Genes: tradeRoiThreshold=786.63, expandMinDistance=25.70, provisionDistanceMulti=9.25
+[Gen 142] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 142) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11960.24'         │
+│ Pop          │ 391.74900214401197 │
+│ Wealth       │ 33809              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=650.62, expandMinDistance=25.70, provisionDistanceMulti=7.93
+[Gen 143] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 143) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22247.23'        │
+│ Pop          │ 450.4780114440964 │
+│ Wealth       │ 33728             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=791.53, expandMinDistance=23.76, provisionDistanceMulti=10.24
+[Gen 144] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 144) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22912.70'        │
+│ Pop          │ 270.4717908467246 │
+│ Wealth       │ 33521             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=758.15, expandMinDistance=19.31, provisionDistanceMulti=9.71
+[Gen 145] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 145) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '11538.78' │
+│ Pop          │ 0          │
+│ Wealth       │ 9160       │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=758.15, expandMinDistance=19.31, provisionDistanceMulti=9.71
+[Gen 146] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 146) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '12008.68' │
+│ Pop          │ 0          │
+│ Wealth       │ 13870      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=878.88, expandMinDistance=25.45, provisionDistanceMulti=12.03
+[Gen 147] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 147) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22388.35'        │
+│ Pop          │ 99.50443323556506 │
+│ Wealth       │ 17083             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=747.94, expandMinDistance=23.18, constructionRoiThreshold=8.62
+[Gen 148] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 148) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '11846.84'        │
+│ Pop          │ 99.52998443597205 │
+│ Wealth       │ 15100             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=690.92, expandMinDistance=19.31, provisionDistanceMulti=9.66
+[Gen 149] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 149) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '11918.52'        │
+│ Pop          │ 388.8434820724074 │
+│ Wealth       │ 33715             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=690.92, expandMinDistance=19.31, provisionDistanceMulti=9.66
+[Gen 150] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.Generation 150 Best Fitness: 22494.24 | Mutation Level: 0.13
+
+
+=== State of the Realm (Gen 150) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22494.24'         │
+│ Pop          │ 197.98275013272345 │
+│ Wealth       │ 45064              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=796.10, expandMinDistance=23.07, provisionDistanceMulti=11.41
+[Gen 151] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 151) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22172.61'        │
+│ Pop          │ 270.3053425966799 │
+│ Wealth       │ 22513             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=878.88, expandMinDistance=19.06, expansionBuffer=7.34
+[Gen 152] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 152) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11952.73'         │
+│ Pop          │ 120.89384789083373 │
+│ Wealth       │ 33809              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=690.92, expandMinDistance=22.59, provisionDistanceMulti=10.45
+[Gen 153] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 153) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '12051.77' │
+│ Pop          │ 0          │
+│ Wealth       │ 23717      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=741.02, expandMinDistance=24.05, provisionDistanceMulti=16.29
+[Gen 154] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 154) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22692.67'         │
+│ Pop          │ 197.98275013272385 │
+│ Wealth       │ 33728              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=724.51, expandMinDistance=25.79, provisionDistanceMulti=10.16
+[Gen 155] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 155) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '25928.03'        │
+│ Pop          │ 446.8761883026676 │
+│ Wealth       │ 43195             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=928.00, expandMinDistance=22.25, provisionDistanceMulti=9.88
+[Gen 156] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 156) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22194.09'         │
+│ Pop          │ 120.89384789083377 │
+│ Wealth       │ 112525             │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=922.35, expandMinDistance=23.47, provisionDistanceMulti=10.75
+[Gen 157] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 157) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '11982.42'        │
+│ Pop          │ 390.2958484689879 │
+│ Wealth       │ 11147             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=981.20, expandMinDistance=21.60, provisionDistanceMulti=10.45
+[Gen 158] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 158) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22147.32'        │
+│ Pop          │ 451.4249987578613 │
+│ Wealth       │ 33719             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=808.51, expandMinDistance=23.47, provisionDistanceMulti=9.80
+[Gen 159] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 159) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '12060.21'        │
+│ Pop          │ 50.35606359449055 │
+│ Wealth       │ 15100             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=741.02, expandMinDistance=23.47, provisionDistanceMulti=9.83
+[Gen 160] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.Generation 160 Best Fitness: 11921.20 | Mutation Level: 0.10
+
+
+=== State of the Realm (Gen 160) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '11921.20'        │
+│ Pop          │ 270.3498826342814 │
+│ Wealth       │ 33818             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=808.51, expandMinDistance=23.47, provisionDistanceMulti=9.39
+[Gen 161] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 161) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22023.35'         │
+│ Pop          │ 120.89384789083363 │
+│ Wealth       │ 33782              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=814.50, expandMinDistance=24.56, provisionDistanceMulti=9.82
+[Gen 162] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 162) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22573.33'         │
+│ Pop          │ 449.58863982555056 │
+│ Wealth       │ 67339              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=897.82, expandMinDistance=25.50, provisionDistanceMulti=14.56
+[Gen 163] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 163) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22584.91'         │
+│ Pop          │ 270.50002018748745 │
+│ Wealth       │ 33715              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=897.82, expandMinDistance=25.50, provisionDistanceMulti=14.56
+[Gen 164] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 164) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '21682.51'         │
+│ Pop          │ 315.91889503922073 │
+│ Wealth       │ 33737              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=904.51, expandMinDistance=23.66, provisionDistanceMulti=10.47
+[Gen 165] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 165) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22487.58'        │
+│ Pop          │ 269.8392475395513 │
+│ Wealth       │ 33823             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=612.12, expandMinDistance=27.78, provisionDistanceMulti=16.23
+[Gen 166] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 166) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22154.71'        │
+│ Pop          │ 49.88987492687341 │
+│ Wealth       │ 16930             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=822.16, expandMinDistance=31.70, provisionDistanceMulti=10.78
+[Gen 167] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 167) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22411.05'         │
+│ Pop          │ 120.89384789083337 │
+│ Wealth       │ 56192              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=822.16, expandMinDistance=31.70, provisionDistanceMulti=10.78
+[Gen 168] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 168) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22584.32'         │
+│ Pop          │ 100.13684402280865 │
+│ Wealth       │ 22600              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=852.91, expandMinDistance=31.70, provisionDistanceMulti=13.94
+[Gen 169] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 169) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '11970.51'        │
+│ Pop          │ 392.8002401002175 │
+│ Wealth       │ 44926             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=940.93, expandMinDistance=33.82, provisionDistanceMulti=12.39
+[Gen 170] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.Generation 170 Best Fitness: 11401.24 | Mutation Level: 0.08
+
+
+=== State of the Realm (Gen 170) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '11401.24'        │
+│ Pop          │ 99.50443323556492 │
+│ Wealth       │ 21889             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=876.22, expandMinDistance=32.14, provisionDistanceMulti=12.39
+[Gen 171] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 171) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '11970.72'        │
+│ Pop          │ 390.0784887895641 │
+│ Wealth       │ 44908             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=910.86, expandMinDistance=23.92, provisionDistanceMulti=11.92
+[Gen 172] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 172) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '25953.73'         │
+│ Pop          │ 509.16635898744977 │
+│ Wealth       │ 10045              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=617.95, expandMinDistance=31.86, provisionDistanceMulti=12.39
+[Gen 173] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 173) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '11951.72' │
+│ Pop          │ 0          │
+│ Wealth       │ 9478       │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=832.60, expandMinDistance=34.76, provisionDistanceMulti=14.49
+[Gen 174] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 174) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22489.77'         │
+│ Pop          │ 431.39433177157554 │
+│ Wealth       │ 22582              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=832.60, expandMinDistance=31.83, provisionDistanceMulti=15.37
+[Gen 175] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 175) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '15062.79'        │
+│ Pop          │ 271.6632733616611 │
+│ Wealth       │ 54397             │
+│ Max Tier     │ 2                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=620.68, expandMinDistance=40.87, provisionDistanceMulti=9.34
+[Gen 176] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 176) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22262.63'        │
+│ Pop          │ 270.9324210421446 │
+│ Wealth       │ 44908             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=695.14, expandMinDistance=34.19, provisionDistanceMulti=15.42
+[Gen 177] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 177) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '12067.27'         │
+│ Pop          │ 390.86511187595204 │
+│ Wealth       │ 45034              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=630.06, expandMinDistance=35.17, provisionDistanceMulti=12.37
+[Gen 178] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 178) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '12059.21'         │
+│ Pop          │ 260.02423735961787 │
+│ Wealth       │ 55510              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=625.35, expandMinDistance=33.99, provisionDistanceMulti=12.37
+[Gen 179] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 179) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '25693.89'         │
+│ Pop          │ 447.88279632702427 │
+│ Wealth       │ 22513              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=641.15, expandMinDistance=35.55, provisionDistanceMulti=12.37
+[Gen 180] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.Generation 180 Best Fitness: 12053.13 | Mutation Level: 0.05
+
+
+=== State of the Realm (Gen 180) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '12053.13'         │
+│ Pop          │ 240.54100607649838 │
+│ Wealth       │ 33809              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=638.28, expandMinDistance=34.58, provisionDistanceMulti=14.98
+[Gen 181] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 181) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22412.03'         │
+│ Pop          │ 150.74429117892754 │
+│ Wealth       │ 61939              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=645.36, expandMinDistance=34.39, provisionDistanceMulti=16.87
+[Gen 182] Spawning 11 workers for 50 individuals...
+.
+
+=== State of the Realm (Gen 182) ===
+┌──────────────┬──────────────────┐
+│ (index)      │ Values           │
+├──────────────┼──────────────────┤
+│ Best Fitness │ '22518.43'       │
+│ Pop          │ 99.5044332355646 │
+│ Wealth       │ 7738             │
+│ Max Tier     │ 1                │
+│ Goals        │ 1                │
+│ Survivors    │ 3                │
+│ Ticks        │ 25000            │
+└──────────────┴──────────────────┘
+Top Genes: tradeRoiThreshold=652.25, expandMinDistance=34.26, provisionDistanceMulti=15.37
+[Gen 183] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 183) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22391.06'        │
+│ Pop          │ 288.6538524342765 │
+│ Wealth       │ 32599             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=641.15, expandMinDistance=33.88, provisionDistanceMulti=11.34
+[Gen 184] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 184) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22711.34'         │
+│ Pop          │ 498.70291381428405 │
+│ Wealth       │ 56147              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=625.35, expandMinDistance=35.17, provisionDistanceMulti=12.90
+[Gen 185] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 185) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11764.99'         │
+│ Pop          │ 119.33470104303551 │
+│ Wealth       │ 22585              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=645.36, expandMinDistance=35.17, provisionDistanceMulti=11.07
+[Gen 186] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 186) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '15750.39'         │
+│ Pop          │ 386.70219909628867 │
+│ Wealth       │ 50942              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=633.07, expandMinDistance=34.24, provisionDistanceMulti=14.87
+[Gen 187] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 187) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22720.40'         │
+│ Pop          │ 500.17490135330587 │
+│ Wealth       │ 56132              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=633.07, expandMinDistance=37.05, provisionDistanceMulti=14.92
+[Gen 188] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 188) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '21910.28'        │
+│ Pop          │ 453.1507967208155 │
+│ Wealth       │ 22513             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=653.33, expandMinDistance=34.45, provisionDistanceMulti=13.20
+[Gen 189] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 189) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22393.23'         │
+│ Pop          │ 501.88050820484364 │
+│ Wealth       │ 22513              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=615.14, expandMinDistance=34.45, provisionDistanceMulti=13.17
+[Gen 190] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.Generation 190 Best Fitness: 11919.18 | Mutation Level: 0.05
+
+
+=== State of the Realm (Gen 190) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11919.18'         │
+│ Pop          │ 390.34631032113236 │
+│ Wealth       │ 33719              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 1                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=639.32, expandMinDistance=35.93, provisionDistanceMulti=14.92
+[Gen 191] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 191) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22378.97'        │
+│ Pop          │ 313.4368510588214 │
+│ Wealth       │ 33719             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 3                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=650.05, expandMinDistance=35.24, provisionDistanceMulti=12.88
+[Gen 192] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 192) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22373.86'         │
+│ Pop          │ 270.96855936847356 │
+│ Wealth       │ 44920              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=650.05, expandMinDistance=33.88, provisionDistanceMulti=15.28
+[Gen 193] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 193) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '22317.57'         │
+│ Pop          │ 437.03063962386756 │
+│ Wealth       │ 45052              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 3                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=701.83, expandMinDistance=35.75, provisionDistanceMulti=13.37
+[Gen 194] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 194) ===
+┌──────────────┬──────────────────┐
+│ (index)      │ Values           │
+├──────────────┼──────────────────┤
+│ Best Fitness │ '15906.97'       │
+│ Pop          │ 350.489662043716 │
+│ Wealth       │ 85492            │
+│ Max Tier     │ 2                │
+│ Goals        │ 1                │
+│ Survivors    │ 3                │
+│ Ticks        │ 25000            │
+└──────────────┴──────────────────┘
+Top Genes: tradeRoiThreshold=631.56, expandMinDistance=35.44, provisionDistanceMulti=10.89
+[Gen 195] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+.
+
+=== State of the Realm (Gen 195) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '22312.20' │
+│ Pop          │ 0          │
+│ Wealth       │ 4712       │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=640.65, expandMinDistance=35.75, provisionDistanceMulti=11.07
+[Gen 196] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 196) ===
+┌──────────────┬───────────────────┐
+│ (index)      │ Values            │
+├──────────────┼───────────────────┤
+│ Best Fitness │ '22086.11'        │
+│ Pop          │ 437.0306396238678 │
+│ Wealth       │ 22576             │
+│ Max Tier     │ 1                 │
+│ Goals        │ 1                 │
+│ Survivors    │ 2                 │
+│ Ticks        │ 25000             │
+└──────────────┴───────────────────┘
+Top Genes: tradeRoiThreshold=631.56, expandMinDistance=35.44, provisionDistanceMulti=15.01
+[Gen 197] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 197) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '11857.71'         │
+│ Pop          │ 220.99822500420473 │
+│ Wealth       │ 37834              │
+│ Max Tier     │ 1                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=631.56, expandMinDistance=34.89, provisionDistanceMulti=11.61
+[Gen 198] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.
+
+=== State of the Realm (Gen 198) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '26262.54'         │
+│ Pop          │ 437.03063962386756 │
+│ Wealth       │ 76219              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=612.55, expandMinDistance=38.73, provisionDistanceMulti=11.07
+[Gen 199] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+.
+
+=== State of the Realm (Gen 199) ===
+┌──────────────┬────────────────────┐
+│ (index)      │ Values             │
+├──────────────┼────────────────────┤
+│ Best Fitness │ '25574.38'         │
+│ Pop          │ 441.18767578226687 │
+│ Wealth       │ 30569              │
+│ Max Tier     │ 2                  │
+│ Goals        │ 1                  │
+│ Survivors    │ 2                  │
+│ Ticks        │ 25000              │
+└──────────────┴────────────────────┘
+Top Genes: tradeRoiThreshold=680.72, expandMinDistance=34.58, provisionDistanceMulti=13.86
+[Gen 200] Spawning 11 workers for 50 individuals...
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Rival 1 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Player Capital has died out.
+[DEATH] Settlement Rival 2 Capital has died out.
+.Generation 200 Best Fitness: 22335.44 | Mutation Level: 0.05
+
+
+=== State of the Realm (Gen 200) ===
+┌──────────────┬────────────┐
+│ (index)      │ Values     │
+├──────────────┼────────────┤
+│ Best Fitness │ '22335.44' │
+│ Pop          │ 0          │
+│ Wealth       │ 14356      │
+│ Max Tier     │ 1          │
+│ Goals        │ 1          │
+│ Survivors    │ 2          │
+│ Ticks        │ 25000      │
+└──────────────┴────────────┘
+Top Genes: tradeRoiThreshold=663.65, expandMinDistance=36.29, provisionDistanceMulti=11.07
+
+Run BATCH9 Complete. Saved apex config to config_results_batch9.json
