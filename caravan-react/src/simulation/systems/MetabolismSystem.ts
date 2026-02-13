@@ -69,7 +69,7 @@ export const MetabolismSystem = {
             settlement.stockpile.Gold += settlement.population * taxRate;
 
             // DEATH CHECK
-            if (settlement.population <= 0) {
+            if (settlement.population < 1) {
                 // Remove settlement
                 // We need to mutate state.settlements AND cleanup map ownership
                 if (!silent) console.log(`[DEATH] Settlement ${settlement.name} has died out.`);

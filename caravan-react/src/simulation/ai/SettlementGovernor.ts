@@ -71,7 +71,7 @@ export class SettlementGovernor {
         }
 
         // 4. Labor Ambition (VILLAGER)
-        if (settlement.currentGoal !== 'THRIFTY' && !settlement.aiState?.surviveMode) {
+        if (!settlement.aiState?.surviveMode) {
             const jobCap = settlement.jobCap || 10;
             const jobRatio = Math.min(1.0, settlement.population / jobCap);
 

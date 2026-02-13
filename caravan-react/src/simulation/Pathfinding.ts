@@ -72,7 +72,13 @@ export const Pathfinding = {
 
         openList.push(startNode);
 
+        let iterations = 0;
         while (openList.length > 0) {
+            iterations++;
+            if (iterations > 1000) {
+                Logger.getInstance().log(`[Pathfinding DEBUG] FAIL: Pathfinding exceeded 1000 iterations for ${startId} -> ${endId}`);
+                break;
+            }
             // Sort by lowest f
             openList.sort((a, b) => a.f - b.f);
             const current = openList.shift()!;
@@ -86,6 +92,13 @@ export const Pathfinding = {
                     curr = curr.parent;
                 }
                 const resultPath = path.reverse().slice(1); // Remove start node
+
+                if (resultPath.length === 0) {
+                    // Logger.getInstance().log(`[Pathfinding DEBUG] CRITICAL: Reconstructed EMPTY path for ${startId} -> ${endId}! Path length before slice was ${path.length}. GoalNode ID: ${current.id}, Parent ID: ${current.parent?.id}`);
+                } else {
+                    // Logger.getInstance().log(`[Pathfinding DEBUG] Found path ${startId} -> ${endId}. Length: ${resultPath.length}`);
+                }
+
                 pathCache.set(cacheKey, resultPath);
                 return resultPath;
             }

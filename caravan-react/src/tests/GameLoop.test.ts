@@ -26,7 +26,6 @@ describe('GameLoop', () => {
             loop.tick();
         }
 
-        // const initialGold = 0; // Baseline
         state.settlements['test'] = {
             id: 'test',
             name: 'Test',
@@ -34,7 +33,8 @@ describe('GameLoop', () => {
             stockpile: { Food: 100, Gold: 0, Timber: 0, Stone: 0, Ore: 0, Tools: 0 },
             controlledHexIds: [],
             buildings: [],
-            tier: 0
+            tier: 1,
+            aiState: { surviveMode: false, savingFor: null, focusResources: [] }
         };
 
         loop.tick(); // This should trigger economy (tick == interval)
@@ -51,12 +51,13 @@ describe('GameLoop', () => {
             stockpile: { Food: 100, Gold: 0, Timber: 0, Stone: 0, Ore: 0, Tools: 0 },
             controlledHexIds: [],
             buildings: [],
-            tier: 0,
-            availableVillagers: 2
+            tier: 1,
+            availableVillagers: 2,
+            aiState: { surviveMode: false, savingFor: null, focusResources: [] }
         };
 
         loop.tick();
-        
+
         expect(state.settlements['capital'].availableVillagers).toBe(2);
     });
 });

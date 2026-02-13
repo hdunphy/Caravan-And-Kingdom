@@ -3,11 +3,21 @@ import { HexCoordinate } from '../types/WorldTypes.ts';
 export const HexUtils = {
     // Create a coordinate
     create(q: number, r: number): HexCoordinate {
-        return { q, r, s: -q - r };
+        const rq = Math.round(q);
+        const rr = Math.round(r);
+        return { q: rq, r: rr, s: -rq - rr };
     },
 
     // Get ID string
     getID(hex: HexCoordinate): string {
+        if (hex === undefined || hex === null) {
+            console.error('[HexUtils] getID called with null/undefined coord!');
+            return 'INVALID';
+        }
+        if (typeof hex.q !== 'number' || typeof hex.r !== 'number') {
+            console.error(`[HexUtils] getID called with non-numeric coord: ${JSON.stringify(hex)}`);
+            return 'INVALID_NUM';
+        }
         return `${hex.q},${hex.r}`;
     },
 

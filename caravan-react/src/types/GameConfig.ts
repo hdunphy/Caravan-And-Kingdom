@@ -293,24 +293,24 @@ export const DEFAULT_CONFIG: GameConfig = {
     },
     yields: {
         Plains: {
-            Food: 4,
-            Timber: 1,
+            Food: 10,
+            Timber: 4,
         },
         Forest: {
-            Timber: 4,
-            Food: 2,
+            Timber: 8,
+            Food: 5,
         },
         Hills: {
-            Stone: 2,
-            Ore: 1,
+            Stone: 6,
+            Ore: 2,
         },
         Mountains: {
-            Ore: 2,
-            Stone: 1,
+            Ore: 6,
+            Stone: 4,
         },
         Water: {
-            Food: 3,
-            Gold: 0.75,
+            Food: 12,
+            Gold: 3,
         },
     },
     ai: {
@@ -326,7 +326,7 @@ export const DEFAULT_CONFIG: GameConfig = {
             Tools: 0,
             Gold: 0
         },
-        checkInterval: 10,
+        checkInterval: 5,
         longCheckInterval: 50,
         thresholds: {
             surviveFood: 50,

@@ -192,7 +192,7 @@ export class HeadlessRunner {
                     fStats.goalsCompleted['TIER_UP'] = (fStats.goalsCompleted['TIER_UP'] || 0) + 1;
                 }
 
-                if (s.currentGoal === 'SURVIVE') {
+                if (s.aiState?.surviveMode) {
                     fStats.survivalTicks++;
                     fStats.enteredSurviveMode = true;
                 }

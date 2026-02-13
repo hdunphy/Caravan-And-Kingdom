@@ -11,24 +11,11 @@ export const IndustrySystem = {
             const ORE_COST = config.industry.costOre;
             const TARGET_TOOLS = Math.ceil(settlement.population * config.industry.targetToolRatio);
 
-            // Priority Logic:
-            // 1. If Goal == TOOLS: Produce until Target Ratio?
-            // 2. If Goal != TOOLS: Produce ONLY if surplus timber/ore exists.
+            const SURPLUS_THRESHOLD = config.industry.surplusThreshold || 50;
 
-            const goal = settlement.currentGoal || 'TOOLS';
-            const SURPLUS_THRESHOLD = config.industry.surplusThreshold || 50; // Keep 50 for upgrades/expansion
-
-            let canProduce = false;
-
-            if (goal === 'TOOLS') {
-                canProduce = true;
-            } else {
-                // Surplus Check
-                if (settlement.stockpile.Timber > (TIMBER_COST + SURPLUS_THRESHOLD) &&
-                    settlement.stockpile.Ore > (ORE_COST + SURPLUS_THRESHOLD)) {
-                    canProduce = true;
-                }
-            }
+            // Produce only if surplus timber/ore exists to protect building projects
+            const canProduce = settlement.stockpile.Timber > (TIMBER_COST + SURPLUS_THRESHOLD) &&
+                settlement.stockpile.Ore > (ORE_COST + SURPLUS_THRESHOLD);
 
             // Check if we need tools
             if (canProduce && settlement.stockpile.Tools < TARGET_TOOLS) {

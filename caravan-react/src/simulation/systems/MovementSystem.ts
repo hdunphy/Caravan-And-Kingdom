@@ -1,6 +1,7 @@
 import { WorldState } from '../../types/WorldTypes.ts';
 import { HexUtils } from '../../utils/HexUtils.ts';
 import { GameConfig } from '../../types/GameConfig.ts';
+import { Logger } from '../../utils/Logger.ts';
 
 export const MovementSystem = {
     update(state: WorldState, config: GameConfig) {
@@ -26,6 +27,7 @@ export const MovementSystem = {
             const cell = state.map[cellId];
 
             if (!cell) {
+                Logger.getInstance().log(`[MovementSystem DEBUG] Clearing path for agent ${agent.id} because hex ${cellId} is MISSING from map! Path[0] was ${HexUtils.getID(nextStep)}`);
                 agent.path = []; // Cancel path if invalid
                 return;
             }

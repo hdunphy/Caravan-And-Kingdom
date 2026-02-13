@@ -27,7 +27,6 @@ export interface HexCell {
 
 export type SettlementRole = 'GENERAL' | 'LUMBER' | 'MINING' | 'GRANARY';
 
-export type GoalType = 'UPGRADE' | 'EXPAND' | 'TOOLS' | 'SURVIVE' | 'THRIFTY';
 
 export type BuildingType =
     | 'GathererHut'
@@ -75,7 +74,6 @@ export interface Settlement {
     resourceChange?: Partial<Resources>;
 
     // AI
-    currentGoal?: GoalType;
     lastGrowth?: number;
     aiState?: {
         surviveMode: boolean; // "General Stand-Down"

@@ -159,18 +159,26 @@ export const VillagerSystem = {
             this.returnHome(state, agent, config);
         } else {
             // Should be moving?
-            Logger.getInstance().log(`[VillagerSystem] Agent ${agent.id} is BUSY/GATHER but not at target (Current: ${currentHexId}, Target: ${targetHexId})`);
+            const pathInfo = agent.path ? `Path Length: ${agent.path.length}` : 'Path: null';
+            Logger.getInstance().log(`[VillagerSystem DEBUG] Agent ${agent.id} is BUSY/GATHER but not at target. Current: ${currentHexId} (${agent.position.q},${agent.position.r}), Target: ${targetHexId} (${agent.gatherTarget.q},${agent.gatherTarget.r}), ${pathInfo}`);
+
             const targetHex = state.map[HexUtils.getID(agent.gatherTarget)];
             if (targetHex) {
                 // Repath logic
                 const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config, 'Villager');
                 if (path) {
+                    if (path.length === 0) {
+                        // Logger.getInstance().log(`[VillagerSystem DEBUG] Repath for ${agent.id} from ${currentHexId} to ${targetHexId} returned EMPTY path! Dist: ${HexUtils.distance(agent.position, targetHex.coordinate)}`);
+                    }
                     agent.path = path;
                     agent.target = targetHex.coordinate;
                     agent.activity = 'MOVING';
                 } else {
+                    Logger.getInstance().log(`[VillagerSystem DEBUG] Repath for ${agent.id} FAILED (null). Returning home.`);
                     this.returnHome(state, agent, config);
                 }
+            } else {
+                Logger.getInstance().log(`[VillagerSystem DEBUG] Agent ${agent.id} gatherTarget ${targetHexId} NOT FOUND IN MAP!`);
             }
         }
     },
@@ -363,13 +371,11 @@ export const VillagerSystem = {
 
         // 1. Poll for Jobs
         const bestJobs = BlackboardDispatcher.getTopAvailableJobs(agent, faction, state, config, 1);
-        // console.log(`[VillagerSystem DEBUG] Agent ${agent.id} found ${bestJobs.length} potential jobs.`);
 
         if (bestJobs.length > 0) {
             const bestJob = bestJobs[0];
 
             // 2. Claim Job
-            // Villager Capacity default 20
             const capacity = config.costs.villagers?.capacity || 20;
             const success = BlackboardDispatcher.claimJob(faction, agent, bestJob, capacity);
 
@@ -378,26 +384,35 @@ export const VillagerSystem = {
 
                 // 3. Execute Job (Setup Mission)
                 if (bestJob.type === 'COLLECT') {
-                    // GATHER
-                    // Use targetHexId if present, else find source
+                    // GATHER: Find best hex (not already targeted if possible)
                     let targetHexId = bestJob.targetHexId;
 
-                    // Fallback: If no targetHex but specific resource, find local source
-                    if (!targetHexId && bestJob.resource) {
+                    // Fallback or Distribution: If generic COLLECT, find local source
+                    if (bestJob.resource) {
                         const range = config.costs.villagers?.range || 3;
-                        targetHexId = home.controlledHexIds.find((id: string) => {
+                        const potentialHexIds = home.controlledHexIds.filter((id: string) => {
                             const hex = state.map[id];
                             if (!hex || hex.terrain === 'Water') return false;
                             const dist = HexUtils.distance(HexUtils.createFromID(home.hexId), hex.coordinate);
                             if (dist > range) return false;
                             return (hex.resources?.[bestJob.resource!] || 0) > 0;
                         });
+
+                        if (potentialHexIds.length > 0) {
+                            // Distribution: Exclude hexes targeted by other villagers of this settlement
+                            const targetedByOthers = Object.values(state.agents)
+                                .filter(a => a.type === 'Villager' && a.homeId === home.id && a.id !== agent.id && a.gatherTarget)
+                                .map(a => HexUtils.getID((a as VillagerAgent).gatherTarget!));
+
+                            const availableHexes = potentialHexIds.filter(id => !targetedByOthers.includes(id));
+
+                            // Pick from available, or fall back to first potential if all saturated
+                            targetHexId = availableHexes[0] || potentialHexIds[0];
+                        }
                     }
 
                     if (targetHexId) {
                         VillagerSystem.dispatchAnt(state, agent, targetHexId, 'GATHER', config);
-                        // Agent mission is set in dispatchAnt. 
-                        // We might want to store 'job' context on agent if needed later.
                     } else {
                         // Job claimed but no valid target found? Release.
                         BlackboardDispatcher.releaseAssignment(faction, bestJob.jobId, capacity);
@@ -422,10 +437,6 @@ export const VillagerSystem = {
                 return;
             }
         }
-
-        // Fallback: Legacy Logic or just idle?
-        // If no jobs, maybe do local gathering if desperate? 
-        // For now, if no jobs, they stay IDLE.
     },
 
     dispatchAnt(state: WorldState, agent: VillagerAgent, targetHexId: string, mission: any, config: GameConfig, payload?: any) {
@@ -434,6 +445,7 @@ export const VillagerSystem = {
 
         const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config, 'Villager');
         if (path) {
+            // Logger.getInstance().log(`[VillagerSystem DEBUG] Dispatching agent ${agent.id} to ${targetHexId} for ${mission}. Path length: ${path.length}`);
             agent.path = path;
             agent.target = targetHex.coordinate;
             agent.status = 'BUSY';
@@ -450,6 +462,7 @@ export const VillagerSystem = {
                 }
             }
         } else {
+            Logger.getInstance().log(`[VillagerSystem DEBUG] Dispatch FAILED for agent ${agent.id} to ${targetHexId} - No path found.`);
             // Mark unreachable
             const home = state.settlements[agent.homeId];
             if (home) {
