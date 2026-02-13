@@ -101,8 +101,13 @@ export const VillagerSystem = {
             const targetHex = state.map[targetHexId];
             if (!agent.path || agent.path.length === 0) {
                 // Logger.getInstance().log(`[VillagerSystem] Dispatching ${agent.id} to ${targetHexId} for ${mission}`);
-                const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config, 'Villager');
+                const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config);
                 if (path) {
+                    if (path.length === 0) {
+                        Logger.getInstance().log(`[VillagerSystem] Freight path for ${agent.id} returned EMPTY! Aborting.`);
+                        this.returnHome(state, agent, config);
+                        return;
+                    }
                     agent.path = path;
                     agent.target = targetHex.coordinate;
                     agent.activity = 'MOVING';
@@ -165,10 +170,12 @@ export const VillagerSystem = {
             const targetHex = state.map[HexUtils.getID(agent.gatherTarget)];
             if (targetHex) {
                 // Repath logic
-                const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config, 'Villager');
+                const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config);
                 if (path) {
                     if (path.length === 0) {
-                        // Logger.getInstance().log(`[VillagerSystem DEBUG] Repath for ${agent.id} from ${currentHexId} to ${targetHexId} returned EMPTY path! Dist: ${HexUtils.distance(agent.position, targetHex.coordinate)}`);
+                        Logger.getInstance().log(`[VillagerSystem DEBUG] Repath for ${agent.id} returned EMPTY path! Dist: ${HexUtils.distance(agent.position, targetHex.coordinate)}. Aborting.`);
+                        this.returnHome(state, agent, config);
+                        return;
                     }
                     agent.path = path;
                     agent.target = targetHex.coordinate;
@@ -254,12 +261,15 @@ export const VillagerSystem = {
             const targetHex = state.map[targetHexId];
             if (targetHex) {
                 if (!agent.path || agent.path.length === 0) {
-                    const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config, 'Villager');
-                    if (path) {
+                    const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config);
+                    if (path && path.length > 0) {
                         agent.path = path;
                         agent.target = targetHex.coordinate;
                         agent.activity = 'MOVING';
                     } else {
+                        if (path && path.length === 0) {
+                            Logger.getInstance().log(`[VillagerSystem DEBUG] Build path for ${agent.id} returned EMPTY!`);
+                        }
                         this.returnHome(state, agent, config);
                     }
                 }
@@ -273,14 +283,27 @@ export const VillagerSystem = {
         if (!home) return;
 
         const homeHex = state.map[home.hexId];
-        const path = Pathfinding.findPath(agent.position, homeHex.coordinate, state.map, config, 'Villager');
 
-        if (path) {
+        // Check if already at home
+        if (HexUtils.getID(agent.position) === home.hexId) {
+            agent.path = [];
+            agent.target = homeHex.coordinate;
+            agent.status = 'RETURNING';
+            agent.activity = 'MOVING';
+            return;
+        }
+
+        const path = Pathfinding.findPath(agent.position, homeHex.coordinate, state.map, config);
+
+        if (path && path.length > 0) {
             agent.path = path;
             agent.target = homeHex.coordinate;
             agent.status = 'RETURNING';
             agent.activity = 'MOVING';
         } else {
+            if (path && path.length === 0) {
+                Logger.getInstance().log(`[VillagerSystem DEBUG] ReturnHome path for ${agent.id} returned EMPTY!`);
+            }
             // Teleport if stuck? Or die?
             // Die to free up slot
             delete state.agents[agent.id];
@@ -307,7 +330,7 @@ export const VillagerSystem = {
             return null;
         }
 
-        let path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config, 'Villager');
+        let path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config);
 
         // Allow spawning on same hex (Gathering at home)
         if (targetHexId === settlement.hexId) {
@@ -443,10 +466,13 @@ export const VillagerSystem = {
         const targetHex = state.map[targetHexId];
         if (!targetHex) return;
 
-        const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config, 'Villager');
-        if (path) {
-            // Logger.getInstance().log(`[VillagerSystem DEBUG] Dispatching agent ${agent.id} to ${targetHexId} for ${mission}. Path length: ${path.length}`);
-            agent.path = path;
+        const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config);
+
+        // Check for "Already at target" (valid empty path)
+        const isAtTarget = HexUtils.getID(agent.position) === targetHexId;
+
+        if ((path && path.length > 0) || (isAtTarget && path && path.length === 0)) {
+            agent.path = path || [];
             agent.target = targetHex.coordinate;
             agent.status = 'BUSY';
             agent.activity = 'MOVING';
@@ -462,7 +488,12 @@ export const VillagerSystem = {
                 }
             }
         } else {
-            Logger.getInstance().log(`[VillagerSystem DEBUG] Dispatch FAILED for agent ${agent.id} to ${targetHexId} - No path found.`);
+            if (path && path.length === 0) {
+                Logger.getInstance().log(`[VillagerSystem DEBUG] Dispatch path for agent ${agent.id} returned EMPTY! Aborting.`);
+            } else {
+                Logger.getInstance().log(`[VillagerSystem DEBUG] Dispatch FAILED for agent ${agent.id} to ${targetHexId} - No path found.`);
+            }
+
             // Mark unreachable
             const home = state.settlements[agent.homeId];
             if (home) {

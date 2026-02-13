@@ -7,12 +7,13 @@ export const calculateFitness = (_state: WorldState, stats: SimulationStats, fac
 
     if (!fStats) return 0; // Should not happen
 
-    // 1. Historical Stability (Median Population)
-    // Not tracked per faction currently in new stats, only current pop?
-    // We only have global popHistory. 
-    // Let's use current population as a proxy or we need to track local pop history.
-    // For now, use current population.
-    score += fStats.population;
+    // 1. Historical Stability (Population)
+    // Buffed population weight (1 pop = 50 gold equivalent)
+    score += (fStats.population * 5);
+
+    // City Momentum Bonus: Extra points for crossing population milestones
+    if (fStats.population >= 200) score += 5000;
+    if (fStats.population >= 400) score += 10000;
 
     // 2. Longevity Reward (Positive enforcement)
     // Reward simply for existing. 1 point per 100 ticks survived.
@@ -40,15 +41,15 @@ export const calculateFitness = (_state: WorldState, stats: SimulationStats, fac
         score *= 1.15;
     }
 
-    // 5. Territory & Wealth
+    // 5. Territory & Wealth (Gold nerfed relative to life)
     score += (fStats.territorySize * 50);
-    score += (fStats.totalWealth * 0.1);
+    score += (fStats.totalWealth * 0.01);
 
-    // 6. Penalty for dying/stagnation
-    // If population is 0, they died.
-    if (fStats.population === 0) {
-        const deathPenalty = generation < 50 ? 500 : 5000;
-        score -= deathPenalty;
+    // 6. Penalty for dying/stagnation (The "Total Collapse" Multiplier)
+    // If population < 1, they effectively went extinct.
+    // 90% reduction in total score ensures dead factions cannot win on wealth alone.
+    if (fStats.population < 1) {
+        score *= 0.1;
     }
 
     // 7. Idle Penalty

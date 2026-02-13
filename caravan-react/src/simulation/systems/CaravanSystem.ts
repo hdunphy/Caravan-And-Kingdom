@@ -13,7 +13,7 @@ export const CaravanSystem = {
 
         if (!startHex || !targetHex) return null;
 
-        const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config, type);
+        const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config);
         if ((!path || path.length === 0) && startHexId !== targetHexId) return null;
 
         const id = `agent_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -78,7 +78,7 @@ export const CaravanSystem = {
             const startHex = state.map[settlement.hexId];
             const targetHex = state.map[targetHexId];
             if (startHex && targetHex) {
-                const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config, 'Caravan');
+                const path = Pathfinding.findPath(startHex.coordinate, targetHex.coordinate, state.map, config);
                 if (path) {
                     agent.path = path;
                     agent.target = targetHex.coordinate;
@@ -324,7 +324,7 @@ export const CaravanSystem = {
         const home = state.settlements[agent.homeId];
         if (home) {
             const homeHex = state.map[home.hexId];
-            const path = Pathfinding.findPath(agent.position, homeHex.coordinate, state.map, config, 'Caravan');
+            const path = Pathfinding.findPath(agent.position, homeHex.coordinate, state.map, config);
             if (path) {
                 agent.path = path;
                 agent.target = homeHex.coordinate;
