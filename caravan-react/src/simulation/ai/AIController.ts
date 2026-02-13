@@ -13,6 +13,8 @@ import { UpgradeStrategy } from './UpgradeStrategy';
 import { Logger } from '../../utils/Logger';
 import { SovereignAI } from './SovereignAI';
 import { SettlementGovernor } from './SettlementGovernor';
+import { GOAPPlanner } from './GOAPPlanner';
+import { JobPool } from './JobPool';
 
 export class AIController {
     private factionStates: Map<string, { lastTick: number, nextInterval: number }> = new Map();
@@ -82,6 +84,12 @@ export class AIController {
         const faction = state.factions[factionId];
         if (faction) {
             SovereignAI.evaluate(faction, state, config);
+
+            // MILESTONE 3: GOAP Planner
+            if (!faction.jobPool) {
+                faction.jobPool = new JobPool(faction.id);
+            }
+            GOAPPlanner.plan(faction, faction.jobPool, config);
         }
 
         // 1. Update Settlement State & Influence Flags

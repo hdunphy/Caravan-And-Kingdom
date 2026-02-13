@@ -1,4 +1,4 @@
-import { BuildingType } from '../../types/WorldTypes.ts';
+import { BuildingType, ResourceType } from '../../types/WorldTypes';
 
 export type AIActionType =
     | 'BUILD'
@@ -20,7 +20,23 @@ export interface AIAction {
     payload?: any; // For villagers
 }
 
+export type JobType = 'COLLECT' | 'BUILD' | 'RECRUIT' | 'EXPAND';
+export type JobUrgency = 'HIGH' | 'MEDIUM' | 'LOW';
+export type JobStatus = 'OPEN' | 'SATURATED' | 'COMPLETED';
 
+export interface JobTicket {
+    jobId: string;
+    factionId: string;
+    sourceId: string; // Settlement requesting the job
+    type: JobType;
+    urgency: JobUrgency;
+    priority: number;
+    targetHexId?: string; // Optional for multi-source jobs
+    resource?: ResourceType;
+    targetVolume: number; // e.g. 500 units total
+    assignedVolume: number; // Current worker commitment
+    status: JobStatus;
+}
 
 export interface AIStrategy {
     evaluate(state: any, config: any, factionId: string, settlementId: string): AIAction[];

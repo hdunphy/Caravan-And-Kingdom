@@ -95,6 +95,7 @@ export interface Faction {
     type?: 'Player' | 'AI'; // Add type
     gold?: number; // Global gold? Or per settlement? Let's keep it here for now if needed.
     blackboard?: FactionBlackboard;
+    jobPool?: any; // JobPool instance
 }
 
 export type DesireType =
