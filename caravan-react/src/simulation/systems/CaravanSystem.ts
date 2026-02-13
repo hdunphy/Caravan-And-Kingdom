@@ -65,7 +65,7 @@ export const CaravanSystem = {
                 if (source.stockpile.Stone < cost.costStone) deficits.push('Stone');
                 if ('costOre' in cost && source.stockpile.Ore < (cost as any).costOre) deficits.push('Ore');
             } else if (goal === 'EXPAND') {
-                const cost = config.costs.settlement;
+                const cost = config.costs.agents.Settler;
                 if (source.stockpile.Food < (cost.Food || 500)) deficits.push('Food');
                 if (source.stockpile.Timber < (cost.Timber || 200)) deficits.push('Timber');
             } else if (goal === 'SURVIVE') {
@@ -159,7 +159,7 @@ export const CaravanSystem = {
                 return null; // Not worth building a new one
             }
 
-            const cost = config.costs.trade?.caravanTimberCost || 50;
+            const cost = config.costs.agents.Caravan.Timber || 50;
             if (settlement.stockpile.Timber >= cost) {
                 // Buy new
                 settlement.stockpile.Timber -= cost;

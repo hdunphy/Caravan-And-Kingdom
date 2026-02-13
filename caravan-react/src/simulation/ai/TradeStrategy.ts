@@ -32,8 +32,8 @@ export class TradeStrategy implements AIStrategy {
                 checkDeficit('Timber', source.stockpile.Timber, cost.costTimber, boost);
                 checkDeficit('Stone', source.stockpile.Stone, cost.costStone, boost);
             } else if (goal === 'EXPAND') {
-                checkDeficit('Food', source.stockpile.Food, config.costs.settlement.Food || 500, 2.0);
-                checkDeficit('Timber', source.stockpile.Timber, config.costs.settlement.Timber || 200, 2.0);
+                checkDeficit('Food', source.stockpile.Food, config.costs.agents.Settler.Food || 500, 2.0);
+                checkDeficit('Timber', source.stockpile.Timber, config.costs.agents.Settler.Timber || 200, 2.0);
             } else if (goal === 'SURVIVE') {
                 const consumption = Math.max(5, source.population * config.costs.baseConsume);
                 checkDeficit('Food', source.stockpile.Food, config.ai.thresholds.surviveFood || consumption * 50, 3.0);

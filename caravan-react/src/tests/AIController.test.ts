@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { AIController } from '../simulation/ai/AIController';
+import { VillagerSystem } from '../simulation/systems/VillagerSystem';
 import { WorldState, Settlement } from '../types/WorldTypes';
 import { DEFAULT_CONFIG } from '../types/GameConfig';
 
@@ -50,7 +51,9 @@ describe('AIController', () => {
         state.tick = 0;
         controller.update(state, DEFAULT_CONFIG);
 
-        expect(settlement.currentGoal).toBe('SURVIVE');
+        // Expectation Upgrade: New system relies on flags, not just single string goal
+        // expect(settlement.currentGoal).toBe('SURVIVE');
+        expect(settlement.aiState?.surviveMode).toBe(true);
         // ConstructionStrategy should have triggered a GathererHut build
         expect(settlement.buildings.length).toBe(1);
         expect(settlement.buildings[0].type).toBe('GathererHut');
@@ -86,6 +89,7 @@ describe('AIController', () => {
         settlement.controlledHexIds.push('1,0');
 
         controller.update(state, DEFAULT_CONFIG);
+        VillagerSystem.update(state, DEFAULT_CONFIG);
 
         // Assert Build
         expect(settlement.buildings.length).toBe(1);

@@ -40,7 +40,7 @@ export class ConstructionStrategy implements AIStrategy {
             // value = (1.0 - foodHealth)
             // Modifiers: +0.2 if goal is SURVIVE
             let buildScore = (1.0 - foodHealth); // Removed * 2.0 to prioritize immediate gathering
-            if (settlement.currentGoal === 'SURVIVE') buildScore += 0.2; // Reduced bonus
+            if (settlement.aiState?.surviveMode) buildScore += 0.2; // Reduced bonus
 
             // Penalize high saturation
             buildScore *= (1.0 - saturation);
@@ -52,7 +52,7 @@ export class ConstructionStrategy implements AIStrategy {
                         type: 'BUILD',
                         settlementId: settlement.id,
                         buildingType: 'GathererHut',
-                        hexId: target,
+                        targetHexId: target,
                         score: buildScore
                     });
                 }

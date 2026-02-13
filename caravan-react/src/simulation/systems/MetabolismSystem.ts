@@ -24,7 +24,7 @@ export const MetabolismSystem = {
                 const pressureFactor = pop > 0 ? (workingPop / pop) : 1;
 
                 // Surplus Bonus: only if we have more food than the cost of a new settlement
-                const settlementCost = config.costs.settlement.Food || 500;
+                const settlementCost = config.costs.agents.Settler.Food || 500;
                 let surplusBonus = 0;
 
                 if (settlement.stockpile.Food > settlementCost) {

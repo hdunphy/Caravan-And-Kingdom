@@ -97,6 +97,23 @@ export interface Faction {
     blackboard?: FactionBlackboard;
 }
 
+export type DesireType =
+    | 'UPGRADE'
+    | 'SETTLER'
+    | 'BUILD_FISHERY'
+    | 'BUILD_GRANARY'
+    | 'BUILD_SMITHY'
+    | 'RECRUIT_VILLAGER'
+    | 'REQUEST_FREIGHT'
+    | 'TRADE_CARAVAN';
+
+export interface DesireTicket {
+    settlementId: string;
+    type: DesireType;
+    score: number; // 0.0 to 1.0
+    needs: string[]; // Resource names
+}
+
 export interface FactionBlackboard {
     factionId: string;
     stances: {
@@ -105,6 +122,7 @@ export interface FactionBlackboard {
     };
     criticalShortages: ResourceType[];
     targetedHexes: string[];
+    desires?: DesireTicket[];
 }
 
 export type AgentType = 'Caravan' | 'Scout' | 'Army' | 'Settler' | 'Villager';

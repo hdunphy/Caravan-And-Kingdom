@@ -1,6 +1,5 @@
 import { WorldState, Resources, Settlement } from '../../types/WorldTypes';
 import { GameConfig } from '../../types/GameConfig';
-import { GoalEvaluator } from './GoalEvaluator';
 import { AIAction, AIStrategy } from './AITypes';
 import { ConstructionStrategy } from './ConstructionStrategy';
 import { LogisticsStrategy } from './LogisticsStrategy';
@@ -13,6 +12,7 @@ import { RecruitStrategy } from './RecruitStrategy';
 import { UpgradeStrategy } from './UpgradeStrategy';
 import { Logger } from '../../utils/Logger';
 import { SovereignAI } from './SovereignAI';
+import { SettlementGovernor } from './SettlementGovernor';
 
 export class AIController {
     private factionStates: Map<string, { lastTick: number, nextInterval: number }> = new Map();
@@ -87,16 +87,46 @@ export class AIController {
         // 1. Update Settlement State & Influence Flags
         const settlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
 
+        // MILESTONE 2: Governor & Blackboard Integration
+        // Clear old desires
+        if (faction.blackboard) {
+            faction.blackboard.desires = [];
+        }
+
         settlements.forEach(s => {
-            s.currentGoal = GoalEvaluator.evaluate(state, s, config);
+            // Run Governor -> Posts Desires to Blackboard
+            SettlementGovernor.evaluate(s, faction, state, config);
+
+            // Bridge: Map Top Desire to Legacy Goal (for compat with existing strategies)
+            // GoalEvaluator.evaluate(state, s, config) is REPLACED by this logic.
+            if (faction.blackboard?.desires) {
+                const myDesires = faction.blackboard.desires
+                    .filter(d => d.settlementId === s.id)
+                    .sort((a, b) => b.score - a.score);
+
+                if (myDesires.length > 0) {
+                    const topDesire = myDesires[0];
+                    // Map DesireType to GoalType
+                    switch (topDesire.type) {
+                        case 'UPGRADE': s.currentGoal = 'UPGRADE'; break;
+                        case 'SETTLER': s.currentGoal = 'EXPAND'; break;
+                        case 'BUILD_SMITHY': s.currentGoal = 'TOOLS'; break;
+                        case 'RECRUIT_VILLAGER': s.currentGoal = 'EXPAND'; break; // Loose mapping
+                        default: s.currentGoal = undefined; break;
+                    }
+                } else {
+                    s.currentGoal = undefined;
+                }
+            }
+
             this.updateInfluenceFlags(s, config);
         });
 
-        // 2. Evaluate & Execute per Settlement (simplifies grouping)
+        // 2. Evaluate & Execute per Settlement
         settlements.forEach(s => {
             this.runGovernor(s, state, config, 'CIVIL', this.civilStrategies);
-            this.runGovernor(s, state, config, 'LABOR', this.hrStrategies);     // New: Labor (Villagers)
-            this.runGovernor(s, state, config, 'TRANSPORT', this.hrStrategies); // New: Transport (Logistics Caravans)
+            this.runGovernor(s, state, config, 'LABOR', this.hrStrategies);
+            this.runGovernor(s, state, config, 'TRANSPORT', this.hrStrategies);
             this.runGovernor(s, state, config, 'TRADE', this.tradeStrategies);
         });
     }
@@ -107,19 +137,16 @@ export class AIController {
         }
 
         // Check Survival Mode
-        // If Food is critically low (< 20% capacity or < panicThreshold), explicit Panic Mode
         const food = settlement.stockpile.Food;
         const consumption = Math.max(5, settlement.population * (config.costs.baseConsume || 0.1));
         const panicThreshold = consumption * 5; // 5 ticks of food
 
-        // OR if goal is explicitly SURVIVE
+        // OR if goal is explicitly SURVIVE (e.g. from Desire override if we had one)
         settlement.aiState.surviveMode = settlement.currentGoal === 'SURVIVE' || food < panicThreshold;
 
         // Check Saving For Upgrade
-        // If Goal is UPGRADE/ASCEND, verify if we are short on materials
         if (settlement.currentGoal === 'UPGRADE') {
             settlement.aiState.savingFor = 'UPGRADE';
-            // Calculate specific resource gaps
             const nextTier = settlement.tier + 1;
             const upgradeCost = (nextTier === 1 ? config.upgrades.villageToTown : config.upgrades.townToCity) as any;
             const missing: string[] = [];
@@ -130,7 +157,6 @@ export class AIController {
 
             settlement.aiState.focusResources = missing;
         } else if (settlement.currentGoal === 'EXPAND') {
-            // Saving for Settler?
             settlement.aiState.savingFor = null;
         } else {
             settlement.aiState.savingFor = null;
@@ -142,29 +168,22 @@ export class AIController {
 
         strategies.forEach(strategy => {
             const evaluated = strategy.evaluate(state, config, settlement.ownerId, settlement.id);
-            if (evaluated.length > 0) {
-                // console.log(`[AI] Strategy produced ${evaluated.length} actions for ${governorType} in ${settlement.name}`);
-            }
             actions.push(...evaluated);
         });
 
         let relevantActions = actions.filter(a => a.settlementId === settlement.id);
 
-        // Influence Checks
         if (settlement.aiState?.surviveMode) {
-            // General Stand-Down: Block everything except HR (Food Gathering) and Critical Infrastructure (GathererHut)
             if (governorType === 'LABOR') {
-                // Villagers allowed to Forage
+                // Allowed
             } else if (governorType === 'CIVIL') {
-                // Only allow GathererHut
                 relevantActions = relevantActions.filter(a => a.type === 'BUILD' && a.buildingType === 'GathererHut');
                 if (relevantActions.length === 0) return;
             } else {
-                return; // Trade/Transport blocked
+                return;
             }
         }
 
-        // Strict Role Filtering
         switch (governorType) {
             case 'CIVIL':
                 relevantActions = relevantActions.filter(a =>
@@ -173,7 +192,7 @@ export class AIController {
                 break;
             case 'LABOR':
                 relevantActions = relevantActions.filter(a =>
-                    ['RECRUIT_VILLAGER'].includes(a.type)
+                    ['RECRUIT_VILLAGER', 'SPAWN_SETTLER', 'DISPATCH_VILLAGER'].includes(a.type)
                 );
                 if (settlement.currentGoal === 'THRIFTY') {
                     relevantActions = relevantActions.filter(a => a.type !== 'RECRUIT_VILLAGER');
@@ -190,33 +209,20 @@ export class AIController {
                     a.type === 'DISPATCH_CARAVAN' && a.mission === 'TRADE'
                 );
                 break;
-            case 'LABOR':
-                relevantActions = relevantActions.filter(a =>
-                    ['RECRUIT_VILLAGER', 'SPAWN_SETTLER', 'DISPATCH_VILLAGER'].includes(a.type)
-                );
-                break;
         }
 
-        if (relevantActions.length === 0) {
-            return;
-        }
+        if (relevantActions.length === 0) return;
 
-        // Apply Decision Jitter
-        // Add small random noise (0.00 to 0.05) to break ties or near-ties
         relevantActions.forEach(a => {
             a.score += (Math.random() * 0.05);
         });
 
-        // Sort by Score
         relevantActions.sort((a, b) => b.score - a.score);
 
-        // Track decision for UI
         if (!settlement.aiState) settlement.aiState = { surviveMode: false, savingFor: null, focusResources: [] };
-        // We'll store top 3 considerations
         if (!settlement.aiState.lastDecisions) settlement.aiState.lastDecisions = {};
-        settlement.aiState.lastDecisions[governorType] = relevantActions.slice(0, 3).map(a => `${a.type}:${a.score.toFixed(2)}`); // Changed to 2 decimals due to jitter
+        settlement.aiState.lastDecisions[governorType] = relevantActions.slice(0, 3).map(a => `${a.type}:${a.score.toFixed(2)}`);
 
-        // Multi-Action Execution Loop
         for (const action of relevantActions) {
             const success = this.executeAction(state, config, action);
             if (success) {
@@ -229,32 +235,37 @@ export class AIController {
         switch (action.type) {
             case 'BUILD_CARAVAN':
                 const cSettlement = state.settlements[action.settlementId];
-                const cCost = config.costs.trade?.caravanTimberCost || 50;
+                const cCost = config.costs.agents.Caravan.Timber || 50;
                 if (cSettlement.stockpile.Timber >= cCost) {
                     cSettlement.stockpile.Timber -= cCost;
-                    CaravanSystem.spawn(state, cSettlement.hexId, cSettlement.hexId, 'Caravan', config); // Home to Home spawn
+                    CaravanSystem.spawn(state, cSettlement.hexId, cSettlement.hexId, 'Caravan', config);
                     return true;
                 }
                 return false;
             case 'BUILD':
-                return ConstructionSystem.build(state, action.settlementId, action.buildingType, action.buildingType === 'PavedRoad' || action.buildingType === 'Masonry' ? action.hexId : action.hexId, config); // Weird generic fix, just trusting hexId logic
+                if (!action.buildingType || !action.targetHexId) return false;
+                // Fix: AIAction now uses targetHexId, pass it to build system
+                return ConstructionSystem.build(state, action.settlementId, action.buildingType, action.targetHexId, config);
             case 'DISPATCH_CARAVAN':
                 if (action.context?.type === 'Settler') {
-                    // handled in SPAWN_SETTLER context usually, but just in case
                     return false;
                 } else {
                     const settlement = state.settlements[action.settlementId];
-                    // CaravanSystem.dispatch returns void, effectively always true if logic is sound? 
-                    // We assume it succeeds if called.
-                    CaravanSystem.dispatch(state, settlement, action.targetHexId, action.mission, config, action.context);
-                    return true;
+                    if (!action.targetHexId || !action.mission) return false;
+
+                    if (action.mission === 'TRADE' || action.mission === 'LOGISTICS') {
+                        CaravanSystem.dispatch(state, settlement, action.targetHexId, action.mission, config, action.context);
+                        return true;
+                    }
+                    return false;
                 }
             case 'SPAWN_SETTLER':
                 const settlement = state.settlements[action.settlementId];
-                const sCost = config.costs.settlement;
+                const sCost = config.costs.agents.Settler;
                 if (settlement.stockpile.Food < (sCost.Food || 0) || settlement.stockpile.Timber < (sCost.Timber || 0)) {
                     return false;
                 }
+                if (!action.targetHexId) return false;
 
                 const agent = CaravanSystem.spawn(state, settlement.hexId, action.targetHexId, 'Settler', config);
                 if (agent) {
@@ -262,7 +273,6 @@ export class AIController {
                     Object.entries(config.ai.expansionStarterPack).forEach(([res, amt]) => {
                         agent.cargo[res as keyof Resources] = amt as number;
                     });
-                    // Costs handled by strategy/system verification usually, but deducting here for safety
                     settlement.stockpile.Food -= (sCost.Food || 0);
                     settlement.stockpile.Timber -= (sCost.Timber || 0);
                     settlement.population -= config.ai.settlerCost;
@@ -275,9 +285,8 @@ export class AIController {
                 }
                 return false;
             case 'RECRUIT_VILLAGER':
-                // Logic from GovernorAI.manageVillagers
                 const s = state.settlements[action.settlementId];
-                const cost = config.costs.villagers.cost;
+                const cost = config.costs.agents.Villager.Food || 100;
                 if (s.stockpile.Food >= cost) {
                     s.stockpile.Food -= cost;
                     s.availableVillagers++;

@@ -26,7 +26,7 @@ describe('Governor Split (Parallel Execution)', () => {
                     buildings: [],
                     tier: 1,
                     integrity: 100,
-                    jobCap: 10,
+                    jobCap: 20,
                     workingPop: 0,
                     aiState: { surviveMode: false, savingFor: null, focusResources: [] },
                     currentGoal: 'EXPAND',
@@ -61,12 +61,25 @@ describe('Governor Split (Parallel Execution)', () => {
 
         const config: GameConfig = {
             costs: {
-                villagers: { cost: 10, capacity: 10, range: 5, popRatio: 2 },
-                settlement: { Food: 100, Timber: 100 },
+                movement: 1.0, // Base Movement Points per Tick
+                terrain: { Plains: 1, Forest: 2, Mountain: 5, Water: 100 },
+                agents: {
+                    Villager: { Food: 10, Tools: 0 },
+                    Settler: { Food: 100, Timber: 100 }, // Reduced for test
+                    Caravan: { Timber: 50 }
+                },
                 baseConsume: 0.1,
-                logistics: { freightThreshold: 50, tradeRoiThreshold: 50 },
-                trade: { caravanTimberCost: 50, surplusThreshold: 200, forceTradeGold: 50, travelCostPerHex: 1, capacity: 50, simulatedGoldPerResource: 1, neighborSurplusMulti: 1.5 },
-                terrain: { Plains: 1, Forest: 2, Mountain: 5, Water: 100 }
+                growthRate: 0.008,
+                maxLaborPerHex: 40,
+                maintenancePerPop: 0.005,
+                yieldPerPop: 0.01,
+                toolBonus: 1.5,
+                toolBreakChance: 0.05,
+                starvationRate: 0.005,
+                growthSurplusBonus: 0.0001,
+                trade: { simulatedGoldPerResource: 1, capacity: 50, spawnChance: 0.1, surplusThresholdMulti: 50, neighborSurplusMulti: 20, buyCap: 50, loadingTime: 20, forceTradeGold: 50, travelCostPerHex: 2 },
+                logistics: { caravanIntegrityLossPerHex: 0.5, caravanRepairCost: 2, freightThreshold: 50, tradeRoiThreshold: 50, constructionRoiThreshold: 50, freightConstructionThreshold: 100 },
+                villagers: { speed: 0.5, capacity: 10, range: 5, popRatio: 2, baseVillagers: 2 },
             },
             industry: { surplusThreshold: 100 },
             ai: {
@@ -78,7 +91,36 @@ describe('Governor Split (Parallel Execution)', () => {
                     upgradePopRatio: 0.8
                 },
                 settlerCost: 10,
-                expansionStarterPack: { Food: 50, Timber: 50 }
+                expansionStarterPack: { Food: 50, Timber: 50 },
+                sovereign: {
+                    foodSurplusRatio: 0.8,
+                    desperationFoodRatio: 0.5,
+                    capPenalty: 0.1,
+                    urgencyBoosts: { Stone: 0.2, Timber: 0.2, Ore: 0.1 },
+                    capOverrideMultiplier: 1.5,
+                    stanceShiftThreshold: 0.3,
+                    scarcityThresholds: { Stone: 0.1, Timber: 0.1, Ore: 0.1 }
+                },
+                governor: {
+                    thresholds: {
+                        upgrade: 0.1,
+                        settler: 0.1,
+                        trade: 0.1,
+                        recruit: 0.1,
+                        infrastructure: 0.2
+                    },
+                    weights: {
+                        survivePenalty: 0.1,
+                        settlerExpandBase: 0.8,
+                        settlerCostBuffer: 2.0,
+                        tradeBase: 0.4,
+                        tradeShortage: 0.15,
+                        granaryRole: 1.5,
+                        fisheryWater: 1.5,
+                        smithyRole: 1.2,
+                        toolPerPop: 0.2
+                    }
+                }
             },
             upgrades: {
                 villageToTown: { popCap: 200, costTimber: 100, costStone: 50 },

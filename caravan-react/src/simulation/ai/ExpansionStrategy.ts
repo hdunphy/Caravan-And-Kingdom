@@ -11,7 +11,7 @@ export class ExpansionStrategy implements AIStrategy {
         if (!faction) return [];
 
         const factionSettlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
-        const cost = config.costs.settlement;
+        const cost = config.costs.agents.Settler;
         const buffer = config.ai ? config.ai.expansionBuffer : 1.5;
         const cap = config.ai ? config.ai.settlementCap : 5;
 

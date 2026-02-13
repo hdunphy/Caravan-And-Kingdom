@@ -3,6 +3,7 @@ import { AIController } from '../simulation/ai/AIController';
 import { DEFAULT_CONFIG } from '../types/GameConfig';
 import { WorldState } from '../types/WorldTypes';
 import { Logger } from '../utils/Logger';
+import { VillagerSystem } from '../simulation/systems/VillagerSystem';
 
 describe('AI App Integration', () => {
     it('should dispatch multiple villagers in one tick (Multi-Action Execution)', () => {
@@ -54,6 +55,8 @@ describe('AI App Integration', () => {
 
         const controller = new AIController();
         controller.update(state, TEST_CONFIG);
+        // VillagerSystem handles the actual spawning from the pool
+        VillagerSystem.update(state, TEST_CONFIG);
 
         // Verify result: Should have spawned 5 villagers
         const villagers = Object.values(state.agents).filter(a => a.type === 'Villager');

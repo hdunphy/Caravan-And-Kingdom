@@ -184,7 +184,7 @@ var MetabolismSystem = {
         const surplus = settlement.stockpile.Food - foodConsumption;
         settlement.stockpile.Food = surplus;
         const pressureFactor = pop > 0 ? workingPop / pop : 1;
-        const settlementCost = config.costs.settlement.Food || 500;
+        const settlementCost = config.costs.agents.Settler.Food || 500;
         let surplusBonus = 0;
         if (settlement.stockpile.Food > settlementCost) {
           const extra = settlement.stockpile.Food - settlementCost;
@@ -594,7 +594,7 @@ var CaravanSystem = {
         if (source.stockpile.Stone < cost.costStone) deficits.push("Stone");
         if ("costOre" in cost && source.stockpile.Ore < cost.costOre) deficits.push("Ore");
       } else if (goal === "EXPAND") {
-        const cost = config.costs.settlement;
+        const cost = config.costs.agents.Settler;
         if (source.stockpile.Food < (cost.Food || 500)) deficits.push("Food");
         if (source.stockpile.Timber < (cost.Timber || 200)) deficits.push("Timber");
       } else if (goal === "SURVIVE") {
@@ -659,7 +659,7 @@ var CaravanSystem = {
       if (value < constructionThreshold) {
         return null;
       }
-      const cost = config.costs.trade?.caravanTimberCost || 50;
+      const cost = config.costs.agents.Caravan.Timber || 50;
       if (settlement.stockpile.Timber >= cost) {
         settlement.stockpile.Timber -= cost;
         agent = this.spawn(state, settlement.hexId, targetHexId, "Caravan", config) || void 0;
@@ -1556,7 +1556,7 @@ var RecruitStrategy = class {
       if (totalVillagers < maxVillagers) {
         const surviveThreshold = settlement.population * config.costs.baseConsume * (config.ai?.utility?.surviveThreshold || 15);
         const safetyFactor = config.ai?.utility?.growthFoodSafety || 1;
-        const recruitCost = config.costs.villagers?.cost || 100;
+        const recruitCost = config.costs.agents.Villager.Food || 100;
         const safeFood = surviveThreshold * safetyFactor;
         let foodMultiplier = 0;
         if (settlement.stockpile.Food > safeFood + recruitCost) {
@@ -1799,7 +1799,7 @@ var AIController = class {
         return false;
       case "RECRUIT_VILLAGER":
         const s = state.settlements[action.settlementId];
-        const cost = config.costs.villagers.cost;
+        const cost = config.costs.agents.Villager.Food || 100;
         if (s.stockpile.Food >= cost) {
           s.stockpile.Food -= cost;
           s.availableVillagers++;

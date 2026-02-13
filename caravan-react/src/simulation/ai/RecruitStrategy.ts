@@ -24,7 +24,7 @@ export class RecruitStrategy implements AIStrategy {
                 // Food Safety
                 const surviveThreshold = (settlement.population * config.costs.baseConsume) * (config.ai?.utility?.surviveThreshold || 15);
                 const safetyFactor = config.ai?.utility?.growthFoodSafety || 1.0;
-                const recruitCost = config.costs.villagers?.cost || 100;
+                const recruitCost = config.costs.agents.Villager.Food || 100;
 
                 const safeFood = surviveThreshold * safetyFactor;
                 let foodMultiplier = 0;

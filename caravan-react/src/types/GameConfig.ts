@@ -9,6 +9,11 @@ export interface GameConfig {
     costs: {
         movement: number; // Base movement points per tick
         terrain: Record<TerrainType, number>; // Cost per hex
+        agents: {
+            Villager: Partial<Resources>;
+            Settler: Partial<Resources>;
+            Caravan: Partial<Resources>;
+        };
         baseConsume: number; // Food per pop per resource tick
         growthRate: number; // Population growth per tick if fed (0.01 = 1%)
         maxLaborPerHex: number; // Max jobs per hex
@@ -18,9 +23,7 @@ export interface GameConfig {
         toolBreakChance: number; // Chance to consume a tool per extraction tick (0-1)
         starvationRate: number;
         growthSurplusBonus: number;
-        settlement: Partial<Resources>;
         trade: {
-            caravanTimberCost: number;
             simulatedGoldPerResource: number;
             capacity: number;
             spawnChance: number;
@@ -40,7 +43,6 @@ export interface GameConfig {
             freightConstructionThreshold: number;
         };
         villagers: {
-            cost: number; // Food cost to spawn? Or passive?
             speed: number;
             capacity: number;
             range: number;
@@ -140,6 +142,26 @@ export interface GameConfig {
             capOverrideMultiplier: number;
             stanceShiftThreshold: number;
         };
+        governor: {
+            thresholds: {
+                upgrade: number;
+                settler: number;
+                trade: number;
+                recruit: number;
+                infrastructure: number;
+            };
+            weights: {
+                survivePenalty: number;
+                settlerExpandBase: number;
+                settlerCostBuffer: number;
+                tradeBase: number;
+                tradeShortage: number;
+                granaryRole: number;
+                fisheryWater: number;
+                smithyRole: number;
+                toolPerPop: number;
+            };
+        };
         feudal: {
             roleUtilityBonus: number;
             roleCheckInterval: number;
@@ -193,6 +215,11 @@ export const DEFAULT_CONFIG: GameConfig = {
             Mountains: 3.0,
             Water: 1000.0,
         },
+        agents: {
+            Villager: { Food: 100 },
+            Settler: { Food: 500, Timber: 200 },
+            Caravan: { Timber: 50 }
+        },
         baseConsume: 0.1,
         growthRate: 0.008,
         maxLaborPerHex: 40,
@@ -202,12 +229,7 @@ export const DEFAULT_CONFIG: GameConfig = {
         toolBreakChance: 0.05,
         starvationRate: 0.005, // Lowered from 0.02 to prevent death spiral
         growthSurplusBonus: 0.0001, // Multiplier for growth based on food surplus ratio
-        settlement: {
-            Food: 500,
-            Timber: 200,
-        },
         trade: {
-            caravanTimberCost: 50,
             simulatedGoldPerResource: 1, // Simple fixed price for now
             capacity: 50,
             spawnChance: 0.1, // 10% chance per tick to spawn a caravan if conditions met
@@ -227,7 +249,6 @@ export const DEFAULT_CONFIG: GameConfig = {
             freightConstructionThreshold: 100, // Min resources to BUILD a new caravan
         },
         villagers: {
-            cost: 100, // Food cost to buy a new villager
             speed: 0.5, // Slow down to 0.5 hex/tick (Takes 2 ticks to move 1 plains hex)
             capacity: 20,
             range: 3,
@@ -369,6 +390,26 @@ export const DEFAULT_CONFIG: GameConfig = {
             capPenalty: 0.1,
             capOverrideMultiplier: 1.5,
             stanceShiftThreshold: 0.3,
+        },
+        governor: {
+            thresholds: {
+                upgrade: 0.1,
+                settler: 0.1,
+                trade: 0.1,
+                recruit: 0.1,
+                infrastructure: 0.2,
+            },
+            weights: {
+                survivePenalty: 0.1,
+                settlerExpandBase: 0.8,
+                settlerCostBuffer: 2.0,
+                tradeBase: 0.4,
+                tradeShortage: 0.15,
+                granaryRole: 1.5,
+                fisheryWater: 1.5,
+                smithyRole: 1.2,
+                toolPerPop: 0.2,
+            },
         },
     },
     maintenance: {

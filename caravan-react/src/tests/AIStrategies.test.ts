@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ConstructionStrategy } from '../simulation/ai/ConstructionStrategy';
+import { UpgradeStrategy } from '../simulation/ai/UpgradeStrategy';
 import { TradeStrategy } from '../simulation/ai/TradeStrategy';
 import { ExpansionStrategy } from '../simulation/ai/ExpansionStrategy';
 import { RecruitStrategy } from '../simulation/ai/RecruitStrategy';
@@ -63,11 +64,18 @@ describe('AI Strategies', () => {
             expect(buildAction!.score).toBeGreaterThan(0.5);
         });
 
+    });
+
+    describe('UpgradeStrategy', () => {
+        const strategy = new UpgradeStrategy();
+
         it('should recommend upgrade when materials and population met', () => {
-            settlement.population = 200;
+            settlement.population = 500;
             settlement.stockpile.Timber = 1000;
             settlement.stockpile.Stone = 1000;
             settlement.stockpile.Tools = 100;
+            settlement.currentGoal = 'UPGRADE'; // AIStrategies test needs manual goal setting since Governor isn't running
+
             const actions = strategy.evaluate(state, TEST_CONFIG, 'p1');
             const upgradeAction = actions.find(a => a.type === 'UPGRADE_SETTLEMENT');
             expect(upgradeAction).toBeDefined();
