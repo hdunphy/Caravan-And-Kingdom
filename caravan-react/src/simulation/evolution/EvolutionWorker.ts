@@ -1,15 +1,16 @@
-import { parentPort } from 'worker_threads';
+// import { parentPort } from 'worker_threads';
 import { HeadlessRunner } from './HeadlessRunner.ts';
 import { calculateFitness } from './FitnessEvaluator.ts';
 import { Pathfinding } from '../Pathfinding.ts';
 import { GameConfig } from '../../types/GameConfig.ts';
 import { DEFAULT_CONFIG } from '../../types/GameConfig.ts';
 
-if (!parentPort) {
-    throw new Error('EvolutionWorker must be run as a worker thread.');
+
+if (!process.send) {
+    throw new Error('EvolutionWorker must be run as a child process via fork.');
 }
 
-parentPort.on('message', (message: {
+process.on('message', (message: {
     indices: number[],
     factionConfigs: GameConfig[],
     options: any,
@@ -44,7 +45,7 @@ parentPort.on('message', (message: {
         });
 
         // 5. Send Result
-        parentPort!.postMessage({
+        process.send!({
             success: true,
             results: {
                 indices: indices, // Echo back indices
@@ -54,7 +55,7 @@ parentPort.on('message', (message: {
         });
 
     } catch (error) {
-        parentPort!.postMessage({
+        process.send!({
             matchId: indices ? indices[0] : -1, // Fallback ID
             success: false,
             error: error

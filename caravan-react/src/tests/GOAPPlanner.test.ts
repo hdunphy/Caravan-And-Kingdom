@@ -1,12 +1,14 @@
+import { describe, test, expect, beforeEach } from 'vitest';
 import { GOAPPlanner } from '../simulation/ai/GOAPPlanner';
 import { JobPool } from '../simulation/ai/JobPool';
-import { Faction, FactionBlackboard } from '../types/WorldTypes';
+import { Faction, FactionBlackboard, WorldState, Settlement } from '../types/WorldTypes';
 import { GameConfig, DEFAULT_CONFIG } from '../types/GameConfig';
 
 describe('GOAPPlanner', () => {
     let faction: Faction;
     let jobPool: JobPool;
     let config: GameConfig;
+    let state: WorldState;
 
     beforeEach(() => {
         jobPool = new JobPool('Faction1');
@@ -23,7 +25,38 @@ describe('GOAPPlanner', () => {
             },
             jobPool: jobPool
         };
-        config = { ...DEFAULT_CONFIG };
+        config = {
+            ...DEFAULT_CONFIG,
+            costs: {
+                ...DEFAULT_CONFIG.costs,
+                agents: {
+                    ...DEFAULT_CONFIG.costs.agents,
+                    Villager: { Food: 50 },
+                    Settler: { Food: 100, Timber: 100 }
+                }
+            }
+        };
+
+        // Mock State
+        state = {
+            tick: 0,
+            map: {},
+            settlements: {
+                's1': {
+                    id: 's1',
+                    ownerId: 'Faction1',
+                    tier: 0,
+                    stockpile: { Food: 0, Timber: 0, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
+                    hexId: '0,0',
+                    population: 10,
+                    name: 'Settlement 1'
+                } as unknown as Settlement
+            },
+            agents: {},
+            factions: {},
+            width: 10,
+            height: 10
+        };
     });
 
     test('should create jobs from desires', () => {
@@ -36,67 +69,42 @@ describe('GOAPPlanner', () => {
             }
         ];
 
-        GOAPPlanner.plan(faction, jobPool, config);
+        // Ensure verify logic treats missing building cost as simple fallback
+        // We mocked config defaults in Planner implementation, avoiding crash
+        GOAPPlanner.plan(faction, jobPool, state, config);
 
         const jobs = jobPool.getAllJobs();
-        expect(jobs.length).toBe(1);
-        expect(jobs[0].type).toBe('BUILD');
-        expect(jobs[0].urgency).toBe('HIGH'); // 0.9 score
-        expect(jobs[0].priority).toBe(0.9);
-        expect(jobs[0].sourceId).toBe('s1');
+        // Should create COLLECT Stone job (since stockpile is 0)
+        const stoneJob = jobs.find(j => j.type === 'COLLECT' && j.resource === 'Stone');
+        expect(stoneJob).toBeDefined();
+        expect(stoneJob?.urgency).toBe('HIGH');
+        expect(stoneJob?.priority).toBe(0.9);
     });
 
-    test('should map different desire types to job types', () => {
+    test('should SUM priorities for shared resource needs', () => {
+        // Setup: Two desires both needing Timber
+        // 1. SETTLER (Score 0.5) -> Needs 100 Timber
+        // 2. BUILD_SMITHY (Score 0.3) -> Needs 100 Timber (default)
+        // Total Timber Need: 200. Total Priority: 0.8.
+
+        // Mock stockpile 0
+        state.settlements['s1'].stockpile.Timber = 0;
+
         faction.blackboard!.desires = [
-            { settlementId: 's1', type: 'RECRUIT_VILLAGER', score: 0.6, needs: [] },
-            { settlementId: 's1', type: 'SETTLER', score: 0.4, needs: [] }
+            { settlementId: 's1', type: 'SETTLER', score: 0.5, needs: ['Timber'] },
+            { settlementId: 's1', type: 'BUILD_SMITHY', score: 0.3, needs: ['Timber'] }
         ];
 
-        GOAPPlanner.plan(faction, jobPool, config);
+        GOAPPlanner.plan(faction, jobPool, state, config);
 
         const jobs = jobPool.getAllJobs();
-        expect(jobs.length).toBe(2);
+        const timberJob = jobs.find(j => j.type === 'COLLECT' && j.resource === 'Timber');
 
-        const recruitJob = jobs.find(j => j.type === 'RECRUIT');
-        expect(recruitJob).toBeDefined();
-        expect(recruitJob?.urgency).toBe('MEDIUM'); // 0.6
-
-        const expandJob = jobs.find(j => j.type === 'EXPAND');
-        expect(expandJob).toBeDefined();
-        expect(expandJob?.urgency).toBe('LOW'); // 0.4
-    });
-
-    test('should update existing jobs and cleanup removed desires', () => {
-        // Round 1
-        faction.blackboard!.desires = [
-            { settlementId: 's1', type: 'BUILD_SMITHY', score: 0.9, needs: [] }
-        ];
-        GOAPPlanner.plan(faction, jobPool, config);
-
-        const job = jobPool.getAllJobs()[0];
-        job.assignedVolume = 5; // Simulate work done
-
-        // Round 2 - Desire score changes
-        faction.blackboard!.desires = [
-            { settlementId: 's1', type: 'BUILD_SMITHY', score: 0.2, needs: [] }
-        ];
-        GOAPPlanner.plan(faction, jobPool, config);
-
-        const updatedJob = jobPool.getAllJobs()[0];
-        expect(updatedJob.priority).toBe(0.2);
-        expect(updatedJob.urgency).toBe('LOW');
-        expect(updatedJob.assignedVolume).toBe(5); // Preserved
-
-        // Round 3 - Desire removed
-        faction.blackboard!.desires = [];
-        // Ideally planner should remove jobs for missing desires, 
-        // but currently cleaning is done via jobPool.cleanup() which removes COMPLETED jobs.
-        // If we want to remove jobs that no longer have a desire, we might need extra logic in Planner.
-        // For now, let's just mark the job as COMPLETED to test cleanup.
-        updatedJob.status = 'COMPLETED';
-
-        GOAPPlanner.plan(faction, jobPool, config);
-        // jobPool.cleanup() is called at end of plan
-        expect(jobPool.getAllJobs().length).toBe(0);
+        expect(timberJob).toBeDefined();
+        // The core requirement: Priority should be Sum (0.5 + 0.3 = 0.8)
+        expect(timberJob?.priority).toBeCloseTo(0.8, 5);
+        // And volume should be sum of deficits (100 + 100 = 200 assuming defaults)
+        // Settlement cost is 100. Smithy default is 100.
+        expect(timberJob?.targetVolume).toBeGreaterThanOrEqual(200);
     });
 });

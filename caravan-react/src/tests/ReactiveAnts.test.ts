@@ -1,8 +1,10 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { Settlement, WorldState } from '../types/WorldTypes.ts';
+import { Settlement, WorldState, Faction } from '../types/WorldTypes.ts';
 import { GameConfig, DEFAULT_CONFIG } from '../types/GameConfig.ts';
 import { VillagerSystem } from '../simulation/systems/VillagerSystem.ts';
 import { HexUtils } from '../utils/HexUtils.ts';
+import { SettlementGovernor } from '../simulation/ai/SettlementGovernor.ts';
+import { GOAPPlanner } from '../simulation/ai/GOAPPlanner.ts';
+import { JobPool } from '../simulation/ai/JobPool.ts';
 
 const mockConfig: GameConfig = {
     ...DEFAULT_CONFIG,
@@ -11,24 +13,51 @@ const mockConfig: GameConfig = {
         villagers: {
             ...DEFAULT_CONFIG.costs.villagers,
             range: 3
+        },
+        agents: {
+            ...DEFAULT_CONFIG.costs.agents,
+            Villager: { Food: 50 }
         }
     }
 };
 
 describe('Reactive Ants (Autonomous Villagers)', () => {
     let state: WorldState;
+    let faction: Faction;
+    let jobPool: JobPool;
 
     beforeEach(() => {
+        jobPool = new JobPool('f1');
+        faction = {
+            id: 'f1',
+            name: 'Faction 1',
+            color: '#000',
+            blackboard: {
+                factionId: 'f1',
+                stances: { expand: 0, exploit: 1 },
+                criticalShortages: [],
+                targetedHexes: [],
+                desires: []
+            },
+            jobPool: jobPool
+        };
+
         state = {
             tick: 1,
             map: {},
             settlements: {},
             agents: {},
-            factions: { 'f1': { id: 'f1', name: 'Faction 1', color: '#000' } },
+            factions: { 'f1': faction },
             width: 10,
             height: 10
         };
     });
+
+    function advanceAI(s: Settlement) {
+        faction.blackboard!.desires = [];
+        SettlementGovernor.evaluate(s, faction, state, mockConfig);
+        GOAPPlanner.plan(faction, jobPool, state, mockConfig);
+    }
 
     it('should auto-dispatch to food when stockpile is empty', () => {
         const s: Settlement = {
@@ -42,7 +71,10 @@ describe('Reactive Ants (Autonomous Villagers)', () => {
         state.map['0,0'] = { id: '0,0', coordinate: { q: 0, r: 0, s: 0 }, terrain: 'Plains', ownerId: 'f1', resources: {} };
         state.map['1,0'] = { id: '1,0', coordinate: { q: 1, r: 0, s: -1 }, terrain: 'Plains', ownerId: 'f1', resources: { Food: 50 } };
 
-        // Run System Update
+        // 1. Generate Jobs
+        advanceAI(s);
+
+        // 2. Run System Update (Claim & Move)
         VillagerSystem.update(state, mockConfig);
 
         // Expect 1 active villager agent targeting 1,0
@@ -63,6 +95,7 @@ describe('Reactive Ants (Autonomous Villagers)', () => {
         state.map['0,0'] = { id: '0,0', coordinate: { q: 0, r: 0, s: 0 }, terrain: 'Plains', ownerId: 'f1', resources: {} };
         state.map['0,1'] = { id: '0,1', coordinate: { q: 0, r: 1, s: -1 }, terrain: 'Water', ownerId: 'f1', resources: { Food: 500 } }; // Lots of fish!
 
+        advanceAI(s);
         VillagerSystem.update(state, mockConfig);
 
         const agents = Object.values(state.agents).filter(a => a.type === 'Villager');
@@ -83,6 +116,7 @@ describe('Reactive Ants (Autonomous Villagers)', () => {
         state.map['1,0'] = { id: '1,0', coordinate: { q: 1, r: 0, s: -1 }, terrain: 'Plains', ownerId: 'f1', resources: { Food: 50 } };
         state.map['0,1'] = { id: '0,1', coordinate: { q: 0, r: 1, s: -1 }, terrain: 'Forest', ownerId: 'f1', resources: { Timber: 50 } };
 
+        advanceAI(s);
         VillagerSystem.update(state, mockConfig);
 
         const agents = Object.values(state.agents).filter(a => a.type === 'Villager');

@@ -20,7 +20,7 @@ export interface AIAction {
     payload?: any; // For villagers
 }
 
-export type JobType = 'COLLECT' | 'BUILD' | 'RECRUIT' | 'EXPAND';
+export type JobType = 'COLLECT' | 'BUILD' | 'RECRUIT' | 'EXPAND' | 'TRADE' | 'TRANSFER';
 export type JobUrgency = 'HIGH' | 'MEDIUM' | 'LOW';
 export type JobStatus = 'OPEN' | 'SATURATED' | 'COMPLETED';
 

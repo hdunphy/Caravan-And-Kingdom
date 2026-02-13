@@ -51,8 +51,15 @@ export const CaravanSystem = {
         return agent;
     },
 
-    processTrade(state: WorldState, config: GameConfig) {
+    processTrade(state: WorldState, globalConfig: GameConfig) {
         Object.values(state.settlements).forEach(source => {
+            // Gladiator Patch: Use faction config for ROI/Decision making
+            let config = globalConfig;
+            const faction = state.factions[source.ownerId];
+            if (faction && (faction as any).aiConfig) {
+                config = (faction as any).aiConfig;
+            }
+
             if (source.stockpile.Gold < 1) return;
 
             // 1. Identify Deficit
@@ -107,6 +114,7 @@ export const CaravanSystem = {
                 const amount = Math.min(capacity, afford, target.stockpile[neededRes]);
                 const tradeValue = amount * goldPerRes;
 
+                // Gene-driven threshold
                 const roiThreshold = config.costs.logistics?.tradeRoiThreshold || 20;
 
                 if (tradeValue >= roiThreshold) {
@@ -208,10 +216,17 @@ export const CaravanSystem = {
         return agent || null;
     },
 
-    update(state: WorldState, config: GameConfig) {
+    update(state: WorldState, globalConfig: GameConfig) {
         const agentsToRemove: string[] = [];
 
         Object.values(state.agents).forEach(agent => {
+            // Gladiator Patch: Use faction config
+            let config = globalConfig;
+            const faction = state.factions[agent.ownerId];
+            if (faction && (faction as any).aiConfig) {
+                config = (faction as any).aiConfig;
+            }
+
             // Maintenance for IDLE Agents
             if (agent.type === 'Caravan' && agent.status === 'IDLE' && agent.homeId) {
                 const home = state.settlements[agent.homeId];
@@ -225,7 +240,6 @@ export const CaravanSystem = {
                     }
 
                     // MILESTONE 4: Blackboard Dispatcher Polling
-                    const faction = state.factions[home.ownerId];
                     if (faction) {
                         const bestJobs = BlackboardDispatcher.getTopAvailableJobs(agent, faction, state, config, 1);
                         if (bestJobs.length > 0) {

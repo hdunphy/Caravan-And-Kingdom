@@ -1,18 +1,33 @@
 ﻿
+> caravan-react@0.0.0 test
+> vitest run src/tests/VillagerIntegration.test.ts
+
+
 [1m[46m RUN [49m[22m [36mv4.0.18 [39m[90mC:/Users/hdunp/Documents/GameDev/Unity/GitHub/Caravan and Kingdom/caravan-react[39m
 
-[90mstdout[2m | src/tests/AIAppIntegration.test.ts[2m > [22m[2mAI App Integration[2m > [22m[2mshould dispatch multiple villagers in one tick (Multi-Action Execution)
-[22m[39m[VillagerStrategy] Generated action for 0,0 score 20
-[VillagerStrategy] Generated action for 1,0 score 20
-[VillagerStrategy] Generated action for 1,-1 score 20
-[VillagerStrategy] Generated action for 0,-1 score 20
-[VillagerStrategy] Generated action for -1,0 score 20
-[AIController] Governor HR executing 11 actions.
+[90mstdout[2m | src/tests/VillagerIntegration.test.ts[2m > [22m[2mVillager Integration Flow[2m > [22m[2mFull Flow: COLLECT Job -> Move -> Gather -> Return
+[22m[39m[JobPool] New Job: COLLECT for s1 (Prio: 1.0)
+[VillagerSystem] Update Agent v1 - Status: IDLE, Mission: undefined, PathLen: 0
+[Dispatcher] Agent v1 claimed COLLECT (Job: collect_wood)
 
- [32mΓ£ô[39m src/tests/AIAppIntegration.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 9[2mms[22m[39m
+[90mstdout[2m | src/tests/VillagerIntegration.test.ts[2m > [22m[2mVillager Integration Flow[2m > [22m[2mJob Selection: Should pick Job with highest Bid
+[22m[39m[JobPool] New Job: COLLECT for s1 (Prio: 0.1)
+[JobPool] New Job: COLLECT for s1 (Prio: 2.0)
+[VillagerSystem] Update Agent v1 - Status: IDLE, Mission: undefined, PathLen: 0
+[Dispatcher] Agent v1 claimed COLLECT (Job: high)
 
-[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
-[2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
-[2m   Start at [22m 22:09:41
-[2m   Duration [22m 937ms[2m (transform 204ms, setup 0ms, import 252ms, tests 9ms, environment 0ms)[22m
+[90mstdout[2m | src/tests/VillagerIntegration.test.ts[2m > [22m[2mVillager Integration Flow[2m > [22m[2mStuck Check: Should not modify state if no path found
+[22m[39m[JobPool] New Job: COLLECT for s1 (Prio: 1.0)
+[VillagerSystem] Update Agent v1 - Status: IDLE, Mission: undefined, PathLen: 0
+[Dispatcher] Agent v1 claimed COLLECT (Job: impossible)
+
+ [31mΓ¥»[39m src/tests/VillagerIntegration.test.ts [2m([22m[2m3 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 15[2mms[22m[39m
+[31m     [31m├ù[31m Full Flow: COLLECT Job -> Move -> Gather -> Return[39m[32m 11[2mms[22m[39m
+     [32mΓ£ô[39m Job Selection: Should pick Job with highest Bid[32m 1[2mms[22m[39m
+     [32mΓ£ô[39m Stuck Check: Should not modify state if no path found[32m 1[2mms[22m[39m
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (3)[39m
+[2m   Start at [22m 21:22:11
+[2m   Duration [22m 814ms[2m (transform 145ms, setup 0ms, import 173ms, tests 15ms, environment 0ms)[22m
 

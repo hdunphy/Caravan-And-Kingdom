@@ -1,6 +1,5 @@
 import { Evolver } from './Evolver';
 import { genomeToConfig } from './Genome';
-import { HeadlessRunner } from './HeadlessRunner';
 import { DEFAULT_CONFIG } from '../../types/GameConfig';
 import * as fs from 'fs';
 import { Genome } from './Genome';
@@ -34,6 +33,11 @@ if (seedFile && fs.existsSync(seedFile)) {
     Logger.getInstance().log(`Loading seed from ${seedFile}...`);
     const data = fs.readFileSync(seedFile, 'utf8');
     seedConfig = JSON.parse(data);
+}
+
+if (seedConfig == undefined || seedConfig == null) {
+    Logger.getInstance().log(`No seed config found. Using default config.`);
+    seedConfig = DEFAULT_CONFIG;
 }
 
 const evolver = new Evolver(POP_SIZE, seedConfig);

@@ -167,14 +167,32 @@ export class SettlementGovernor {
             });
         }
 
-        // 6. Logistics Ambition (REQUEST_FREIGHT)
-        // High score if a specific resource is < 20% of its goal
-        // And Blackboard shows surplus elsewhere? (We can check criticalShortages to see if WE are the shortage)
-        // For now, simpler: If we have a deficit, request it.
-        // Deficit = Stockpile < (Goal || Capacity/2)
-        // Let's simply check if we are low on anything.
-        // Implementation: Add a ticket for each low resource.
-        // type: REQUEST_FREIGHT, needs: [Resource]
+        // 6. Survival Ambition (Food Security)
+        if (foodHealth < 0.8) {
+            const surviveScore = (1.0 - foodHealth) * 5.0; // Scaled 1.0 to 5.0
+            tickets.push({
+                settlementId: settlement.id,
+                type: 'REPLENISH',
+                score: surviveScore,
+                needs: ['Food']
+            });
+        }
+
+        // 7. Logistics Ambition (REQUEST_FREIGHT)
+        // If stock < 20% of goal, request freight
+        if (settlement.resourceGoals) {
+            Object.entries(settlement.resourceGoals).forEach(([res, goal]) => {
+                const stock = settlement.stockpile[res as keyof Resources] || 0;
+                if (stock < (goal as number) * 0.2) {
+                    tickets.push({
+                        settlementId: settlement.id,
+                        type: 'REQUEST_FREIGHT',
+                        score: 0.8, // Fairly high
+                        needs: [res]
+                    });
+                }
+            });
+        }
 
         // Omitted for brevity/simplicity in this pass, as LogisticsStrategy handles some of this.
         // But per requirements: "High score if specific resource < 20% of its goal"

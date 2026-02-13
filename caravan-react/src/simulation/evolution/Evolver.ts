@@ -1,4 +1,4 @@
-import { Worker } from 'worker_threads';
+import { fork, ChildProcess } from 'child_process';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { Genome, genomeToConfig, configToGenome } from './Genome';
@@ -175,24 +175,21 @@ export class Evolver {
         const totalTasks = matches.length;
         let completed = 0;
 
-        // Create Workers
+        // Create Workers (Child Processes)
         const numWorkers = Math.min(this.poolSize, totalTasks);
-        const workers: Worker[] = [];
+        const workers: ChildProcess[] = [];
 
         return new Promise<void>((resolve, reject) => {
             let pendingMatches = [...matches];
             let activeWorkers = 0;
 
             const startWorker = () => {
-                // const loaderPath = path.resolve(process.cwd(), 'node_modules/tsx/dist/loader.mjs');
-                // const loaderUrl = pathToFileURL(loaderPath).href;
-                // console.log(`[Evolver] Worker Loader: ${loaderUrl}`);
-                console.log(`[Evolver] Worker Path: ${workerPath}`);
-                const worker = new Worker(workerPath, {
-                    execArgv: [
-                        '--import', 'tsx'
-                    ]
+                // tsx patches fork, so we can just run the TS file
+                // console.log(`[Evolver] Forking worker: ${workerPath}`);
+                const worker = fork(workerPath, [], {
+                    stdio: ['inherit', 'inherit', 'inherit', 'ipc']
                 });
+
                 workers.push(worker);
                 activeWorkers++;
 
@@ -202,7 +199,6 @@ export class Evolver {
                     if (!success) {
                         console.error(`Worker error:`, error);
                     } else {
-                        // Results: { indices: [], factions: {}, stats: {} }
                         const matchIndices = results.indices as number[];
                         const factionResults = results.factions;
 
@@ -212,22 +208,6 @@ export class Evolver {
 
                             if (fResult && this.population[popIndex]) {
                                 this.population[popIndex].fitness = fResult.fitness;
-                                // We can store the stats for this specific faction
-                                // But SimulationStats structure is global? 
-                                // Let's create a partial stats object or just reference the faction stats?
-                                // existing `stats` prop on Individual is `SimulationStats` which is the global one.
-                                // We should probably attach the global stats to the individual so we can see the whole match context?
-                                // Yes, let's attach the GLOBAL stats from the match to every individual in that match.
-                                // But `result.stats.factions` is what we have in `results.stats`.
-                                // Wait, EvolutionWorker sends `stats: result.stats.factions`.
-                                // We need `SimulationStats` which has `totalTicks`, etc.
-                                // EvolutionWorker should send full `result.stats`.
-
-                                // Assuming EvolutionWorker sends full stats (I need to check/fix EvolutionWorker if not)
-                                // Let's check EvolutionWorker in a moment.
-                                // If EvolutionWorker sends proper stats, we use it.
-
-                                // For now, let's assume `results.stats` is the full SimulationStats object.
                                 this.population[popIndex].stats = results.stats;
                             }
                         });
@@ -239,14 +219,14 @@ export class Evolver {
                     // Pick next
                     if (pendingMatches.length > 0) {
                         const nextMatch = pendingMatches.shift()!;
-                        worker.postMessage({
-                            indices: nextMatch.indices, // Pass indices for tracking
+                        worker.send({
+                            indices: nextMatch.indices,
                             factionConfigs: nextMatch.configs,
                             options: options,
                             generation: this.generation
                         });
                     } else {
-                        worker.terminate();
+                        worker.kill();
                         activeWorkers--;
                         if (activeWorkers === 0) {
                             resolve();
@@ -262,14 +242,14 @@ export class Evolver {
                 // Initial Task
                 if (pendingMatches.length > 0) {
                     const nextMatch = pendingMatches.shift()!;
-                    worker.postMessage({
+                    worker.send({
                         indices: nextMatch.indices,
                         factionConfigs: nextMatch.configs,
                         options: options,
                         generation: this.generation
                     });
                 } else {
-                    worker.terminate();
+                    worker.kill();
                     activeWorkers--;
                 }
             };

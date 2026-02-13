@@ -95,7 +95,9 @@ export class BlackboardDispatcher {
         // Base Priority from Job
         const basePriority = job.priority;
 
-        return basePriority * saturationFactor * distanceFactor * fulfillmentFactor;
+        const finalScore = basePriority * saturationFactor * distanceFactor * fulfillmentFactor;
+        if (finalScore > 0) process.stderr.write(`[Dispatcher DEBUG] Agent ${agent.id} bid for ${job.jobId}: ${finalScore.toFixed(2)} (Prio: ${basePriority}, Sat: ${saturationFactor.toFixed(2)}, Dist: ${distanceFactor.toFixed(2)}, Full: ${fulfillmentFactor.toFixed(2)})\n`);
+        return finalScore;
 
     }
 

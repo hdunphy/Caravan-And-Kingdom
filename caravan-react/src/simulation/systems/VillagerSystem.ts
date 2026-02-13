@@ -231,11 +231,10 @@ export const VillagerSystem = {
             // Report Progress immediately since we are at the site
             if (agent.jobId && agent.homeId) {
                 const home = state.settlements[agent.homeId];
-                if (home) {
-                    const faction = state.factions[home.ownerId];
-                    if (faction) {
-                        BlackboardDispatcher.reportProgress(faction, agent.jobId, workAmount);
-                    }
+                if (!home) return;
+                const faction = state.factions[home.ownerId];
+                if (faction) {
+                    BlackboardDispatcher.reportProgress(faction, agent.jobId, workAmount);
                 }
             }
 
@@ -354,13 +353,17 @@ export const VillagerSystem = {
         return agent;
     },
 
-    manageIdleAnt(state: WorldState, agent: VillagerAgent, home: Settlement, config: GameConfig) {
+    manageIdleAnt(state: WorldState, agent: VillagerAgent, home: Settlement, globalConfig: GameConfig) {
         // MILESTONE 4: Blackboard Dispatcher Integration
         const faction = state.factions[home.ownerId];
         if (!faction) return;
 
+        // Gladiator Patch: Use faction config for bidding
+        const config = (faction as any).aiConfig || globalConfig;
+
         // 1. Poll for Jobs
         const bestJobs = BlackboardDispatcher.getTopAvailableJobs(agent, faction, state, config, 1);
+        // console.log(`[VillagerSystem DEBUG] Agent ${agent.id} found ${bestJobs.length} potential jobs.`);
 
         if (bestJobs.length > 0) {
             const bestJob = bestJobs[0];
@@ -405,6 +408,14 @@ export const VillagerSystem = {
                     // Go to construction site
                     if (bestJob.targetHexId) {
                         VillagerSystem.dispatchAnt(state, agent, bestJob.targetHexId, 'BUILD', config);
+                    }
+                } else if (bestJob.type === 'TRANSFER') {
+                    // Internal Freight
+                    if (bestJob.targetHexId && bestJob.resource) {
+                        VillagerSystem.dispatchAnt(state, agent, bestJob.targetHexId, 'INTERNAL_FREIGHT', config, {
+                            resource: bestJob.resource,
+                            amount: Math.min(capacity, bestJob.targetVolume - bestJob.assignedVolume)
+                        });
                     }
                 }
 

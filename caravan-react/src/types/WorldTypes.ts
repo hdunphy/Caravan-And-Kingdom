@@ -105,8 +105,12 @@ export type DesireType =
     | 'BUILD_FISHERY'
     | 'BUILD_GRANARY'
     | 'BUILD_SMITHY'
+    | 'BUILD_LUMBERYARD'
+    | 'BUILD_MINE'
     | 'RECRUIT_VILLAGER'
     | 'REQUEST_FREIGHT'
+    | 'REPLENISH'
+    | 'TRANSFER'
     | 'TRADE_CARAVAN';
 
 export interface DesireTicket {
