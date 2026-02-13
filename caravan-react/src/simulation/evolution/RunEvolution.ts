@@ -18,7 +18,8 @@ const options = {
     ticks: numTicks,
     width: 40,
     height: 40,
-    factionCount: 3 // More factions for competitive pressure
+    factionConfigs: [], // Will be populated by Evolver
+    useWorker: true
 };
 
 import { Logger } from '../../utils/Logger';
@@ -26,7 +27,7 @@ import { Logger } from '../../utils/Logger';
 // ...
 Logger.getInstance().log(`\n=== Starting Evolution Run #${runId} ===`);
 Logger.getInstance().log(`Generations: ${numGenerations}, Ticks: ${numTicks}`);
-Logger.getInstance().log(`Map: ${options.width}x${options.height}, Factions: ${options.factionCount}`);
+Logger.getInstance().log(`Map: ${options.width}x${options.height}, Factions (per match): 3`);
 
 let seedConfig = undefined;
 if (seedFile && fs.existsSync(seedFile)) {
@@ -42,39 +43,54 @@ const evolver = new Evolver(POP_SIZE, seedConfig);
         // Heartbeat callback
         const onProgress = (percent: number) => {
             // Overwrite line to prevent spam? Simple log for now.
-            // process.stdout.write(`\r[Gen ${g+1}] Agent 1 Evaluation: ${percent}%...`);
-            // Use standard log for safety if \r is flaky in some terminals
-            // Logger.getInstance().log(`[Gen ${g+1}] Agent 1 Evaluation: ${percent}%...`);
+            if (percent % 10 === 0) process.stdout.write(`.`);
         };
 
         // Run Generation
-        const best = await evolver.runGeneration(options, (p) => {
-            if (p % 20 === 0) process.stdout.write(`.`); // Compact heartbeat
-        });
+        const best = await evolver.runGeneration(options, onProgress);
         process.stdout.write('\n'); // Newline after progress dots
 
         // --- State of the Realm Summary ---
         // We now get full stats/state from the worker!
+        // But 'best' is an Individual, which has 'stats' (SimulationStats)
         const s = best.stats;
-        const state = best.state;
 
-        if (!s || !state) {
-            console.error("Error: Best individual missing stats or state!");
+        // We need the stats for the specific faction that WON (or was best)
+        // usage: best.fitness was calculated from a specific faction.
+        // We don't strictly know WHICH faction ID corresponds to 'best' unless we tracked it.
+        // However, we know 'best' was evaluated as 'player_1' or 'rival_X'.
+        // Actually, in Evolver, we assign: `this.population[popIndex].fitness = fitness`
+        // We didn't store WHICH faction ID it was.
+        // But for display, we can just show the stats of 'player_1' from the run that produced 'best'?
+        // Wait, 'best.stats' is the SimulationStats of the MATCH where this individual participated.
+        // And we don't know which faction key it was.
+        // FIX: In Evolver.ts, we should probably store the factionID on the individual too?
+        // Or just search stats.factions for the one with matching fitness? (Risk of collision)
+        // or just show Player 1 stats if we assume sorted?
+        // Let's iterate factions and find the one with highest fitness/score?
+
+        if (!s) {
+            console.error("Error: Best individual missing stats!");
             continue;
         }
 
-        const survivors = Object.keys(state.settlements).length;
-        const totalGold = Object.values(state.factions).reduce((sum, f) => sum + (f.gold || 0), 0);
-        const sortedPop = [...s.popHistory].sort((a, b) => a - b);
-        const medianPop = sortedPop.length > 0 ? sortedPop[Math.floor(sortedPop.length / 2)] : 0;
+        // Find the faction stat that matches the best fitness? 
+        // Or just print the best performing faction in that run?
+        let bestFactionId = 'player_1';
+        // For now, let's just grab the first one or player_1 as a proxy.
+        // In the future, Evolver should track this.
+
+        const fStats = s.factions[bestFactionId] || Object.values(s.factions)[0];
+        const survivors = Object.keys(s.factions).filter(k => s.factions[k].population > 0).length;
 
         Logger.getInstance().setSilent(false);
         Logger.getInstance().log(`\n=== State of the Realm (Gen ${g + 1}) ===`);
         console.table({
             'Best Fitness': best.fitness.toFixed(2),
-            'Median Pop': medianPop,
-            'Total Gold': Math.floor(totalGold),
-            'Max Tier': s.tiersReached,
+            'Pop': fStats.population,
+            'Wealth': Math.floor(fStats.totalWealth),
+            'Max Tier': fStats.tiersReached,
+            'Goals': Object.keys(fStats.goalsCompleted).length,
             'Survivors': survivors,
             'Ticks': s.totalTicks
         });

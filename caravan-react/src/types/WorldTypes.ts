@@ -96,6 +96,7 @@ export interface Faction {
     gold?: number; // Global gold? Or per settlement? Let's keep it here for now if needed.
     blackboard?: FactionBlackboard;
     jobPool?: any; // JobPool instance
+    aiConfig?: any; // Store per-faction genome for Gladiator mode
 }
 
 export type DesireType =

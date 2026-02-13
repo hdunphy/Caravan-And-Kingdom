@@ -21,6 +21,15 @@ export interface Genome {
     tradeRoiThreshold: number;
     constructionRoiThreshold: number;
     targetToolRatio: number;
+
+    // Sovereign Policy
+    sovereignFoodSurplus: number;
+    sovereignDesperationRatio: number;
+
+    // Agent Bidding
+    bidDistanceWeight: number;
+    bidSaturationWeight: number;
+    bidFulfillmentWeight: number;
 }
 
 export const configToGenome = (config: GameConfig): Genome => ({
@@ -43,6 +52,15 @@ export const configToGenome = (config: GameConfig): Genome => ({
     tradeRoiThreshold: config.costs.logistics.tradeRoiThreshold,
     constructionRoiThreshold: config.costs.logistics.constructionRoiThreshold,
     targetToolRatio: config.industry.targetToolRatio,
+
+    // Sovereign
+    sovereignFoodSurplus: config.ai.sovereign.foodSurplusRatio,
+    sovereignDesperationRatio: config.ai.sovereign.desperationFoodRatio,
+
+    // Bidding
+    bidDistanceWeight: config.ai.bidding.distanceWeight,
+    bidSaturationWeight: config.ai.bidding.saturationWeight,
+    bidFulfillmentWeight: config.ai.bidding.fulfillmentWeight,
 });
 
 export const genomeToConfig = (genome: Genome, baseConfig: GameConfig): GameConfig => {
@@ -66,6 +84,15 @@ export const genomeToConfig = (genome: Genome, baseConfig: GameConfig): GameConf
     newConfig.costs.logistics.tradeRoiThreshold = genome.tradeRoiThreshold;
     newConfig.costs.logistics.constructionRoiThreshold = genome.constructionRoiThreshold;
     newConfig.industry.targetToolRatio = genome.targetToolRatio;
+
+    // Sovereign
+    newConfig.ai.sovereign.foodSurplusRatio = genome.sovereignFoodSurplus;
+    newConfig.ai.sovereign.desperationFoodRatio = genome.sovereignDesperationRatio;
+
+    // Bidding
+    newConfig.ai.bidding.distanceWeight = genome.bidDistanceWeight;
+    newConfig.ai.bidding.saturationWeight = genome.bidSaturationWeight;
+    newConfig.ai.bidding.fulfillmentWeight = genome.bidFulfillmentWeight;
 
     return newConfig;
 };

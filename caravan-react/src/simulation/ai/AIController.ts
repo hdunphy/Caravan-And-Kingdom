@@ -79,18 +79,21 @@ export class AIController {
         });
     }
 
-    private processFaction(factionId: string, state: WorldState, config: GameConfig) {
-        // 0. Sovereign Check (Faction Level)
+    private processFaction(factionId: string, state: WorldState, globalConfig: GameConfig) {
         const faction = state.factions[factionId];
-        if (faction) {
-            SovereignAI.evaluate(faction, state, config);
+        if (!faction) return;
 
-            // MILESTONE 3: GOAP Planner
-            if (!faction.jobPool) {
-                faction.jobPool = new JobPool(faction.id);
-            }
-            GOAPPlanner.plan(faction, faction.jobPool, config);
+        // Use Faction-Specific AI Config if available (for Gladiator GA)
+        const config = (faction as any).aiConfig || globalConfig;
+
+        // 0. Sovereign Check (Faction Level)
+        SovereignAI.evaluate(faction, state, config);
+
+        // MILESTONE 3: GOAP Planner
+        if (!(faction as any).jobPool) {
+            (faction as any).jobPool = new JobPool(faction.id);
         }
+        GOAPPlanner.plan(faction, (faction as any).jobPool, config);
 
         // 1. Update Settlement State & Influence Flags
         const settlements = Object.values(state.settlements).filter(s => s.ownerId === factionId);
@@ -98,7 +101,7 @@ export class AIController {
         // MILESTONE 2: Governor & Blackboard Integration
         // Clear old desires
         if (faction.blackboard) {
-            faction.blackboard.desires = [];
+            (faction.blackboard as any).desires = [];
         }
 
         settlements.forEach(s => {
@@ -106,20 +109,18 @@ export class AIController {
             SettlementGovernor.evaluate(s, faction, state, config);
 
             // Bridge: Map Top Desire to Legacy Goal (for compat with existing strategies)
-            // GoalEvaluator.evaluate(state, s, config) is REPLACED by this logic.
-            if (faction.blackboard?.desires) {
-                const myDesires = faction.blackboard.desires
-                    .filter(d => d.settlementId === s.id)
-                    .sort((a, b) => b.score - a.score);
+            if (faction.blackboard && (faction.blackboard as any).desires) {
+                const myDesires = (faction.blackboard as any).desires
+                    .filter((d: any) => d.settlementId === s.id)
+                    .sort((a: any, b: any) => b.score - a.score);
 
                 if (myDesires.length > 0) {
                     const topDesire = myDesires[0];
-                    // Map DesireType to GoalType
                     switch (topDesire.type) {
                         case 'UPGRADE': s.currentGoal = 'UPGRADE'; break;
                         case 'SETTLER': s.currentGoal = 'EXPAND'; break;
                         case 'BUILD_SMITHY': s.currentGoal = 'TOOLS'; break;
-                        case 'RECRUIT_VILLAGER': s.currentGoal = 'EXPAND'; break; // Loose mapping
+                        case 'RECRUIT_VILLAGER': s.currentGoal = 'EXPAND'; break;
                         default: s.currentGoal = undefined; break;
                     }
                 } else {

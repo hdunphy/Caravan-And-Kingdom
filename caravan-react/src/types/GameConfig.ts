@@ -132,6 +132,12 @@ export interface GameConfig {
             expandSaturationPower: number;
             expandMinDistance: number;
         };
+        bidding: {
+            distanceWeight: number;
+            saturationWeight: number;
+            fulfillmentWeight: number;
+        };
+
         sovereign: {
             checkInterval: number;
             foodSurplusRatio: number;
@@ -373,6 +379,12 @@ export const DEFAULT_CONFIG: GameConfig = {
             expandSaturationPower: 0.55,
             expandMinDistance: 5.55,
         },
+        bidding: {
+            distanceWeight: 1.0,
+            saturationWeight: 1.0,
+            fulfillmentWeight: 1.0,
+        },
+
         sovereign: {
             checkInterval: 100,
             foodSurplusRatio: 0.8,

@@ -39,16 +39,19 @@ export class BlackboardDispatcher {
      * Score = (Base_Priority * Saturation_Factor) * Distance_Factor * Fulfillment_Factor
      */
     static calculateBid(agent: AgentEntity, job: JobTicket, state: WorldState, config: GameConfig): number {
-        // 1. Saturation Factor
-        // If assigned > target, factor is 0 or negative (should be filtered out by 'OPEN' check mostly)
+        // Weights from Config
+        const wDist = config.ai.bidding?.distanceWeight ?? 1.0;
+        const wSat = config.ai.bidding?.saturationWeight ?? 1.0;
+        const wFull = config.ai.bidding?.fulfillmentWeight ?? 1.0;
+
+        // 1. Saturation Factor (Lower is better, so 1.0 - saturation)
+        // If assigned > target, factor is 0
         const saturation = Math.min(1.0, job.assignedVolume / Math.max(1, job.targetVolume));
-        const saturationFactor = 1.0 - saturation;
+        const saturationFactor = Math.pow(1.0 - saturation, wSat);
         if (saturationFactor <= 0) return 0;
 
-        // 2. Distance Factor
-        // Heuristic: Distance from Agent to Job Target (or Source if no target hex)
-        // If job has targetHexId (e.g. BUILD at X, GATHER at X), uses that.
-        // If job just has sourceId (e.g. general request), uses settlement location.
+        // 2. Distance Factor (Inverse distance)
+        // Heuristic: Distance from Agent to Job Target
         let targetHexId = job.targetHexId;
         if (!targetHexId && job.sourceId) {
             const settlement = state.settlements[job.sourceId];
@@ -66,24 +69,34 @@ export class BlackboardDispatcher {
         // Penalize long distance
         // e.g. dist 0 -> 1.0, dist 10 -> 0.1
         const distancePenalty = config.costs.movement || 1.0;
-        const distanceFactor = 1.0 / Math.max(1, dist * distancePenalty);
+        const rawDistFactor = 1.0 / Math.max(1, dist * distancePenalty);
+        const distanceFactor = Math.pow(rawDistFactor, wDist);
 
         // 3. Fulfillment Factor (Capacity vs Remaining generic volume)
-        // A caravan (50 cap) should prefer large jobs. A villager (20 cap) handles small ones fine.
         // Remaining = Target - Assigned
         const remaining = Math.max(1, job.targetVolume - job.assignedVolume);
 
-        // Agent Capacity (Hardcoded fallback for now, ideally strictly typed or from config)
+        // Agent Capacity
         let capacity = 20;
         if (agent.type === 'Caravan') capacity = config.costs.trade?.capacity || 50;
         if (agent.type === 'Villager') capacity = config.costs.villagers?.capacity || 20;
 
-        const fulfillmentFactor = Math.min(1.0, remaining / capacity);
+        // We want agents to pick jobs they can FILL.
+        // If remaining >>> capacity, ratio > 1.0 -> 1.0 (Good)
+        // If remaining <<< capacity, ratio < 1.0 -> Penalize (Waste of trip partial fill?)
+        // Actually, if we have 50 cap and job needs 5, it's inefficient?
+        // Let's stick to "How much of my capacity is used?"
+        // predictedLoad = min(remaining, capacity)
+        // efficiency = predictedLoad / capacity.
+        const predictedLoad = Math.min(remaining, capacity);
+        const efficiency = predictedLoad / capacity;
+        const fulfillmentFactor = Math.pow(efficiency, wFull);
 
         // Base Priority from Job
         const basePriority = job.priority;
 
         return basePriority * saturationFactor * distanceFactor * fulfillmentFactor;
+
     }
 
     /**

@@ -99,26 +99,25 @@ export const VillagerSystem = {
         } else {
             // Move towards target
             const targetHex = state.map[targetHexId];
-            if (targetHex) {
-                if (!agent.path || agent.path.length === 0) {
-                    const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config, 'Villager');
-                    if (path) {
-                        agent.path = path;
-                        agent.target = targetHex.coordinate;
-                        agent.activity = 'MOVING';
-                    } else {
-                        this.returnHome(state, agent, config);
-                    }
+            if (!agent.path || agent.path.length === 0) {
+                // Logger.getInstance().log(`[VillagerSystem] Dispatching ${agent.id} to ${targetHexId} for ${mission}`);
+                const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config, 'Villager');
+                if (path) {
+                    agent.path = path;
+                    agent.target = targetHex.coordinate;
+                    agent.activity = 'MOVING';
+                } else {
+                    Logger.getInstance().log(`[VillagerSystem] Failed to find path for ${agent.id} to ${targetHexId}`);
+                    this.returnHome(state, agent, config);
                 }
             }
         }
     },
 
     handleGather(state: WorldState, agent: VillagerAgent, config: GameConfig) {
-        // ... existing handleGather code ...
         // Arrived at target?
         if (!agent.gatherTarget) {
-            // Error state, return home
+            Logger.getInstance().log(`[VillagerSystem] Agent ${agent.id} has no gatherTarget`);
             this.returnHome(state, agent, config);
             return;
         }
@@ -130,46 +129,46 @@ export const VillagerSystem = {
             // ARRIVED -> PICK UP
             const hex = state.map[currentHexId];
             if (hex && hex.resources) {
-                // Determine Capacity
                 const capacity = config.costs.villagers?.capacity || 20;
                 let currentLoad = Object.values(agent.cargo).reduce((a, b) => a + b, 0);
                 const space = capacity - currentLoad;
 
                 if (space > 0) {
-                    // Pick up specific resource if assigned, or any?
-                    // Usually Governor assigns specific resource type or we just grab all.
-                    // Let's grab everything we can.
-
+                    let gathered = false;
                     for (const [res, amount] of Object.entries(hex.resources)) {
                         if (amount > 0 && space > 0) {
                             const take = Math.min(amount, space);
                             agent.cargo[res as keyof Resources] = (agent.cargo[res as keyof Resources] || 0) + take;
                             hex.resources[res as keyof Resources]! -= take;
-
-                            // Recalculate space? No, let's just do one pass or simple check
-                            // Technically we should update `space` and `currentLoad` inside loop.
-                            break; // Take one type per tick? Or greedy?
-                            // Let's just break for now to keep simple (one type focus)
+                            Logger.getInstance().log(`[VillagerSystem] Agent ${agent.id} gathered ${take} ${res}`);
+                            gathered = true;
+                            break;
                         }
                     }
+                    if (!gathered) {
+                        Logger.getInstance().log(`[VillagerSystem] Agent ${agent.id} arrived but found no resources at ${currentHexId}`);
+                    }
+                } else {
+                    Logger.getInstance().log(`[VillagerSystem] Agent ${agent.id} arrived but full`);
                 }
+            } else {
+                Logger.getInstance().log(`[VillagerSystem] Agent ${agent.id} arrived at ${currentHexId} but no hex/resources`);
             }
 
             // Return Home
             this.returnHome(state, agent, config);
         } else {
-            // Should be moving? If path is empty but not at target, we need path.
-            // But GovernorAI should have set path.
-            // If we are here, we might need to repath?
+            // Should be moving?
+            Logger.getInstance().log(`[VillagerSystem] Agent ${agent.id} is BUSY/GATHER but not at target (Current: ${currentHexId}, Target: ${targetHexId})`);
             const targetHex = state.map[HexUtils.getID(agent.gatherTarget)];
             if (targetHex) {
+                // Repath logic
                 const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config, 'Villager');
                 if (path) {
                     agent.path = path;
                     agent.target = targetHex.coordinate;
                     agent.activity = 'MOVING';
                 } else {
-                    // Unreachable
                     this.returnHome(state, agent, config);
                 }
             }
@@ -445,6 +444,17 @@ export const VillagerSystem = {
             if (home) {
                 if (!home.unreachableHexes) home.unreachableHexes = {};
                 home.unreachableHexes[targetHexId] = state.tick + 100;
+            }
+
+            // Release Job if applicable
+            if (agent.jobId) {
+                const faction = state.factions[agent.ownerId];
+                if (faction) {
+                    const capacity = config.costs.villagers?.capacity || 20;
+                    BlackboardDispatcher.releaseAssignment(faction, agent.jobId, capacity);
+                    Logger.getInstance().log(`[VillagerSystem] Released job ${agent.jobId} for agent ${agent.id} due to pathfinding failure.`);
+                }
+                agent.jobId = undefined;
             }
         }
     }
