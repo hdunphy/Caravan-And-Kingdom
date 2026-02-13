@@ -124,13 +124,5 @@ export function useGameSimulation() {
     const togglePause = () => setIsRunning(!isRunning);
     const reset = () => window.location.reload(); // Lazy reset for now
 
-    const spawnTestCaravan = () => {
-        if (loopRef.current) {
-            // Force Trade Logic
-            loopRef.current.forceTrade();
-            setGameState({ ...loopRef.current.getState() });
-        }
-    };
-
-    return { gameState, isRunning, togglePause, reset, spawnTestCaravan };
+    return { gameState, isRunning, togglePause, reset };
 }

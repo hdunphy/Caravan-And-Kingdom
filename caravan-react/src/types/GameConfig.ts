@@ -223,7 +223,7 @@ export const DEFAULT_CONFIG: GameConfig = {
         },
         agents: {
             Villager: { Food: 100 },
-            Settler: { Food: 500, Timber: 200 },
+            Settler: { Food: 800, Timber: 400 }, // Increased from 500/200
             Caravan: { Timber: 50 }
         },
         baseConsume: 0.1,
@@ -256,7 +256,7 @@ export const DEFAULT_CONFIG: GameConfig = {
         },
         villagers: {
             speed: 0.5, // Slow down to 0.5 hex/tick (Takes 2 ticks to move 1 plains hex)
-            capacity: 20,
+            capacity: 12, // Reduced from 20 to balance higher tick rate
             range: 3,
             popRatio: 50,
             baseVillagers: 2,
@@ -316,7 +316,7 @@ export const DEFAULT_CONFIG: GameConfig = {
     ai: {
         settlementCap: 5,
         settlerCost: 50,
-        settlerCooldown: 100,
+        settlerCooldown: 300, // Increased from 100 to slow expansion
         expansionBuffer: 1.5,
         expansionStarterPack: {
             Food: 100,

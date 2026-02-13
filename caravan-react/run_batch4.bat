@@ -1,6 +1,6 @@
 @echo off
-cd caravan-react
-echo Starting Batch 4 Marathon (Feudal Era)...
-call node_modules\.bin\tsx.cmd src/simulation/evolution/RunEvolution.ts BATCH4 200 20000 config_results_20000_ticks_3.json config_results_batch4_feudal.json > evolution_logs_batch4.txt 2>&1
+timeout /t 900
+echo Starting Batch 6 Marathon (Feudal Era)...
+call node_modules\.bin\tsx.cmd src/simulation/evolution/RunEvolution.ts BATCH6 200 25000 default config_results_batch6.json > evolution_logs_batch6.txt 2>&1
 echo Done.
 pause

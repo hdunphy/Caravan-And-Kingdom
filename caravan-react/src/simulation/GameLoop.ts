@@ -72,6 +72,11 @@ export class GameLoop {
         return CaravanSystem.spawn(this.state, startHexId, targetHexId);
     }
 
+    forceTrade() {
+        // Stub to satisfy build requirements in useGameSimulation.ts
+        // This can be expanded later if manual trade triggering is needed.
+    }
+
 
     getState() {
         return this.state;
