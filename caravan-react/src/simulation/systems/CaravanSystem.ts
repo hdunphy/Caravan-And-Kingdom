@@ -3,6 +3,7 @@ import { GameConfig } from '../../types/GameConfig.ts';
 import { HexUtils } from '../../utils/HexUtils.ts';
 import { Pathfinding } from '../Pathfinding.ts';
 import { Logger } from '../../utils/Logger.ts';
+import { BlackboardDispatcher } from '../ai/BlackboardDispatcher';
 
 export const CaravanSystem = {
     // Determine spawn location (Settlement or from IDLE pool)
@@ -222,6 +223,63 @@ export const CaravanSystem = {
                             agent.integrity = Math.min(100, agent.integrity + 20); // Repair chunk
                         }
                     }
+
+                    // MILESTONE 4: Blackboard Dispatcher Polling
+                    const faction = state.factions[home.ownerId];
+                    if (faction) {
+                        const bestJobs = BlackboardDispatcher.getTopAvailableJobs(agent, faction, state, config, 1);
+                        if (bestJobs.length > 0) {
+                            const job = bestJobs[0];
+                            // Filter for suitable jobs (Caravans prefer Large Volume or Distance?)
+                            // Dispatcher logic handles preference. 
+                            // But Caravans shouldn't do simple GATHER usually? 
+                            // Milestone 4: "High capacity agents like Caravans prefer large COLLECT bounties".
+                            // So yes, they can do COLLECT (Logistics).
+
+                            const capacity = config.costs.trade?.capacity || 50;
+                            if (BlackboardDispatcher.claimJob(faction, agent, job, capacity)) {
+                                agent.jobId = job.jobId;
+
+                                // Setup Mission
+                                if (job.type === 'COLLECT') {
+                                    // Dispatch as LOGISTICS
+                                    const targetHexId = job.targetHexId || (job.sourceId ? state.settlements[job.sourceId]?.hexId : undefined);
+                                    if (targetHexId) {
+                                        CaravanSystem.dispatch(state, home, targetHexId, 'LOGISTICS', config, {});
+                                        // dispatch creates a NEW agent or reuses? 
+                                        // Our 'dispatch' helper actually LOOKS for an agent. 
+                                        // We already HAVE 'agent'.
+                                        // So we should manually configure 'agent' here instead of calling dispatch recursively 
+                                        // (which might find this same agent or another).
+
+                                        // Manual Setup similar to dispatch return
+                                        const targetHex = state.map[targetHexId];
+                                        if (targetHex) {
+                                            const path = Pathfinding.findPath(agent.position, targetHex.coordinate, state.map, config, 'Caravan');
+                                            if (path) {
+                                                agent.path = path;
+                                                agent.target = targetHex.coordinate;
+                                                agent.activity = 'MOVING';
+                                                agent.status = 'BUSY';
+                                                agent.mission = 'LOGISTICS';
+                                                agent.tradeState = 'OUTBOUND';
+                                                agent.targetSettlementId = undefined; // Just hex
+                                            } else {
+                                                BlackboardDispatcher.releaseAssignment(faction, job.jobId, capacity);
+                                                agent.jobId = undefined;
+                                            }
+                                        }
+                                    }
+                                } else if (job.type === 'BUILD') {
+                                    // Caravans don't build? Or do they transport materials for build?
+                                    // For now, let's say they ignore BUILD or treat it as LOGISTICS (deliver materials).
+                                    // If we don't handle it, release job.
+                                    BlackboardDispatcher.releaseAssignment(faction, job.jobId, capacity);
+                                    agent.jobId = undefined;
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -291,15 +349,26 @@ export const CaravanSystem = {
                         const home = state.settlements[homeId];
                         if (home) {
                             const haul: string[] = [];
+                            let totalDelivered = 0;
                             (Object.entries(agent.cargo) as [keyof Resources, number][]).forEach(([res, amount]) => {
                                 if (amount > 0) {
                                     home.stockpile[res] += amount;
                                     haul.push(`${amount} ${res}`);
                                     agent.cargo[res] = 0;
+                                    totalDelivered += amount;
                                 }
                             });
                             if (haul.length > 0) {
                                 Logger.getInstance().log(`[Logistics] Caravan returned to ${home.name} with: ${haul.join(', ')}`);
+                            }
+
+                            // MILESTONE 4: Report Progress
+                            if (agent.jobId) {
+                                const faction = state.factions[home.ownerId];
+                                if (faction) {
+                                    BlackboardDispatcher.reportProgress(faction, agent.jobId, totalDelivered);
+                                }
+                                agent.jobId = undefined;
                             }
                         }
                     }

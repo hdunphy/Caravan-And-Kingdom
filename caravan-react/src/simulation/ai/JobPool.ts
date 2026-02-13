@@ -1,12 +1,9 @@
-import { JobTicket, JobStatus } from './AITypes';
+import { JobTicket } from './AITypes';
 import { Logger } from '../../utils/Logger';
 
 export class JobPool {
     private jobs: Map<string, JobTicket> = new Map();
-    private factionId: string;
-
-    constructor(factionId: string) {
-        this.factionId = factionId;
+    constructor(_factionId: string) {
     }
 
     /**

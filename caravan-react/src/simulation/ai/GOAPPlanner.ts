@@ -1,11 +1,11 @@
-import { Faction, ResourceType } from '../../types/WorldTypes';
+import { Faction } from '../../types/WorldTypes';
 import { GameConfig } from '../../types/GameConfig';
 import { JobTicket, JobType, JobUrgency } from './AITypes';
 import { JobPool } from './JobPool';
-import { Logger } from '../../utils/Logger';
+
 
 export class GOAPPlanner {
-    static plan(faction: Faction, jobPool: JobPool, config: GameConfig) {
+    static plan(faction: Faction, jobPool: JobPool, _config: GameConfig) {
         if (!faction.blackboard || !faction.blackboard.desires) return;
 
         const desires = faction.blackboard.desires;

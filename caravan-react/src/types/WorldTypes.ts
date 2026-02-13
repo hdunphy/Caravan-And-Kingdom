@@ -142,6 +142,7 @@ export interface BaseAgent {
     movementProgress?: number;
     lastHexId?: string;    // For stuck detection
     stuckTicks?: number;  // For stuck detection
+    jobId?: string; // Assigned Job ID
 }
 
 export interface CaravanAgent extends BaseAgent {
@@ -161,7 +162,7 @@ export interface SettlerAgent extends BaseAgent {
 export interface VillagerAgent extends BaseAgent {
     type: 'Villager';
     homeId: string; // Villagers always belong to a settlement
-    mission?: 'GATHER' | 'IDLE' | 'INTERNAL_FREIGHT';
+    mission?: 'GATHER' | 'IDLE' | 'INTERNAL_FREIGHT' | 'BUILD';
     gatherTarget?: HexCoordinate;
     resourceType?: keyof Resources;
 }
