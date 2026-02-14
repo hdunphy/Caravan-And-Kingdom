@@ -155,7 +155,8 @@ describe('CaravanSystem', () => {
 
         const newSettlement = Object.values(state.settlements).find(s => s.hexId === '1,0');
         expect(newSettlement).toBeDefined();
-        expect(newSettlement?.stockpile.Food).toBe(starterFood);
+        // 100 (Cargo) + 250 (Default Config Starter Pack)
+        expect(newSettlement?.stockpile.Food).toBe(350);
     });
 
     it('should repair idle caravans at home', () => {

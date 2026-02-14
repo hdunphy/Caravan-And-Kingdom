@@ -106,15 +106,22 @@ export class AIController {
         if (!faction.blackboard || !faction.blackboard.desires) return;
 
         const desires = faction.blackboard.desires;
-        // Filter for instant actions
-        const instantDesires = desires.filter((d: any) =>
-            d.type === 'RECRUIT_VILLAGER' ||
-            d.type === 'SETTLER' ||
-            d.type === 'UPGRADE' ||
-            d.type.startsWith('BUILD_')
-        );
+        
+        // Filter for instant actions and SORT by priority
+        const instantDesires = desires
+            .filter((d: any) =>
+                d.type === 'RECRUIT_VILLAGER' ||
+                d.type === 'SETTLER' ||
+                d.type === 'UPGRADE' ||
+                d.type === 'TRADE_CARAVAN' ||
+                d.type.startsWith('BUILD_')
+            )
+            .sort((a: any, b: any) => b.score - a.score);
 
-        instantDesires.forEach((d: any) => {
+        // Process top 5 actions to ensure we don't skip high-prio recruits
+        const topDesires = instantDesires.slice(0, 5);
+
+        topDesires.forEach((d: any) => {
             const settlement = state.settlements[d.settlementId];
             if (!settlement) return;
 
@@ -123,99 +130,68 @@ export class AIController {
                 if (settlement.stockpile.Food >= cost) {
                     settlement.stockpile.Food -= cost;
                     settlement.availableVillagers = (settlement.availableVillagers || 0) + 1;
-                    Logger.getInstance().log(`[AI] ${settlement.id} recruited villager. Pop: ${settlement.population}`);
+                    // Logger.getInstance().log(`[AI] ${settlement.name} recruited villager.`);
                 }
             } else if (d.type === 'SETTLER') {
                 const sCost = config.costs.agents.Settler;
                 if (settlement.stockpile.Food >= (sCost.Food || 0) && settlement.stockpile.Timber >= (sCost.Timber || 0)) {
-                    // Find expansion target (simplified for instant resolution or dispatch)
                     const target = MapGenerator.findExpansionLocation(state.map, state.width, state.height, config, Object.values(state.settlements));
                     if (target) {
                         const agent = CaravanSystem.spawn(state, settlement.hexId, target.id, 'Settler', config);
                         if (agent) {
                             agent.ownerId = settlement.ownerId;
-                            // Deduct Costs
                             settlement.stockpile.Food -= (sCost.Food || 0);
                             settlement.stockpile.Timber -= (sCost.Timber || 0);
                             settlement.population -= config.ai.settlerCost;
 
-                            // Increment Stats
-                            if (faction && faction.stats) {
-                                faction.stats.settlersSpawned++;
-                            }
-                            Logger.getInstance().log(`[AI] ${settlement.id} spawned settler to ${target.id}`);
+                            if (faction.stats) faction.stats.settlersSpawned++;
+                            Logger.getInstance().log(`[AI] ${settlement.name} spawned settler to ${target.id}`);
                         }
                     }
                 }
-            } else if (d.type.startsWith('BUILD_')) {
-                const buildingType = d.type.replace('BUILD_', '');
-                // Check if already built (to avoid duplicates if desire persists)
-                if (settlement.buildings.includes(buildingType)) return;
-
-                const cost = this.getBuildingCost(buildingType, config);
-                let canAfford = true;
-                const missing: string[] = [];
-
-                for (const [res, amount] of Object.entries(cost)) {
-                    if ((settlement.stockpile[res as keyof Resources] || 0) < (amount as number)) {
-                        canAfford = false;
-                        missing.push(`${res} (${(settlement.stockpile[res as keyof Resources] || 0)}/${amount})`);
-                    }
-                }
-
-                if (canAfford) {
-                    // Deduct
-                    for (const [res, amount] of Object.entries(cost)) {
-                        settlement.stockpile[res as keyof Resources] -= (amount as number);
-                    }
-                    // Build
-                    settlement.buildings.push(buildingType);
-                    Logger.getInstance().log(`[AI] ${settlement.id} constructed ${buildingType}`);
-
-                    // Stats
-                    if (faction.stats) faction.stats.buildingsConstructed = (faction.stats.buildingsConstructed || 0) + 1;
-                } else {
-                    // Log failure reason (Standard log for now to see it)
-                    // Only log intermittently or if specifically debugged? 
-                    // Let's log if score is high (> 0.5) to avoid spam for low prio
-                    if (d.score > 0.5) {
-                        Logger.getInstance().log(`[AI] ${settlement.id} wanted ${buildingType} but missing: ${missing.join(', ')}`);
+            } else if (d.type === 'TRADE_CARAVAN') {
+                const cCost = config.costs.agents.Caravan;
+                if (settlement.stockpile.Timber >= (cCost.Timber || 50)) {
+                    const agent = CaravanSystem.spawn(state, settlement.hexId, settlement.hexId, 'Caravan', config);
+                    if (agent) {
+                        agent.ownerId = settlement.ownerId;
+                        (agent as any).homeId = settlement.id;
+                        agent.status = 'IDLE';
+                        settlement.stockpile.Timber -= (cCost.Timber || 50);
+                        Logger.getInstance().log(`[AI] ${settlement.name} recruited Caravan.`);
                     }
                 }
             } else if (d.type === 'UPGRADE') {
-                // Attempt upgrade via System
-                // UpgradeSystem checks costs and population requirements internally
                 const success = UpgradeSystem.tryUpgrade(state, settlement, config);
                 if (success) {
                     Logger.getInstance().log(`[AI] ${settlement.id} upgraded to Tier ${settlement.tier}`);
+                }
+            } else if (d.type.startsWith('BUILD_')) {
+                const rawType = d.type.replace('BUILD_', '');
+                const buildingType = this.toTitleCase(rawType);
+                if (!settlement.buildings.some((b: any) => b.type === buildingType)) {
+                    const cost = this.getBuildingCost(rawType, config);
+                    let canAfford = true;
+                    for (const [res, amt] of Object.entries(cost)) {
+                        if ((settlement.stockpile[res as keyof Resources] || 0) < (amt as number)) canAfford = false;
+                    }
+                    if (canAfford) {
+                        for (const [res, amt] of Object.entries(cost)) settlement.stockpile[res as keyof Resources] -= (amt as number);
+                        settlement.buildings.push({
+                            id: `bld_${Date.now()}`, type: buildingType as any, hexId: settlement.hexId, integrity: 100, level: 1
+                        });
+                        Logger.getInstance().log(`[AI] ${settlement.id} constructed ${buildingType}`);
+                    }
                 }
             }
         });
     }
 
     private getBuildingCost(type: string, config: GameConfig): Partial<Resources> {
-        // Map UPPERCASE Desire type to Config Key (Title Case)
-        // e.g. SMITHY -> Smithy, GRANARY -> Granary (Mapped manually or via lookup)
-        // Simple map for now based on known types
-        // If type === 'SMITHY', configKey = 'Smithy';
-        // If type === 'GRANARY', configKey = 'Granary'; // Not in config? 'Warehouse' is logic equivalent? No, Wait.
-        // Governor uses 'BUILD_GRANARY'. Config key?
-        // Let's create a switch that maps to Config, or fallback to defaults.
-
-        // Actually, let's look at GameConfig (Step 330).
-        // It has 'Smithy', 'Fishery', 'Watchtower', 'GuardPost', 'PavedRoad', 'Masonry', 'Sawmill', 'Warehouse', 'GathererHut'.
-        // Governor asks for: SMITHY, GRANARY, FISHERY, LUMBERYARD, MINE.
-        // Mismatch!
-
         switch (type) {
             case 'SMITHY':
                 return config.buildings['Smithy']?.cost || { Stone: 150, Ore: 50 };
             case 'GRANARY':
-                // Using Warehouse as Granary equivalent or fallback? 
-                // Governor asks for Granary. Config has Warehouse.
-                // Let's assume Granary cost triggers building of... what?
-                // If we construct "GRANARY", verification expects "GRANARY". 
-                // Let's stick to the requested Type for now, but use generic costs.
                 return { Timber: 100, Stone: 20 };
             case 'FISHERY':
                 return config.buildings['Fishery']?.cost || { Timber: 100 };
@@ -225,5 +201,14 @@ export class AIController {
                 return config.buildings['Masonry']?.cost || { Stone: 50 };
             default: return { Timber: 50 };
         }
+    }
+
+    private toTitleCase(str: string): string {
+        if (str === 'GRANARY') return 'Granary';
+        if (str === 'FISHERY') return 'Fishery';
+        if (str === 'SMITHY') return 'Smithy';
+        if (str === 'LUMBERYARD') return 'LumberYard';
+        if (str === 'MINE') return 'Mine';
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     }
 }

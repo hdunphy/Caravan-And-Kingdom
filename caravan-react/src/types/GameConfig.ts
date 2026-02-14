@@ -319,7 +319,7 @@ export const DEFAULT_CONFIG: GameConfig = {
         settlerCooldown: 300, // Increased from 100 to slow expansion
         expansionBuffer: 1.5, // Manual Sanity Override
         expansionStarterPack: {
-            Food: 100,
+            Food: 250,
             Timber: 50,
             Stone: 20,
             Ore: 0,

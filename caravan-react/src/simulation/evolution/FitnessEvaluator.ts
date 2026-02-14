@@ -50,7 +50,9 @@ export const calculateFitness = (_state: WorldState, stats: SimulationStats, fac
 
     // Logistics Efficiency Penalty (Waste)
     // Snapshot of uncollected resources at the end.
-    score -= (fStats.resourceWaste * 0.1);
+    // Ensure value is a number to prevent NaN in score
+    const waste = Number(fStats.resourceWaste) || 0;
+    score -= (waste * 0.1);
 
     // 8. Penalty for dying/stagnation (The "Total Collapse" Multiplier)
     // If population < 1, they effectively went extinct.

@@ -1,6 +1,8 @@
 @echo off
 setlocal enableextensions enabledelayedexpansion
 
+timeout /t 1200
+
 REM Usage: run_batch.bat [BATCH_NUMBER] [OPTIONAL_SEED_FILE_PATH]
 
 if "%1"=="" (

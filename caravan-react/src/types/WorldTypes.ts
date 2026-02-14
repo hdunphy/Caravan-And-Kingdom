@@ -39,7 +39,11 @@ export type BuildingType =
     | 'Watchtower'
     | 'Barracks'
     | 'MarketHall'
-    | 'Palace';
+    | 'Palace'
+    | 'Granary'
+    | 'Fishery'
+    | 'LumberYard'
+    | 'Mine';
 
 export interface BuildingInstance {
     id: string;

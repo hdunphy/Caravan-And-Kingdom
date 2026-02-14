@@ -1,0 +1,8 @@
+
+=== Starting Evolution Run #13 ===
+Generations: 200, Ticks: 25000
+Map: 40x40, Factions (per match): 3
+No seed config found. Using default config.
+Seeding population with provided config.
+[Gen 1] Running sequential evaluation...
+[DEATH] Settlement Rival 2 Capital has died out.

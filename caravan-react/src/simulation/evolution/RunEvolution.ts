@@ -3,6 +3,7 @@ import { genomeToConfig } from './Genome';
 import { DEFAULT_CONFIG } from '../../types/GameConfig';
 import * as fs from 'fs';
 import { Genome } from './Genome';
+import { Logger } from '../../utils/Logger';
 
 // Get args from command line
 const args = process.argv.slice(2);
@@ -21,9 +22,6 @@ const options = {
     useWorker: true
 };
 
-import { Logger } from '../../utils/Logger';
-
-// ...
 Logger.getInstance().log(`\n=== Starting Evolution Run #${runId} ===`);
 Logger.getInstance().log(`Generations: ${numGenerations}, Ticks: ${numTicks}`);
 Logger.getInstance().log(`Map: ${options.width}x${options.height}, Factions (per match): 3`);
@@ -55,31 +53,13 @@ const evolver = new Evolver(POP_SIZE, seedConfig);
         process.stdout.write('\n'); // Newline after progress dots
 
         // --- State of the Realm Summary ---
-        // We now get full stats/state from the worker!
-        // But 'best' is an Individual, which has 'stats' (SimulationStats)
         const s = best.stats;
-
-        // We need the stats for the specific faction that WON (or was best)
-        // usage: best.fitness was calculated from a specific faction.
-        // We don't strictly know WHICH faction ID corresponds to 'best' unless we tracked it.
-        // However, we know 'best' was evaluated as 'player_1' or 'rival_X'.
-        // Actually, in Evolver, we assign: `this.population[popIndex].fitness = fitness`
-        // We didn't store WHICH faction ID it was.
-        // But for display, we can just show the stats of 'player_1' from the run that produced 'best'?
-        // Wait, 'best.stats' is the SimulationStats of the MATCH where this individual participated.
-        // And we don't know which faction key it was.
-        // FIX: In Evolver.ts, we should probably store the factionID on the individual too?
-        // Or just search stats.factions for the one with matching fitness? (Risk of collision)
-        // or just show Player 1 stats if we assume sorted?
-        // Let's iterate factions and find the one with highest fitness/score?
 
         if (!s) {
             console.error("Error: Best individual missing stats!");
             continue;
         }
 
-        // Find the faction stat that matches the best fitness? 
-        // Or just print the best performing faction in that run?
         const fStats = Object.values(s.factions)[0];
         const survivors = Object.keys(s.factions).filter(k => s.factions[k].population > 0).length;
         const villageCount = (fStats.settlementsFounded || 0) + 1;
@@ -90,8 +70,9 @@ const evolver = new Evolver(POP_SIZE, seedConfig);
         let topAmt = 0;
         if (fStats.tradeResources) {
             Object.entries(fStats.tradeResources).forEach(([res, amt]) => {
-                if (amt! > topAmt) {
-                    topAmt = amt!;
+                const val = amt as number;
+                if (val > topAmt) {
+                    topAmt = val;
                     topRes = res;
                 }
             });
@@ -99,21 +80,10 @@ const evolver = new Evolver(POP_SIZE, seedConfig);
 
         Logger.getInstance().setSilent(false);
         Logger.getInstance().log(`\n=== State of the Realm (Gen ${g + 1}) ===`);
-        console.table({
-            'Best Fitness': best.fitness.toFixed(2),
-            'Pop': fStats.population.toFixed(2),
-            'Wealth': Math.floor(fStats.totalWealth),
-            'Villages': villageCount,
-            'Density': density.toFixed(2),
-            'Settlers': fStats.settlersSpawned,
-            'Villagers': fStats.totalVillagers,
-            'Trades': fStats.totalTrades,
-            'TopTrade': topRes,
-            'MaxCaravans': fStats.maxCaravans,
-            'Waste': Math.floor(fStats.resourceWaste || 0),
-            'Max Tier': fStats.tiersReached,
-            'Survivors': survivors
-        });
+        Logger.getInstance().log(`Fitness: ${best.fitness.toFixed(2)} | Pop: ${fStats.population.toFixed(1)} | Gold: ${Math.floor(fStats.totalWealth)}`);
+        Logger.getInstance().log(`Villages: ${villageCount} | Density: ${density.toFixed(2)} | Settlers: ${fStats.settlersSpawned} | Villagers: ${fStats.totalVillagers}`);
+        Logger.getInstance().log(`Trades: ${fStats.totalTrades} | TopTrade: ${topRes} | MaxCaravans: ${fStats.maxCaravans}`);
+        Logger.getInstance().log(`Waste: ${Math.floor(fStats.resourceWaste || 0)} | Max Tier: ${fStats.tiersReached} | Survivors: ${survivors}`);
 
         // Genome Highlights (Top 3 Genes)
         const geneKeys = Object.keys(best.genome) as (keyof Genome)[];

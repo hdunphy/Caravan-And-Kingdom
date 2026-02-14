@@ -269,6 +269,7 @@ export class HeadlessRunner {
             // Extinction Check
             if (activeFactions.size === 0) {
                 stats.totalTicks = i + 1;
+                // console.log(`[Runner] Match ended early at tick ${i} due to total extinction.`);
                 break;
             }
         }
@@ -302,10 +303,11 @@ export class HeadlessRunner {
 
                 // FIX WASTE BUG: Calculate total resources currently on the ground at simulation end.
                 // This tells us the "Uncollected Stockpile" which represents logistics failure.
+                // Added (b || 0) to prevent NaN if resource keys are undefined.
                 fStats.resourceWaste = Object.values(state.map)
                     .filter(h => h.ownerId === f.id && h.resources)
                     .reduce((sum, h) => {
-                        const pileTotal = Object.values(h.resources).reduce((a: number, b: any) => a + (b as number), 0);
+                        const pileTotal = Object.values(h.resources).reduce((a: number, b: any) => a + (Number(b) || 0), 0);
                         return sum + pileTotal;
                     }, 0);
             }

@@ -13,7 +13,7 @@ const numTicks = parseInt(args[2]) || 25000;
 const seedFile = args[3];
 const outputFile = args[4] ?? `config_results_batch10.json`;
 
-const POP_SIZE = 50;
+const POP_SIZE = 50; 
 const options = {
     ticks: numTicks,
     width: 40,
@@ -55,7 +55,8 @@ const evolver = new Evolver(POP_SIZE, seedConfig);
             continue;
         }
 
-        const fStats = Object.values(s.factions)[0];
+        let bestFactionId = 'player_1';
+        const fStats = s.factions[bestFactionId] || Object.values(s.factions)[0];
         const survivors = Object.keys(s.factions).filter(k => s.factions[k].population > 0).length;
         const villageCount = (fStats.settlementsFounded || 0) + 1;
         const density = fStats.population / villageCount;
@@ -65,8 +66,9 @@ const evolver = new Evolver(POP_SIZE, seedConfig);
         let topAmt = 0;
         if (fStats.tradeResources) {
             Object.entries(fStats.tradeResources).forEach(([res, amt]) => {
-                if (amt! > topAmt) {
-                    topAmt = amt!;
+                const val = amt as number;
+                if (val > topAmt) {
+                    topAmt = val;
                     topRes = res;
                 }
             });
@@ -74,21 +76,10 @@ const evolver = new Evolver(POP_SIZE, seedConfig);
 
         Logger.getInstance().setSilent(false);
         Logger.getInstance().log(`\n=== State of the Realm (Gen ${g + 1}) ===`);
-        console.table({
-            'Best Fitness': best.fitness.toFixed(2),
-            'Pop': fStats.population.toFixed(2),
-            'Wealth': Math.floor(fStats.totalWealth),
-            'Villages': villageCount,
-            'Density': density.toFixed(2),
-            'Settlers': fStats.settlersSpawned,
-            'Villagers': fStats.totalVillagers,
-            'Trades': fStats.totalTrades,
-            'TopTrade': topRes,
-            'MaxCaravans': fStats.maxCaravans,
-            'Waste': Math.floor(fStats.resourceWaste || 0),
-            'Max Tier': fStats.tiersReached,
-            'Survivors': survivors
-        });
+        Logger.getInstance().log(`Fitness: ${best.fitness.toFixed(2)} | Pop: ${fStats.population.toFixed(1)} | Gold: ${Math.floor(fStats.totalWealth)}`);
+        Logger.getInstance().log(`Villages: ${villageCount} | Density: ${density.toFixed(2)} | Settlers: ${fStats.settlersSpawned} | Villagers: ${fStats.totalVillagers}`);
+        Logger.getInstance().log(`Trades: ${fStats.totalTrades} | TopTrade: ${topRes} | MaxCaravans: ${fStats.maxCaravans}`);
+        Logger.getInstance().log(`Waste: ${Math.floor(fStats.resourceWaste || 0)} | Max Tier: ${fStats.tiersReached} | Survivors: ${survivors}`);
 
         const geneKeys = Object.keys(best.genome) as (keyof Genome)[];
         const topGenes = geneKeys

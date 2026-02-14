@@ -329,12 +329,12 @@ export const CaravanSystem = {
                             tier: 0,
                             integrity: config.ai.thresholds.newSettlementIntegrity || 100,
                             stockpile: {
-                                Food: agent.cargo.Food || 0,
-                                Timber: agent.cargo.Timber || 0,
-                                Stone: agent.cargo.Stone || 0,
-                                Ore: agent.cargo.Ore || 0,
-                                Tools: agent.cargo.Tools || 0,
-                                Gold: agent.cargo.Gold || 0
+                                Food: (agent.cargo.Food || 0) + (config.ai?.expansionStarterPack?.Food || 0),
+                                Timber: (agent.cargo.Timber || 0) + (config.ai?.expansionStarterPack?.Timber || 0),
+                                Stone: (agent.cargo.Stone || 0) + (config.ai?.expansionStarterPack?.Stone || 0),
+                                Ore: (agent.cargo.Ore || 0) + (config.ai?.expansionStarterPack?.Ore || 0),
+                                Tools: (agent.cargo.Tools || 0) + (config.ai?.expansionStarterPack?.Tools || 0),
+                                Gold: (agent.cargo.Gold || 0) + (config.ai?.expansionStarterPack?.Gold || 0)
                             },
                             buildings: [],
                             controlledHexIds: [],

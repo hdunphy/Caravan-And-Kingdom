@@ -98,7 +98,6 @@ describe('GA Improvement & Balance Tests', () => {
         state.settlements['s1'] = s1;
 
         // With pop 100 and ratio 25, the max villagers should be 4.
-        // We set the correct config property
         const config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
         config.costs.villagers.popRatio = 25;
 
@@ -112,10 +111,10 @@ describe('GA Improvement & Balance Tests', () => {
         state.factions['p1'].blackboard!.desires = [];
         SettlementGovernor.evaluate(s1, state.factions['p1'], state, config);
         desires = state.factions['p1'].blackboard?.desires || [];
-
+        
         // Should be blocked now
         expect(desires.some(d => d.type === 'RECRUIT_VILLAGER')).toBe(false);
-
+        
         console.log(`[Recruit Test] Correctly capped at 4 villagers for 100 population.`);
     });
 });

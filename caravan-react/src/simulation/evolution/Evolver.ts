@@ -81,7 +81,12 @@ export class Evolver {
 
         if (useParallel) {
             Logger.getInstance().log(`[Gen ${this.generation}] Spawning ${this.poolSize} workers for ${this.population.length} individuals...`);
-            await this.evaluatePopulationParallel(options, onProgress);
+            try {
+                await this.evaluatePopulationParallel(options, onProgress);
+            } catch (err) {
+                Logger.getInstance().log(`[Evolver] Parallel evaluation failed, falling back to sequential: ${err}`);
+                this.evaluatePopulationSequential(options, onProgress);
+            }
         } else {
             Logger.getInstance().log(`[Gen ${this.generation}] Running sequential evaluation...`);
             this.evaluatePopulationSequential(options, onProgress);
@@ -152,7 +157,8 @@ export class Evolver {
 
                 this.population[popIndex].fitness = fitness;
                 this.population[popIndex].stats = result.stats;
-                this.population[popIndex].state = result.state;
+                // DO NOT store state on individual to prevent memory bloat/serialization issues
+                // this.population[popIndex].state = result.state;
             });
         }
     }

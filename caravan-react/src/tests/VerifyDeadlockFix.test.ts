@@ -190,6 +190,6 @@ describe('Deadlock Fix Verification', () => {
         controller.update(state, config);
 
         const s1 = state.settlements['s1'];
-        expect(s1.buildings).toContain('SMITHY');
+        expect(s1.buildings.some(b => b.type === 'Smithy')).toBe(true);
     });
 });

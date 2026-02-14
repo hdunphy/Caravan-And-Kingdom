@@ -44,6 +44,7 @@ export class GOAPPlanner {
 
                 // Work Jobs (Build/Upgrade/Trade)
                 switch (desire.type) {
+                    /*
                     case 'BUILD_SMITHY':
                     case 'BUILD_GRANARY':
                     case 'BUILD_FISHERY':
@@ -52,9 +53,10 @@ export class GOAPPlanner {
                         // UPGRADE handles internally as Instant Action in AIController
                         // If sufficient resources (for specific desire), create Work Job
                         if (this.hasSufficientResources(settlement, costs)) {
-                            this.createWorkJob(faction, settlement, jobPool, desire, config);
+                             this.createWorkJob(faction, settlement, jobPool, desire, config);
                         }
                         break;
+                    */
 
                     case 'TRADE_CARAVAN':
                         this.createTradeJob(faction, settlement, jobPool, state, config, desire.score);
