@@ -19,43 +19,40 @@ export const calculateFitness = (_state: WorldState, stats: SimulationStats, fac
     // We reward founding new settlements (+2000 per success)
     score += (fStats.settlementsFounded * 2000);
 
+    // Reward Settler Spawning (Intent to expand)
+    score += (fStats.settlersSpawned * 200);
+
     // Urbanization Density: Reward high population-to-settlement ratio.
-    // We want big cities, not just a bunch of tiny 1-person camps.
     if (fStats.settlementsFounded > 0) {
-        const density = fStats.population / (fStats.settlementsFounded + 1); // +1 for Capital
+        const density = fStats.population / (fStats.settlementsFounded + 1); 
         score += (density * 10);
     }
 
-    // 3. Longevity Reward (Positive enforcement)
-    // Reward simply for existing. 1 point per 100 ticks survived.
-    // If they died early, their data might be stale, but we don't track death time yet.
-    // Assuming they survived if they have stats? 
-    // HeadlessRunner breaks early if ALL die.
+    // 3. Commercial Activity
+    // Reward successful trades to offset the cost of building caravans
+    score += (fStats.totalTrades * 50);
+
+    // 4. Longevity Reward (Positive enforcement)
     score += Math.floor(stats.totalTicks / 100);
 
-    // 3. Goals & Milestones
+    // 5. Goals & Milestones
     // Tier Up
     const tierScore = Math.pow(1.5, fStats.tiersReached) * 1000;
     score += tierScore;
 
-    // Goal Completion
-    if (fStats.goalsCompleted) {
-        Object.entries(fStats.goalsCompleted).forEach(([goal, count]) => {
-            if (goal === 'TIER_UP') score += (2000 * count);
-            // Add other goals if we track them (SETTLER, etc)
-        });
-    }
-
-    // 4. Smooth Governance Bonus (+15%)
-    // If they never entered SURVIVE mode
+    // 6. Smooth Governance Bonus (+15%)
     if (!fStats.enteredSurviveMode) {
         score *= 1.15;
     }
 
-    // 5. Territory
+    // 7. Territory & Resource Management
     score += (fStats.territorySize * 50);
 
-    // 6. Penalty for dying/stagnation (The "Total Collapse" Multiplier)
+    // Logistics Efficiency Penalty (Waste)
+    // Snapshot of uncollected resources at the end.
+    score -= (fStats.resourceWaste * 0.1);
+
+    // 8. Penalty for dying/stagnation (The "Total Collapse" Multiplier)
     // If population < 1, they effectively went extinct.
     // 90% reduction in total score ensures dead factions cannot win on wealth alone.
     if (fStats.population < 1) {

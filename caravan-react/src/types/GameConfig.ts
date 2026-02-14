@@ -219,7 +219,7 @@ export const DEFAULT_CONFIG: GameConfig = {
             Forest: 1.5,
             Hills: 2.0,
             Mountains: 3.0,
-            Water: 20.0, // Reduced from 1000 (Blocked) to 20 (Expensive but possible - Rafts)
+            Water: 1000.0,
         },
         agents: {
             Villager: { Food: 100 },

@@ -49,7 +49,7 @@ export class GOAPPlanner {
                     case 'BUILD_FISHERY':
                     case 'BUILD_LUMBERYARD':
                     case 'BUILD_MINE':
-                    case 'UPGRADE':
+                        // UPGRADE handles internally as Instant Action in AIController
                         // If sufficient resources (for specific desire), create Work Job
                         if (this.hasSufficientResources(settlement, costs)) {
                             this.createWorkJob(faction, settlement, jobPool, desire, config);

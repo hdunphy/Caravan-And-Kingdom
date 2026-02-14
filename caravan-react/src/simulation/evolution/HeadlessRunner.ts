@@ -65,9 +65,9 @@ export class HeadlessRunner {
         const factionStats: Record<string, FactionStats> = {};
 
         // Map faction ID to its specific config for the game loop to use?
-        // The GameLoop currently uses a single 'config'. 
+        // The GameLoop currently uses a single 'config'.
         // We need to patch the GameLoop or the Agents to use their faction's config.
-        // For now, we will store the config on the Faction object itself if possible, 
+        // For now, we will store the config on the Faction object itself if possible,
         // or we have to accept that GameLoop might need refactoring to support multi-config.
         // Checking WorldTypes... Faction doesn't have config.
         // Workaround: We will use the 'globalConfig' for world rules (costs, yields),
@@ -162,11 +162,11 @@ export class HeadlessRunner {
         const loop = new GameLoop(state, globalConfig); // Global rules apply
 
         // Patch loop to use faction-specific AI configs?
-        // The GameLoop calls system updates. 
+        // The GameLoop calls system updates.
         // We need to ensure that when Governor/Sovereign AI runs, it uses the FACTION's config.
         // This requires a change in GameLoop or the Systems to look up config from Faction.
         // For this milestone, we will assume we modify the Systems to check for faction.aiConfig
-        // BUT we are only changing HeadlessRunner here. 
+        // BUT we are only changing HeadlessRunner here.
         // MAJOR REFACTOR RISK: If we don't change Systems, they use globalConfig.
         // We should wrap the systems or injecting the config.
         // For now, let's proceed with the runner logic and we might need to touch Systems next.
@@ -214,19 +214,6 @@ export class HeadlessRunner {
                 const currentSettlements = Object.values(state.settlements).filter(s => s.ownerId === fId).length;
                 if (currentSettlements > prevSettlements[fId]) {
                     fStats.settlementsFounded += (currentSettlements - prevSettlements[fId]);
-                }
-
-                // Alternative: Track Gold inflow from Trade.
-            });
-
-            // Resource Waste Tracking
-            Object.values(state.map).forEach(hex => {
-                if (hex.ownerId && hex.resources) {
-                    const fStats = stats.factions[hex.ownerId];
-                    if (fStats) {
-                        const amount = Object.values(hex.resources).reduce((a, b) => a + b, 0);
-                        fStats.resourceWaste += amount;
-                    }
                 }
             });
 
@@ -312,6 +299,15 @@ export class HeadlessRunner {
 
                 const activeVillagers = Object.values(state.agents).filter(a => a.type === 'Villager' && a.ownerId === f.id).length;
                 fStats.totalVillagers += activeVillagers;
+
+                // FIX WASTE BUG: Calculate total resources currently on the ground at simulation end.
+                // This tells us the "Uncollected Stockpile" which represents logistics failure.
+                fStats.resourceWaste = Object.values(state.map)
+                    .filter(h => h.ownerId === f.id && h.resources)
+                    .reduce((sum, h) => {
+                        const pileTotal = Object.values(h.resources).reduce((a: number, b: any) => a + (b as number), 0);
+                        return sum + pileTotal;
+                    }, 0);
             }
         });
 

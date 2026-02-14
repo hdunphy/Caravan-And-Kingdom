@@ -84,7 +84,8 @@ export class SettlementGovernor {
             // Agent Cap = Population / popRatio (e.g. 100 / 25 = 4 agents)
             const villagersConfig = config.costs.villagers;
             const popRatio = (villagersConfig && villagersConfig.popRatio) ? villagersConfig.popRatio : 25;
-            const maxAgents = Math.max(1, Math.floor(settlement.population / popRatio));
+            const base = config.costs.villagers?.baseVillagers || 1;
+            const maxAgents = Math.max(base, Math.floor(settlement.population / popRatio));
             const currentAgents = (settlement.availableVillagers || 0) + Object.values(state.agents).filter(a => a.type === 'Villager' && (a as any).homeId === settlement.id).length;
 
             // Saturation Ratio
@@ -182,7 +183,8 @@ export class SettlementGovernor {
             const toolHealth = desiredTools > 0 ? Math.min(1.0, currentTools / desiredTools) : 1.0;
 
             const miningMultiplier = settlement.role === 'MINING' ? config.ai.governor.weights.smithyRole : 1.0;
-            const smithyScore = (1.0 - toolHealth) * miningMultiplier;
+            // Lower priority of Smithy (divide by 2) to ensure Survival/Recruit is higher
+            const smithyScore = ((1.0 - toolHealth) * miningMultiplier) * 0.5;
 
             if (smithyScore > config.ai.governor.thresholds.infrastructure) {
                 tickets.push({

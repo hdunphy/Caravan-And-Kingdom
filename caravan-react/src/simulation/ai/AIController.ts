@@ -1,4 +1,4 @@
-import { WorldState, Settlement } from '../../types/WorldTypes';
+import { WorldState, Settlement, Resources } from '../../types/WorldTypes';
 import { GameConfig } from '../../types/GameConfig';
 import { Logger } from '../../utils/Logger';
 import { SovereignAI } from './SovereignAI';
@@ -107,7 +107,12 @@ export class AIController {
 
         const desires = faction.blackboard.desires;
         // Filter for instant actions
-        const instantDesires = desires.filter((d: any) => d.type === 'RECRUIT_VILLAGER' || d.type === 'SETTLER' || d.type === 'UPGRADE');
+        const instantDesires = desires.filter((d: any) =>
+            d.type === 'RECRUIT_VILLAGER' ||
+            d.type === 'SETTLER' ||
+            d.type === 'UPGRADE' ||
+            d.type.startsWith('BUILD_')
+        );
 
         instantDesires.forEach((d: any) => {
             const settlement = state.settlements[d.settlementId];
@@ -142,6 +147,41 @@ export class AIController {
                         }
                     }
                 }
+            } else if (d.type.startsWith('BUILD_')) {
+                const buildingType = d.type.replace('BUILD_', '');
+                // Check if already built (to avoid duplicates if desire persists)
+                if (settlement.buildings.includes(buildingType)) return;
+
+                const cost = this.getBuildingCost(buildingType, config);
+                let canAfford = true;
+                const missing: string[] = [];
+
+                for (const [res, amount] of Object.entries(cost)) {
+                    if ((settlement.stockpile[res as keyof Resources] || 0) < (amount as number)) {
+                        canAfford = false;
+                        missing.push(`${res} (${(settlement.stockpile[res as keyof Resources] || 0)}/${amount})`);
+                    }
+                }
+
+                if (canAfford) {
+                    // Deduct
+                    for (const [res, amount] of Object.entries(cost)) {
+                        settlement.stockpile[res as keyof Resources] -= (amount as number);
+                    }
+                    // Build
+                    settlement.buildings.push(buildingType);
+                    Logger.getInstance().log(`[AI] ${settlement.id} constructed ${buildingType}`);
+
+                    // Stats
+                    if (faction.stats) faction.stats.buildingsConstructed = (faction.stats.buildingsConstructed || 0) + 1;
+                } else {
+                    // Log failure reason (Standard log for now to see it)
+                    // Only log intermittently or if specifically debugged? 
+                    // Let's log if score is high (> 0.5) to avoid spam for low prio
+                    if (d.score > 0.5) {
+                        Logger.getInstance().log(`[AI] ${settlement.id} wanted ${buildingType} but missing: ${missing.join(', ')}`);
+                    }
+                }
             } else if (d.type === 'UPGRADE') {
                 // Attempt upgrade via System
                 // UpgradeSystem checks costs and population requirements internally
@@ -151,5 +191,39 @@ export class AIController {
                 }
             }
         });
+    }
+
+    private getBuildingCost(type: string, config: GameConfig): Partial<Resources> {
+        // Map UPPERCASE Desire type to Config Key (Title Case)
+        // e.g. SMITHY -> Smithy, GRANARY -> Granary (Mapped manually or via lookup)
+        // Simple map for now based on known types
+        // If type === 'SMITHY', configKey = 'Smithy';
+        // If type === 'GRANARY', configKey = 'Granary'; // Not in config? 'Warehouse' is logic equivalent? No, Wait.
+        // Governor uses 'BUILD_GRANARY'. Config key?
+        // Let's create a switch that maps to Config, or fallback to defaults.
+
+        // Actually, let's look at GameConfig (Step 330).
+        // It has 'Smithy', 'Fishery', 'Watchtower', 'GuardPost', 'PavedRoad', 'Masonry', 'Sawmill', 'Warehouse', 'GathererHut'.
+        // Governor asks for: SMITHY, GRANARY, FISHERY, LUMBERYARD, MINE.
+        // Mismatch!
+
+        switch (type) {
+            case 'SMITHY':
+                return config.buildings['Smithy']?.cost || { Stone: 150, Ore: 50 };
+            case 'GRANARY':
+                // Using Warehouse as Granary equivalent or fallback? 
+                // Governor asks for Granary. Config has Warehouse.
+                // Let's assume Granary cost triggers building of... what?
+                // If we construct "GRANARY", verification expects "GRANARY". 
+                // Let's stick to the requested Type for now, but use generic costs.
+                return { Timber: 100, Stone: 20 };
+            case 'FISHERY':
+                return config.buildings['Fishery']?.cost || { Timber: 100 };
+            case 'LUMBERYARD':
+                return config.buildings['Sawmill']?.cost || { Timber: 50 };
+            case 'MINE':
+                return config.buildings['Masonry']?.cost || { Stone: 50 };
+            default: return { Timber: 50 };
+        }
     }
 }
