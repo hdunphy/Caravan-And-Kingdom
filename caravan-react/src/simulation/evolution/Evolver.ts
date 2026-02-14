@@ -1,4 +1,4 @@
-import { Worker } from 'worker_threads';
+import { fork, ChildProcess } from 'child_process';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 import { Genome, genomeToConfig, configToGenome } from './Genome';
@@ -21,6 +21,7 @@ export class Evolver {
     population: Individual[] = [];
     generation: number = 0;
     private poolSize: number;
+    private useWorker: boolean = false;
 
     constructor(size: number, seedConfig?: GameConfig) {
         this.poolSize = Math.max(1, os.cpus().length - 1);
@@ -76,11 +77,16 @@ export class Evolver {
         // 1. Evaluate
         // Fallback to sequential for stability if workers fail or poolSize is 1
         // Tests should set useWorker: false to avoid TS-Node worker issues
-        const useParallel = options.useWorker === true;
+        const useParallel = options.useWorker !== undefined ? options.useWorker : this.useWorker;
 
         if (useParallel) {
             Logger.getInstance().log(`[Gen ${this.generation}] Spawning ${this.poolSize} workers for ${this.population.length} individuals...`);
-            await this.evaluatePopulationParallel(options, onProgress);
+            try {
+                await this.evaluatePopulationParallel(options, onProgress);
+            } catch (err) {
+                Logger.getInstance().log(`[Evolver] Parallel evaluation failed, falling back to sequential: ${err}`);
+                this.evaluatePopulationSequential(options, onProgress);
+            }
         } else {
             Logger.getInstance().log(`[Gen ${this.generation}] Running sequential evaluation...`);
             this.evaluatePopulationSequential(options, onProgress);
@@ -119,77 +125,114 @@ export class Evolver {
     }
 
     private evaluatePopulationSequential(options: HeadlessOptions, onProgress?: (percent: number) => void) {
-        this.population.forEach((ind, index) => {
-            const config = genomeToConfig(ind.genome, DEFAULT_CONFIG);
+        // Shuffle population to ensure random matchups
+        const shuffledIndices = this.population.map((_, i) => i).sort(() => Math.random() - 0.5);
+
+        // Group into Trios (or custom faction count)
+        const factionCount = 3;
+
+        for (let i = 0; i < this.population.length; i += factionCount) {
+            const groupIndices = shuffledIndices.slice(i, i + factionCount);
+            // If not enough for a full group, wrap around or just run partial? 
+            // Logic: Just run partial is fine, or borrow from elite.
+            // For simplicity, run partial group.
+
+            if (groupIndices.length === 0) break;
+
+            const groupConfigs = groupIndices.map(idx => genomeToConfig(this.population[idx].genome, DEFAULT_CONFIG));
+
             const runOptions = {
                 ...options,
-                onHeartbeat: index === 0 && onProgress ? onProgress : undefined
+                factionConfigs: groupConfigs,
+                onHeartbeat: i === 0 && onProgress ? onProgress : undefined
             };
 
-            // Clear cache to be safe - Pathfinding cache is global
-            // We should import Pathfinding to clear it, but for now we rely on HeadlessRunner creating fresh state.
-            // If pathfinding cache issues arise, we'll need to expose Pathfinding.clearCache().
+            // Clear cache handled inside HeadlessRunner
+            const result = HeadlessRunner.run(DEFAULT_CONFIG, runOptions);
 
-            const result = HeadlessRunner.run(config, runOptions);
-            ind.fitness = calculateFitness(result.state, result.stats, this.generation);
-            ind.stats = result.stats;
-            ind.state = result.state;
-        });
+            // Assign Fitness
+            groupIndices.forEach((popIndex, groupIndex) => {
+                const factionId = groupIndex === 0 ? 'player_1' : `rival_${groupIndex}`;
+                const fitness = calculateFitness(result.state, result.stats, factionId, this.generation);
+
+                this.population[popIndex].fitness = fitness;
+                this.population[popIndex].stats = result.stats;
+                // DO NOT store state on individual to prevent memory bloat/serialization issues
+                // this.population[popIndex].state = result.state;
+            });
+        }
     }
 
     private async evaluatePopulationParallel(options: HeadlessOptions, onProgress?: (percent: number) => void) {
         const workerPath = this.getWorkerPath();
-        const tasks = this.population.map((ind, i) => ({ index: i, individual: ind }));
-        const totalTasks = tasks.length;
+
+        // 1. Prepare Matches (Trios)
+        const shuffledIndices = this.population.map((_, i) => i).sort(() => Math.random() - 0.5);
+        const matches: { indices: number[], configs: GameConfig[] }[] = [];
+        const factionCount = 3;
+
+        for (let i = 0; i < this.population.length; i += factionCount) {
+            const groupIndices = shuffledIndices.slice(i, i + factionCount);
+            if (groupIndices.length === 0) break;
+            const groupConfigs = groupIndices.map(idx => genomeToConfig(this.population[idx].genome, DEFAULT_CONFIG));
+            matches.push({ indices: groupIndices, configs: groupConfigs });
+        }
+
+        const totalTasks = matches.length;
         let completed = 0;
 
-        // Create Workers
-        const numWorkers = Math.min(this.poolSize, tasks.length);
-        const workers: Worker[] = [];
+        // Create Workers (Child Processes)
+        const numWorkers = Math.min(this.poolSize, totalTasks);
+        const workers: ChildProcess[] = [];
 
         return new Promise<void>((resolve, reject) => {
-            let pendingTasks = [...tasks];
+            let pendingMatches = [...matches];
             let activeWorkers = 0;
 
             const startWorker = () => {
-                const loaderPath = path.resolve(process.cwd(), 'node_modules/tsx/dist/loader.mjs');
-                const worker = new Worker(workerPath, {
-                    execArgv: [
-                        '--import', `file://${loaderPath}`
-                    ]
+                // tsx patches fork, so we can just run the TS file
+                // console.log(`[Evolver] Forking worker: ${workerPath}`);
+                const worker = fork(workerPath, [], {
+                    stdio: ['inherit', 'inherit', 'inherit', 'ipc']
                 });
+
                 workers.push(worker);
                 activeWorkers++;
 
                 worker.on('message', (msg: any) => {
-                    const { taskId, success, fitness, stats, state, error } = msg;
+                    const { success, results, error } = msg;
 
                     if (!success) {
-                        console.error(`Worker error for task ${taskId}:`, error);
-                        // Assign 0 fitness on error
-                        this.population[taskId].fitness = 0;
+                        console.error(`Worker error:`, error);
                     } else {
-                        const ind = this.population[taskId];
-                        ind.fitness = fitness;
-                        ind.stats = stats;
-                        ind.state = state;
+                        const matchIndices = results.indices as number[];
+                        const factionResults = results.factions;
+
+                        matchIndices.forEach((popIndex, i) => {
+                            const factionId = i === 0 ? 'player_1' : `rival_${i}`;
+                            const fResult = factionResults[factionId];
+
+                            if (fResult && this.population[popIndex]) {
+                                this.population[popIndex].fitness = fResult.fitness;
+                                this.population[popIndex].stats = results.stats;
+                            }
+                        });
                     }
 
                     completed++;
                     if (onProgress) onProgress((completed / totalTasks) * 100);
 
-                    // Pick next task
-                    if (pendingTasks.length > 0) {
-                        const nextTask = pendingTasks.shift()!;
-                        worker.postMessage({
-                            taskId: nextTask.index,
-                            genome: nextTask.individual.genome,
+                    // Pick next
+                    if (pendingMatches.length > 0) {
+                        const nextMatch = pendingMatches.shift()!;
+                        worker.send({
+                            indices: nextMatch.indices,
+                            factionConfigs: nextMatch.configs,
                             options: options,
                             generation: this.generation
                         });
                     } else {
-                        // No more tasks, terminate worker
-                        worker.terminate();
+                        worker.kill();
                         activeWorkers--;
                         if (activeWorkers === 0) {
                             resolve();
@@ -199,23 +242,20 @@ export class Evolver {
 
                 worker.on('error', (err: any) => {
                     console.error('Worker crashed:', err);
-                    // Use reject here!
-                    // If a worker crashes hard, the simulation integrity is compromised.
-                    // Rejecting stops the promise from hanging indefinitely.
                     reject(err);
                 });
 
                 // Initial Task
-                if (pendingTasks.length > 0) {
-                    const nextTask = pendingTasks.shift()!;
-                    worker.postMessage({
-                        taskId: nextTask.index,
-                        genome: nextTask.individual.genome,
+                if (pendingMatches.length > 0) {
+                    const nextMatch = pendingMatches.shift()!;
+                    worker.send({
+                        indices: nextMatch.indices,
+                        factionConfigs: nextMatch.configs,
                         options: options,
                         generation: this.generation
                     });
                 } else {
-                    worker.terminate();
+                    worker.kill();
                     activeWorkers--;
                 }
             };

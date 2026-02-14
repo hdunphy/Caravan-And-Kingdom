@@ -13,15 +13,20 @@ export const SettlementSystem = {
         }
     },
 
-    updateRoles(state: WorldState, config?: GameConfig) {
-        // Config might be optional for tests if not passed
-        // but real usage should pass it.
-        // Fallback default thresholds
-        const tForest = config?.ai?.feudal?.thresholds?.lumberForestRatio || 0.3;
-        const tHills = config?.ai?.feudal?.thresholds?.miningHillRatio || 0.3;
-        const tPlains = config?.ai?.feudal?.thresholds?.granaryPlainsRatio || 0.5;
-
+    updateRoles(state: WorldState, globalConfig?: GameConfig) {
         Object.values(state.settlements).forEach(settlement => {
+            let config = globalConfig;
+            if (settlement.ownerId && state.factions[settlement.ownerId]) {
+                const faction = state.factions[settlement.ownerId] as any;
+                if (faction.aiConfig) {
+                    config = faction.aiConfig;
+                }
+            }
+
+            const tForest = config?.ai?.feudal?.thresholds?.lumberForestRatio || 0.3;
+            const tHills = config?.ai?.feudal?.thresholds?.miningHillRatio || 0.3;
+            const tPlains = config?.ai?.feudal?.thresholds?.granaryPlainsRatio || 0.5;
+
             this.evaluateRole(state, settlement, tForest, tHills, tPlains);
         });
     },

@@ -1,9 +1,9 @@
 import { Evolver } from './Evolver';
 import { genomeToConfig } from './Genome';
-import { HeadlessRunner } from './HeadlessRunner';
 import { DEFAULT_CONFIG } from '../../types/GameConfig';
 import * as fs from 'fs';
 import { Genome } from './Genome';
+import { Logger } from '../../utils/Logger';
 
 // Get args from command line
 const args = process.argv.slice(2);
@@ -18,21 +18,24 @@ const options = {
     ticks: numTicks,
     width: 40,
     height: 40,
-    factionCount: 3 // More factions for competitive pressure
+    factionConfigs: [], // Will be populated by Evolver
+    useWorker: true
 };
 
-import { Logger } from '../../utils/Logger';
-
-// ...
 Logger.getInstance().log(`\n=== Starting Evolution Run #${runId} ===`);
 Logger.getInstance().log(`Generations: ${numGenerations}, Ticks: ${numTicks}`);
-Logger.getInstance().log(`Map: ${options.width}x${options.height}, Factions: ${options.factionCount}`);
+Logger.getInstance().log(`Map: ${options.width}x${options.height}, Factions (per match): 3`);
 
 let seedConfig = undefined;
 if (seedFile && fs.existsSync(seedFile)) {
     Logger.getInstance().log(`Loading seed from ${seedFile}...`);
     const data = fs.readFileSync(seedFile, 'utf8');
     seedConfig = JSON.parse(data);
+}
+
+if (seedConfig == undefined || seedConfig == null) {
+    Logger.getInstance().log(`No seed config found. Using default config.`);
+    seedConfig = DEFAULT_CONFIG;
 }
 
 const evolver = new Evolver(POP_SIZE, seedConfig);
@@ -42,42 +45,45 @@ const evolver = new Evolver(POP_SIZE, seedConfig);
         // Heartbeat callback
         const onProgress = (percent: number) => {
             // Overwrite line to prevent spam? Simple log for now.
-            // process.stdout.write(`\r[Gen ${g+1}] Agent 1 Evaluation: ${percent}%...`);
-            // Use standard log for safety if \r is flaky in some terminals
-            // Logger.getInstance().log(`[Gen ${g+1}] Agent 1 Evaluation: ${percent}%...`);
+            if (percent % 10 === 0) process.stdout.write(`.`);
         };
 
         // Run Generation
-        const best = await evolver.runGeneration(options, (p) => {
-            if (p % 20 === 0) process.stdout.write(`.`); // Compact heartbeat
-        });
+        const best = await evolver.runGeneration(options, onProgress);
         process.stdout.write('\n'); // Newline after progress dots
 
         // --- State of the Realm Summary ---
-        // We now get full stats/state from the worker!
         const s = best.stats;
-        const state = best.state;
 
-        if (!s || !state) {
-            console.error("Error: Best individual missing stats or state!");
+        if (!s) {
+            console.error("Error: Best individual missing stats!");
             continue;
         }
 
-        const survivors = Object.keys(state.settlements).length;
-        const totalGold = Object.values(state.factions).reduce((sum, f) => sum + (f.gold || 0), 0);
-        const sortedPop = [...s.popHistory].sort((a, b) => a - b);
-        const medianPop = sortedPop.length > 0 ? sortedPop[Math.floor(sortedPop.length / 2)] : 0;
+        const fStats = Object.values(s.factions)[0];
+        const survivors = Object.keys(s.factions).filter(k => s.factions[k].population > 0).length;
+        const villageCount = (fStats.settlementsFounded || 0) + 1;
+        const density = fStats.population / villageCount;
+
+        // Find most traded resource
+        let topRes = 'None';
+        let topAmt = 0;
+        if (fStats.tradeResources) {
+            Object.entries(fStats.tradeResources).forEach(([res, amt]) => {
+                const val = amt as number;
+                if (val > topAmt) {
+                    topAmt = val;
+                    topRes = res;
+                }
+            });
+        }
 
         Logger.getInstance().setSilent(false);
         Logger.getInstance().log(`\n=== State of the Realm (Gen ${g + 1}) ===`);
-        console.table({
-            'Best Fitness': best.fitness.toFixed(2),
-            'Median Pop': medianPop,
-            'Total Gold': Math.floor(totalGold),
-            'Max Tier': s.tiersReached,
-            'Survivors': survivors,
-            'Ticks': s.totalTicks
-        });
+        Logger.getInstance().log(`Fitness: ${best.fitness.toFixed(2)} | Pop: ${fStats.population.toFixed(1)} | Gold: ${Math.floor(fStats.totalWealth)}`);
+        Logger.getInstance().log(`Villages: ${villageCount} | Density: ${density.toFixed(2)} | Settlers: ${fStats.settlersSpawned} | Villagers: ${fStats.totalVillagers}`);
+        Logger.getInstance().log(`Trades: ${fStats.totalTrades} | TopTrade: ${topRes} | MaxCaravans: ${fStats.maxCaravans}`);
+        Logger.getInstance().log(`Waste: ${Math.floor(fStats.resourceWaste || 0)} | Max Tier: ${fStats.tiersReached} | Survivors: ${survivors}`);
 
         // Genome Highlights (Top 3 Genes)
         const geneKeys = Object.keys(best.genome) as (keyof Genome)[];

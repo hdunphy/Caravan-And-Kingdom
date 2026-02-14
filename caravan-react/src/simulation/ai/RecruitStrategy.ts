@@ -22,16 +22,20 @@ export class RecruitStrategy implements AIStrategy {
 
             if (totalVillagers < maxVillagers) {
                 // Food Safety
-                const surviveThreshold = (settlement.population * config.costs.baseConsume) * (config.ai?.utility?.surviveThreshold || 15);
+                const surviveThreshold = (settlement.population * config.costs.baseConsume) * (config.ai?.thresholds?.surviveTicks || 20);
                 const safetyFactor = config.ai?.utility?.growthFoodSafety || 1.0;
-                const recruitCost = config.costs.villagers?.cost || 100;
+                const recruitCost = config.costs.agents.Villager.Food || 100;
 
                 const safeFood = surviveThreshold * safetyFactor;
                 let foodMultiplier = 0;
                 if (settlement.stockpile.Food > (safeFood + recruitCost)) {
                     foodMultiplier = 1.0;
-                } else if (settlement.stockpile.Food > recruitCost) {
+                } else if (settlement.stockpile.Food > (surviveThreshold + recruitCost)) {
+                    // Only recruit if we at least maintain the survival threshold
                     foodMultiplier = 0.5;
+                } else {
+                    // Critical: Do not recruit if it eats into survival food
+                    foodMultiplier = 0.0;
                 }
 
                 const fulfillment = totalVillagers / maxVillagers;

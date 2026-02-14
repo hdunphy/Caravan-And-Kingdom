@@ -1,15 +1,24 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { CaravanSystem } from '../simulation/systems/CaravanSystem';
-import { WorldState, Settlement } from '../types/WorldTypes';
+import { WorldState, Settlement, Faction } from '../types/WorldTypes';
 import { DEFAULT_CONFIG } from '../types/GameConfig';
-// import { HexUtils } from '../utils/HexUtils';
+import { JobPool } from '../simulation/ai/JobPool';
 
 describe('CaravanSystem', () => {
     let state: WorldState;
     let s1: Settlement;
     let s2: Settlement;
+    let faction: Faction;
 
     beforeEach(() => {
+        const jobPool = new JobPool('player_1');
+        faction = {
+            id: 'player_1',
+            name: 'Player',
+            color: '#0000ff',
+            jobPool: jobPool
+        };
+
         s1 = {
             id: 's1',
             name: 'Settlement 1',
@@ -18,14 +27,15 @@ describe('CaravanSystem', () => {
             population: 100,
             stockpile: { Food: 1000, Timber: 1000, Stone: 0, Ore: 0, Tools: 0, Gold: 100 },
             integrity: 100,
-            tier: 0,
+            tier: 1,
             jobCap: 100,
             workingPop: 100,
             availableVillagers: 0,
             controlledHexIds: ['0,0'],
             buildings: [],
             popHistory: [],
-            role: 'GENERAL'
+            role: 'GENERAL',
+            aiState: { surviveMode: false, savingFor: null, focusResources: [] }
         };
 
         s2 = {
@@ -36,14 +46,15 @@ describe('CaravanSystem', () => {
             population: 100,
             stockpile: { Food: 1000, Timber: 0, Stone: 0, Ore: 0, Tools: 0, Gold: 100 },
             integrity: 100,
-            tier: 0,
+            tier: 1,
             jobCap: 100,
             workingPop: 100,
             availableVillagers: 0,
             controlledHexIds: ['2,0'],
             buildings: [],
             popHistory: [],
-            role: 'GENERAL'
+            role: 'GENERAL',
+            aiState: { surviveMode: false, savingFor: null, focusResources: [] }
         };
 
         state = {
@@ -56,7 +67,7 @@ describe('CaravanSystem', () => {
             settlements: { 's1': s1, 's2': s2 },
             agents: {},
             factions: {
-                'player_1': { id: 'player_1', name: 'Player', color: '#0000ff' }
+                'player_1': faction
             },
             width: 3,
             height: 1
@@ -72,37 +83,44 @@ describe('CaravanSystem', () => {
         expect(Object.keys(state.agents).length).toBe(1);
     });
 
-    it('should identify deficits and dispatch trade caravans', () => {
-        // s2 needs Timber (goal default is TOOLS, which checks Timber < 100)
-        s2.currentGoal = 'TOOLS';
-        // Needs enough to build caravan (50) but less than goal (100)
-        s2.stockpile.Timber = 60;
+    it('should claim and handle a logistics job from the job pool', () => {
+        const agent = CaravanSystem.spawn(state, '0,0', '0,0', 'Caravan');
+        if (!agent) throw new Error('Spawn failed');
+        agent.status = 'IDLE';
+        (agent as any).homeId = 's1';
 
-        // s1 needs enough Timber to pass the target's surplus check:
-        // Surplus threshold for non-food is 100 (hardcoded in CaravanSystem.processTrade currently, TODO move to config)
-        s1.stockpile.Timber = 150;
+        // Add a COLLECT job
+        faction.jobPool!.addJob({
+            jobId: 'j1',
+            factionId: 'player_1',
+            type: 'COLLECT',
+            priority: 1.0,
+            status: 'OPEN',
+            targetVolume: 100,
+            assignedVolume: 0,
+            urgency: 'HIGH',
+            targetHexId: '1,0'
+        });
 
         const TEST_CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
-        TEST_CONFIG.costs.logistics.tradeRoiThreshold = 20;
+        CaravanSystem.update(state, TEST_CONFIG);
 
-        CaravanSystem.processTrade(state, TEST_CONFIG);
-
-        const tradeAgent = Object.values(state.agents).find(a => a.type === 'Caravan' && a.mission === 'TRADE');
-        expect(tradeAgent).toBeDefined();
-        expect((tradeAgent as any)?.homeId).toBe('s2');
-        expect((tradeAgent as any).targetSettlementId).toBe('s1');
+        expect(agent.status).toBe('BUSY');
+        expect(agent.mission).toBe('LOGISTICS');
+        expect(agent.jobId).toBe('j1');
+        expect(agent.target).toEqual({ q: 1, r: 0, s: -1 });
     });
 
     it('should handle outbound logistics missions (loading resources)', () => {
-        const agent = CaravanSystem.spawn(state, '0,0', '1,0', 'Caravan');
+        const agent = CaravanSystem.spawn(state, '0,0', '1,0', 'Caravan') as any;
         if (!agent) throw new Error('Spawn failed');
-        (agent as any).mission = 'LOGISTICS';
+        agent.mission = 'LOGISTICS';
         (agent as any).tradeState = 'OUTBOUND';
         (agent as any).homeId = 's1';
         agent.position = { q: 1, r: 0, s: -1 }; // Already at target
         agent.path = []; // Arrived
 
-        const freightAmount = DEFAULT_CONFIG.costs.logistics.freightThreshold;
+        const freightAmount = 50;
         state.map['1,0'].resources = { Timber: freightAmount };
 
         // 1st update: Trigger LOADING
@@ -127,7 +145,7 @@ describe('CaravanSystem', () => {
         agent.position = { q: 1, r: 0, s: -1 }; // Already at target
         agent.path = []; // Arrived
 
-        const starterFood = DEFAULT_CONFIG.ai.expansionStarterPack.Food;
+        const starterFood = 100;
         agent.cargo = { Food: starterFood };
 
         // Remove map owner to allow founding
@@ -137,7 +155,8 @@ describe('CaravanSystem', () => {
 
         const newSettlement = Object.values(state.settlements).find(s => s.hexId === '1,0');
         expect(newSettlement).toBeDefined();
-        expect(newSettlement?.stockpile.Food).toBe(starterFood);
+        // 100 (Cargo) + 250 (Default Config Starter Pack)
+        expect(newSettlement?.stockpile.Food).toBe(350);
     });
 
     it('should repair idle caravans at home', () => {

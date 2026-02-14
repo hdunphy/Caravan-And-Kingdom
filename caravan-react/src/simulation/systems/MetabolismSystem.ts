@@ -24,7 +24,7 @@ export const MetabolismSystem = {
                 const pressureFactor = pop > 0 ? (workingPop / pop) : 1;
 
                 // Surplus Bonus: only if we have more food than the cost of a new settlement
-                const settlementCost = config.costs.settlement.Food || 500;
+                const settlementCost = config.costs.agents.Settler.Food || 500;
                 let surplusBonus = 0;
 
                 if (settlement.stockpile.Food > settlementCost) {
@@ -33,8 +33,24 @@ export const MetabolismSystem = {
                     surplusBonus = surplusRatio * (config.costs.growthSurplusBonus || 0.0001);
                 }
 
+                // Smart Growth: 
+                // Labor Saturation Penalty REMOVED per user request.
+                // const laborSaturation = pop > 0 ? (workingPop / maxJobs) : 1; 
+
+                // 2. Malthusian Sanity Check:
+                // Only grow at full speed if we have ABUNDANCE (1.5x Safe Level).
+                // If we are just "getting by" (1.0x - 1.5x), grow slowly to let recruitment catch up.
+                const safeLevel = foodConsumption * (config.ai.thresholds.surviveTicks || 20);
+                const isAbundant = settlement.stockpile.Food > (safeLevel * 1.5);
+
+                // Base Growth
                 const baseGrowth = (config.costs.growthRate || 0.008);
                 let finalGrowthRate = (baseGrowth + surplusBonus) * pressureFactor;
+
+                // Apply throttles
+                if (!isAbundant) {
+                    finalGrowthRate *= 0.5; // 50% penalty if not abundant
+                }
 
                 // Enforce Population Cap based on Tier
                 let cap = config.upgrades.villageToTown.popCap || 200; // Tier 0
@@ -69,7 +85,7 @@ export const MetabolismSystem = {
             settlement.stockpile.Gold += settlement.population * taxRate;
 
             // DEATH CHECK
-            if (settlement.population <= 0) {
+            if (settlement.population < 0.01) {
                 // Remove settlement
                 // We need to mutate state.settlements AND cleanup map ownership
                 if (!silent) console.log(`[DEATH] Settlement ${settlement.name} has died out.`);

@@ -24,7 +24,7 @@
         "src"
     ],
     "exclude": [
-        "src/simulation/evolution/RunEvolution.ts"
+        "src/tests"
     ],
     "references": [
         {

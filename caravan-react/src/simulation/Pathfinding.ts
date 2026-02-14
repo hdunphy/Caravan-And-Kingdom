@@ -1,4 +1,4 @@
-import { HexCoordinate, HexCell, AgentType } from '../types/WorldTypes.ts';
+import { HexCoordinate, HexCell } from '../types/WorldTypes.ts';
 import { HexUtils } from '../utils/HexUtils.ts';
 import { GameConfig } from '../types/GameConfig.ts';
 import { Logger } from '../utils/Logger.ts';
@@ -19,10 +19,12 @@ export const Pathfinding = {
         pathCache.clear();
     },
 
-    findPath(start: HexCoordinate, end: HexCoordinate, map: Record<string, HexCell>, config?: GameConfig, agentType: AgentType = 'Caravan'): HexCoordinate[] | null {
+    findPath(start: HexCoordinate, end: HexCoordinate, map: Record<string, HexCell>, config?: GameConfig): HexCoordinate[] | null {
         const startId = HexUtils.getID(start);
         const endId = HexUtils.getID(end);
-        const cacheKey = `${agentType}_${startId}_${endId}`;
+
+        // Factions share the same path cache for efficiency (Lord Dunphy's Request)
+        const cacheKey = `${startId}_${endId}`;
 
         if (pathCache.has(cacheKey)) {
             return [...pathCache.get(cacheKey)!];
@@ -42,7 +44,8 @@ export const Pathfinding = {
         const IMPASSABLE = 1000;
 
         // Ensure Water is impassable regardless of config overrides for now
-        costs.Water = IMPASSABLE;
+        // REMOVED: Allow config to define Water cost (e.g. 20 for rafting)
+        // costs.Water = IMPASSABLE;
 
         if (startId === endId) return [];
 
@@ -72,7 +75,13 @@ export const Pathfinding = {
 
         openList.push(startNode);
 
+        let iterations = 0;
         while (openList.length > 0) {
+            iterations++;
+            if (iterations > 1000) {
+                Logger.getInstance().log(`[Pathfinding DEBUG] FAIL: Pathfinding exceeded 1000 iterations for ${startId} -> ${endId}`);
+                break;
+            }
             // Sort by lowest f
             openList.sort((a, b) => a.f - b.f);
             const current = openList.shift()!;
@@ -86,8 +95,15 @@ export const Pathfinding = {
                     curr = curr.parent;
                 }
                 const resultPath = path.reverse().slice(1); // Remove start node
+
+                if (resultPath.length === 0) {
+                    Logger.getInstance().log(`[Pathfinding DEBUG] CRITICAL: Reconstructed EMPTY path for ${startId} -> ${endId}! Path length before slice was ${path.length}. GoalNode ID: ${current.id}, Parent ID: ${current.parent?.id}`);
+                } else {
+                    // Logger.getInstance().log(`[Pathfinding DEBUG] Found path ${startId} -> ${endId}. Length: ${resultPath.length}`);
+                }
+
                 pathCache.set(cacheKey, resultPath);
-                return resultPath;
+                return [...resultPath];
             }
 
             closedSet.add(current.id);

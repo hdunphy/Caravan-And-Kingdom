@@ -36,7 +36,7 @@ export class LogisticsStrategy implements AIStrategy {
             const targetFleet = config.ai?.utility?.fleetTargetSize || 3;
             const currentFleet = myCaravans.length;
 
-            if (currentFleet < targetFleet && settlement.stockpile.Timber >= (config.costs.trade?.caravanTimberCost || 50)) {
+            if (currentFleet < targetFleet && settlement.stockpile.Timber >= (config.costs.agents.Caravan.Timber || 50)) {
                 // Score based on deficit, capped at 0.5 to defer to critical needs
                 const fleetScore = (1.0 - (currentFleet / targetFleet)) * 0.5;
                 if (fleetScore > 0.1) {

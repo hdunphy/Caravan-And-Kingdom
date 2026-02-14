@@ -2,71 +2,137 @@ import { createInitialState } from '../WorldState.ts';
 import { MapGenerator } from '../MapGenerator.ts';
 import { GameLoop } from '../GameLoop.ts';
 import { GameConfig } from '../../types/GameConfig.ts';
-import { WorldState } from '../../types/WorldTypes.ts';
+import { WorldState, ResourceType } from '../../types/WorldTypes.ts';
 import { HexUtils } from '../../utils/HexUtils.ts';
+import { Pathfinding } from '../Pathfinding.ts';
 
 export interface HeadlessOptions {
     ticks: number;
     width: number;
     height: number;
-    factionCount: number;
+    factionConfigs: GameConfig[]; // Replaces factionCount
     onHeartbeat?: (progress: number) => void;
     useWorker?: boolean;
 }
 
-export interface SimulationStats {
-    survivalTicks: number; // Cumulative ticks spent in SURVIVE mode by all settlements
+export interface FactionStats {
+    survivalTicks: number; // Cumulative ticks spent in SURVIVE mode
     idleTicks: number; // Cumulative ticks spent IDLE by agents
-    totalTicks: number; // Total ticks run
-    totalFactions: number; // Total factions in the run
-    popHistory: number[]; // Population snapshot regularly
-    tiersReached: number; // Max tier reached by any settlement
-    enteredSurviveMode: boolean; // Did they ever enter SURVIVE?
+    goalsCompleted: Record<string, number>; // e.g. UPGRADE: 2, SETTLER: 1
+    completionTimes: number[]; // Tick timestamps of completions
+    tiersReached: number;
+    enteredSurviveMode: boolean;
+    population: number;
+    territorySize: number;
+    totalWealth: number;
+    settlersSpawned: number;
+    settlementsFounded: number;
+    totalTradeVolume: number;
+    resourceWaste: number;
+    totalTrades: number;
+    tradeResources: Partial<Record<ResourceType, number>>;
+    maxCaravans: number;
+    totalVillagers: number;
+}
+
+export interface SimulationStats {
+    totalTicks: number;
+    totalFactions: number;
+    popHistory: number[]; // Global population snapshot
+    factions: Record<string, FactionStats>; // Stats per faction
 }
 
 import { Logger } from '../../utils/Logger.ts';
 
 export class HeadlessRunner {
-    static run(config: GameConfig, options: HeadlessOptions): { state: WorldState, stats: SimulationStats } {
+    static run(globalConfig: GameConfig, options: HeadlessOptions): { state: WorldState, stats: SimulationStats } {
         Logger.getInstance().setSilent(true);
+
+        // 1. Shared Environment Setup
         const state = createInitialState();
         const WIDTH = options.width;
         const HEIGHT = options.height;
-        // Always generate a fresh map for robustness
         const map = MapGenerator.generate(WIDTH, HEIGHT);
         state.map = map;
         state.width = WIDTH;
         state.height = HEIGHT;
 
-        // Initialize Factions
-        const factions = ['player_1'];
-        for (let i = 1; i < options.factionCount; i++) {
-            factions.push(`rival_${i}`);
-        }
+        // Clear Pathfinding Cache for fairness between runs, but share it during this run
+        Pathfinding.clearCache();
 
-        // Initialize Settlements for each faction
+        // 2. Initialize Factions with specific Genomes
         const usedHexes: string[] = [];
+        const factionStats: Record<string, FactionStats> = {};
 
-        factions.forEach((factionId, index) => {
-            const isPlayer = factionId === 'player_1';
+        // Map faction ID to its specific config for the game loop to use?
+        // The GameLoop currently uses a single 'config'.
+        // We need to patch the GameLoop or the Agents to use their faction's config.
+        // For now, we will store the config on the Faction object itself if possible,
+        // or we have to accept that GameLoop might need refactoring to support multi-config.
+        // Checking WorldTypes... Faction doesn't have config.
+        // Workaround: We will use the 'globalConfig' for world rules (costs, yields),
+        // but individual agents/governors need to know their genes.
+        // We can attach the gene-derived values to the Faction Blackboard or a new 'aiConfig' property on Faction.
+        // Let's attach it to Faction.aiConfig (we might need to extend the type or use any).
 
-            // Add Faction to state
+        options.factionConfigs.forEach((factionConfig, index) => {
+            const factionId = index === 0 ? 'player_1' : `rival_${index}`;
+            const isPlayer = index === 0;
+
+            // Initialize Stats
+            factionStats[factionId] = {
+                survivalTicks: 0,
+                idleTicks: 0,
+                goalsCompleted: {},
+                completionTimes: [],
+                tiersReached: 0,
+                enteredSurviveMode: false,
+                population: 0,
+                territorySize: 0,
+                totalWealth: 0,
+                settlersSpawned: 0,
+                settlementsFounded: 0,
+                totalTradeVolume: 0,
+                resourceWaste: 0,
+                totalTrades: 0,
+                tradeResources: {},
+                maxCaravans: 0,
+                totalVillagers: 0
+            };
+
+            // Create Faction
             state.factions[factionId] = {
                 id: factionId,
                 name: isPlayer ? 'Player' : `Rival ${index}`,
-                color: isPlayer ? '#00ccff' : '#ff0000',
-                gold: 100
+                color: isPlayer ? '#00ccff' : (index === 1 ? '#ff0000' : '#00ff00'),
+                gold: 100,
+                blackboard: {
+                    factionId: factionId,
+                    stances: { expand: 0.5, exploit: 0.5 },
+                    criticalShortages: [],
+                    targetedHexes: []
+                },
+                stats: {
+                    totalTrades: 0,
+                    tradeResources: {},
+                    settlersSpawned: 0,
+                    settlementsFounded: 0
+                }
             };
 
-            const startingHex = MapGenerator.findStartingLocation(map, WIDTH, HEIGHT, config, usedHexes);
+            // Store Config on Faction (Runtime Patch)
+            (state.factions[factionId] as any).aiConfig = factionConfig;
+
+            // Spawn Capital
+            const startingHex = MapGenerator.findStartingLocation(map, WIDTH, HEIGHT, globalConfig, usedHexes);
             if (startingHex) {
-                // Mark area as used to avoid overlap
                 usedHexes.push(startingHex.id);
-                const neighbors = HexUtils.getSpiral(startingHex.coordinate, 5); // Reserve larger area
+                // Reserve area
+                const neighbors = HexUtils.getSpiral(startingHex.coordinate, 5);
                 neighbors.forEach(n => usedHexes.push(HexUtils.getID(n)));
 
-                // Grant initial territory
-                const radius = config.upgrades.villageToTown.radius || 2;
+                // Grant Territory
+                const radius = globalConfig.upgrades.villageToTown.radius || 2;
                 const territory = HexUtils.getSpiral(startingHex.coordinate, radius);
                 const controlledIds = territory.map(c => HexUtils.getID(c)).filter(id => map[id]);
                 controlledIds.forEach(id => { if (map[id]) map[id].ownerId = factionId; });
@@ -74,12 +140,12 @@ export class HeadlessRunner {
                 const id = `s_${factionId}_cap`;
                 state.settlements[id] = {
                     id: id,
-                    name: `${factionId} Capital`,
+                    name: `${state.factions[factionId].name} Capital`,
                     hexId: startingHex.id,
                     population: 100,
                     ownerId: factionId,
                     integrity: 100,
-                    tier: 1, // Start as Town (Tier 1)
+                    tier: 1,
                     jobCap: 100,
                     workingPop: 100,
                     availableVillagers: 2,
@@ -92,57 +158,162 @@ export class HeadlessRunner {
             }
         });
 
-        const loop = new GameLoop(state, config); // SILENT MODE via Logger
+        // 3. Run Simulation
+        const loop = new GameLoop(state, globalConfig); // Global rules apply
+
+        // Patch loop to use faction-specific AI configs?
+        // The GameLoop calls system updates.
+        // We need to ensure that when Governor/Sovereign AI runs, it uses the FACTION's config.
+        // This requires a change in GameLoop or the Systems to look up config from Faction.
+        // For this milestone, we will assume we modify the Systems to check for faction.aiConfig
+        // BUT we are only changing HeadlessRunner here.
+        // MAJOR REFACTOR RISK: If we don't change Systems, they use globalConfig.
+        // We should wrap the systems or injecting the config.
+        // For now, let's proceed with the runner logic and we might need to touch Systems next.
 
         const stats: SimulationStats = {
-            survivalTicks: 0,
-            idleTicks: 0,
             totalTicks: options.ticks,
-            totalFactions: options.factionCount,
+            totalFactions: options.factionConfigs.length,
             popHistory: [],
-            tiersReached: 0,
-            enteredSurviveMode: false
+            factions: factionStats
         };
 
-        const heartbeatInterval = Math.floor(options.ticks / 10);
+        // const heartbeatInterval = Math.floor(options.ticks / 10);
 
         for (let i = 0; i < options.ticks; i++) {
-            loop.tick();
+            // Snapshot counts for event tracking
+            const prevSettlers: Record<string, number> = {};
+            const prevSettlements: Record<string, number> = {};
+            // const prevResourceStock: Record<string, number> = {};
 
-            // Heartbeat
-            if (options.onHeartbeat && i > 0 && i % heartbeatInterval === 0) {
-                const progress = Math.round((i / options.ticks) * 100);
-                options.onHeartbeat(progress);
-            }
+            Object.keys(state.factions).forEach(fId => {
+                prevSettlers[fId] = Object.values(state.agents).filter(a => a.type === 'Settler' && a.ownerId === fId).length;
+                prevSettlements[fId] = Object.values(state.settlements).filter(s => s.ownerId === fId).length;
+
+                // Track total non-gold resource stock for trade volume proxy?
+                // Actually, let's track Gold changes from Trade specifically if possible.
+                // For now, simpler: Track Gold increase in settlements that aren't the capital?
+            });
+
+            loop.tick();
 
             // Collect Stats
             let currentPop = 0;
-            Object.values(state.settlements).forEach(s => {
-                currentPop += s.population;
-                if (s.tier > stats.tiersReached) stats.tiersReached = s.tier;
-                if (s.currentGoal === 'SURVIVE') {
-                    stats.survivalTicks++;
-                    stats.enteredSurviveMode = true;
+            const activeFactions = new Set<string>();
+
+            // Post-Tick Event Detection
+            Object.keys(state.factions).forEach(fId => {
+                const fStats = stats.factions[fId];
+                if (!fStats) return;
+
+                const currentSettlers = Object.values(state.agents).filter(a => a.type === 'Settler' && a.ownerId === fId).length;
+                if (currentSettlers > prevSettlers[fId]) {
+                    fStats.settlersSpawned += (currentSettlers - prevSettlers[fId]);
+                }
+
+                const currentSettlements = Object.values(state.settlements).filter(s => s.ownerId === fId).length;
+                if (currentSettlements > prevSettlements[fId]) {
+                    fStats.settlementsFounded += (currentSettlements - prevSettlements[fId]);
                 }
             });
 
-            // Sample population every 1000 ticks
+            Object.values(state.settlements).forEach(s => {
+                const fStats = stats.factions[s.ownerId];
+                if (!fStats) return;
+
+                currentPop += s.population;
+                activeFactions.add(s.ownerId);
+
+                // Track Goals
+                if (s.tier > fStats.tiersReached) {
+                    fStats.tiersReached = s.tier;
+                    fStats.completionTimes.push(i);
+                    fStats.goalsCompleted['TIER_UP'] = (fStats.goalsCompleted['TIER_UP'] || 0) + 1;
+                }
+
+                if (s.aiState?.surviveMode) {
+                    fStats.survivalTicks++;
+                    fStats.enteredSurviveMode = true;
+                }
+            });
+
+            // Sample global pop
             if (i % 1000 === 0) {
                 stats.popHistory.push(currentPop);
             }
 
-            // Agents are transient, but we track active ones
+            // Track Idle
             Object.values(state.agents).forEach(a => {
-                if (a.status === 'IDLE') stats.idleTicks++;
+                const fStats = stats.factions[a.ownerId];
+                if (fStats && a.status === 'IDLE') fStats.idleTicks++;
+
+                // Track Max Caravans
+                if (fStats && a.type === 'Caravan') {
+                    const currentCaravans = Object.values(state.agents).filter(agent => agent.type === 'Caravan' && agent.ownerId === a.ownerId).length;
+                    fStats.maxCaravans = Math.max(fStats.maxCaravans, currentCaravans);
+                }
             });
 
-            // Early out if everyone dies
-            if (Object.keys(state.settlements).length === 0) {
+            // Strategic Early Out (Tick 3000)
+            if (i === 3000) {
+                Object.values(stats.factions).forEach(f => {
+                    // Check if stagnation
+                    const hasAchievement = f.tiersReached > 1 || Object.keys(f.goalsCompleted).length > 0;
+                    if (!hasAchievement) {
+                        // Apply Stagnation Penalty later, but for now we basically mark them dead?
+                        // Or we just stop the run if EVERYONE is stagnant?
+                    }
+                });
+            }
+
+            // Extinction Check
+            if (activeFactions.size === 0) {
                 stats.totalTicks = i + 1;
+                // console.log(`[Runner] Match ended early at tick ${i} due to total extinction.`);
                 break;
             }
         }
 
+        // Finalize Stats
+        Object.values(state.factions).forEach(f => {
+            const fStats = stats.factions[f.id];
+            if (fStats) {
+                fStats.totalWealth = f.gold || 0;
+                // ... calculate territory size ...
+                fStats.territorySize = Object.values(state.map).filter(h => h.ownerId === f.id).length;
+
+                // Copy cumulative stats from faction object
+                if (f.stats) {
+                    fStats.totalTrades = f.stats.totalTrades;
+                    fStats.tradeResources = f.stats.tradeResources;
+                    fStats.settlersSpawned = f.stats.settlersSpawned;
+                    fStats.settlementsFounded = f.stats.settlementsFounded;
+                }
+
+                // Calculate Settlement Pops
+                fStats.population = Object.values(state.settlements)
+                    .filter(s => s.ownerId === f.id)
+                    .reduce((sum, s) => {
+                        fStats.totalVillagers += (s.availableVillagers || 0);
+                        return sum + s.population;
+                    }, 0);
+
+                const activeVillagers = Object.values(state.agents).filter(a => a.type === 'Villager' && a.ownerId === f.id).length;
+                fStats.totalVillagers += activeVillagers;
+
+                // FIX WASTE BUG: Calculate total resources currently on the ground at simulation end.
+                // This tells us the "Uncollected Stockpile" which represents logistics failure.
+                // Added (b || 0) to prevent NaN if resource keys are undefined.
+                fStats.resourceWaste = Object.values(state.map)
+                    .filter(h => h.ownerId === f.id && h.resources)
+                    .reduce((sum, h) => {
+                        const pileTotal = Object.values(h.resources).reduce((a: number, b: any) => a + (Number(b) || 0), 0);
+                        return sum + pileTotal;
+                    }, 0);
+            }
+        });
+
         return { state, stats };
     }
 }
+

@@ -27,7 +27,6 @@ export interface HexCell {
 
 export type SettlementRole = 'GENERAL' | 'LUMBER' | 'MINING' | 'GRANARY';
 
-export type GoalType = 'UPGRADE' | 'EXPAND' | 'TOOLS' | 'SURVIVE' | 'THRIFTY';
 
 export type BuildingType =
     | 'GathererHut'
@@ -40,7 +39,11 @@ export type BuildingType =
     | 'Watchtower'
     | 'Barracks'
     | 'MarketHall'
-    | 'Palace';
+    | 'Palace'
+    | 'Granary'
+    | 'Fishery'
+    | 'LumberYard'
+    | 'Mine';
 
 export interface BuildingInstance {
     id: string;
@@ -75,7 +78,6 @@ export interface Settlement {
     resourceChange?: Partial<Resources>;
 
     // AI
-    currentGoal?: GoalType;
     lastGrowth?: number;
     aiState?: {
         surviveMode: boolean; // "General Stand-Down"
@@ -94,6 +96,47 @@ export interface Faction {
     color: string;
     type?: 'Player' | 'AI'; // Add type
     gold?: number; // Global gold? Or per settlement? Let's keep it here for now if needed.
+    blackboard?: FactionBlackboard;
+    jobPool?: any; // JobPool instance
+    aiConfig?: any; // Store per-faction genome for Gladiator mode
+    stats?: {
+        totalTrades: number;
+        tradeResources: Partial<Record<ResourceType, number>>;
+        settlersSpawned: number;
+        settlementsFounded: number;
+    }
+}
+
+export type DesireType =
+    | 'UPGRADE'
+    | 'SETTLER'
+    | 'BUILD_FISHERY'
+    | 'BUILD_GRANARY'
+    | 'BUILD_SMITHY'
+    | 'BUILD_LUMBERYARD'
+    | 'BUILD_MINE'
+    | 'RECRUIT_VILLAGER'
+    | 'REQUEST_FREIGHT'
+    | 'REPLENISH'
+    | 'TRANSFER'
+    | 'TRADE_CARAVAN';
+
+export interface DesireTicket {
+    settlementId: string;
+    type: DesireType;
+    score: number; // 0.0 to 1.0
+    needs: string[]; // Resource names
+}
+
+export interface FactionBlackboard {
+    factionId: string;
+    stances: {
+        expand: number; // 0.0 to 1.0
+        exploit: number; // 0.0 to 1.0
+    };
+    criticalShortages: ResourceType[];
+    targetedHexes: string[];
+    desires?: DesireTicket[];
 }
 
 export type AgentType = 'Caravan' | 'Scout' | 'Army' | 'Settler' | 'Villager';
@@ -112,6 +155,7 @@ export interface BaseAgent {
     movementProgress?: number;
     lastHexId?: string;    // For stuck detection
     stuckTicks?: number;  // For stuck detection
+    jobId?: string; // Assigned Job ID
 }
 
 export interface CaravanAgent extends BaseAgent {
@@ -131,7 +175,7 @@ export interface SettlerAgent extends BaseAgent {
 export interface VillagerAgent extends BaseAgent {
     type: 'Villager';
     homeId: string; // Villagers always belong to a settlement
-    mission?: 'GATHER' | 'IDLE' | 'INTERNAL_FREIGHT';
+    mission?: 'GATHER' | 'IDLE' | 'INTERNAL_FREIGHT' | 'BUILD';
     gatherTarget?: HexCoordinate;
     resourceType?: keyof Resources;
 }

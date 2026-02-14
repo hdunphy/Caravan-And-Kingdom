@@ -9,6 +9,11 @@ export interface GameConfig {
     costs: {
         movement: number; // Base movement points per tick
         terrain: Record<TerrainType, number>; // Cost per hex
+        agents: {
+            Villager: Partial<Resources>;
+            Settler: Partial<Resources>;
+            Caravan: Partial<Resources>;
+        };
         baseConsume: number; // Food per pop per resource tick
         growthRate: number; // Population growth per tick if fed (0.01 = 1%)
         maxLaborPerHex: number; // Max jobs per hex
@@ -18,9 +23,7 @@ export interface GameConfig {
         toolBreakChance: number; // Chance to consume a tool per extraction tick (0-1)
         starvationRate: number;
         growthSurplusBonus: number;
-        settlement: Partial<Resources>;
         trade: {
-            caravanTimberCost: number;
             simulatedGoldPerResource: number;
             capacity: number;
             spawnChance: number;
@@ -40,7 +43,6 @@ export interface GameConfig {
             freightConstructionThreshold: number;
         };
         villagers: {
-            cost: number; // Food cost to spawn? Or passive?
             speed: number;
             capacity: number;
             range: number;
@@ -130,6 +132,42 @@ export interface GameConfig {
             expandSaturationPower: number;
             expandMinDistance: number;
         };
+        bidding: {
+            distanceWeight: number;
+            saturationWeight: number;
+            fulfillmentWeight: number;
+        };
+
+        sovereign: {
+            checkInterval: number;
+            foodSurplusRatio: number;
+            desperationFoodRatio: number;
+            scarcityThresholds: Partial<Record<keyof Resources, number>>;
+            urgencyBoosts: Partial<Record<keyof Resources, number>>;
+            capPenalty: number;
+            capOverrideMultiplier: number;
+            stanceShiftThreshold: number;
+        };
+        governor: {
+            thresholds: {
+                upgrade: number;
+                settler: number;
+                trade: number;
+                recruit: number;
+                infrastructure: number;
+            };
+            weights: {
+                survivePenalty: number;
+                settlerExpandBase: number;
+                settlerCostBuffer: number;
+                tradeBase: number;
+                tradeShortage: number;
+                granaryRole: number;
+                fisheryWater: number;
+                smithyRole: number;
+                toolPerPop: number;
+            };
+        };
         feudal: {
             roleUtilityBonus: number;
             roleCheckInterval: number;
@@ -183,6 +221,11 @@ export const DEFAULT_CONFIG: GameConfig = {
             Mountains: 3.0,
             Water: 1000.0,
         },
+        agents: {
+            Villager: { Food: 100 },
+            Settler: { Food: 800, Timber: 400 }, // Increased from 500/200
+            Caravan: { Timber: 50 }
+        },
         baseConsume: 0.1,
         growthRate: 0.008,
         maxLaborPerHex: 40,
@@ -192,18 +235,13 @@ export const DEFAULT_CONFIG: GameConfig = {
         toolBreakChance: 0.05,
         starvationRate: 0.005, // Lowered from 0.02 to prevent death spiral
         growthSurplusBonus: 0.0001, // Multiplier for growth based on food surplus ratio
-        settlement: {
-            Food: 500,
-            Timber: 200,
-        },
         trade: {
-            caravanTimberCost: 50,
             simulatedGoldPerResource: 1, // Simple fixed price for now
-            capacity: 50,
+            capacity: 200, // Doubled from 100
             spawnChance: 0.1, // 10% chance per tick to spawn a caravan if conditions met
             surplusThresholdMulti: 50,
             neighborSurplusMulti: 20,
-            buyCap: 50,
+            buyCap: 100, // Doubled from 50
             loadingTime: 20,
             forceTradeGold: 50,
             travelCostPerHex: 2,
@@ -212,24 +250,23 @@ export const DEFAULT_CONFIG: GameConfig = {
             caravanIntegrityLossPerHex: 0.5,
             caravanRepairCost: 2, // Timber
             freightThreshold: 40, // Min resources to dispatch
-            tradeRoiThreshold: 131.4,
-            constructionRoiThreshold: 9.4, // Min value to BUILD a new caravan
+            tradeRoiThreshold: 1.25, // ROI Multiplier (1.25 = 25% profit over travel cost)
+            constructionRoiThreshold: 1.2, // From Batch 10 manual fix
             freightConstructionThreshold: 100, // Min resources to BUILD a new caravan
         },
         villagers: {
-            cost: 100, // Food cost to buy a new villager
             speed: 0.5, // Slow down to 0.5 hex/tick (Takes 2 ticks to move 1 plains hex)
-            capacity: 20,
+            capacity: 50, // Increased from 24
             range: 3,
-            popRatio: 50,
-            baseVillagers: 2,
+            popRatio: 25, // Lowered from 50 (more villagers per pop - Balanced for Logistics Fix)
+            baseVillagers: 4, // Increased from 2 to kickstart new settlements
         },
     },
     economy: {
         taxRate: 0.005,
     },
     industry: {
-        targetToolRatio: 0.116,
+        targetToolRatio: 0.033, // From Batch 9
         costTimber: 5,
         costOre: 2,
         surplusThreshold: 50,
@@ -256,51 +293,51 @@ export const DEFAULT_CONFIG: GameConfig = {
     },
     yields: {
         Plains: {
-            Food: 4,
-            Timber: 1,
+            Food: 10,
+            Timber: 4,
         },
         Forest: {
-            Timber: 4,
-            Food: 2,
+            Timber: 8,
+            Food: 5,
         },
         Hills: {
-            Stone: 2,
-            Ore: 1,
+            Stone: 6,
+            Ore: 2,
         },
         Mountains: {
-            Ore: 2,
-            Stone: 1,
+            Ore: 6,
+            Stone: 4,
         },
         Water: {
-            Food: 3,
-            Gold: 0.75,
+            Food: 12,
+            Gold: 3,
         },
     },
     ai: {
         settlementCap: 5,
         settlerCost: 50,
-        settlerCooldown: 100,
-        expansionBuffer: 1.5,
+        settlerCooldown: 300, // Increased from 100 to slow expansion
+        expansionBuffer: 1.5, // Manual Sanity Override
         expansionStarterPack: {
-            Food: 100,
+            Food: 250,
             Timber: 50,
             Stone: 20,
             Ore: 0,
             Tools: 0,
             Gold: 0
         },
-        checkInterval: 10,
+        checkInterval: 5,
         longCheckInterval: 50,
         thresholds: {
             surviveFood: 50,
             surviveTicks: 20,
-            recruitBuffer: 3.03, // Multiplier of surviveFood for villager recruitment
+            recruitBuffer: 0.1, // Manual Sanity Override
             upgradeMinPop: 0.9,
             upgradePopRatio: 0.8,
             minConstructionBuffer: 50,
             militarySurplusTimber: 200,
             militarySurplusStone: 100,
-            villagerJobScoreMulti: 1.42,
+            villagerJobScoreMulti: 1.79, // From Batch 9
             newSettlementPop: 100,
             newSettlementIntegrity: 100,
         },
@@ -330,17 +367,61 @@ export const DEFAULT_CONFIG: GameConfig = {
             }
         },
         utility: {
-            surviveThreshold: 1.62,
-            growthFoodSafety: 0.06,
-            provisionDistanceMulti: 13.97,
-            ascendReadinessPower: 17.02,
-            buildRateLookback: 30.91,
-            commercialLowThreshold: 0.16, // 50% of cap or goal
-            commercialSurplusThreshold: 0.41, // 200% of need
-            fleetTargetSize: 1.41,
-            expandSearchRadius: 0.31,
-            expandSaturationPower: 0.55,
-            expandMinDistance: 5.55,
+            surviveThreshold: 0.78, // From Batch 9
+            growthFoodSafety: 0.18, // From Batch 9
+            provisionDistanceMulti: 11.07, // From Batch 9
+            ascendReadinessPower: 2.47, // From Batch 9
+            buildRateLookback: 3.91, // From Batch 9
+            commercialLowThreshold: 0.01, // From Batch 9
+            commercialSurplusThreshold: 0.28, // From Batch 9
+            fleetTargetSize: 1.52, // From Batch 9
+            expandSearchRadius: 0.08, // From Batch 9
+            expandSaturationPower: 0.06, // From Batch 9
+            expandMinDistance: 36.29, // From Batch 9
+        },
+        bidding: {
+            distanceWeight: 1.60, // From Batch 9
+            saturationWeight: 0.56, // From Batch 9
+            fulfillmentWeight: 0.17, // From Batch 9
+        },
+
+        sovereign: {
+            checkInterval: 100,
+            foodSurplusRatio: 0.8,
+            desperationFoodRatio: 0.5,
+            scarcityThresholds: {
+                Stone: 0.1,
+                Ore: 0.1,
+                Timber: 0.1,
+            },
+            urgencyBoosts: {
+                Stone: 0.5,
+                Timber: 0.5,
+                Ore: 0.3
+            },
+            capPenalty: 0.1,
+            capOverrideMultiplier: 1.5,
+            stanceShiftThreshold: 0.3,
+        },
+        governor: {
+            thresholds: {
+                upgrade: 0.1,
+                settler: 0.1,
+                trade: 0.1,
+                recruit: 0.1,
+                infrastructure: 0.2,
+            },
+            weights: {
+                survivePenalty: 0.1,
+                settlerExpandBase: 0.8,
+                settlerCostBuffer: 2.0,
+                tradeBase: 0.4,
+                tradeShortage: 0.15,
+                granaryRole: 1.5,
+                fisheryWater: 1.5,
+                smithyRole: 1.2,
+                toolPerPop: 0.2,
+            },
         },
     },
     maintenance: {

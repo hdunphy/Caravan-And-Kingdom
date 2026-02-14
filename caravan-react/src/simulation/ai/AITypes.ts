@@ -1,15 +1,43 @@
-import { BuildingType } from '../../types/WorldTypes.ts';
+import { BuildingType, ResourceType } from '../../types/WorldTypes';
 
-export type AIAction = { score: number } & (
-    | { type: 'BUILD', settlementId: string, buildingType: BuildingType, hexId: string }
-    | { type: 'DISPATCH_CARAVAN', settlementId: string, targetHexId: string, mission: 'TRADE' | 'LOGISTICS', context: any }
-    | { type: 'RECRUIT_VILLAGER', settlementId: string }
-    | { type: 'DISPATCH_VILLAGER', settlementId: string, targetHexId: string, mission?: 'GATHER' | 'INTERNAL_FREIGHT', payload?: any }
-    | { type: 'UPGRADE_SETTLEMENT', settlementId: string }
-    | { type: 'SPAWN_SETTLER', settlementId: string, targetHexId: string, context?: any }
-    | { type: 'BUILD_CARAVAN', settlementId: string }
-);
+export type AIActionType =
+    | 'BUILD'
+    | 'DISPATCH_CARAVAN'
+    | 'RECRUIT_VILLAGER'
+    | 'DISPATCH_VILLAGER'
+    | 'UPGRADE_SETTLEMENT'
+    | 'SPAWN_SETTLER'
+    | 'BUILD_CARAVAN';
+
+export interface AIAction {
+    type: AIActionType;
+    settlementId: string;
+    score: number;
+    targetHexId?: string; // For dispatch/build
+    buildingType?: BuildingType; // For construction
+    mission?: 'TRADE' | 'LOGISTICS' | 'GATHER' | 'INTERNAL_FREIGHT'; // For caravans/villagers
+    context?: any; // Extra data (e.g. which resource to buy)
+    payload?: any; // For villagers
+}
+
+export type JobType = 'COLLECT' | 'BUILD' | 'RECRUIT' | 'EXPAND' | 'TRADE' | 'TRANSFER';
+export type JobUrgency = 'HIGH' | 'MEDIUM' | 'LOW';
+export type JobStatus = 'OPEN' | 'SATURATED' | 'COMPLETED';
+
+export interface JobTicket {
+    jobId: string;
+    factionId: string;
+    sourceId: string; // Settlement requesting the job
+    type: JobType;
+    urgency: JobUrgency;
+    priority: number;
+    targetHexId?: string; // Optional for multi-source jobs
+    resource?: ResourceType;
+    targetVolume: number; // e.g. 500 units total
+    assignedVolume: number; // Current worker commitment
+    status: JobStatus;
+}
 
 export interface AIStrategy {
-    evaluate(state: any, config: any, factionId: string, settlementId?: string): AIAction[];
+    evaluate(state: any, config: any, factionId: string, settlementId: string): AIAction[];
 }

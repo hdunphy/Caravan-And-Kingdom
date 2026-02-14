@@ -47,6 +47,21 @@ export const Dashboard: React.FC<Props> = ({ state, selectedHexId }) => {
                         <span className="text-yellow-500">Gold: {Math.floor(faction?.gold || 0)}</span>
                     </div>
                 </div>
+
+                {/* AI Stance Indicator */}
+                {faction?.blackboard && (
+                    <div className="mt-3 bg-slate-900 p-2 rounded border border-slate-800 flex justify-between items-center">
+                        <span className="text-[10px] uppercase text-slate-500 font-bold tracking-wider">AI Strategy</span>
+                        <div className="flex gap-2 text-xs font-mono">
+                            <span className={faction.blackboard.stances.expand > 0.5 ? 'text-emerald-400' : 'text-slate-600'}>
+                                EXP:{faction.blackboard.stances.expand.toFixed(2)}
+                            </span>
+                            <span className={faction.blackboard.stances.exploit > 0.5 ? 'text-amber-400' : 'text-slate-600'}>
+                                EXPLOIT:{faction.blackboard.stances.exploit.toFixed(2)}
+                            </span>
+                        </div>
+                    </div>
+                )}
             </div>
 
             <div className="flex-1 overflow-y-auto p-4 space-y-6">

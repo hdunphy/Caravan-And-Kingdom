@@ -1,154 +1,206 @@
-
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { AIController } from '../simulation/ai/AIController';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { SovereignAI } from '../simulation/ai/SovereignAI';
 import { WorldState, Faction, Settlement } from '../types/WorldTypes';
 import { DEFAULT_CONFIG } from '../types/GameConfig';
 
-describe('Sovereign AI (Jitter & Decentralization)', () => {
-    let ai: AIController;
+describe('Sovereign AI (Stance Logic)', () => {
     let state: WorldState;
+    let faction: Faction;
+    let config = { ...DEFAULT_CONFIG };
 
     beforeEach(() => {
-        ai = new AIController();
-        const f1: Faction = { id: 'f1', name: 'Faction 1', color: 'red', type: 'AI', gold: 0 };
-        const f2: Faction = { id: 'f2', name: 'Faction 2', color: 'blue', type: 'AI', gold: 0 };
-        const f3: Faction = { id: 'f3', name: 'Faction 3', color: 'green', type: 'AI', gold: 0 };
-
+        faction = { id: 'f1', name: 'Faction 1', color: 'red', type: 'AI' };
         state = {
             map: {},
             width: 10,
             height: 10,
-            factions: { f1, f2, f3 },
+            factions: { f1: faction },
             settlements: {},
             agents: {},
             tick: 100
         };
+
+        // Reset Config defaults for testing
+        config.ai.settlementCap = 5;
+        config.ai.sovereign = {
+            checkInterval: 100,
+            foodSurplusRatio: 0.8,
+            desperationFoodRatio: 0.5,
+            scarcityThresholds: {
+                Stone: 0.1, // 10% of land must be Stone
+                Ore: 0.1,
+                Timber: 0.1,
+            },
+            urgencyBoosts: {
+                Stone: 0.5,
+                Timber: 0.5,
+                Ore: 0.3,
+                Gold: 0.1,
+            },
+            capPenalty: 0.1,
+            capOverrideMultiplier: 1.5,
+            stanceShiftThreshold: 0.3
+        };
+        config.ai.thresholds.surviveTicks = 10;
+        config.costs.baseConsume = 1; // 1 food per pop per tick for easy math
+        hexCounter = 0;
     });
 
-    it('should initialize faction states with staggered timing', () => {
-        // Run once to initialize
-        ai.update(state, DEFAULT_CONFIG);
-
-        // Access private field via 'any' casting for testing
-        const states = (ai as any).factionStates;
-        expect(states.size).toBe(3);
-
-        const timings = Array.from(states.values()).map((s: any) => s.nextInterval);
-        // Expect some variation due to random stagger (0-3) + base interval (10)
-        // Note: nextInterval is set to base (10) + stagger (0-3) initially
-
-        // We can't strictly assert they are DIFFERENT because random might collide,
-        // but we can check they are within expected range [10, 13]
-        //TODO: These checks don't do anything useful..
-        timings.forEach((t: number) => {
-            expect(t).toBeGreaterThanOrEqual(1); // Allow specifically for jitter reducing it below 10
-            // With jitter -3, could be 7. With startup stagger...
-            // Just ensure it's positive and reasonably close to interval if checking specific logic
-            expect(t).toBeGreaterThan(0);
-        });
-    });
-
-    it('should update different factions at different times (Decentralized)', () => {
-        // Force specific timings to verify independent execution
-        (ai as any).factionStates.set('f1', { lastTick: 100, nextInterval: 10 }); // Due at 110
-        (ai as any).factionStates.set('f2', { lastTick: 105, nextInterval: 10 }); // Due at 115
-
-        const processSpy = vi.spyOn(ai as any, 'processFaction');
-
-        // Tick 110: F1 should update, F2 should not
-        state.tick = 110;
-        ai.update(state, DEFAULT_CONFIG);
-
-        expect(processSpy).toHaveBeenCalledWith('f1', state, DEFAULT_CONFIG);
-        expect(processSpy).not.toHaveBeenCalledWith('f2', expect.anything(), expect.anything());
-
-        processSpy.mockClear();
-
-        // Tick 115: F2 should update
-        state.tick = 115;
-        ai.update(state, DEFAULT_CONFIG);
-
-        expect(processSpy).toHaveBeenCalledWith('f2', state, DEFAULT_CONFIG);
-    });
-
-    it('should apply decision jitter to break ties', () => {
-        // Mock a scenario where 2 actions have identical utility
-        // but jitter makes one win
-
-        const settlement: Settlement = {
-            id: 's1',
-            name: 'S1',
+    const createSettlement = (id: string, pop: number, food: number): Settlement => {
+        return {
+            id,
+            name: id,
             hexId: '0,0',
             ownerId: 'f1',
-            population: 10,
-            tier: 1,
-            stockpile: { Food: 100, Timber: 100, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
-            buildings: [],
-            availableVillagers: 0,
-            controlledHexIds: ['0,0'],
-            popHistory: [],
+            population: pop,
+            stockpile: { Food: food, Timber: 0, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
             integrity: 100,
+            tier: 1,
+            role: 'GENERAL',
             jobCap: 10,
             workingPop: 0,
-            role: 'GENERAL'
+            availableVillagers: 0,
+            controlledHexIds: [],
+            popHistory: [],
+            buildings: []
         };
-        state.settlements['s1'] = settlement;
+    };
 
-        // Create 2 identical strategies
-        const strategy1 = {
-            evaluate: () => [{
-                type: 'BUILD',
-                buildingType: 'A',
-                score: 10.0,
-                settlementId: 's1',
-                hexId: '0,0'
-            }]
-        };
-        const strategy2 = {
-            evaluate: () => [{
-                type: 'BUILD',
-                buildingType: 'B',
-                score: 10.0,
-                settlementId: 's1',
-                hexId: '0,0'
-            }]
-        };
+    let hexCounter = 0;
+    const mockLand = (count: number, type: 'Plains' | 'Hills' | 'Forest' | 'Mountains', settlementId?: string) => {
+        for (let i = 0; i < count; i++) {
+            const id = `${hexCounter},0`;
+            state.map[id] = {
+                id: id,
+                coordinate: { q: hexCounter, r: 0, s: -hexCounter },
+                terrain: type,
+                ownerId: 'f1',
+                resources: {}
+            };
 
-        // Inject strategies
-        (ai as any).civilStrategies = [strategy1, strategy2];
+            if (settlementId && state.settlements[settlementId]) {
+                state.settlements[settlementId].controlledHexIds.push(id);
+            }
 
-        // Mock Math.random to favor Strategy 2 (B)
-        // processFaction calls runGovernor 'CIVIL'
-        // runGovernor generates actions A (10.0) and B (10.0)
-        // Then iterates and adds jitter: actions.forEach(a => a.score += random * 0.05)
+            hexCounter++;
+        }
+    };
 
-        // We want 2nd call to random to be higher.
-        // calls: 
-        // 1. shuffle (multiple calls)
-        // 2. stagger init (multiple calls if new) - assuming we pre-init
-        // 3. jitter nextInterval
-        // 4. action jitter
+    it('should initialize blackboard if missing', () => {
+        SovereignAI.evaluate(faction, state, config);
+        expect(faction.blackboard).toBeDefined();
+        expect(faction.blackboard?.stances.exploit).toBe(1.0); // Default
+    });
 
-        // This is hard to deterministic test with global Math.random.
-        // Instead, let's just spy on executeAction and verify it gets called
-        // for one of them.
+    it('should pivot to EXPAND when food is abundant and room exists', () => {
+        // 1 Settlement, Cap is 5
+        // SafeLevel = 10 pop * 1 consume * 10 ticks = 100 Food
+        // We give 200 Food (200% surplus, > 80% req)
+        const s1 = createSettlement('s1', 10, 200);
+        state.settlements['s1'] = s1;
 
-        const executeSpy = vi.spyOn(ai as any, 'executeAction');
-        executeSpy.mockReturnValue(true);
+        // Give some land so we don't trigger scarcity by accident? 
+        // Actually auditing resources is separate. 
+        // Let's give 10 hexes of mixed types to satisfy thresholds
+        mockLand(5, 'Hills', 's1'); // Stone/Ore
+        mockLand(5, 'Forest', 's1'); // Timber
 
-        // Pre-init state to skip init randoms
-        (ai as any).factionStates.set('f1', { lastTick: 0, nextInterval: 1 });
-        state.tick = 100;
+        SovereignAI.evaluate(faction, state, config);
 
-        ai.update(state, DEFAULT_CONFIG);
+        expect(faction.blackboard?.stances.expand).toBe(1.0);
+        expect(faction.blackboard?.stances.exploit).toBe(0.0);
+    });
 
-        expect(executeSpy).toHaveBeenCalled();
-        const calls = executeSpy.mock.calls;
-        // Should have picked one.
-        // With equal score and no jitter, sort is unstable or first-one-wins.
-        // With jitter, it's random. 
-        // We just verify it ran.
-        expect(calls.length).toBeGreaterThan(0);
-        expect(['A', 'B']).toContain((calls[0][2] as any).buildingType);
+    it('should pivot to EXPLOIT if food is low', () => {
+        // SafeLevel = 100. We give 50 (50% surplus).
+        // Requirement is 80%.
+        const s1 = createSettlement('s1', 10, 50);
+        state.settlements['s1'] = s1;
+
+        mockLand(10, 'Hills', 's1');
+
+        SovereignAI.evaluate(faction, state, config);
+
+        expect(faction.blackboard?.stances.expand).toBe(0.0);
+        expect(faction.blackboard?.stances.exploit).toBe(1.0);
+    });
+
+    it('should detect Critical Shortages', () => {
+        const s1 = createSettlement('s1', 10, 200);
+        state.settlements['s1'] = s1;
+
+        // 10 Hexes of Water (Food, Gold, but NO Timber/Stone/Ore)
+        // Note: mockLand types need to be expanded or mapped.
+        // Helper only accepts 'Plains' | 'Hills' | 'Forest' | 'Mountains'
+        // Let's use Mountains (Ore, Stone, No Timber)
+        mockLand(10, 'Mountains', 's1');
+
+        SovereignAI.evaluate(faction, state, config);
+
+        const shortages = faction.blackboard?.criticalShortages;
+        // Mountains have Stone/Ore, but no Timber or Food (if food was thresholded)
+        expect(shortages).toContain('Timber');
+    });
+
+    it('should OVERRULE for EXPAND if Critical Shortage exists and food is decent', () => {
+        // We need 50% surplus ratio.
+        // S1: Safe (200 Food > 100 Needs)
+        // S2: Unsafe (50 Food < 100 Needs)
+        // Ratio = 0.5. Matches desperation req.
+        const s1 = createSettlement('s1', 10, 200);
+        const s2 = createSettlement('s2', 10, 50);
+        state.settlements['s1'] = s1;
+        state.settlements['s2'] = s2;
+
+        // Critical Shortage: No Stone
+        mockLand(10, 'Plains', 's1');
+
+        SovereignAI.evaluate(faction, state, config);
+
+        // Should expand despite low-ish food because we are desperate for Stone
+        // Should expand despite low-ish food because we are desperate for Stone
+        // Urgency score results in 0.8 (High Expand)
+        expect(faction.blackboard?.stances.expand).toBeGreaterThan(0.7);
+        expect(faction.blackboard?.criticalShortages).toContain('Stone');
+    });
+
+    it('should NOT overrule if food is dangerously low', () => {
+        // Food is 40 (40% surplus).
+        // Desperation req is 50%.
+        const s1 = createSettlement('s1', 10, 40);
+        state.settlements['s1'] = s1;
+
+        mockLand(10, 'Plains', 's1'); // Shortage
+
+        SovereignAI.evaluate(faction, state, config);
+
+        // Too hungry to expand even though we need Stone
+        expect(faction.blackboard?.stances.expand).toBe(0.0);
+        expect(faction.blackboard?.stances.exploit).toBe(1.0);
+    });
+
+    it('should NOT expand if at Settlement Cap (unless desperate)', () => {
+        config.ai.settlementCap = 1;
+
+        const s1 = createSettlement('s1', 10, 500); // 500% food
+        state.settlements['s1'] = s1;
+        mockLand(5, 'Hills', 's1'); // Stone/Ore
+        mockLand(5, 'Forest', 's1'); // Timber - Ensure no shortages trigger overrule
+
+        SovereignAI.evaluate(faction, state, config);
+
+        expect(faction.blackboard?.stances.expand).toBeLessThan(0.2); // Capped (0.1 penalty)
+    });
+
+    it('should IGNORE CAP if desperate for resources', () => {
+        config.ai.settlementCap = 1;
+
+        const s1 = createSettlement('s1', 10, 500);
+        state.settlements['s1'] = s1;
+        mockLand(10, 'Plains', 's1'); // Shortage of Stone
+
+        SovereignAI.evaluate(faction, state, config);
+
+        expect(faction.blackboard?.stances.expand).toBe(0.15); // Cap ignored but penalty still heavy (0.1 * 1.5)
     });
 });

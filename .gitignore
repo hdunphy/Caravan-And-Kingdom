@@ -34,3 +34,6 @@ yarn-error.log*
 # Project specific
 caravan-react/node_modules/
 caravan-react/dist/
+caravan-react/evolution_logs_*.txt
+caravan-react/config_results_*.json
+Bugs.txt
