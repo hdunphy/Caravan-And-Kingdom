@@ -81,6 +81,7 @@ const evolver = new Evolver(POP_SIZE, seedConfig);
             'Villages': villageCount,
             'Density': density.toFixed(2),
             'Settlers': fStats.settlersSpawned,
+            'Villagers': fStats.totalVillagers,
             'Trades': fStats.totalTrades,
             'TopTrade': topRes,
             'MaxCaravans': fStats.maxCaravans,

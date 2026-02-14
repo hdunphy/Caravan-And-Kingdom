@@ -73,9 +73,44 @@ export class SovereignAI {
             }
         });
 
+        // Calculate Total Stockpile for this faction
+        const totalStockpile: Record<string, number> = {
+            Food: 0,
+            Timber: 0,
+            Stone: 0,
+            Ore: 0,
+            Tools: 0,
+            Gold: 0
+        };
+        settlements.forEach(s => {
+            totalStockpile.Food += s.stockpile.Food;
+            totalStockpile.Timber += s.stockpile.Timber;
+            totalStockpile.Stone += s.stockpile.Stone;
+            totalStockpile.Ore += s.stockpile.Ore;
+            totalStockpile.Tools += s.stockpile.Tools;
+            totalStockpile.Gold += s.stockpile.Gold;
+        });
+
+        // Define "Sufficient Stockpile" thresholds to ignore land scarcity
+        // If we have > 500 of a basic resource, we are probably fine for now.
+        const sufficiencyThresholds: Record<string, number> = {
+            Food: 1000,
+            Timber: 500,
+            Stone: 200,
+            Ore: 200,
+            Tools: 50,
+            Gold: 100
+        };
+
         (Object.keys(thresholds) as ResourceType[]).forEach(res => {
             const threshold = thresholds[res];
             if (threshold !== undefined && threshold > 0) {
+                // Check Stockpile First
+                if ((totalStockpile[res] || 0) >= (sufficiencyThresholds[res] || 100)) {
+                    // We have plenty, ignore land scarcity
+                    return;
+                }
+
                 const count = resourceCounts[res] || 0;
                 const ratio = count / totalOwned;
                 if (ratio < threshold) {

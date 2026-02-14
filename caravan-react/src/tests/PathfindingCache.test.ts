@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { Pathfinding } from '../simulation/Pathfinding';
 import { HexCoordinate, HexCell, AgentType } from '../types/WorldTypes';
 import { DEFAULT_CONFIG } from '../types/GameConfig';
+import { HexUtils } from '../utils/HexUtils';
 
 describe('Pathfinding Cache System', () => {
     // Helper to create a basic 5x5 map of Plains
@@ -44,12 +45,12 @@ describe('Pathfinding Cache System', () => {
         const end = { q: 2, r: 2, s: -4 };
 
         const caravanPath = Pathfinding.findPath(start, end, map, DEFAULT_CONFIG);
-        
+
         // Change the map to Water (impassable)
-        map['1,1'].terrain = 'Water'; 
-        
+        map['1,1'].terrain = 'Water';
+
         const villagerPath = Pathfinding.findPath(start, end, map, DEFAULT_CONFIG);
-        
+
         // Should hit the cache and return the OLD (passable) path even though map changed
         // This confirms global sharing and cache persistence.
         expect(caravanPath).toEqual(villagerPath);
@@ -61,7 +62,7 @@ describe('Pathfinding Cache System', () => {
         const end = { q: 2, r: 0, s: -2 };
 
         const path1 = Pathfinding.findPath(start, end, map, DEFAULT_CONFIG)!;
-        
+
         // Mutate the returned array
         path1.push({ q: 99, r: 99, s: -198 });
 
@@ -82,14 +83,14 @@ describe('Pathfinding Cache System', () => {
 
         // 2. Block the path
         map['1,0'].terrain = 'Water';
-        
+
         // This is the current BUGGY behavior or FEATURE: 
         // Cache is NOT cleared when map changes.
         const pathBlocked = Pathfinding.findPath(start, end, map, DEFAULT_CONFIG);
-        
+
         // EXPECTATION: If cache is working as intended (static), this is still the old path.
         // If we want dynamic pathfinding, this should be NULL or a different path.
-        expect(pathBlocked).toEqual(pathPassable); 
+        expect(pathBlocked).toEqual(pathPassable);
     });
 
     it('should respect GameConfig changes if we implemented config hashing (Sensitivity Test)', () => {
@@ -119,20 +120,26 @@ describe('Pathfinding Cache System', () => {
         const start = { q: 0, r: 0, s: 0 };
         const end = { q: 4, r: 4, s: -8 };
 
-        // Block all routes
+        // Create a config where Water is IMPASSABLE for this test
+        const blockedConfig = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+        blockedConfig.costs.terrain.Water = 1000;
+
+        // Block all routes with Water
         for (let r = 0; r < 5; r++) map[`2,${r}`].terrain = 'Water';
 
-        const fail1 = Pathfinding.findPath(start, end, map, DEFAULT_CONFIG);
+        // Should return null because Water is 1000
+        const fail1 = Pathfinding.findPath(start, end, map, blockedConfig);
         expect(fail1).toBeNull();
 
         // Unblock
         map['2,2'].terrain = 'Plains';
 
-        const success1 = Pathfinding.findPath(start, end, map, DEFAULT_CONFIG);
-        
+        const success1 = Pathfinding.findPath(start, end, map, blockedConfig);
+
         // If we erroneously cached the NULL, this would be NULL.
         // But Pathfinding.ts only calls cache.set inside the goal block.
         expect(success1).not.toBeNull();
+        expect(success1!.length).toBeGreaterThan(0);
     });
 
     it('should handle the 1000 iteration limit correctly', () => {
@@ -142,7 +149,7 @@ describe('Pathfinding Cache System', () => {
 
         // This path is likely > 1000 iterations in A*
         const path = Pathfinding.findPath(start, end, map, DEFAULT_CONFIG);
-        
+
         // Should return null (failure) due to iteration limit
         expect(path).toBeNull();
     });

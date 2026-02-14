@@ -219,7 +219,7 @@ export const DEFAULT_CONFIG: GameConfig = {
             Forest: 1.5,
             Hills: 2.0,
             Mountains: 3.0,
-            Water: 1000.0,
+            Water: 20.0, // Reduced from 1000 (Blocked) to 20 (Expensive but possible - Rafts)
         },
         agents: {
             Villager: { Food: 100 },
@@ -237,7 +237,7 @@ export const DEFAULT_CONFIG: GameConfig = {
         growthSurplusBonus: 0.0001, // Multiplier for growth based on food surplus ratio
         trade: {
             simulatedGoldPerResource: 1, // Simple fixed price for now
-            capacity: 100, // Doubled from 50 (Balanced for Logistics Fix)
+            capacity: 200, // Doubled from 100
             spawnChance: 0.1, // 10% chance per tick to spawn a caravan if conditions met
             surplusThresholdMulti: 50,
             neighborSurplusMulti: 20,
@@ -250,16 +250,16 @@ export const DEFAULT_CONFIG: GameConfig = {
             caravanIntegrityLossPerHex: 0.5,
             caravanRepairCost: 2, // Timber
             freightThreshold: 40, // Min resources to dispatch
-            tradeRoiThreshold: 20.0, // Low threshold to encourage trade (Gen 199 Winner)
-            constructionRoiThreshold: 4.5, // Aggressive caravan building (Gen 199 Winner)
+            tradeRoiThreshold: 1.25, // ROI Multiplier (1.25 = 25% profit over travel cost)
+            constructionRoiThreshold: 1.2, // From Batch 10 manual fix
             freightConstructionThreshold: 100, // Min resources to BUILD a new caravan
         },
         villagers: {
             speed: 0.5, // Slow down to 0.5 hex/tick (Takes 2 ticks to move 1 plains hex)
-            capacity: 24, // Doubled from 12 (Balanced for Logistics Fix)
+            capacity: 50, // Increased from 24
             range: 3,
             popRatio: 25, // Lowered from 50 (more villagers per pop - Balanced for Logistics Fix)
-            baseVillagers: 2,
+            baseVillagers: 4, // Increased from 2 to kickstart new settlements
         },
     },
     economy: {
@@ -317,7 +317,7 @@ export const DEFAULT_CONFIG: GameConfig = {
         settlementCap: 5,
         settlerCost: 50,
         settlerCooldown: 300, // Increased from 100 to slow expansion
-        expansionBuffer: 6.0, // From Batch 9
+        expansionBuffer: 1.5, // Manual Sanity Override
         expansionStarterPack: {
             Food: 100,
             Timber: 50,
@@ -331,7 +331,7 @@ export const DEFAULT_CONFIG: GameConfig = {
         thresholds: {
             surviveFood: 50,
             surviveTicks: 20,
-            recruitBuffer: 0.60, // From Batch 9
+            recruitBuffer: 0.1, // Manual Sanity Override
             upgradeMinPop: 0.9,
             upgradePopRatio: 0.8,
             minConstructionBuffer: 50,

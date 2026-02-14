@@ -22,7 +22,7 @@ export const Pathfinding = {
     findPath(start: HexCoordinate, end: HexCoordinate, map: Record<string, HexCell>, config?: GameConfig): HexCoordinate[] | null {
         const startId = HexUtils.getID(start);
         const endId = HexUtils.getID(end);
-        
+
         // Factions share the same path cache for efficiency (Lord Dunphy's Request)
         const cacheKey = `${startId}_${endId}`;
 
@@ -44,7 +44,8 @@ export const Pathfinding = {
         const IMPASSABLE = 1000;
 
         // Ensure Water is impassable regardless of config overrides for now
-        costs.Water = IMPASSABLE;
+        // REMOVED: Allow config to define Water cost (e.g. 20 for rafting)
+        // costs.Water = IMPASSABLE;
 
         if (startId === endId) return [];
 

@@ -105,11 +105,12 @@ describe('Villager Recruitment & Labor Supply System', () => {
     });
 
     it('should respect the population-based maxVillagers cap', () => {
-        // popRatio is 50. Max = 100 / 50 = 2.
+        // popRatio is 25 (Config). Pop 50. Ratio Cap = 2.
+        // BaseVillagers is 4 (Config). Max(4, 2) = 4.
         const s1: Settlement = {
-            id: 's1', ownerId: 'p1', hexId: '0,0', population: 100, tier: 1,
+            id: 's1', ownerId: 'p1', hexId: '0,0', population: 50, tier: 1,
             stockpile: { Food: 5000, Timber: 0, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
-            controlledHexIds: ['0,0'], availableVillagers: 2, jobCap: 20, workingPop: 0,
+            controlledHexIds: ['0,0'], availableVillagers: 4, jobCap: 20, workingPop: 0,
             popHistory: [], role: 'GENERAL', integrity: 100, buildings: []
         };
         state.settlements['s1'] = s1;

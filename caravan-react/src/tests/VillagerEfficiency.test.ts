@@ -62,7 +62,7 @@ describe('Villager Efficiency and Distribution', () => {
     });
 
     it('should dispatch BOTH available villagers if job volume allows', () => {
-        // Create a job with volume 40 (2 villagers * 20 each)
+        // Create a job with volume 100 (Capacity 50 -> Needs 2 villagers)
         jobPool.addJob({
             jobId: 'job1',
             factionId: 'f1',
@@ -71,7 +71,7 @@ describe('Villager Efficiency and Distribution', () => {
             resource: 'Timber',
             urgency: 'HIGH',
             priority: 1.0,
-            targetVolume: 40,
+            targetVolume: 100, // Increased from 40
             assignedVolume: 0,
             status: 'OPEN'
         });
@@ -86,7 +86,7 @@ describe('Villager Efficiency and Distribution', () => {
     });
 
     it('should distribute workers across different resource hexes', () => {
-        // Create a job with volume 40
+        // Create a job with volume 100
         jobPool.addJob({
             jobId: 'job1',
             factionId: 'f1',
@@ -95,7 +95,7 @@ describe('Villager Efficiency and Distribution', () => {
             resource: 'Timber',
             urgency: 'HIGH',
             priority: 1.0,
-            targetVolume: 40,
+            targetVolume: 100, // Increased from 40
             assignedVolume: 0,
             status: 'OPEN'
         });

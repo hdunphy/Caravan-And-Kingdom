@@ -80,9 +80,9 @@ describe('Villager Idling & Job Saturation', () => {
         const busyCount = agents.filter(a => a.jobId === jobId).length;
         expect(busyCount).toBe(10);
 
-        // Assigned volume should be 10 * 12 (capacity) = 120
+        // Assigned volume should be 10 * 50 (capacity with new config) = 500
         const job = jobPool.getJob(jobId);
-        expect(job?.assignedVolume).toBe(120);
+        expect(job?.assignedVolume).toBe(500);
         expect(job?.status).toBe('OPEN');
     });
 

@@ -25,7 +25,14 @@ export class SettlementGovernor {
 
         const popRatio = Math.min(1.0, settlement.population / currentCap);
         const exploitStance = faction.blackboard.stances.exploit;
-        let upgradeScore = Math.pow(popRatio, 2) * exploitStance;
+        const expandStance = faction.blackboard.stances.expand;
+
+        // FIXED: Upgrading is also useful for Expansion (Higher Caps). 
+        // Don't zero it out completely if we are in EXPAND mode.
+        // Formula: Exploit + (Expand * 0.5)
+        const stanceModifier = exploitStance + (expandStance * 0.5);
+
+        let upgradeScore = Math.pow(popRatio, 2) * stanceModifier;
 
         // Penalty: Multiply by 0.1 if SURVIVE mode is active (assuming surviveMode is in aiState)
         if (settlement.aiState?.surviveMode) {
@@ -43,7 +50,7 @@ export class SettlementGovernor {
 
         // 2. Territorial Ambition (SETTLER)
         // Formula: 0.8 * Sovereign.Stance_Expand * (Population / (Settler_Cost * 2))
-        const expandStance = faction.blackboard.stances.expand;
+        // expandStance is already defined above
         const settlerCost = config.ai.settlerCost;
         const settlerRatio = Math.min(1.0, settlement.population / (settlerCost * config.ai.governor.weights.settlerCostBuffer)); // Cap at 1.0 if we have double the cost
         const settlerScore = config.ai.governor.weights.settlerExpandBase * expandStance * settlerRatio;
@@ -72,21 +79,37 @@ export class SettlementGovernor {
 
         // 4. Labor Ambition (VILLAGER)
         if (!settlement.aiState?.surviveMode) {
-            const jobCap = settlement.jobCap || 10;
-            const currentLabor = (settlement.workingPop || 0) + (settlement.availableVillagers || 0);
-            const jobRatio = Math.min(1.0, currentLabor / jobCap);
+            // FIXED: Decoupled Agent Recruitment from City Job Cap
+            // Agents are independent of city jobs (workingPop).
+            // Agent Cap = Population / popRatio (e.g. 100 / 25 = 4 agents)
+            const villagersConfig = config.costs.villagers;
+            const popRatio = (villagersConfig && villagersConfig.popRatio) ? villagersConfig.popRatio : 25;
+            const maxAgents = Math.max(1, Math.floor(settlement.population / popRatio));
+            const currentAgents = (settlement.availableVillagers || 0) + Object.values(state.agents).filter(a => a.type === 'Villager' && (a as any).homeId === settlement.id).length;
+
+            // Saturation Ratio
+            const agentRatio = Math.min(1.0, currentAgents / maxAgents);
 
             // Calculate local food surplus ratio
             // SafeLevel = consumption * surviveTicks
             const consumption = Math.max(1, settlement.population * (config.costs.baseConsume || 0.1));
             const safeLevel = consumption * (config.ai.thresholds.surviveTicks || 20);
+
+            // AGGRESSIVE RECRUITMENT:
+            // We want to recruit as long as we have > 1.2x SafeLevel (20% buffer).
+            // Original logic mapped (Surplus - Safe) / Safe. 
+            // If Surplus = 1.2 * Safe, then Ratio = (1.2S - S)/S = 0.2.
             let foodSurplusRatio = 0;
             if (settlement.stockpile.Food > safeLevel) {
                 // How much surplus? Cap at 2x safe level = 1.0
                 foodSurplusRatio = Math.min(1.0, (settlement.stockpile.Food - safeLevel) / safeLevel);
             }
 
-            const villagerScore = (1.0 - jobRatio) * foodSurplusRatio;
+            // If we have at least 20% surplus (0.2), we treat food as "Good Enough" (1.0 multiplier)
+            // This prevents the linear scaling from killing priority when we have "just enough".
+            const foodScore = foodSurplusRatio >= (config.ai.thresholds.recruitBuffer || 0.1) ? 1.0 : (foodSurplusRatio * 5);
+
+            const villagerScore = (1.0 - agentRatio) * foodScore;
 
             if (villagerScore > config.ai.governor.thresholds.recruit) {
                 tickets.push({
@@ -151,21 +174,24 @@ export class SettlementGovernor {
 
         // Smithy
         // (1.0 - (Tools / (Pop * 0.2)))
-        const desiredTools = settlement.population * config.ai.governor.weights.toolPerPop; // 1 tool per 5 people?
-        // Avoid divide by zero
-        const currentTools = settlement.stockpile.Tools || 0;
-        const toolHealth = desiredTools > 0 ? Math.min(1.0, currentTools / desiredTools) : 1.0;
+        // FIXED: Don't build Smithy if we are starving or if we are a mere Village
+        if (!settlement.aiState?.surviveMode && settlement.tier >= 1) {
+            const desiredTools = settlement.population * config.ai.governor.weights.toolPerPop; // 1 tool per 5 people?
+            // Avoid divide by zero
+            const currentTools = settlement.stockpile.Tools || 0;
+            const toolHealth = desiredTools > 0 ? Math.min(1.0, currentTools / desiredTools) : 1.0;
 
-        const miningMultiplier = settlement.role === 'MINING' ? config.ai.governor.weights.smithyRole : 1.0;
-        const smithyScore = (1.0 - toolHealth) * miningMultiplier;
+            const miningMultiplier = settlement.role === 'MINING' ? config.ai.governor.weights.smithyRole : 1.0;
+            const smithyScore = (1.0 - toolHealth) * miningMultiplier;
 
-        if (smithyScore > config.ai.governor.thresholds.infrastructure) {
-            tickets.push({
-                settlementId: settlement.id,
-                type: 'BUILD_SMITHY',
-                score: Math.min(1.0, smithyScore),
-                needs: ['Stone', 'Ore']
-            });
+            if (smithyScore > config.ai.governor.thresholds.infrastructure) {
+                tickets.push({
+                    settlementId: settlement.id,
+                    type: 'BUILD_SMITHY',
+                    score: Math.min(1.0, smithyScore),
+                    needs: ['Stone', 'Ore']
+                });
+            }
         }
 
         // 6. Survival Ambition (Food Security)

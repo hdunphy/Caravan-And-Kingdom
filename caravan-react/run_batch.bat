@@ -1,5 +1,5 @@
 @echo off
-setlocal
+setlocal enableextensions enabledelayedexpansion
 
 REM Usage: run_batch.bat [BATCH_NUMBER] [OPTIONAL_SEED_FILE_PATH]
 
@@ -22,13 +22,19 @@ echo Ticks: %TICKS%
 echo Output: %OUTPUT_FILE%
 echo Log: %LOG_FILE%
 
-if NOT "%SEED_FILE%"=="" (
-    echo Seed File: %SEED_FILE%
-    call node_modules\.bin\tsx.cmd src/simulation/evolution/RunEvolution.ts %BATCH_NUM% %GEN% %TICKS% %SEED_FILE% %OUTPUT_FILE% > %LOG_FILE% 2>&1
-) else (
-    echo No Seed File provided (Starting Default).
-    REM Pass empty string for seed file to preserve argument position
-    call node_modules\.bin\tsx.cmd src/simulation/evolution/RunEvolution.ts %BATCH_NUM% %GEN% %TICKS% "" %OUTPUT_FILE% > %LOG_FILE% 2>&1
-)
+IF NOT "%SEED_FILE%"=="" GOTO UseSeed
+GOTO Default
 
+:UseSeed
+echo Seed File: %SEED_FILE%
+call "node_modules\.bin\tsx.cmd" src/simulation/evolution/RunEvolution.ts %BATCH_NUM% %GEN% %TICKS% %SEED_FILE% %OUTPUT_FILE% > %LOG_FILE% 2>&1
+GOTO Done
+
+:Default
+echo No Seed File provided (Starting Default).
+REM Pass empty string for seed file
+call "node_modules\.bin\tsx.cmd" src/simulation/evolution/RunEvolution.ts %BATCH_NUM% %GEN% %TICKS% "" %OUTPUT_FILE% > %LOG_FILE% 2>&1
+GOTO Done
+
+:Done
 echo Done.

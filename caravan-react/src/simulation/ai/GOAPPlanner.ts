@@ -116,6 +116,18 @@ export class GOAPPlanner {
                 return config.costs.agents.Villager as Partial<Resources>;
             case 'SETTLER':
                 return config.costs.agents.Settler as Partial<Resources>;
+            case 'REQUEST_FREIGHT':
+                // For REQUEST_FREIGHT, the "cost" is actually the target amount we want to reach.
+                // We map the needs list to the deficit.
+                const needs: Partial<Resources> = {};
+                if (desire.needs) {
+                    desire.needs.forEach((res: string) => {
+                        const r = res as keyof Resources;
+                        const goal = settlement.resourceGoals ? settlement.resourceGoals[r] : 0;
+                        needs[r] = goal;
+                    });
+                }
+                return needs;
             case 'BUILD_SMITHY':
             case 'BUILD_GRANARY':
             case 'BUILD_FISHERY':

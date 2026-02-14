@@ -169,11 +169,14 @@ describe('Villager Integration Flow', () => {
         expect(agent.jobId).toBe('high');
     });
 
-    test('Stuck Check: Should not modify state if no path found', () => {
-        // Obstruct path by making target inaccessible (Water)
-        if (state.map[TARGET_HEX]) {
-            state.map[TARGET_HEX].terrain = 'Water';
-        }
+    it('Stuck Check: Should not modify state if no path found', () => {
+        // Create a job target that is valid but unreachable
+        // We have 0,0 (Start) -> 0,1 -> 0,2 (Target)
+        // Let's remove 0,1 from the map so 0,2 is disconnected (island)
+        delete state.map['0,1'];
+
+        // Target 0,2 exists but is now isolated
+        state.map['0,2'].terrain = 'Plains'; // Make it Plains so it's valid terrain
 
         const job: JobTicket = {
             jobId: 'impossible',
@@ -185,6 +188,7 @@ describe('Villager Integration Flow', () => {
             assignedVolume: 0,
             status: 'OPEN',
             urgency: 'HIGH',
+            resource: 'Food', // Added resource to match JobTicket
             targetHexId: TARGET_HEX
         };
         jobPool.addJob(job);

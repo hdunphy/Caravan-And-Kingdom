@@ -32,6 +32,7 @@ export interface FactionStats {
     totalTrades: number;
     tradeResources: Partial<Record<ResourceType, number>>;
     maxCaravans: number;
+    totalVillagers: number;
 }
 
 export interface SimulationStats {
@@ -95,7 +96,8 @@ export class HeadlessRunner {
                 resourceWaste: 0,
                 totalTrades: 0,
                 tradeResources: {},
-                maxCaravans: 0
+                maxCaravans: 0,
+                totalVillagers: 0
             };
 
             // Create Faction
@@ -303,7 +305,13 @@ export class HeadlessRunner {
                 // Calculate Settlement Pops
                 fStats.population = Object.values(state.settlements)
                     .filter(s => s.ownerId === f.id)
-                    .reduce((sum, s) => sum + s.population, 0);
+                    .reduce((sum, s) => {
+                        fStats.totalVillagers += (s.availableVillagers || 0);
+                        return sum + s.population;
+                    }, 0);
+
+                const activeVillagers = Object.values(state.agents).filter(a => a.type === 'Villager' && a.ownerId === f.id).length;
+                fStats.totalVillagers += activeVillagers;
             }
         });
 

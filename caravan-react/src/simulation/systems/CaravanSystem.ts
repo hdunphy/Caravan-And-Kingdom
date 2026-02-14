@@ -4,6 +4,7 @@ import { HexUtils } from '../../utils/HexUtils.ts';
 import { Pathfinding } from '../Pathfinding.ts';
 import { Logger } from '../../utils/Logger.ts';
 import { BlackboardDispatcher } from '../ai/BlackboardDispatcher';
+import { TradeStrategy } from '../ai/TradeStrategy';
 
 export const CaravanSystem = {
     // Determine spawn location (Settlement or from IDLE pool)
@@ -144,9 +145,44 @@ export const CaravanSystem = {
                                         this.dispatch(state, home, targetHexId, 'LOGISTICS', config, {});
                                     }
                                 } else if (job.type === 'TRADE') {
-                                    // Handle Trade Job later if needed
-                                    BlackboardDispatcher.releaseAssignment(faction, job.jobId, capacity);
-                                    agent.jobId = undefined;
+                                    // Intelligent Trade Resolution
+                                    // 1. Check for Critical Shortages (IMPORTS)
+                                    const shortages = faction.blackboard?.criticalShortages || [];
+                                    let handled = false;
+
+                                    if (shortages.length > 0) {
+                                        for (const res of shortages) {
+                                            const route = TradeStrategy.findBestSeller(home, res, state, config);
+                                            if (route) {
+                                                this.dispatch(state, home, route.targetId, 'TRADE', config, route);
+                                                handled = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    // 2. Check for Surplus (EXPORTS) if no critical imports found
+                                    if (!handled) {
+                                        const surplusThreshold = config.industry.surplusThreshold || 100;
+                                        for (const [res, amount] of Object.entries(home.stockpile)) {
+                                            if ((amount as number) > surplusThreshold) {
+                                                const route = TradeStrategy.findBestBuyer(home, res as ResourceType, (amount as number) - surplusThreshold, state, config);
+                                                if (route) {
+                                                    this.dispatch(state, home, route.targetId, 'TRADE', config, route);
+                                                    handled = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    // If we dispatched, we KEEP the job (or maybe complete it? Logic says dispatch keeps it)
+                                    // Actually dispatch() assigns mission. 
+                                    // But if we failed to find any route, we release the job.
+                                    if (!handled) {
+                                        BlackboardDispatcher.releaseAssignment(faction, job.jobId, capacity);
+                                        agent.jobId = undefined;
+                                    }
                                 }
                             }
                         }

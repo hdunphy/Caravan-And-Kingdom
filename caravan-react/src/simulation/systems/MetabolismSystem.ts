@@ -33,8 +33,24 @@ export const MetabolismSystem = {
                     surplusBonus = surplusRatio * (config.costs.growthSurplusBonus || 0.0001);
                 }
 
+                // Smart Growth: 
+                // Labor Saturation Penalty REMOVED per user request.
+                // const laborSaturation = pop > 0 ? (workingPop / maxJobs) : 1; 
+
+                // 2. Malthusian Sanity Check:
+                // Only grow at full speed if we have ABUNDANCE (1.5x Safe Level).
+                // If we are just "getting by" (1.0x - 1.5x), grow slowly to let recruitment catch up.
+                const safeLevel = foodConsumption * (config.ai.thresholds.surviveTicks || 20);
+                const isAbundant = settlement.stockpile.Food > (safeLevel * 1.5);
+
+                // Base Growth
                 const baseGrowth = (config.costs.growthRate || 0.008);
                 let finalGrowthRate = (baseGrowth + surplusBonus) * pressureFactor;
+
+                // Apply throttles
+                if (!isAbundant) {
+                    finalGrowthRate *= 0.5; // 50% penalty if not abundant
+                }
 
                 // Enforce Population Cap based on Tier
                 let cap = config.upgrades.villageToTown.popCap || 200; // Tier 0

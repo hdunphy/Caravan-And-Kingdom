@@ -433,6 +433,11 @@ export const VillagerSystem = {
 
                             // Pick from available, or fall back to first potential if all saturated
                             targetHexId = availableHexes[0] || potentialHexIds[0];
+
+                            // DEBUG LOG
+                            // console.log(`[VillagerSystem] Agent ${agent.id} Potential: ${potentialHexIds.join(', ')} | Targeted: ${targetedByOthers.join(', ')} | Available: ${availableHexes.join(', ')} | Selected: ${targetHexId}`);
+                        } else {
+                            // console.log(`[VillagerSystem] Agent ${agent.id} No potential hexes found for resource ${bestJob.resource}`);
                         }
                     }
 

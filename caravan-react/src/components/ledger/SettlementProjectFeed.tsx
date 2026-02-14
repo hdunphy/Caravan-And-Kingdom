@@ -32,7 +32,7 @@ export const SettlementProjectFeed: React.FC<Props> = ({ desires }) => {
             case 'RECRUIT_VILLAGER': return 'Labor Expansion';
             case 'BUILD_FISHERY': return 'Maritime Infrastructure';
             case 'BUILD_GRANARY': return 'Food Security Storage';
-            case 'BUILD_SMITHY': return 'Industrial Tooling';
+            case 'BUILD_SMITHY': return 'Smithy Construction';
             case 'TRADE_CARAVAN': return 'Mercantile Logistics';
             case 'REPLENISH': return 'Emergency Aid';
             default: return type.replace(/_/g, ' ');

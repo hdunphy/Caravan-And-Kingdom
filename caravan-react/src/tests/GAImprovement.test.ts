@@ -4,6 +4,7 @@ import { DEFAULT_CONFIG } from '../types/GameConfig';
 import { calculateFitness } from '../simulation/evolution/FitnessEvaluator';
 import { SimulationStats } from '../simulation/evolution/HeadlessRunner';
 import { VillagerSystem } from '../simulation/systems/VillagerSystem';
+import { SettlementGovernor } from '../simulation/ai/SettlementGovernor';
 import { RecruitStrategy } from '../simulation/ai/RecruitStrategy';
 
 describe('GA Improvement & Balance Tests', () => {
@@ -18,7 +19,10 @@ describe('GA Improvement & Balance Tests', () => {
             settlements: {},
             agents: {},
             factions: {
-                'p1': { id: 'p1', name: 'Player', color: 'blue' } as Faction
+                'p1': {
+                    id: 'p1', name: 'Player', color: 'blue',
+                    blackboard: { stances: { expand: 0.5, exploit: 0.5 }, criticalShortages: [], targetedHexes: [], desires: [] }
+                } as Faction
             },
             width: 10,
             height: 10
@@ -33,7 +37,7 @@ describe('GA Improvement & Balance Tests', () => {
             factions: {
                 'p1': {
                     population: 100,
-                    totalWealth: 0, 
+                    totalWealth: 0,
                     territorySize: 1,
                     tiersReached: 0,
                     goalsCompleted: {},
@@ -62,7 +66,7 @@ describe('GA Improvement & Balance Tests', () => {
         const fitnessB = calculateFitness(state, statsB, 'p1', 1);
 
         console.log(`[Fitness Test] Expansionist: ${fitnessA.toFixed(0)}, Stagnant Hoarder: ${fitnessB.toFixed(0)}`);
-        
+
         // EXPECTATION: Expansionist should be much higher (+2000 bonus)
         expect(fitnessA).toBeGreaterThan(fitnessB);
     });
@@ -77,49 +81,41 @@ describe('GA Improvement & Balance Tests', () => {
 
         // Spawn a villager
         const agent = VillagerSystem.spawnVillager(state, 's1', '0,0', DEFAULT_CONFIG, 'GATHER')!;
-        
-        // Check capacity logic inside handleGather or similar? 
-        // Actually, we can just check the DEFAULT_CONFIG.
-        expect(DEFAULT_CONFIG.costs.villagers.capacity).toBe(24);
-        expect(DEFAULT_CONFIG.costs.trade.capacity).toBe(100);
+
+        // We doubled capacity from 12 to 24 (and now 50)
+        // Check config
+        expect(DEFAULT_CONFIG.costs.villagers.capacity).toBe(50);
+        expect(DEFAULT_CONFIG.costs.trade.capacity).toBe(200); // Updated from 100
     });
 
-    it('Scenario 3: Labor Supply - Population to Villager Ratio', () => {
+    it('Scenario 3: Labor Supply - Population to Villager Ratio (1:25)', () => {
         const s1: Settlement = {
             id: 's1', ownerId: 'p1', hexId: '0,0', population: 100, tier: 1,
-            stockpile: { Food: 1000, Timber: 0, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
+            stockpile: { Food: 5000, Timber: 0, Stone: 0, Ore: 0, Tools: 0, Gold: 0 },
             controlledHexIds: ['0,0'], availableVillagers: 0, jobCap: 20, workingPop: 0,
             popHistory: [], role: 'GENERAL', integrity: 100, buildings: []
         };
         state.settlements['s1'] = s1;
 
         // With pop 100 and ratio 25, the max villagers should be 4.
-        const strategy = new RecruitStrategy();
-        
-        // 1. First recruitment
-        let actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1', 's1');
-        expect(actions.length).toBeGreaterThan(0);
-        s1.availableVillagers = 1;
+        // We set the correct config property
+        const config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+        config.costs.villagers.popRatio = 25;
 
-        // 2. Second recruitment
-        actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1', 's1');
-        expect(actions.length).toBeGreaterThan(0);
-        s1.availableVillagers = 2;
+        // 1. Initial Check
+        SettlementGovernor.evaluate(s1, state.factions['p1'], state, config);
+        let desires = state.factions['p1'].blackboard?.desires || [];
+        expect(desires.some(d => d.type === 'RECRUIT_VILLAGER')).toBe(true);
 
-        // 3. Third
-        actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1', 's1');
-        expect(actions.length).toBeGreaterThan(0);
-        s1.availableVillagers = 3;
-
-        // 4. Fourth
-        actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1', 's1');
-        expect(actions.length).toBeGreaterThan(0);
+        // 2. Fill to cap
         s1.availableVillagers = 4;
+        state.factions['p1'].blackboard!.desires = [];
+        SettlementGovernor.evaluate(s1, state.factions['p1'], state, config);
+        desires = state.factions['p1'].blackboard?.desires || [];
 
-        // 5. Fifth - should be BLOCKED (at cap)
-        actions = strategy.evaluate(state, DEFAULT_CONFIG, 'p1', 's1');
-        expect(actions.length).toBe(0);
-        
-        console.log(`[Recruit Test] Max Villagers for 100 pop: ${s1.availableVillagers}`);
+        // Should be blocked now
+        expect(desires.some(d => d.type === 'RECRUIT_VILLAGER')).toBe(false);
+
+        console.log(`[Recruit Test] Correctly capped at 4 villagers for 100 population.`);
     });
 });

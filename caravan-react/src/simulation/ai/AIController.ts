@@ -5,6 +5,7 @@ import { SovereignAI } from './SovereignAI';
 import { SettlementGovernor } from './SettlementGovernor';
 import { MapGenerator } from '../MapGenerator';
 import { CaravanSystem } from '../systems/CaravanSystem';
+import { UpgradeSystem } from '../systems/UpgradeSystem';
 import { GOAPPlanner } from './GOAPPlanner';
 import { JobPool } from './JobPool';
 
@@ -106,7 +107,7 @@ export class AIController {
 
         const desires = faction.blackboard.desires;
         // Filter for instant actions
-        const instantDesires = desires.filter((d: any) => d.type === 'RECRUIT_VILLAGER' || d.type === 'SETTLER');
+        const instantDesires = desires.filter((d: any) => d.type === 'RECRUIT_VILLAGER' || d.type === 'SETTLER' || d.type === 'UPGRADE');
 
         instantDesires.forEach((d: any) => {
             const settlement = state.settlements[d.settlementId];
@@ -140,6 +141,13 @@ export class AIController {
                             Logger.getInstance().log(`[AI] ${settlement.id} spawned settler to ${target.id}`);
                         }
                     }
+                }
+            } else if (d.type === 'UPGRADE') {
+                // Attempt upgrade via System
+                // UpgradeSystem checks costs and population requirements internally
+                const success = UpgradeSystem.tryUpgrade(state, settlement, config);
+                if (success) {
+                    Logger.getInstance().log(`[AI] ${settlement.id} upgraded to Tier ${settlement.tier}`);
                 }
             }
         });

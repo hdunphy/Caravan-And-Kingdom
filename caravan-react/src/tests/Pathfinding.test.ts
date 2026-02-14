@@ -47,10 +47,17 @@ describe('Pathfinding', () => {
         expect(path).toBeNull();
     });
 
-    it('should return null if target is water (impassable)', () => {
-        map['2,0'].terrain = 'Water';
-        expect(DEFAULT_CONFIG.costs.terrain.Water).toBe(1000);
+    it('should find expensive path if target is water (rafting)', () => {
+        // Reuse map from beforeEach
+        map['1,0'].terrain = 'Plains';
+        map['2,0'].terrain = 'Water'; // Target is water
+
+        expect(DEFAULT_CONFIG.costs.terrain.Water).toBe(20.0); // Updated cost
+
         const path = Pathfinding.findPath(map['0,0'].coordinate, map['2,0'].coordinate, map, DEFAULT_CONFIG);
-        expect(path).toBeNull();
+        expect(path).not.toBeNull();
+        expect(path!.length).toBeGreaterThan(0);
+        // Cost should include entering Water (20) + Plains (1)
+        // 0->1 (1), 1->2 (20). Total ~21.
     });
 });
