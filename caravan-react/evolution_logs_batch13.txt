@@ -26,3 +26,5 @@ Seeding population with provided config.
 [DEATH] Settlement Player Capital has died out.
 [DEATH] Settlement Rival 1 Capital has died out.
 [DEATH] Settlement Rival 1 Capital has died out.
+Terminate batch job (Y/N)? 
+^CThe syntax of the command is incorrect.
