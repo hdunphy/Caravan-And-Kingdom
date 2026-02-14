@@ -3,27 +3,25 @@ import { genomeToConfig } from './Genome';
 import { DEFAULT_CONFIG } from '../../types/GameConfig';
 import * as fs from 'fs';
 import { Genome } from './Genome';
+import { Logger } from '../../utils/Logger';
 
 // Get args from command line
 const args = process.argv.slice(2);
-const runId = args[0] || '1';
+const runId = args[0] || 'BATCH10';
 const numGenerations = parseInt(args[1]) || 200;
-const numTicks = parseInt(args[2]) || 20000;
+const numTicks = parseInt(args[2]) || 25000;
 const seedFile = args[3];
-const outputFile = args[4] ?? `optimized-config-batch4-run-${runId}.json`;
+const outputFile = args[4] ?? `config_results_batch10.json`;
 
-const POP_SIZE = 50; // Increased population for better diversity
+const POP_SIZE = 50;
 const options = {
     ticks: numTicks,
     width: 40,
     height: 40,
-    factionConfigs: [], // Will be populated by Evolver
-    useWorker: true
+    factionConfigs: [],
+    useWorker: false // SEQUENTIAL RUNNER
 };
 
-import { Logger } from '../../utils/Logger';
-
-// ...
 Logger.getInstance().log(`\n=== Starting Evolution Run #${runId} ===`);
 Logger.getInstance().log(`Generations: ${numGenerations}, Ticks: ${numTicks}`);
 Logger.getInstance().log(`Map: ${options.width}x${options.height}, Factions (per match): 3`);
@@ -44,42 +42,19 @@ const evolver = new Evolver(POP_SIZE, seedConfig);
 
 (async () => {
     for (let g = 0; g < numGenerations; g++) {
-        // Heartbeat callback
         const onProgress = (percent: number) => {
-            // Overwrite line to prevent spam? Simple log for now.
             if (percent % 10 === 0) process.stdout.write(`.`);
         };
 
-        // Run Generation
         const best = await evolver.runGeneration(options, onProgress);
-        process.stdout.write('\n'); // Newline after progress dots
+        process.stdout.write('\n');
 
-        // --- State of the Realm Summary ---
-        // We now get full stats/state from the worker!
-        // But 'best' is an Individual, which has 'stats' (SimulationStats)
         const s = best.stats;
-
-        // We need the stats for the specific faction that WON (or was best)
-        // usage: best.fitness was calculated from a specific faction.
-        // We don't strictly know WHICH faction ID corresponds to 'best' unless we tracked it.
-        // However, we know 'best' was evaluated as 'player_1' or 'rival_X'.
-        // Actually, in Evolver, we assign: `this.population[popIndex].fitness = fitness`
-        // We didn't store WHICH faction ID it was.
-        // But for display, we can just show the stats of 'player_1' from the run that produced 'best'?
-        // Wait, 'best.stats' is the SimulationStats of the MATCH where this individual participated.
-        // And we don't know which faction key it was.
-        // FIX: In Evolver.ts, we should probably store the factionID on the individual too?
-        // Or just search stats.factions for the one with matching fitness? (Risk of collision)
-        // or just show Player 1 stats if we assume sorted?
-        // Let's iterate factions and find the one with highest fitness/score?
-
         if (!s) {
             console.error("Error: Best individual missing stats!");
             continue;
         }
 
-        // Find the faction stat that matches the best fitness? 
-        // Or just print the best performing faction in that run?
         const fStats = Object.values(s.factions)[0];
         const survivors = Object.keys(s.factions).filter(k => s.factions[k].population > 0).length;
         const villageCount = (fStats.settlementsFounded || 0) + 1;
@@ -114,7 +89,6 @@ const evolver = new Evolver(POP_SIZE, seedConfig);
             'Survivors': survivors
         });
 
-        // Genome Highlights (Top 3 Genes)
         const geneKeys = Object.keys(best.genome) as (keyof Genome)[];
         const topGenes = geneKeys
             .map(k => ({ key: k, val: best.genome[k] }))

@@ -3,6 +3,8 @@ import { GameConfig } from '../../types/GameConfig';
 import { Logger } from '../../utils/Logger';
 import { SovereignAI } from './SovereignAI';
 import { SettlementGovernor } from './SettlementGovernor';
+import { MapGenerator } from '../MapGenerator';
+import { CaravanSystem } from '../systems/CaravanSystem';
 import { GOAPPlanner } from './GOAPPlanner';
 import { JobPool } from './JobPool';
 
@@ -118,8 +120,27 @@ export class AIController {
                     Logger.getInstance().log(`[AI] ${settlement.id} recruited villager. Pop: ${settlement.population}`);
                 }
             } else if (d.type === 'SETTLER') {
-                // Settler logic (consume resources, spawn unit) -> Handled by logic similar to above or specific system
-                // For now, implementing Villager fixes explicitly requested.
+                const sCost = config.costs.agents.Settler;
+                if (settlement.stockpile.Food >= (sCost.Food || 0) && settlement.stockpile.Timber >= (sCost.Timber || 0)) {
+                    // Find expansion target (simplified for instant resolution or dispatch)
+                    const target = MapGenerator.findExpansionLocation(state.map, state.width, state.height, config, Object.values(state.settlements));
+                    if (target) {
+                        const agent = CaravanSystem.spawn(state, settlement.hexId, target.id, 'Settler', config);
+                        if (agent) {
+                            agent.ownerId = settlement.ownerId;
+                            // Deduct Costs
+                            settlement.stockpile.Food -= (sCost.Food || 0);
+                            settlement.stockpile.Timber -= (sCost.Timber || 0);
+                            settlement.population -= config.ai.settlerCost;
+
+                            // Increment Stats
+                            if (faction && faction.stats) {
+                                faction.stats.settlersSpawned++;
+                            }
+                            Logger.getInstance().log(`[AI] ${settlement.id} spawned settler to ${target.id}`);
+                        }
+                    }
+                }
             }
         });
     }

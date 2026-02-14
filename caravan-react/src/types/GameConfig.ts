@@ -237,11 +237,11 @@ export const DEFAULT_CONFIG: GameConfig = {
         growthSurplusBonus: 0.0001, // Multiplier for growth based on food surplus ratio
         trade: {
             simulatedGoldPerResource: 1, // Simple fixed price for now
-            capacity: 50,
+            capacity: 100, // Doubled from 50 (Balanced for Logistics Fix)
             spawnChance: 0.1, // 10% chance per tick to spawn a caravan if conditions met
             surplusThresholdMulti: 50,
             neighborSurplusMulti: 20,
-            buyCap: 50,
+            buyCap: 100, // Doubled from 50
             loadingTime: 20,
             forceTradeGold: 50,
             travelCostPerHex: 2,
@@ -250,15 +250,15 @@ export const DEFAULT_CONFIG: GameConfig = {
             caravanIntegrityLossPerHex: 0.5,
             caravanRepairCost: 2, // Timber
             freightThreshold: 40, // Min resources to dispatch
-            tradeRoiThreshold: 131.4,
-            constructionRoiThreshold: 9.4, // Min value to BUILD a new caravan
+            tradeRoiThreshold: 20.0, // Low threshold to encourage trade (Gen 199 Winner)
+            constructionRoiThreshold: 4.5, // Aggressive caravan building (Gen 199 Winner)
             freightConstructionThreshold: 100, // Min resources to BUILD a new caravan
         },
         villagers: {
             speed: 0.5, // Slow down to 0.5 hex/tick (Takes 2 ticks to move 1 plains hex)
-            capacity: 12, // Reduced from 20 to balance higher tick rate
+            capacity: 24, // Doubled from 12 (Balanced for Logistics Fix)
             range: 3,
-            popRatio: 50,
+            popRatio: 25, // Lowered from 50 (more villagers per pop - Balanced for Logistics Fix)
             baseVillagers: 2,
         },
     },
@@ -266,7 +266,7 @@ export const DEFAULT_CONFIG: GameConfig = {
         taxRate: 0.005,
     },
     industry: {
-        targetToolRatio: 0.116,
+        targetToolRatio: 0.033, // From Batch 9
         costTimber: 5,
         costOre: 2,
         surplusThreshold: 50,
@@ -317,7 +317,7 @@ export const DEFAULT_CONFIG: GameConfig = {
         settlementCap: 5,
         settlerCost: 50,
         settlerCooldown: 300, // Increased from 100 to slow expansion
-        expansionBuffer: 1.5,
+        expansionBuffer: 6.0, // From Batch 9
         expansionStarterPack: {
             Food: 100,
             Timber: 50,
@@ -331,13 +331,13 @@ export const DEFAULT_CONFIG: GameConfig = {
         thresholds: {
             surviveFood: 50,
             surviveTicks: 20,
-            recruitBuffer: 3.03, // Multiplier of surviveFood for villager recruitment
+            recruitBuffer: 0.60, // From Batch 9
             upgradeMinPop: 0.9,
             upgradePopRatio: 0.8,
             minConstructionBuffer: 50,
             militarySurplusTimber: 200,
             militarySurplusStone: 100,
-            villagerJobScoreMulti: 1.42,
+            villagerJobScoreMulti: 1.79, // From Batch 9
             newSettlementPop: 100,
             newSettlementIntegrity: 100,
         },
@@ -367,22 +367,22 @@ export const DEFAULT_CONFIG: GameConfig = {
             }
         },
         utility: {
-            surviveThreshold: 1.62,
-            growthFoodSafety: 0.06,
-            provisionDistanceMulti: 13.97,
-            ascendReadinessPower: 17.02,
-            buildRateLookback: 30.91,
-            commercialLowThreshold: 0.16, // 50% of cap or goal
-            commercialSurplusThreshold: 0.41, // 200% of need
-            fleetTargetSize: 1.41,
-            expandSearchRadius: 0.31,
-            expandSaturationPower: 0.55,
-            expandMinDistance: 5.55,
+            surviveThreshold: 0.78, // From Batch 9
+            growthFoodSafety: 0.18, // From Batch 9
+            provisionDistanceMulti: 11.07, // From Batch 9
+            ascendReadinessPower: 2.47, // From Batch 9
+            buildRateLookback: 3.91, // From Batch 9
+            commercialLowThreshold: 0.01, // From Batch 9
+            commercialSurplusThreshold: 0.28, // From Batch 9
+            fleetTargetSize: 1.52, // From Batch 9
+            expandSearchRadius: 0.08, // From Batch 9
+            expandSaturationPower: 0.06, // From Batch 9
+            expandMinDistance: 36.29, // From Batch 9
         },
         bidding: {
-            distanceWeight: 1.0,
-            saturationWeight: 1.0,
-            fulfillmentWeight: 1.0,
+            distanceWeight: 1.60, // From Batch 9
+            saturationWeight: 0.56, // From Batch 9
+            fulfillmentWeight: 0.17, // From Batch 9
         },
 
         sovereign: {

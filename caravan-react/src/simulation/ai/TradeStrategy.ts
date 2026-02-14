@@ -51,7 +51,14 @@ export class TradeStrategy {
             const dist = HexUtils.distance(sourceHex.coordinate, targetHex.coordinate);
             const estimatedTravelCost = dist * 2 * (config.costs.trade.travelCostPerHex || 1);
 
-            if (tradeValue > estimatedTravelCost && tradeValue >= (config.costs.logistics?.tradeRoiThreshold || 20)) {
+            // ROI logic fix: tradeRoiThreshold is now a multiplier (e.g. 1.2 = 20% profit over travel cost)
+            const minTradeValue = estimatedTravelCost * (config.costs.logistics?.tradeRoiThreshold || 1.2);
+
+            // STARVATION OVERRIDE: Ignore ROI if food is critical (< 50 ticks of food)
+            const consumption = Math.max(5, source.population * config.costs.baseConsume);
+            const isCriticalFood = res === 'Food' && source.stockpile.Food < (consumption * 50);
+
+            if (tradeValue >= minTradeValue || isCriticalFood) {
                 return {
                     targetId: target.id,
                     resource: res,
@@ -106,7 +113,14 @@ export class TradeStrategy {
             const dist = HexUtils.distance(sourceHex.coordinate, targetHex.coordinate);
             const estimatedTravelCost = dist * 2 * (config.costs.trade.travelCostPerHex || 1);
 
-            if (tradeValue > estimatedTravelCost && tradeValue >= (config.costs.logistics?.tradeRoiThreshold || 20)) {
+            // ROI logic fix: tradeRoiThreshold is now a multiplier (e.g. 1.2 = 20% profit over travel cost)
+            const minTradeValue = estimatedTravelCost * (config.costs.logistics?.tradeRoiThreshold || 1.2);
+
+            // STARVATION OVERRIDE: Ignore ROI if food is critical (< 50 ticks of food)
+            const consumption = Math.max(5, source.population * config.costs.baseConsume);
+            const isCriticalFood = res === 'Food' && source.stockpile.Food < (consumption * 50);
+
+            if (tradeValue >= minTradeValue || isCriticalFood) {
                 return {
                     targetId: target.id,
                     resource: res,

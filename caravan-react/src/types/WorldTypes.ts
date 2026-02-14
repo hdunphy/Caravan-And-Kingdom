@@ -95,6 +95,12 @@ export interface Faction {
     blackboard?: FactionBlackboard;
     jobPool?: any; // JobPool instance
     aiConfig?: any; // Store per-faction genome for Gladiator mode
+    stats?: {
+        totalTrades: number;
+        tradeResources: Partial<Record<ResourceType, number>>;
+        settlersSpawned: number;
+        settlementsFounded: number;
+    }
 }
 
 export type DesireType =

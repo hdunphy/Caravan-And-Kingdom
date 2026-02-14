@@ -15,7 +15,18 @@ export const calculateFitness = (_state: WorldState, stats: SimulationStats, fac
     if (fStats.population >= 200) score += 5000;
     if (fStats.population >= 400) score += 10000;
 
-    // 2. Longevity Reward (Positive enforcement)
+    // 2. Expansion & Settlement Efficiency
+    // We reward founding new settlements (+2000 per success)
+    score += (fStats.settlementsFounded * 2000);
+
+    // Urbanization Density: Reward high population-to-settlement ratio.
+    // We want big cities, not just a bunch of tiny 1-person camps.
+    if (fStats.settlementsFounded > 0) {
+        const density = fStats.population / (fStats.settlementsFounded + 1); // +1 for Capital
+        score += (density * 10);
+    }
+
+    // 3. Longevity Reward (Positive enforcement)
     // Reward simply for existing. 1 point per 100 ticks survived.
     // If they died early, their data might be stale, but we don't track death time yet.
     // Assuming they survived if they have stats? 
@@ -41,9 +52,8 @@ export const calculateFitness = (_state: WorldState, stats: SimulationStats, fac
         score *= 1.15;
     }
 
-    // 5. Territory & Wealth (Gold nerfed relative to life)
+    // 5. Territory
     score += (fStats.territorySize * 50);
-    score += (fStats.totalWealth * 0.01);
 
     // 6. Penalty for dying/stagnation (The "Total Collapse" Multiplier)
     // If population < 1, they effectively went extinct.

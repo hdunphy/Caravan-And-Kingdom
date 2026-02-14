@@ -1,4 +1,4 @@
-import { WorldState, Resources, AgentEntity, AgentType } from '../../types/WorldTypes.ts';
+import { WorldState, Resources, AgentEntity, AgentType, ResourceType } from '../../types/WorldTypes.ts';
 import { GameConfig } from '../../types/GameConfig.ts';
 import { HexUtils } from '../../utils/HexUtils.ts';
 import { Pathfinding } from '../Pathfinding.ts';
@@ -244,6 +244,12 @@ export const CaravanSystem = {
                             settlement.stockpile.Gold += amountToBuy;
                             agent.cargo.Gold = 0;
                             agent.cargo[neededRes] = amountToBuy;
+
+                            // LOG TRADE STATS
+                            if (faction && faction.stats) {
+                                faction.stats.totalTrades++;
+                                faction.stats.tradeResources[neededRes as ResourceType] = (faction.stats.tradeResources[neededRes as ResourceType] || 0) + 1;
+                            }
                         }
                         this.returnHome(state, agent, config);
                     } else {
@@ -309,6 +315,13 @@ export const CaravanSystem = {
                         if (state.map[currentHexId]) {
                             state.map[currentHexId].ownerId = agent.ownerId;
                         }
+
+                        // LOG SETTLEMENT STATS
+                        const faction = state.factions[agent.ownerId];
+                        if (faction && faction.stats) {
+                            faction.stats.settlementsFounded++;
+                        }
+
                         Logger.getInstance().log(`[GAME] Settlement Founded at ${currentHexId}`);
                     }
                     agentsToRemove.push(agent.id);
